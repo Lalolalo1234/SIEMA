@@ -47,7 +47,7 @@
 
 ## RIGI minero (Régimen de Incentivo para Grandes Inversiones)
 - El RIGI (Ley 27.742) es la principal herramienta de política minera para atraer inversión de gran escala: Ganancias al 25 %, amortización acelerada, exención de aranceles y, desde el tercer año, de derechos de exportación, y 30 años de estabilidad.
-- SIEMA sigue los 13 proyectos mineros de producción aprobados: 25.230 millones de dólares de inversión anunciada, el 47 % de todo el RIGI. En octubre de 2025 eran 3 proyectos por 5.613 millones: se multiplicó por cuatro y medio en un año.
+- SIEMA sigue los 13 proyectos mineros de producción aprobados: 25.230 millones de dólares de inversión anunciada, el 47 % de todo el RIGI. En octubre de 2025 eran 3 proyectos por 5.613 millones: en un año los proyectos pasaron de 3 a 13 y la inversión anunciada se multiplicó por cuatro y medio.
 - El último aprobado es MARA (Agua Rica – Alumbrera), de Glencore en Catamarca, el 2 de octubre de 2026: 4.000 millones de dólares, unas 200 mil toneladas de cobre por año, obras desde noviembre de 2027 y operación desde octubre de 2031. Se compromete a invertir 771 millones en los dos primeros años.
 - Por mineral: cobre 17.300 millones (69 %: Vicuña, MARA, Los Azules, PSJ Cobre Mendocino), litio 6.065 millones (Rincón, ampliación Cauchari-Olaroz, Liex, Sal de Oro II, Fénix 1B, Hombre Muerto Oeste), oro 1.101 millones (Carbonatos Profundos, Veladero), plata y oro 764 millones (Diablillos).
 - Solo 6.069 millones (27 % de lo comprometido) son obligación con fecha cierta en los dos primeros años.
