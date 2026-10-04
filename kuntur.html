@@ -64,7 +64,7 @@ button{font:inherit}
 .ask .from{color:var(--mist);margin-top:2vh;font-size:clamp(.85rem,1.1vw,1.1rem)}
 .ask .q.interim{color:var(--mist)}
 /* horizon / waveform */
-.ridge{position:absolute;left:0;right:0;bottom:0;height:34vh;pointer-events:none;z-index:1}
+.ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:34vh;pointer-events:none;z-index:1}
 /* subtitles */
 .subs{grid-column:1/-1;grid-row:3;padding:0 6vw 4.5vh;min-height:20vh;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;z-index:3}
 .subs .main{font-size:var(--sub-size);line-height:1.3;max-width:52ch;text-wrap:balance;text-shadow:0 2px 12px rgba(10,12,25,.9)}
@@ -425,7 +425,7 @@ function hush() { speakGen++; speakQueue = []; if (synth) synth.cancel(); speech
 
 // Divide en oraciones para hablar mientras llega el texto
 function splitSentences(buf) {
-  const out = []; const re = /[^.!?¡¿]*[.!?]+["”)]?\s+|[^.!?]*[:;]\s+(?=\S)/g; let m, last = 0;
+  const out = []; const re = /[^.!?]*[.!?]+["”)]?\s+/g; let m, last = 0;
   while ((m = re.exec(buf))) { if (m[0].trim().length > 1) out.push(m[0]); last = re.lastIndex; }
   return [out, buf.slice(last)];
 }
