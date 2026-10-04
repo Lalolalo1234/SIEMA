@@ -94,3 +94,77 @@
 
 ## Evento
 - Kuntur presenta SIEMA en la conferencia de Panorama Minero (oro, plata y cobre), Buenos Aires, 2 y 3 de diciembre de 2026.
+
+## Preguntas frecuentes por pestaña (respuestas de referencia)
+<!-- Preguntas que puede hacer el público, con la respuesta de referencia y la pestaña de SIEMA de donde sale el dato. Cuando un dato es ilustrativo (encuesta SIEMA, Encuesta Externa, MIMA), decirlo. -->
+
+### Inicio y Consola SIEMA
+- P: ¿Qué le aporta SIEMA a cada público? R: A un fondo de inversión, dónde están las oportunidades y qué riesgos pesan sobre cada proyecto. A una compañía minera, el clima de inversión, la cartera RIGI y la competencia por talento y proveedores. A un gobierno provincial, cómo se compara su provincia y qué brechas cerrar primero. A un proveedor, qué proyectos avanzan, cuándo desembolsan y qué van a demandar. A un organismo multilateral, una lectura independiente y comparable del sector.
+- P: ¿Qué es la Consola SIEMA? R: El tablero de la portada. Resume en un radar de 10 ejes y un conjunto de relojes las variables que más pesan en la decisión de un inversor minero. Su lema: observar, medir, proyectar.
+- P: ¿Qué significa la alerta "Master Caution, 4 ejes"? R: Que cuatro ejes están por debajo de 6 sobre 10, el umbral de alerta: licencia social, infraestructura, estabilidad macro y capital humano.
+- P: ¿Qué son las luces del radar? R: Verde, 7 o más (nominal); amarillo, entre 6 y 7 (vigilar); rojo, menos de 6 (alerta).
+- P: ¿Los números del radar son reales? R: Exportaciones, producción y capacidad de litio son datos reales. Licencia social, estabilidad macro y RIGI se calculan con datos externos. El resto de los ejes es un primer corte ilustrativo de la encuesta SIEMA a empresas mineras.
+- P: ¿Qué clusters de demanda mira SIEMA? R: Tres: transición energética (cobre, litio, níquel, cobalto, tierras raras, grafito); semiconductores, IA y defensa (tierras raras, galio, germanio, fosfuro de indio, tantalio); y energía de fusión (itrio, tungsteno, berilio, litio-6). En fusión se sigue, por ejemplo, la Misión Génesis de Estados Unidos, relevante para el litio-6 argentino.
+- P: ¿Qué partes de SIEMA ya funcionan? R: Cuatro de seis sistemas: Pulsómetro, Prospectiva y RIGI minero están en línea, y el Análisis de Brechas está en su Fase 1. El Monitor MIMA está en diseño y la Percepción externa se está calibrando.
+
+### Observatorio · Oferta
+- P: ¿Cuánto produjo Argentina en 2025? R: 1,18 millones de onzas de oro, 116,6 mil toneladas de carbonato de litio equivalente, 22,1 millones de onzas de plata y unas 2,1 mil toneladas de cobre.
+- P: ¿Cuánto podría exportar Argentina en 2035? R: Según el escenario de la Secretaría de Minería, con 38 proyectos y precios de S&P Capital IQ, unos 36.250 millones de dólares, pasando por 15.411 millones en 2030. Si solo avanzan los proyectos con RIGI aprobado, unos 28.000 millones. Requiere unos 57.000 millones de inversión, 41.190 millones en cobre.
+- P: ¿Cómo cambia la canasta exportadora? R: Hoy el oro explica dos tercios de las exportaciones. Hacia 2035, si la cartera avanza, el cobre pasaría a más de la mitad y el litio a casi un tercio. Oro: de 4.094 a 3.448 millones; litio: de 911 a 11.493; plata: de 785 a 2.597; cobre: de 13 a 18.712 millones de dólares.
+- P: ¿Por qué bajan las exportaciones de oro? R: Porque las operaciones actuales entran en declinación y hay pocos proyectos nuevos. La plata crece como subproducto de los proyectos de cobre.
+- P: ¿Cuáles son las metas oficiales de producción? R: Cobre: entre 1,5 y 1,6 millones de toneladas por año hacia 2035. Litio: más de 600 mil toneladas de carbonato equivalente por año hacia 2036.
+- P: ¿Cuántas minas de cobre hay en producción? R: Una sola, Martín Bronce, en Jujuy, a pequeña escala.
+- P: ¿Qué operaciones de litio hay? R: Siete, con unas 200 mil toneladas de capacidad: Cauchari-Olaroz (Minera Exar, Jujuy, 40 mil toneladas), Olaroz (Rio Tinto, Jujuy, 42,5 mil), Fénix (Rio Tinto, Catamarca, unas 30 mil), Sal de Oro (POSCO, Salta y Catamarca), Centenario-Ratones (Eramet, Salta, 24 mil), Tres Quebradas (Zijin, Catamarca, 20 mil) y Mariana (Ganfeng, Salta). Hay cinco proyectos de litio en construcción.
+- P: ¿Cuáles son los grandes proyectos de cobre? R: Vicuña, Los Azules, Taca Taca, MARA y El Pachón concentran casi toda la producción futura. Cualquier demora en uno de ellos mueve la curva de exportaciones en varios miles de millones.
+- P: ¿Cuál es el proyecto más grande? R: Vicuña-Josemaría, de BHP y Lundin Mining, en San Juan: unas 395 mil toneladas de cobre por año en promedio, inicio previsto en 2030 e inversión de 9.712 millones de dólares en la primera etapa. Tiene RIGI aprobado.
+- P: ¿Qué otros proyectos de cobre avanzan? R: Los Azules (McEwen Copper, San Juan, 205 mil toneladas en los primeros cinco años, inicio 2030, RIGI aprobado); Taca Taca (First Quantum, Salta, más de 200 mil toneladas, inicio entre 2031 y 2033, RIGI aprobado); MARA (Glencore, Catamarca, más de 200 mil toneladas, RIGI aprobado en octubre de 2026); El Pachón (Glencore, San Juan, unas 280 mil toneladas, RIGI en evaluación); y PSJ Cobre Mendocino (Mendoza, unas 40 mil toneladas, inicio 2029, RIGI aprobado).
+- P: ¿Dónde se produce el oro? R: Santa Cruz aporta la mitad, San Juan el 43 por ciento y Salta el 7. La plata sale en partes casi iguales de Jujuy y Santa Cruz, sobre todo como subproducto del oro.
+- P: ¿Cuál es hoy la principal restricción del litio? R: Ya no es el recurso, sino la ejecución y el precio.
+- P: ¿Qué conviene seguir de cerca? R: El avance físico de los proyectos en construcción, las decisiones de inversión de los que tienen RIGI aprobado y la aprobación de los que siguen en evaluación.
+- P: ¿Con qué países se compara Argentina? R: Australia (estabilidad regulatoria y velocidad de desarrollo), Canadá (marco de inversión y capacidades técnicas), Indonesia (valor agregado y control de recursos estratégicos), Chile (referencia directa en cobre y litio) y Perú (atracción de inversión en cobre).
+
+### Observatorio · Demanda, Argentina hoy y Capital Humano
+- P: ¿Qué problema resuelve SIEMA con la demanda? R: Hay muchas proyecciones (AIE, S&P, Wood Mackenzie, CRU, Fastmarkets, USGS y otras) que no siempre coinciden. SIEMA las armoniza, suma datos de empresas que operan en Argentina y produce una proyección de referencia única para el país.
+- P: ¿Qué impulsa la demanda de minerales críticos? R: La neutralidad de carbono a 2050 de la Unión Europea, China y Estados Unidos; la disputa tecnológica entre Estados Unidos y China por los chips; y, más adelante, la energía de fusión.
+- P: ¿Cuánto representa el litio argentino frente a la demanda? R: La capacidad instalada equivale a entre el 11 y el 15 por ciento de la demanda actual. La meta de 2036 equivaldría a entre el 5 y el 11 por ciento de la demanda de 2040, según el escenario. La cartera tiene 216 millones de toneladas de recursos identificados.
+- P: ¿Y las tierras raras? R: Hoy no hay producción ni reservas definidas. El Segemar registra 19 ocurrencias y unas 190 mil toneladas inferidas, con un potencial no descubierto de hasta 3,3 millones. Es una oportunidad de seguridad de suministro en elementos para imanes.
+- P: ¿El reciclaje va a reducir la necesidad de minería? R: Algo, pero menos de lo que se dice. La reducción del 25 al 40 por ciento hacia 2050 es un techo: fuerte en cobre y cobalto, menor en níquel y litio, y apenas del 5 al 15 por ciento en tierras raras. Con políticas actuales, en cobre baja al 10 o 15 por ciento.
+- P: ¿Qué mide SIEMA en capital humano? R: El stock de profesionales mineros por especialidad y provincia, la brecha de talento, los sueldos comparados con Chile y Perú, la oferta de formación y la política para retener talento.
+- P: ¿Cuál es el problema de fondo en talento? R: Nación y provincias suelen reaccionar a precios históricos en lugar de anticipar. Falta vincular la formación de talento con la demanda proyectada a 2030-2050; ese es el vacío que SIEMA quiere cerrar.
+
+### Pulsómetro · Licencia social, riesgo país y EITI
+- P: ¿Es robusto el índice de licencia social? R: Se probaron 96 variantes razonables del cálculo. El índice queda siempre entre 5,2 y 6,9, y en todas San Juan supera a Catamarca.
+- P: ¿Por qué San Juan y Catamarca son tan distintas? R: La mayor diferencia está en la confianza en los controles del Estado (5,2 frente a 2,6) y en los beneficios percibidos (7,3 frente a 5,3). En San Juan la minería opera en alta cordillera, con pocas comunidades cerca, y la sociedad ya vio su derrame. En Catamarca conviven el litio de la Puna, con comunidades involucradas, y una historia de conflictos en torno al cobre. Aunque en Catamarca la minería pesa más en el empleo privado y tres de cada cuatro puestos son locales, la gente percibe menos beneficios.
+- P: ¿Qué falta medir en licencia social? R: Salta y Jujuy, las provincias del litio con más comunidades, no tienen encuestas públicas. Tampoco hay datos públicos de monitoreo hídrico independiente en ninguna provincia.
+- P: ¿Cómo se mejora la licencia social? R: Con transparencia: publicar contratos y estudios de impacto ambiental, como pide el EITI, y datos de agua públicos y verificables por terceros, como pide el IGF, el Foro Intergubernamental sobre Minería. Es la forma más directa de subir la confianza en los controles.
+- P: ¿Qué significa el riesgo país para un proyecto minero? R: Es el piso de su costo de capital en dólares. Hoy ronda el 11,3 por ciento: el bono del Tesoro de Estados Unidos, cerca del 5 por ciento, más el riesgo país.
+- P: ¿El RIGI protege contra el riesgo país? R: No del todo. Protege frente a cambios fiscales, cambiarios y aduaneros, pero no baja el techo soberano. Por eso los grandes proyectos buscan financiamiento multilateral o de agencias de crédito a la exportación, como Rincón con IFC, BID Invest, Export Finance Australia y JBIC.
+- P: ¿Qué señales marcarían una mejora macro? R: Que dos agencias suban la calificación a B y que el riesgo país se mantenga por debajo de 500 puntos. Argentina está a seis escalones del grado de inversión.
+- P: ¿Qué nota tiene Argentina en el EITI? R: 80 sobre 100 en la validación 2026, calificación "Muy bueno". Argentina adhiere desde 2019 y hay siete provincias adheridas. El EITI fijó 21 acciones correctivas con plazo hasta abril de 2030.
+- P: ¿Dónde está débil Argentina según el EITI? R: En la publicación de contratos y en los costos de los proyectos, con 25 sobre 100. Mejoraron mucho los beneficiarios finales y los pagos a provincias, de 30 a 70.
+- P: ¿Cuánto paga la minería al Estado nacional? R: Según el último dato del EITI, 447 millones de dólares en 2021, declarados por 15 empresas; el mayor pagador fue Veladero. No incluye regalías provinciales ni el auge del litio.
+
+### Pulsómetro · RIGI minero
+- P: ¿Cuánto mejora el RIGI la rentabilidad? R: Para los 12 proyectos valuados antes de MARA, a precios normalizados, el valor actual pasa de 6.797 a 12.850 millones de dólares y la tasa interna de retorno sube de 13,1 a 16 por ciento. Con precios de agosto de 2026 el efecto es mayor: la tasa pasa de 18,4 a 22,1 por ciento.
+- P: ¿Quién paga el costo fiscal del RIGI? R: La Nación carga casi tres cuartos del costo. Las provincias que alojan proyectos recaudan 4,6 veces lo que resignan, porque las regalías quedan enteras. Es una tensión federal a seguir.
+- P: ¿Qué falta en el análisis del RIGI? R: La infraestructura habilitante: energía, transporte y agua. Se va a incorporar en una próxima etapa.
+
+### Pulsómetro · Percepción externa, Brechas y Monitor MIMA
+- P: ¿A quién va a encuestar la Encuesta Externa? R: A ejecutivos de empresas mineras extranjeras sin operación en Argentina, oficinas comerciales y agencias de crédito a la exportación, analistas de mercados de capitales y contrapartes de la CRM Facility de la Unión Europea. Agrega dos ejes propios: tiempos de permisos y competitividad frente a Chile, Perú, Australia y Canadá. Todavía no tiene datos.
+- P: ¿Qué es el Análisis de Brechas? R: Confronta la mirada interna del sector con la de quien evalúa invertir desde afuera; donde las dos divergen es donde más vale la pena actuar. Mientras no haya encuesta externa, trabaja con los cuatro ejes del Pulsómetro por debajo de 6. En la Fase 2 clasificará cada brecha como de percepción, estructural, punto ciego o autocrítica excesiva.
+- P: ¿Qué propone para la licencia social? R: Mesas de diálogo comunidad-empresa-Estado, protocolos estandarizados de consulta previa, monitoreo ambiental participativo y publicado, consulta desde la exploración e indicadores de empleo y proveedores locales por proyecto.
+- P: ¿A quién consulta el MIMA? R: A cuatro grupos: universidades (UNSJ, UNCa, UNJu, UNSa, entre otras), profesionales, empresas mineras, y sociedad y jóvenes. La atracción de talento femenino es un eje explícito. Usa una encuesta anónima de unos 4 minutos y entrevistas cualitativas. La primera edición está en diseño.
+- P: ¿Qué dice el Monitor de la Ingeniería Argentina del CAI, que inspira al MIMA? R: Para la ingeniería en general, el 51 por ciento de la sociedad cree que será la profesión con mayor demanda futura, el 86 por ciento de los profesionales recomendaría estudiarla y el 59 por ciento de las empresas prevé más demanda en 3 a 5 años. El MIMA producirá sus propias cifras para la ingeniería de minas.
+
+### Prospectiva · Convergencias 2050
+- P: ¿Qué escenarios ofrece el modelo? R: Referencia, Transición acelerada, Salto tecnológico, Bloques y rearme y Carrera tecnológica, más uno personalizado moviendo los controles. El de Referencia reproduce el escenario de políticas declaradas de la Agencia Internacional de Energía.
+- P: ¿Cuánto crece la demanda de litio? R: En el escenario de Referencia, la demanda que debe cubrir la minería se multiplica por 1,8 a 2030 y por 4 a 2040. La electromovilidad explica casi la mitad del aumento.
+- P: ¿Y la de cobre? R: Crece más despacio: alrededor de 1,1 veces a 2030 y 1,2 veces a 2040 frente a 2025, impulsada sobre todo por la transición energética.
+- P: ¿Qué tan confiables son las cifras? R: Están contrastadas con la AIE, el USGS, el JRC, BNEF y asociaciones sectoriales. El modelo indica qué cifra está verificada y cuál es estimada, y calcula un rango de incertidumbre con 200 simulaciones.
+- P: ¿Es una predicción? R: No. La pregunta útil no es cuánto litio habrá en 2050, sino qué tendencia mueve más cada mineral y qué señales tempranas conviene vigilar.
+
+### Noticias, eventos e infografías
+- P: ¿De dónde salen las noticias? R: Es una selección de actualidad minera argentina curada a partir de Panorama Minero, con webinars de inversión de Amvest Capital y una columna de opinión.
+- P: ¿Qué columna de opinión hay? R: "IA y Minería", del ingeniero Eduardo Barrera, asesor de la CRM Facility de la Unión Europea, publicada en Panorama Minero en septiembre de 2026. Su idea central: la IA no es solo software, también es materia.
+- P: ¿Qué eventos mineros vienen? R: La agenda tiene 15 eventos próximos en el mundo, de una base de 61. En Argentina, Panorama Minero Oro, Plata y Cobre, el 2 y 3 de diciembre en Buenos Aires.
+- P: ¿Qué son las infografías? R: Una galería de 25 infografías sobre los mercados de minerales críticos, con foco en cobre y tierras raras, cada una con el crédito de su fuente.
