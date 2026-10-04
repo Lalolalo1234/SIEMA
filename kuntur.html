@@ -388,9 +388,15 @@ requestAnimationFrame(frame);
 // ------------------------------------------------------------------
 const synth = window.speechSynthesis;
 let voices = [], speechActive = false, speakQueue = [], speakGen = 0;
+// Kuntur es un cóndor macho: se prefieren voces masculinas y se evitan las femeninas conocidas
+const MALE_VOICE = /\b(tom[aá]s|jorge|juan|diego|carlos|pablo|[aá]lvaro|ra[uú]l|enrique|gonzalo|alonso|jos[eé]|gerardo|alberto|dario|dar[ií]o|lorenzo|federico|daniel|fred|alex|aaron|arthur|gordon|guy|ryan|eric|christopher|andrew|brian|davis|tony|roger|ralph|oliver|george|thomas|william|liam|reed|rishi|male|hombre|masculin)/i;
+const FEMALE_VOICE = /\b(elena|m[oó]nica|paulina|helena|laura|sabina|dalia|elvira|ximena|francisca|marisol|camila|luc[ií]a|isabela|valentina|esperanza|samantha|karen|moira|tessa|victoria|fiona|susan|zira|aria|jenny|sonia|libby|emma|ava|allison|salli|joanna|kendra|kimberly|catherine|serena|martha|nicky|female|mujer|femenin)/i;
+const isMaleVoice = v => !!v && MALE_VOICE.test(v.name) && !FEMALE_VOICE.test(v.name);
 function rankVoice(v, lang) {
   const n = (v.name + ' ' + v.voiceURI).toLowerCase(); let s = 0;
   if (!v.lang.toLowerCase().startsWith(lang)) return -1;
+  if (MALE_VOICE.test(v.name) && !FEMALE_VOICE.test(v.name)) s += 100;
+  else if (FEMALE_VOICE.test(v.name) || /google (español|espanol)|google us english|google uk english female/i.test(v.name)) s -= 60;
   if (/natural|online|neural/.test(n)) s += 50;
   if (/google/.test(n)) s += 20;
   if (lang === 'es') { if (/es-ar/i.test(v.lang)) s += 15; else if (/es-(us|mx|419)/i.test(v.lang)) s += 10; }
@@ -423,7 +429,7 @@ function speak(text, lang) {
     if (!synth || !text.trim()) return resolve();
     const u = new SpeechSynthesisUtterance(cleanForSpeech(text));
     const v = bestVoice(lang); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = lang === 'es' ? 'es-AR' : 'en-US';
-    u.rate = cfg.rate; u.pitch = cfg.pitch;
+    u.rate = cfg.rate; u.pitch = isMaleVoice(v) ? cfg.pitch : Math.min(cfg.pitch, 0.75);  // sin voz masculina disponible: tono más grave
     u.onstart = () => { speechActive = true; setState('speaking'); };
     u.onboundary = () => { mouthTarget = 1; };
     const done = () => { speechActive = false; resolve(); };
