@@ -104,6 +104,16 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
   .subs{grid-row:4}
   .ax{grid-template-columns:8rem 1fr 2.4rem}
 }
+/* Teléfono o tableta: botones siempre visibles abajo, para usar sin teclado */
+@media (hover:none),(max-width:820px){
+  .dock{opacity:1;top:auto;right:0;left:0;bottom:0;max-width:none;justify-content:center;padding:.6rem .6rem calc(.6rem + env(safe-area-inset-bottom));background:rgba(10,13,26,.92);border-top:1px solid rgba(255,255,255,.12)}
+  .dock button{font-size:1rem;padding:.7rem 1rem}
+  .dock #bEs{background:var(--brine);color:var(--night);border-color:var(--brine);font-weight:700;flex:1 1 100%;order:-1}
+  .dock #bHelp{display:none}
+  .stage{padding-bottom:14rem}
+  .typebox{bottom:auto;top:12vh;width:92vw}
+  .start p{display:none}
+}
 @media (prefers-reduced-motion:reduce){.slide{transition:none}.stage[data-state=listening] .state i{animation:none}}
 </style>
 </head>
@@ -212,7 +222,7 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
   <button type="button" id="bHelp">Atajos</button>
 </div>
 
-<div class="typebox" id="typebox"><input id="typeIn" type="text" placeholder="Escribí la pregunta y presioná Enter" aria-label="Pregunta escrita"></div>
+<div class="typebox" id="typebox"><input id="typeIn" type="text" enterkeyhint="send" placeholder="Escribí la pregunta y presioná Enter" aria-label="Pregunta escrita"></div>
 
 <div class="sheet" id="helpSheet" role="dialog" aria-modal="true" aria-labelledby="helpH">
   <div class="card">
@@ -275,7 +285,7 @@ const store = {
 };
 const params = new URLSearchParams(location.search);
 const cfg = {
-  api: (params.get('api') || store.get('api', '')).replace(/\/+$/, ''),
+  api: (params.get('api') || store.get('api', '') || 'https://kuntur.oma-observatorio.workers.dev').replace(/\/+$/, ''),
   ves: store.get('ves', ''), ven: store.get('ven', ''),
   rate: +store.get('rate', '1'), pitch: +store.get('pitch', '1')
 };
@@ -285,7 +295,7 @@ const $ = id => document.getElementById(id);
 const stage = $('stage'), panel = $('panel'), subMain = $('subMain'), subTr = $('subTr');
 const STATE_TXT = { idle: 'Listo', listening: 'Escuchando', thinking: 'Pensando', speaking: 'Hablando', offline: 'Sin conexión' };
 let state = 'idle';
-function setState(s) { state = s; stage.dataset.state = s; $('stateTxt').textContent = STATE_TXT[s] || s; }
+function setState(s) { state = s; stage.dataset.state = s; $('stateTxt').textContent = STATE_TXT[s] || s; const bEs = $('bEs'), bEn = $('bEn'); if (bEs) { bEs.textContent = s === 'listening' && listenLang === 'es' ? 'Listo: enviar la pregunta' : 'Escuchar en español'; bEn.textContent = s === 'listening' && listenLang === 'en' ? 'Done: send the question' : 'Listen in English'; } }
 
 // ------------------------------------------------------------------
 // Escenario: estrellas, cordillera-onda y plumas del collar
@@ -547,7 +557,7 @@ function fixTranscript(t) { let x = t; FIXES.forEach(([re, to]) => { x = x.repla
 // Escucha continua: no corta en las pausas. Termina al volver a presionar la misma tecla
 // (o Enter), o sola después de unos segundos de silencio.
 const SILENCE_MS = 3500;
-let listenLang = 'es', silenceTimer = null, endListening = null;
+var listenLang = 'es', silenceTimer = null, endListening = null;
 function listen(lang) {
   if (!SR) { openType(); flash(lang === 'es' ? 'Este navegador no reconoce voz. Escribí la pregunta.' : 'This browser cannot recognise speech. Type the question.'); return; }
   if (rec && state === 'listening') { if (endListening) endListening(); return; }   // segunda pulsación: enviar
@@ -558,7 +568,7 @@ function listen(lang) {
   const r0 = rec;
   setState('listening');
   showQuestion('', lang, true);
-  subMain.textContent = ''; subTr.textContent = lang === 'es' ? 'Te escucho. Presioná de nuevo la misma tecla, o Enter, cuando termines.' : 'Listening. Press the same key again, or Enter, when you finish.';
+  subMain.textContent = ''; subTr.textContent = lang === 'es' ? 'Te escucho. Cuando termines, tocá de nuevo el botón o presioná la misma tecla.' : 'Listening. When you finish, tap the button again or press the same key.';
   const send = () => {
     if (sent) return; sent = true; clearTimeout(silenceTimer); endListening = null;
     try { r0.stop(); } catch (e) {}
