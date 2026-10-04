@@ -110,7 +110,10 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
   .dock button{font-size:1rem;padding:.7rem 1rem}
   .dock #bEs{background:var(--brine);color:var(--night);border-color:var(--brine);font-weight:700;flex:1 1 100%;order:-1}
   .dock #bHelp{display:none}
-  .stage{padding-bottom:14rem}
+  .stage{padding-bottom:14rem;overflow-y:auto;grid-template-rows:auto 28vh auto auto;--sub-size:1.15rem}
+  .stage>.panel{grid-row:3}
+  .subs{grid-row:4;min-height:0;padding:1.2rem 5vw 1rem;justify-content:flex-start}
+  .ridge{height:18vh}
   .typebox{bottom:auto;top:12vh;width:92vw}
   .start p{display:none}
 }
