@@ -56,6 +56,15 @@
 - Próxima etapa: incluir la infraestructura habilitante (energía, transporte, agua).
 - Fuente: análisis independiente de terceros sobre el Boletín Oficial y el portal RIGI, más reportes de empresas. No nombrar autores.
 
+## Cómo se construyen los indicadores combinados (ponderación)
+- Regla general de SIEMA: pesos iguales, salvo una razón explícita para cambiarlos. Los datos son objetivos; los pesos y los umbrales son decisiones de criterio, publicadas en la plataforma y revisables. Si los usuarios o el consejo de SIEMA proponen otra ponderación, el índice se recalcula y se muestra el efecto.
+- Índice del Pulsómetro: promedio simple de los 10 ejes (escala 0 a 10).
+- Licencia social: promedio simple de 7 componentes externos (aceptación, confianza en los controles, ambiente y agua, beneficios locales, conversación pública, EITI, Fraser).
+- Índice RIGI minero: promedio simple de 4 componentes, cada uno con un umbral explícito: escala de la cartera (10 = 25.000 millones de dólares aprobados), compromiso con fecha cierta (10 = la mitad de lo comprometido), atractivo para el inversor (10 = TIR 10 puntos por encima del costo de capital) y sostenibilidad fiscal (0 = adicionalidad de dos tercios o más).
+- Estabilidad macro: combina lo que dice el mercado (calificaciones y riesgo país) con cuatro fundamentos (resultado fiscal, inflación, tasa real y servicio de la deuda externa).
+- Única excepción a los pesos iguales: el Índice de Performance Minera = 40 % exportaciones (ritmo frente a la proyección anual) + 35 % producción (litio producido frente a capacidad instalada) + 25 % inversión (avance del RIGI minero), porque las exportaciones son el objetivo central de la política actual.
+- Los ejes que todavía no tienen datos externos son un primer corte ilustrativo de la encuesta SIEMA a empresas mineras.
+
 ## Estabilidad macro y riesgo país (al 28/09/2026)
 - Riesgo país: 628 puntos básicos (mínimo del año 403 en julio). Un país con grado de inversión ronda los 200.
 - Calificaciones: Fitch B- y S&P B- (estable), Moody's B3 (positiva); todas salieron de la zona CCC en 2026.
