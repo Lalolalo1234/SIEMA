@@ -1,5 +1,5 @@
 # Base de conocimiento de Kuntur — SIEMA
-<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 4 de octubre de 2026. -->
+<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 4 de octubre de 2026; RIGI con MARA, aprobado el 2 de octubre. -->
 
 ## Qué es SIEMA
 - SIEMA es el Sistema de Inteligencia Estratégica Minera Argentina: una plataforma integral de información, análisis y prospectiva que concentra en un único entorno digital la información relevante del sector minero argentino y la convierte en inteligencia para decidir.
@@ -19,24 +19,24 @@
 - Ejes 2026 (2025 entre paréntesis):
   - Exportaciones mineras 9,0 (6,3) — prioridad número uno del gobierno.
   - Marco normativo 7,2 (5,5).
-  - Licencia social 5,7 (5,6) — calculado con datos externos.
+  - Licencia social 5,7 (5,6) — calculado con datos externos; la mejora más chica de los 10 ejes (+0,1).
   - Clima político 6,5 (5,2).
   - Actitud "mining friendly" del Estado 7,0 (5,8).
   - Financiamiento 6,1 (4,8).
   - Infraestructura 5,3 (4,5) — el eje peor puntuado.
   - Estabilidad macro 5,0 (2,7) — calculado con datos externos.
-  - Capital humano 5,9 (5,6) — la mejora más chica.
-  - RIGI minero 6,4 (4,9) — calculado con datos externos.
+  - Capital humano 5,9 (5,6) — la segunda mejora más chica (+0,3), después de licencia social.
+  - RIGI minero 6,7 (4,9) — calculado con datos externos; incluye MARA, aprobado el 2 de octubre de 2026.
 - Cuatro ejes están por debajo del umbral de alerta de 6: licencia social, infraestructura, estabilidad macro y capital humano.
 - Los ejes que no se calculan con datos externos son un primer corte ilustrativo de la encuesta SIEMA a empresas mineras.
-- Índice de Performance Minera: 78 sobre 100. Combina exportaciones (ritmo frente a la proyección anual), producción de litio frente a capacidad instalada y avance del RIGI minero.
+- Índice de Performance Minera: 80 sobre 100 (78 antes de sumar MARA al RIGI). Combina exportaciones (ritmo frente a la proyección anual), producción de litio frente a capacidad instalada y avance del RIGI minero.
 
 ## Exportaciones y producción
 - Exportaciones mineras 2025: 6.071 millones de dólares, récord. Oro 4.094, litio 911, plata 785, cobre 13 millones.
 - Enero a agosto de 2026: 6.059 millones de dólares, 65,7 % más que un año antes. El litio crece 190,5 %.
 - Proyección del sector: unos 9.000 millones de dólares para 2026; unos 15.400 millones en 2030 y unos 36.250 millones en 2035 (cobre 18.700, litio 11.500).
 - Producción 2025: oro 1.184 mil onzas aproximadamente; litio 116,6 mil toneladas de carbonato equivalente (LCE); capacidad instalada de litio 200,8 mil toneladas. Empleo minero directo: unos 39.300 puestos.
-- Cartera oficial (Secretaría de Minería, Portfolio 2026): 325 proyectos; 26 en producción, 7 en construcción, 10 en factibilidad.
+- Cartera oficial (Secretaría de Minería, Portfolio 2026): 325 proyectos; 26 en producción, 7 en construcción, 27 en estudios económicos (10 en factibilidad, 6 en prefactibilidad, 11 en evaluación económica preliminar) y 73 en exploración avanzada. Si se cuentan solo cobre, litio, oro y plata, hay 60 en exploración avanzada; el resto son uranio y otros minerales.
 
 ## Argentina frente a la demanda
 - Cobre: hoy escala artesanal. Cartera de unas 1,05 millones de toneladas por año (Vicuña ~395 kt hacia 2030, El Pachón ~280 kt, Taca Taca ~227 kt, Los Azules ~150 kt). Sería ~3 % de los ~34 millones de toneladas de demanda mundial de 2040 (AIE, escenario STEPS), y ubicaría al país entre los grandes productores a mediados de la década de 2030.
@@ -46,13 +46,14 @@
 
 ## RIGI minero (Régimen de Incentivo para Grandes Inversiones)
 - El RIGI (Ley 27.742) es la principal herramienta de política minera para atraer inversión de gran escala: Ganancias al 25 %, amortización acelerada, exención de aranceles y, desde el tercer año, de derechos de exportación, y 30 años de estabilidad.
-- SIEMA sigue los 12 proyectos mineros de producción aprobados: 21.230 millones de dólares de inversión anunciada, el 43 % de todo el RIGI. En octubre de 2025 eran 3 proyectos por 5.613 millones: casi se cuadruplicó en un año.
-- Por mineral: cobre 13.300 millones (63 %: Vicuña, Los Azules, PSJ Cobre Mendocino), litio 6.065 millones (Rincón, ampliación Cauchari-Olaroz, Liex, Sal de Oro II, Fénix 1B, Hombre Muerto Oeste), oro 1.101 millones (Carbonatos Profundos, Veladero), plata y oro 764 millones (Diablillos).
-- Solo 5.298 millones (29 % de lo comprometido) son obligación con fecha cierta en los dos primeros años.
-- Desembolso identificado: al menos 625 millones de dólares (3,5 % de lo comprometido), según reportes de las empresas y estimaciones de SIEMA. El grueso del desembolso llega entre 2027 y 2029; Vicuña prevé obras principales desde 2027.
-- Para la minería el RIGI sube la TIR de 13,1 % a 16,0 % y el valor presente en un tercio de la inversión. En litio el valor presente pasa de negativo a positivo.
+- SIEMA sigue los 13 proyectos mineros de producción aprobados: 25.230 millones de dólares de inversión anunciada, el 47 % de todo el RIGI. En octubre de 2025 eran 3 proyectos por 5.613 millones: se multiplicó por cuatro y medio en un año.
+- El último aprobado es MARA (Agua Rica – Alumbrera), de Glencore en Catamarca, el 2 de octubre de 2026: 4.000 millones de dólares, unas 200 mil toneladas de cobre por año, obras desde noviembre de 2027 y operación desde octubre de 2031. Se compromete a invertir 771 millones en los dos primeros años.
+- Por mineral: cobre 17.300 millones (69 %: Vicuña, MARA, Los Azules, PSJ Cobre Mendocino), litio 6.065 millones (Rincón, ampliación Cauchari-Olaroz, Liex, Sal de Oro II, Fénix 1B, Hombre Muerto Oeste), oro 1.101 millones (Carbonatos Profundos, Veladero), plata y oro 764 millones (Diablillos).
+- Solo 6.069 millones (27 % de lo comprometido) son obligación con fecha cierta en los dos primeros años.
+- Desembolso identificado: al menos 625 millones de dólares (2,8 % de lo comprometido), según reportes de las empresas y estimaciones de SIEMA. El grueso del desembolso llega entre 2027 y 2029; Vicuña prevé obras principales desde 2027.
+- Para la minería el RIGI sube la TIR de 13,1 % a 16,0 % y el valor presente en un tercio de la inversión (valuación de los 12 proyectos aprobados antes de MARA). En litio el valor presente pasa de negativo a positivo.
 - El régimen puede pagarse solo si alrededor de un tercio de la inversión no hubiera ocurrido sin él. La Nación carga casi tres cuartos del costo fiscal; las provincias productoras conservan las regalías.
-- Índice RIGI minero: 6,4 sobre 10.
+- Índice RIGI minero: 6,7 sobre 10 (4,9 en octubre de 2025). Con MARA, la escala de la cartera llega al máximo (10) y el compromiso con fecha cierta baja a 5,5.
 - Próxima etapa: incluir la infraestructura habilitante (energía, transporte, agua).
 - Fuente: análisis independiente de terceros sobre el Boletín Oficial y el portal RIGI, más reportes de empresas. No nombrar autores.
 
