@@ -220,8 +220,8 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
     <table>
       <tr><td>P</td><td>Presentar SIEMA en español, con subtítulos en inglés</td></tr>
       <tr><td>Mayús + P</td><td>Presentar en inglés, con subtítulos en español</td></tr>
-      <tr><td>Espacio</td><td>Escuchar una pregunta en español (se detiene sola al terminar de hablar)</td></tr>
-      <tr><td>E</td><td>Escuchar una pregunta en inglés</td></tr>
+      <tr><td>Espacio</td><td>Escuchar una pregunta en español. Las pausas no la cortan: presioná Espacio de nuevo, o Enter, al terminar (o esperá unos segundos de silencio)</td></tr>
+      <tr><td>E</td><td>Escuchar una pregunta en inglés (se termina igual: E de nuevo o Enter)</td></tr>
       <tr><td>T</td><td>Escribir una pregunta (por ejemplo, una del público)</td></tr>
       <tr><td>Esc</td><td>Callar a Kuntur o cerrar esta ventana</td></tr>
       <tr><td>→</td><td>Saltar a la siguiente parte de la presentación</td></tr>
@@ -529,21 +529,58 @@ function skipStep() {
 // ------------------------------------------------------------------
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 let rec = null;
+// Corrige lo que el reconocimiento de voz suele confundir (voz grave o ronca, C por K, etc.)
+const FIXES = [
+  [/\b(c|k|q)u?[uoa]nt[h]?[uo]r\b/gi, 'Kuntur'],
+  [/\bcontour\b/gi, 'Kuntur'],
+  [/\b(c|s)i\s?e\s?m(a|á)\b/gi, 'SIEMA'],
+  [/\bsierra\s+minera\b/gi, 'SIEMA'],
+  [/\bri(g|j)u?i\b/gi, 'RIGI'],
+  [/\bregi\b/gi, 'RIGI'],
+  [/\bpuls[oó]metro\b/gi, 'Pulsómetro'],
+  [/\bmima\b/gi, 'MIMA'],
+  [/\b(eh+|em+|um+|mm+|mhm|mm-hmm|ehm)\b[,.]?\s*/gi, ''],
+  [/\s{2,}/g, ' ']
+];
+function fixTranscript(t) { let x = t; FIXES.forEach(([re, to]) => { x = x.replace(re, to); }); x = x.trim(); return x ? x.charAt(0).toUpperCase() + x.slice(1) : x; }
+
+// Escucha continua: no corta en las pausas. Termina al volver a presionar la misma tecla
+// (o Enter), o sola después de unos segundos de silencio.
+const SILENCE_MS = 3500;
+let listenLang = 'es', silenceTimer = null, endListening = null;
 function listen(lang) {
   if (!SR) { openType(); flash(lang === 'es' ? 'Este navegador no reconoce voz. Escribí la pregunta.' : 'This browser cannot recognise speech. Type the question.'); return; }
+  if (rec && state === 'listening') { if (endListening) endListening(); return; }   // segunda pulsación: enviar
   hush(); if (rec) try { rec.abort(); } catch (e) {}
-  rec = new SR(); rec.lang = lang === 'es' ? 'es-AR' : 'en-US'; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1;
-  let finalTxt = '';
+  listenLang = lang;
+  rec = new SR(); rec.lang = lang === 'es' ? 'es-AR' : 'en-US'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
+  let finalTxt = '', interimTxt = '', sent = false;
+  const r0 = rec;
   setState('listening');
   showQuestion('', lang, true);
-  subMain.textContent = ''; subTr.textContent = '';
+  subMain.textContent = ''; subTr.textContent = lang === 'es' ? 'Te escucho. Presioná de nuevo la misma tecla, o Enter, cuando termines.' : 'Listening. Press the same key again, or Enter, when you finish.';
+  const send = () => {
+    if (sent) return; sent = true; clearTimeout(silenceTimer); endListening = null;
+    try { r0.stop(); } catch (e) {}
+    const q = fixTranscript((finalTxt + ' ' + interimTxt).trim());
+    if (q) { showQuestion(q, lang, false); subTr.textContent = ''; ask(q, lang); } else { setState('idle'); subTr.textContent = ''; }
+  };
+  endListening = send;
+  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, SILENCE_MS); };
   rec.onresult = e => {
     let interim = ''; finalTxt = '';
-    for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalTxt += r[0].transcript; else interim += r[0].transcript; }
-    showQuestion((finalTxt + ' ' + interim).trim(), lang, !finalTxt);
+    for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalTxt += r[0].transcript + ' '; else interim += r[0].transcript; }
+    interimTxt = interim;
+    showQuestion(fixTranscript((finalTxt + ' ' + interim).trim()), lang, true);
+    arm();
   };
-  rec.onerror = e => { setState('idle'); if (e.error === 'not-allowed') flash('El navegador no tiene permiso para usar el micrófono.'); };
-  rec.onend = () => { rec = null; if (finalTxt.trim()) ask(finalTxt.trim(), lang); else if (state === 'listening') setState('idle'); };
+  rec.onerror = e => { if (e.error === 'no-speech' || e.error === 'aborted') return; if (e.error === 'not-allowed') { setState('idle'); flash('El navegador no tiene permiso para usar el micrófono.'); } };
+  rec.onend = () => {
+    // Chrome cierra la escucha continua cada tanto: si no se envió, se reabre sola
+    if (!sent && state === 'listening' && rec === r0) { try { r0.start(); return; } catch (e) {} }
+    if (rec === r0) rec = null;
+    if (!sent && (finalTxt + interimTxt).trim()) send(); else if (!sent && state === 'listening') setState('idle');
+  };
   rec.start();
 }
 function showQuestion(q, lang, interim) {
@@ -557,7 +594,7 @@ function showQuestion(q, lang, interim) {
 function openType() { const tb = $('typebox'); tb.classList.add('on'); const i = $('typeIn'); i.value = ''; i.focus(); }
 function closeType() { $('typebox').classList.remove('on'); $('typeIn').blur(); }
 $('typeIn').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.value.trim()) { const q = e.target.value.trim(); closeType(); const lang = guessLang(q); showQuestion(q, lang, false); ask(q, lang); }
+  if (e.key === 'Enter' && e.target.value.trim()) { const q = fixTranscript(e.target.value.trim()); closeType(); const lang = guessLang(q); showQuestion(q, lang, false); ask(q, lang); }
   if (e.key === 'Escape') closeType();
   e.stopPropagation();
 });
@@ -657,6 +694,9 @@ const FAQ = [
   { k: /capital humano|talento|talent|ingenier|engineer|human/i,
     es: 'El capital humano está en cinco coma nueve y fue el eje que menos mejoró. Para medirlo, SIEMA desarrolla con el Centro Argentino de Ingenieros el Monitor de Ingeniería de Minas, que sigue formación, empleo y demanda de talento.',
     en: 'Human capital stands at five point nine and was the axis that improved least. To measure it, SIEMA is developing the Mining Engineering Monitor with the Argentine Center of Engineers, tracking training, employment and talent demand.' },
+  { k: /metodolog|precisi|exactitud|confiab|cómo proyect|como proyect|methodolog|accura|reliab|how do you project/i,
+    es: 'Nadie puede predecir con exactitud cuánto cobre o litio va a necesitar el mundo en 2050, y desconfiaría de quien lo prometa. Por eso SIEMA no hace un pronóstico, sino escenarios. El modelo Convergencias 2050 parte de los usos finales: ocho grandes tendencias, como la electromovilidad, la inteligencia artificial, la defensa o la fusión. Para cada una estima cuánto mineral necesita, a qué ritmo se adopta y cómo se potencian entre sí. El escenario de referencia reproduce el de la Agencia Internacional de Energía, y las cifras se contrastan con el Servicio Geológico de Estados Unidos y otras fuentes reconocidas. Hasta 2030 la precisión es bastante buena, porque se apoya en proyectos que ya existen y tienen el RIGI aprobado. Más allá hablamos de órdenes de magnitud y rangos: el valor no está en acertar el número exacto, sino en mostrar qué tendencias mueven la aguja y dónde puede ubicarse Argentina.',
+    en: 'Nobody can predict exactly how much copper or lithium the world will need in 2050, and I would be wary of anyone who promises that. That is why SIEMA does not make a forecast but builds scenarios. The Convergences 2050 model starts from end uses: eight major trends, such as electric mobility, artificial intelligence, defence and fusion. For each one it estimates how much mineral it needs, how fast it is adopted and how they reinforce each other. The reference scenario reproduces the International Energy Agency\'s, and the figures are checked against the US Geological Survey and other recognised sources. Up to 2030 precision is quite good, because it rests on projects that already exist and have RIGI approval. Beyond that we are talking about orders of magnitude and ranges: the value is not in hitting the exact number, but in showing which trends move the needle and where Argentina can stand.' },
   { k: /2050|prospectiva|foresight|futuro|future|demanda|demand/i,
     es: 'La Prospectiva usa el modelo Convergencias 2050. Parte de ocho grandes tendencias, como la electromovilidad, la inteligencia artificial, la defensa y la fusión, y proyecta cómo mueven la demanda de cobre, litio, tierras raras y otros minerales en 2030, 2040 y 2050, frente a lo que Argentina puede ofrecer.',
     en: 'Foresight uses the Convergences 2050 model. It starts from eight major trends, such as electric mobility, artificial intelligence, defence and fusion, and projects how they move demand for copper, lithium, rare earths and other minerals in 2030, 2040 and 2050, against what Argentina can supply.' },
@@ -714,8 +754,9 @@ document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') { if (e.key === 'Escape') closeSheets(); return; }
   if ($('start')) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wake(); } return; }
   const k = e.key.toLowerCase();
-  if (e.key === 'Escape') { if (document.querySelector('.sheet.on')) closeSheets(); else { hush(); if (rec) try { rec.abort(); } catch (x) {} } return; }
+  if (e.key === 'Escape') { if (document.querySelector('.sheet.on')) closeSheets(); else { endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} } hush(); setState('idle'); subTr.textContent = ''; } return; }
   if (document.querySelector('.sheet.on')) return;
+  if (e.key === 'Enter' && state === 'listening' && endListening) { e.preventDefault(); endListening(); return; }
   if (k === 'p') { e.preventDefault(); present(e.shiftKey ? 'en' : 'es'); }
   else if (e.key === ' ') { e.preventDefault(); listen('es'); }
   else if (k === 'e') { e.preventDefault(); listen('en'); }

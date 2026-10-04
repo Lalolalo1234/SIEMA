@@ -41,8 +41,8 @@ La dirección queda guardada en ese navegador. En otra computadora, repetí este
 | P | Presentar SIEMA en español, con subtítulos en inglés (unos 4 minutos) |
 | Mayús + P | Presentar en inglés, con subtítulos en español |
 | → | Saltar a la siguiente parte de la presentación |
-| Espacio | Escuchar una pregunta en español. Se detiene sola cuando terminás de hablar |
-| E | Escuchar una pregunta en inglés |
+| Espacio | Escuchar una pregunta en español. Las pausas no la cortan: al terminar, presioná Espacio de nuevo o Enter (o esperá unos 3 segundos de silencio) |
+| E | Escuchar una pregunta en inglés (se termina igual: E de nuevo o Enter) |
 | T | Escribir una pregunta (por ejemplo, una que llegó del público) |
 | Esc | Callar a Kuntur |
 | F | Pantalla completa |
@@ -52,6 +52,7 @@ La dirección queda guardada en ese navegador. En otra computadora, repetí este
 Recomendaciones:
 
 - **Usá Microsoft Edge.** Trae voces naturales gratuitas en español e inglés ("Online (Natural)"), mucho mejores que las de Chrome. Elegilas en Ajustes y probalas.
+- **Corrección automática:** Kuntur corrige lo que el reconocimiento de voz suele confundir ("Cantur" o "Contur" por Kuntur, "CIEMA" por SIEMA, "Rigui" por RIGI) y quita las muletillas ("eh", "um") antes de mostrar la pregunta.
 - **Micrófono:** el navegador pide permiso la primera vez. En la sala, conviene un micrófono de mano o de solapa conectado a la computadora, no el de la laptop.
 - **Internet:** el reconocimiento de voz y Claude necesitan conexión. Si se corta, Kuntur sigue con las respuestas preparadas, y siempre podés escribir la pregunta con T.
 - **Ensayo:** hacé al menos una pasada completa en la computadora y la sala del evento.
