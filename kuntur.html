@@ -389,8 +389,8 @@ requestAnimationFrame(frame);
 const synth = window.speechSynthesis;
 let voices = [], speechActive = false, speakQueue = [], speakGen = 0;
 // Kuntur es un cóndor macho: se prefieren voces masculinas y se evitan las femeninas conocidas
-const MALE_VOICE = /\b(tom[aá]s|jorge|juan|diego|carlos|pablo|[aá]lvaro|ra[uú]l|enrique|gonzalo|alonso|jos[eé]|gerardo|alberto|dario|dar[ií]o|lorenzo|federico|daniel|fred|alex|aaron|arthur|gordon|guy|ryan|eric|christopher|andrew|brian|davis|tony|roger|ralph|oliver|george|thomas|william|liam|reed|rishi|male|hombre|masculin)(?![a-z])/i;
-const FEMALE_VOICE = /\b(elena|m[oó]nica|paulina|helena|laura|sabina|dalia|elvira|ximena|francisca|marisol|camila|luc[ií]a|isabela|valentina|esperanza|samantha|karen|moira|tessa|victoria|fiona|susan|zira|aria|jenny|sonia|libby|emma|ava|allison|salli|joanna|kendra|kimberly|catherine|serena|martha|nicky|female|mujer|femenin)(?![a-z])/i;
+const MALE_VOICE = /\b(tom[aá]s|jorge|juan|diego|carlos|pablo|[aá]lvaro|ra[uú]l|enrique|gonzalo|alonso|jos[eé]|gerardo|alberto|dario|dar[ií]o|lorenzo|federico|daniel|fred|alex|aaron|arthur|gordon|guy|ryan|eric|christopher|andrew|brian|davis|tony|roger|ralph|oliver|george|thomas|william|liam|reed|rishi|eddy|rocko|grandpa|male|hombre|masculin)(?![a-z])/i;
+const FEMALE_VOICE = /\b(elena|m[oó]nica|paulina|helena|laura|sabina|dalia|elvira|ximena|francisca|marisol|camila|luc[ií]a|isabela|valentina|esperanza|samantha|karen|moira|tessa|victoria|fiona|susan|zira|aria|jenny|sonia|libby|emma|ava|allison|salli|joanna|kendra|kimberly|catherine|serena|martha|nicky|flo|sandy|shelley|grandma|female|mujer|femenin)(?![a-z])/i;
 const isMaleVoice = v => !!v && MALE_VOICE.test(v.name) && !FEMALE_VOICE.test(v.name);
 function rankVoice(v, lang) {
   const n = (v.name + ' ' + v.voiceURI).toLowerCase(); let s = 0;
