@@ -9,6 +9,7 @@
   2. Pulsómetro — cómo está el sector hoy. Mide la salud y la evolución de la actividad con indicadores dinámicos: clima de inversión (radar de 10 ejes), percepción externa, RIGI minero y Monitor de Ingeniería de Minas (MIMA).
   3. Prospectiva — qué ocurrirá hasta 2050. Proyecta escenarios de oferta y demanda de los minerales que definirán la economía global (modelo Convergencias 2050).
 - Además: Noticias y eventos (noticias del sector, agenda de conferencias, infografías).
+- SIEMA sigue 14 minerales críticos: cobre, litio, níquel, cobalto, tierras raras, tungsteno (wolframio), berilio, galio, germanio, fosfuro de indio, tantalio, zinc, estaño y manganeso. Cada pestaña usa los que le corresponden: Demanda analiza 11 (de cobre a tantalio) y el modelo de Prospectiva proyecta cobre, litio, tierras raras, galio, zinc, estaño, manganeso y wolframio.
 - Públicos: fondos de inversión, compañías mineras, gobiernos provinciales, proveedores estratégicos y organismos multilaterales.
 - Promotores: Centro Argentino de Ingenieros (CAI), Panorama Minero (PM) y Universidad de Buenos Aires (UBA). El Monitor MIMA se desarrolla en alianza con el CAI.
 - SIEMA nace de la evolución del Observatorio Minero Argentino (OMA) y de CeProMin, un centro de prospectiva minera pionero en el enfoque de minería orientada a la demanda.
