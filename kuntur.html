@@ -217,8 +217,8 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
 
 <div class="dock" id="dock">
   <button type="button" id="bPres">Presentar</button>
-  <button type="button" id="bEs">Escuchar en español</button>
-  <button type="button" id="bEn">Listen in English</button>
+  <button type="button" id="bEs">🎤 Preguntar en voz alta</button>
+  <button type="button" id="bEn">🎤 Ask in English</button>
   <button type="button" id="bType">Escribir pregunta</button>
   <button type="button" id="bStop">Callar</button>
   <button type="button" id="bSet">Ajustes</button>
@@ -298,7 +298,7 @@ const $ = id => document.getElementById(id);
 const stage = $('stage'), panel = $('panel'), subMain = $('subMain'), subTr = $('subTr');
 const STATE_TXT = { idle: 'Listo', listening: 'Escuchando', thinking: 'Pensando', speaking: 'Hablando', offline: 'Sin conexión' };
 let state = 'idle';
-function setState(s) { state = s; stage.dataset.state = s; $('stateTxt').textContent = STATE_TXT[s] || s; const bEs = $('bEs'), bEn = $('bEn'); if (bEs) { bEs.textContent = s === 'listening' && listenLang === 'es' ? 'Listo: enviar la pregunta' : 'Escuchar en español'; bEn.textContent = s === 'listening' && listenLang === 'en' ? 'Done: send the question' : 'Listen in English'; } }
+function setState(s) { state = s; stage.dataset.state = s; $('stateTxt').textContent = STATE_TXT[s] || s; const bEs = $('bEs'), bEn = $('bEn'); if (bEs) { bEs.textContent = s === 'listening' && listenLang === 'es' ? '✔ Listo: enviar la pregunta' : '🎤 Preguntar en voz alta'; bEn.textContent = s === 'listening' && listenLang === 'en' ? '✔ Done: send the question' : '🎤 Ask in English'; } }
 
 // ------------------------------------------------------------------
 // Escenario: estrellas, cordillera-onda y plumas del collar
