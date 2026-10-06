@@ -528,6 +528,7 @@ const VIEWS = {
   capital:     { tab: 'capital-humano', sel: null, es: 'Capital humano', en: 'Human capital', re: /capital humano|talento|human capital|talent/i },
   externa:     { tab: 'pulsometro', sel: null, es: 'Percepción externa', en: 'External perception', re: /encuesta externa|percepci[oó]n externa|fraser|universidad de toronto|resources for the future|external survey|external perception/i },
   brechas:     { tab: 'brechas', sel: null, es: 'Análisis de brechas', en: 'Gap analysis', re: /an[aá]lisis de brechas|\bbrechas\b|gap analysis/i },
+  cual:        { tab: 'demanda', sel: '#cualDyn', es: 'Relación de precios cobre/aluminio', en: 'Copper/aluminium price ratio', re: /alumin|sustituci[oó]n del cobre|relaci[oó]n (de precios )?cobre|copper substitution|copper.aluminium ratio/i },
   prospectiva: { tab: 'prospectiva', sel: null, es: 'Prospectiva · Convergencias 2050', en: 'Foresight · Convergences 2050', re: /prospectiva|convergencias|macrotendencia|escenario|\b2050\b|foresight|convergences|megatrend|scenario/i },
   argentina:   { tab: 'argentina', sel: null, es: 'Argentina frente a la demanda', en: 'Argentina vs projected demand', re: /tierras raras|rare earths?|demanda (mundial|global|proyectada)|cuarto productor|world demand|projected demand/i },
   demanda:     { tab: 'demanda', sel: null, es: 'Demanda global', en: 'Global demand', re: /demanda de minerales|minerales cr[ií]ticos|critical minerals/i },
@@ -540,7 +541,7 @@ const VIEWS = {
   consola:     { tab: 'inicio', sel: '#omaConsole', es: 'Consola SIEMA', en: 'SIEMA console', re: /consola|performance minera|performance index|\bsiema\b/i },
   inicio:      { tab: 'inicio', sel: null, es: 'SIEMA', en: 'SIEMA', re: /(?!)/ }
 };
-const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
+const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
 let curView = null, frameReady = false, pendingView = null, viewLocked = false;
 function pickView(t) { for (const k of VIEW_ORDER) if (VIEWS[k].re.test(t || '')) return k; return null; }
 function sizeScreen() {

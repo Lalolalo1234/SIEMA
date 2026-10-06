@@ -1384,6 +1384,20 @@
         html.kuntur-embed body { padding-top: 0 !important; }
         html.kuntur-embed body { padding-bottom: 100vh !important; } /* deja subir hasta arriba también las últimas secciones */
         html.kuntur-embed .kuntur-focus { outline: 3px solid #7fd3cf; outline-offset: 6px; border-radius: 10px; transition: outline-color 1s ease; }
+
+        /* Demanda: relación de precios cobre/aluminio */
+        .cual-scale { position: relative; margin: 2.4rem 1.2rem 2.6rem; }
+        .cual-bar { display: flex; height: 18px; border-radius: 9px; overflow: hidden; }
+        .cual-bar span { display: block; height: 100%; }
+        .cual-ticks { position: relative; height: 1.2rem; font-size: 0.78rem; color: #667; font-variant-numeric: tabular-nums; }
+        .cual-ticks i { position: absolute; transform: translateX(-50%); font-style: normal; top: 0.3rem; }
+        .cual-mark { position: absolute; top: -1.9rem; transform: translateX(-50%); text-align: center; font-size: 0.78rem; font-weight: 700; color: #1b2430; white-space: nowrap; }
+        .cual-mark::after { content: ''; display: block; width: 2px; height: 2.5rem; margin: 0.15rem auto 0; background: #1b2430; }
+        .cual-mark.now { color: #b3401f; } .cual-mark.now::after { background: #b3401f; width: 3px; }
+        .cual-zones { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.8rem; color: #444; margin-top: 0.4rem; }
+        .cual-zones b { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 0.35rem; vertical-align: -1px; }
+        .cual-two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        @media (max-width: 760px) { .cual-two { grid-template-columns: 1fr; } }
 </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1560,6 +1574,8 @@
                 <h3>Fusion Energy — Innovación Energética</h3>
                 <p>Itrio, tungsteno, berilio y litio-6 para reactores de fusión nuclear. El driver es la viabilidad comercial de la fusión en el horizonte 2030s-2040s. El Observatorio da seguimiento a iniciativas como Misión Génesis, TokaMind y TokaMark, que aplican inteligencia artificial al control de plasma, como indicador temprano de aceleración de esta demanda.</p>
             </div>
+
+            <div id="cualDyn"></div>
 
             <h2>El vacío de información que el SIEMA cierra</h2>
             <p>Hoy existen múltiples fuentes de proyección de demanda (IEA, S&amp;P, Wood Mackenzie, CRU, Fastmarkets, SMM, USGS, entre otras) que no siempre coinciden entre sí. El Observatorio centraliza y armoniza estas fuentes —sumando datos directos de empresas mineras que operan en Argentina— para producir una proyección de referencia única, aplicada a la realidad del país.</p>
@@ -2244,6 +2260,8 @@
                 <p>Yttrium, tungsten, beryllium and lithium-6 for nuclear fusion reactors. The driver is the commercial viability of fusion in the 2030s-2040s horizon. The Observatory tracks initiatives such as Mission Genesis, TokaMind and TokaMark, which apply artificial intelligence to plasma control, as an early indicator of accelerating demand.</p>
             </div>
 
+            <div id="cualDyn"></div>
+
             <h2>The information gap SIEMA closes</h2>
             <p>Today there are multiple demand-projection sources (IEA, S&amp;P, Wood Mackenzie, CRU, Fastmarkets, SMM, USGS, among others) that don't always agree with each other. The Observatory centralizes and reconciles these sources —adding direct data from mining companies operating in Argentina— to produce a single reference projection, applied to the country's reality.</p>
 
@@ -2735,6 +2753,7 @@
             renderEiti();
             renderOferta();
             renderRigi();
+            renderCual();
             renderEventos();
             renderSubnav();
             renderAmvestSidebar();
@@ -3425,6 +3444,111 @@
             el.querySelector('#evRegion').addEventListener('change', e => { evState.r = e.target.value; renderEventos(); });
             const s = el.querySelector('#evSearch');
             s.addEventListener('input', e => { evState.q = e.target.value; const pos = e.target.selectionStart; renderEventos(); const n = document.getElementById('evSearch'); n.focus(); n.setSelectionRange(pos, pos); });
+        }
+
+
+        // --- Demanda: relación de precios cobre/aluminio (indicador de sustitución) ---
+        // Para actualizar: editar CUAL_DATA (relación, fecha y estimaciones). La curva es la misma del modelo Convergencias 2050.
+        const CUAL_DATA = {
+            asOf: '29/08/2026',
+            now: 4.3,          // relación Cu/Al (US$/t ÷ US$/t), récord
+            hist: 3.7,         // promedio histórico de largo plazo
+            curve: [[3.5, 0], [4.0, 0.015], [4.2, 0.02], [4.5, 0.035], [5.0, 0.055], [5.5, 0.07]],
+            cuDemand2040: 34,  // Mt, demanda total de cobre 2040 (AIE STEPS), para pasar porcentajes a toneladas
+            arPipeline: 1.05   // Mt/año, cartera argentina de cobre (pestaña Argentina hoy)
+        };
+        const CUAL_I18N = {
+            es: {
+                h2: 'Relación de precios cobre/aluminio: el indicador de sustitución',
+                intro: 'Cuando el cobre se encarece mucho frente al aluminio, la industria rediseña cables, equipos de climatización y autos para usar aluminio, y una parte de la demanda de cobre desaparece. La señal que vigila el mercado es la relación entre ambos precios (US$ por tonelada de cobre ÷ US$ por tonelada de aluminio). Este indicador alimenta el modelo de <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Prospectiva</a>.',
+                k1: 'Relación actual', k1s: d => `Récord · ${d} · cobre a más de 4 veces el aluminio`,
+                k2: 'Promedio histórico', k2s: 'Largo plazo',
+                k3: 'Umbral de sustitución', k3s: 'Desde acá la industria cambia de material (BHP)',
+                k4: 'Demanda de cobre desplazada', k4s: 'Hoy, según ICA (menos de 2 %) y JPMorgan (≈2 % en 2026)',
+                zones: ['Cobre competitivo', 'Empieza la sustitución', 'Sustitución material', 'Presión fuerte', 'Sustitución muy intensa'],
+                hist: 'Promedio', now: 'Hoy',
+                tabH: 'Cuánto cobre se pierde según la relación', cols: ['Relación sostenida', 'Lectura', 'Demanda mundial de cobre desplazada (largo plazo)', 'En 2040'],
+                reads: ['Por debajo del promedio histórico', 'Promedio histórico', 'Inicio de la sustitución material', 'Nivel actual', 'Presión fuerte', 'Destrucción estructural de demanda'],
+                tabNote: 'Modelo SIEMA, calibrado con JPMorgan (≈2 % en 2026 y hasta 6 % hacia 2030 si se acelera), International Copper Association (menos de 2 %) y el umbral industrial de 3,5–4 : 1. El efecto llega en dos a cuatro años: es el tiempo de rediseñar y homologar productos. Toneladas sobre una demanda total de 34 Mt en 2040 (AIE, escenario STEPS).',
+                whereH: 'Dónde ya se sustituye', where: ['Líneas aéreas de transmisión: aluminio desde hace décadas', 'Cables de potencia y distribución', 'Climatización (Daikin)', 'Cableado automotriz (BMW, Ferrari)', 'Cerca del 10 % de los cables de los vehículos eléctricos'],
+                notH: 'Dónde casi no', not: ['Bobinados de motores eléctricos', 'Electrónica de precisión', 'Conexiones en espacios reducidos', 'Instalaciones con normas de seguridad estrictas'],
+                tech: 'Por qué: el aluminio conduce cerca del 61 % de lo que conduce el cobre y necesita 1,6 veces más sección, pero para la misma conducción pesa la mitad. Lo frenan los conectores (se oxida y se deforma bajo presión), las normas eléctricas y el costo de rediseñar.',
+                readH: 'Lectura del SIEMA',
+                read: (t35, ar) => [
+                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Con la relación en 4,3 : 1, el aluminio desplaza alrededor del 2 a 2,5 % de la demanda mundial de cobre. Es un efecto real, no un cambio de era.',
+                    `<strong>Para Argentina, el número importa.</strong> Si la relación se sostuviera en 4,5 : 1, el cobre desplazado rondaría ${t35} Mt por año en 2040: tanto como toda la cartera argentina de cobre (~${ar} Mt por año). Es un riesgo a seguir para el precio del cobre y, por esa vía, para el ritmo de las decisiones de inversión de los proyectos.`,
+                    '<strong>Tiene un freno natural.</strong> Si sube la demanda de aluminio, sube su precio y la relación baja. Por eso los niveles de 5 : 1 o más son difíciles de sostener.',
+                    '<strong>Qué seguir.</strong> La relación mensual, las decisiones de diseño de la industria automotriz y de climatización, y las normas eléctricas de los grandes mercados.'
+                ],
+                btn: 'Mover la relación en el modelo de Prospectiva',
+                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
+            },
+            en: {
+                h2: 'Copper/aluminium price ratio: the substitution indicator',
+                intro: 'When copper becomes much more expensive than aluminium, industry redesigns cables, air-conditioning units and cars to use aluminium, and part of copper demand disappears. The signal the market watches is the ratio between both prices (US$ per tonne of copper ÷ US$ per tonne of aluminium). This indicator feeds the <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Foresight</a> model.',
+                k1: 'Current ratio', k1s: d => `Record · ${d} · copper above 4 times aluminium`,
+                k2: 'Historical average', k2s: 'Long term',
+                k3: 'Substitution threshold', k3s: 'Where industry switches material (BHP)',
+                k4: 'Copper demand displaced', k4s: 'Today, per ICA (below 2 %) and JPMorgan (≈2 % in 2026)',
+                zones: ['Copper competitive', 'Substitution starts', 'Material substitution', 'Strong pressure', 'Very intense substitution'],
+                hist: 'Average', now: 'Today',
+                tabH: 'How much copper is lost depending on the ratio', cols: ['Sustained ratio', 'Reading', 'World copper demand displaced (long term)', 'In 2040'],
+                reads: ['Below historical average', 'Historical average', 'Material substitution begins', 'Current level', 'Strong pressure', 'Structural demand destruction'],
+                tabNote: 'SIEMA model, calibrated with JPMorgan (≈2 % in 2026 and up to 6 % by 2030 if it accelerates), the International Copper Association (below 2 %) and the 3.5–4 : 1 industry threshold. The effect arrives in two to four years, the time needed to redesign and certify products. Tonnes on total demand of 34 Mt in 2040 (IEA STEPS).',
+                whereH: 'Where it already happens', where: ['Overhead transmission lines: aluminium for decades', 'Power and distribution cables', 'Air conditioning (Daikin)', 'Automotive wiring (BMW, Ferrari)', 'About 10 % of electric-vehicle cables'],
+                notH: 'Where it hardly happens', not: ['Electric motor windings', 'Precision electronics', 'Space-constrained connections', 'Installations with strict safety codes'],
+                tech: 'Why: aluminium conducts about 61 % as well as copper and needs 1.6 times the cross-section, but weighs half as much for the same conduction. Connectors (it oxidises and creeps under pressure), electrical codes and redesign costs hold it back.',
+                readH: 'SIEMA reading',
+                read: (t35, ar) => [
+                    '<strong>Substitution is under way, but limited.</strong> With the ratio at 4.3 : 1, aluminium displaces about 2 to 2.5 % of world copper demand. A real effect, not a change of era.',
+                    `<strong>For Argentina, the number matters.</strong> If the ratio held at 4.5 : 1, displaced copper would be around ${t35} Mt a year in 2040: as much as Argentina's entire copper pipeline (~${ar} Mt a year). It is a risk to watch for the copper price and, through it, for the pace of the projects' investment decisions.`,
+                    '<strong>It has a natural brake.</strong> If aluminium demand rises, its price rises and the ratio falls. That is why levels of 5 : 1 or more are hard to sustain.',
+                    '<strong>What to watch.</strong> The monthly ratio, design decisions in the automotive and air-conditioning industries, and electrical codes in the big markets.'
+                ],
+                btn: 'Move the ratio in the Foresight model',
+                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
+            }
+        };
+        function cualShareAt(r) {
+            const c = CUAL_DATA.curve; if (r <= c[0][0]) return 0;
+            for (let i = 1; i < c.length; i++) { if (r <= c[i][0]) return c[i - 1][1] + (c[i][1] - c[i - 1][1]) * (r - c[i - 1][0]) / (c[i][0] - c[i - 1][0]); }
+            return c[c.length - 1][1];
+        }
+        function renderCual() {
+            const el = document.getElementById('cualDyn'); if (!el) return;
+            const lang = currentLang, t = CUAL_I18N[lang], d = CUAL_DATA;
+            const loc = lang === 'es' ? 'es-AR' : 'en-US';
+            const f = (x, n = 1) => Number(x).toLocaleString(loc, { minimumFractionDigits: n, maximumFractionDigits: n });
+            const kpi = (label, big, sub) => `<div class="of-kpi"><span class="of-kpi-l">${label}</span><strong>${big}</strong><span class="of-kpi-s">${sub}</span></div>`;
+            const lo = 3.0, hi = 5.5, pos = r => ((r - lo) / (hi - lo) * 100).toFixed(2) + '%';
+            const zc = ['#3f8f5c', '#e0b23a', '#e07b2c', '#c8432b', '#8e1f1f'], zr = [[3.0, 3.5], [3.5, 4.0], [4.0, 4.5], [4.5, 5.0], [5.0, 5.5]];
+            const bar = zr.map((z, i) => `<span style="width:${((z[1] - z[0]) / (hi - lo) * 100).toFixed(2)}%;background:${zc[i]}"></span>`).join('');
+            const ticks = [3.0, 3.5, 4.0, 4.5, 5.0, 5.5].map(r => `<i style="left:${pos(r)}">${f(r)}</i>`).join('');
+            const marks = `<div class="cual-mark" style="left:${pos(d.hist)}">${t.hist} ${f(d.hist)}</div><div class="cual-mark now" style="left:${pos(d.now)}">${t.now} ${f(d.now)}</div>`;
+            const zones = t.zones.map((z, i) => `<span><b style="background:${zc[i]}"></b>${z}</span>`).join('');
+            const rows = [3.5, 3.7, 4.0, 4.3, 4.5, 5.0].map((r, i) => { const sh = cualShareAt(r); return `<tr${r === d.now ? ' class="of-grp"' : ''}><td>${f(r)} : 1</td><td>${t.reads[i]}</td><td class="n">${f(100 * sh)} %</td><td class="n">${sh ? '≈ ' + f(sh * d.cuDemand2040, 1) + ' Mt' : '—'}</td></tr>`; }).join('');
+            const t35 = f(cualShareAt(4.5) * d.cuDemand2040, 1);
+            el.innerHTML = `
+                <h2>${t.h2}</h2>
+                <p>${t.intro}</p>
+                <div class="of-kpis">
+                    ${kpi(t.k1, f(d.now) + '<small> : 1</small>', t.k1s(d.asOf))}
+                    ${kpi(t.k2, f(d.hist) + '<small> : 1</small>', t.k2s)}
+                    ${kpi(t.k3, '3,5–4<small> : 1</small>'.replace('3,5', f(3.5)), t.k3s)}
+                    ${kpi(t.k4, '1–2<small> %</small>', t.k4s)}
+                </div>
+                <div class="cual-scale">${marks}<div class="cual-bar">${bar}</div><div class="cual-ticks">${ticks}</div><div class="cual-zones">${zones}</div></div>
+                <h3 class="rp-h3">${t.tabH}</h3>
+                <div class="table-scroll"><table class="of-table"><thead><tr>${t.cols.map((c, i) => `<th${i > 1 ? ' class="n"' : ''}>${c}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>
+                <p class="table-note">${t.tabNote}</p>
+                <div class="cual-two">
+                    <div class="rp-card"><h4>${t.whereH}</h4><ul>${t.where.map(x => `<li>${x}</li>`).join('')}</ul></div>
+                    <div class="rp-card"><h4>${t.notH}</h4><ul>${t.not.map(x => `<li>${x}</li>`).join('')}</ul></div>
+                </div>
+                <p class="table-note">${t.tech}</p>
+                <div class="rp-read"><h3 class="rp-h3">${t.readH}</h3>${t.read(t35, f(d.arPipeline, 2)).map(x => `<p>${x}</p>`).join('')}</div>
+                <div class="button-group"><button class="btn" onclick="navigateTo('prospectiva')">${t.btn}</button></div>
+                <p class="table-note">${t.src}${d.asOf}.</p>`;
         }
 
         function renderRigi() {
