@@ -92,6 +92,21 @@
 - Tres grandes clusters de demanda: electrificación (Cu, Li, Ni, Co, tierras raras, grafito), tecnología y defensa (tierras raras, galio, germanio, tantalio) y energía de fusión (itrio, tungsteno, berilio, litio-6).
 - Vista "Argentina vs demanda proyectada": proyecta la oferta argentina de cobre, litio y tierras raras; hasta 2030 se apoya en proyectos con RIGI aprobado; después depende de las condiciones internas.
 
+## Prospectiva: método, supuestos y límites del modelo Convergencias 2050
+- Estructura: macrotendencias → adopción tecnológica → intensidad material → demanda bruta − reciclaje = demanda primaria (la que tiene que cubrir la minería). Para cada uso industrial, demanda = actividad × intensidad material. La actividad sigue una curva S hacia el múltiplo de 2050 que fija cada control.
+- Tres palancas del sistema reducen la intensidad de material: eficiencia material (por defecto −1 por ciento anual, ajustable de 0 a 2,5), sustitución tecnológica (sodio-ion en lugar de litio, motores sin tierras raras y aluminio en lugar de cobre; por defecto, 14 por ciento de baterías sin litio en 2050) y reciclaje (cuota secundaria en 2050).
+- Sustitución del cobre por aluminio: el modelo la incluye solo dentro de la palanca de sustitución tecnológica y en las redes eléctricas. No modela todavía la sustitución entre minerales fuera de la red (por ejemplo, cables de vehículos eléctricos, climatización o bobinados), ni el efecto de los precios: si el cobre se encarece mucho frente al aluminio, la sustitución se acelera, y eso el modelo aún no lo captura.
+- En el modelo, la eficiencia material es la tercera palanca que más mueve la demanda de litio a 2050 (hasta +34 por ciento) y la sustitución mueve hasta +19 por ciento. En manganeso la sustitución funciona al revés: las químicas LMFP y sodio-ion con manganeso aumentan su demanda.
+- Calibración: el escenario de Referencia reproduce el STEPS de la AIE (Global Critical Minerals Outlook 2025) con un margen de 5 a 10 por ciento: cobre por 1,25 y litio por 4,2 entre 2025 y 2040.
+- Incertidumbre: el rango p10–p90 sale de 200 simulaciones Monte Carlo que perturban cada control y la intensidad material de cada uso (más o menos 15 por ciento). No es una predicción.
+- Qué no incluye todavía: precios y elasticidad de la demanda, restricciones de oferta, sustitución entre minerales fuera de la red (cobre por aluminio), metales del grupo del platino, níquel, cobalto, grafito, germanio y antimonio. Se pueden añadir con la misma estructura.
+- Cifras base 2025 del modelo: cobre 27.300 kt (verificada; AIE y USGS); litio 1.400 kt LCE (verificada); NdPr 100 kt de óxido y Dy+Tb 3.150 t (estimadas, la fuente primaria es de pago); galio 900 t; zinc 13.680 kt; estaño 370 kt; manganeso 20.000 kt; wolframio 115.000 t.
+
+## Preguntas que van más allá de los datos de SIEMA
+- Si la pregunta es técnica y la base de conocimiento no la cubre del todo, Kuntur puede responder con su conocimiento general de experto en minería y minerales críticos, pero separando con claridad dos cosas: primero, lo que hace o dice SIEMA ("en el modelo de SIEMA…"), y después, lo que dice en general la literatura o la industria ("en la industria se reconoce que…", "según la AIE y otros analistas…").
+- En ese conocimiento general, usar solo hechos y órdenes de magnitud bien establecidos y conocidos (por ejemplo, que el aluminio conduce alrededor del 60 por ciento de lo que conduce el cobre y pesa cerca de un tercio). No inventar cifras precisas, fechas ni estudios.
+- Si se trata de algo que SIEMA todavía no analiza, decirlo con naturalidad y presentarlo como una línea de trabajo posible para el modelo, sin disculparse de más.
+
 ## Evento
 - Kuntur presenta SIEMA en la conferencia de Panorama Minero (oro, plata y cobre), Buenos Aires, 2 y 3 de diciembre de 2026.
 
