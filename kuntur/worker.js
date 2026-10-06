@@ -8,6 +8,11 @@
 //   ALLOWED_ORIGIN     (Text, opcional)       por defecto https://lalolalo1234.github.io
 //   KNOWLEDGE_URL      (Text, opcional)       por defecto el conocimiento.md publicado en SIEMA
 //   MODEL              (Text, opcional)       por defecto claude-sonnet-5-5
+//   DOCS_INSTANCE      (Text, opcional)       nombre de la instancia de AI Search; por defecto kuntur-docs
+//
+// Biblioteca de documentos (opcional): en Settings → Bindings, agregar un binding
+// "AI Search" llamado DOCS, o un binding "Workers AI" llamado AI. Si no hay ninguno,
+// Kuntur funciona igual, solo con la base de conocimiento de SIEMA.
 
 const DEFAULTS = {
   ALLOWED_ORIGIN: 'https://lalolalo1234.github.io',
@@ -30,6 +35,33 @@ Cómo responder:
 - Podés tener un toque de calidez o humor breve, sin exagerar.
 
 Formato de salida obligatorio: primero la respuesta que vas a decir en voz alta. Después, en una línea aparte, exactamente la marca ###, y luego la traducción de esa misma respuesta al otro idioma (al inglés si respondiste en español, al español si respondiste en inglés), para los subtítulos. Nada más después de la traducción.`;
+
+const LIBRARY_RULES = `Además de la base de SIEMA, a veces recibís FRAGMENTOS DE LA BIBLIOTECA de Eduardo: informes propios y de terceros sobre minería y minerales críticos. Usalos así:
+- Si la pregunta la responde SIEMA, priorizá SIEMA. Usá la biblioteca para ampliar, actualizar o responder lo que SIEMA no cubre.
+- Cuando uses un dato de la biblioteca, decí de dónde sale de forma natural ("según un informe del Foro Económico Mundial de 2026", "en un estudio de la Agencia Internacional de la Energía"). Nunca leas nombres de archivo ni rutas de carpetas.
+- Si los fragmentos no tienen que ver con la pregunta, ignoralos. Si se contradicen con SIEMA, decilo y explicá la diferencia de fuente o de fecha.
+- Las cifras de la biblioteca valen tal como están en el fragmento; no las extrapoles.`;
+
+async function searchLibrary(env, messages) {
+  const users = messages.filter(m => m.role === 'user');
+  const q = users.slice(-2).map(m => m.content).join('\n').slice(-1500);
+  const name = env.DOCS_INSTANCE || 'kuntur-docs';
+  const run = async () => {
+    if (env.DOCS && typeof env.DOCS.search === 'function') {
+      const r = await env.DOCS.search({ messages: [{ role: 'user', content: q }], ai_search_options: { retrieval: { max_num_results: 6 } } });
+      return (r.chunks || []).map(c => ({ src: (c.item && c.item.key) || '', text: c.text || '', score: c.score || 0 }));
+    }
+    if (env.AI && typeof env.AI.autorag === 'function') {
+      const r = await env.AI.autorag(name).search({ query: q, max_num_results: 6, rewrite_query: true });
+      return (r.data || []).map(d => ({ src: d.filename || '', text: (d.content || []).map(c => c.text).join('\n'), score: d.score || 0 }));
+    }
+    return [];
+  };
+  try {
+    const hits = await Promise.race([run(), new Promise(res => setTimeout(() => res([]), 3500))]);
+    return hits.filter(x => x.text && x.score >= 0.3).slice(0, 6);
+  } catch (e) { return []; }
+}
 
 let knowledgeCache = { text: '', at: 0 };
 
@@ -62,7 +94,7 @@ export default {
 
     if (request.method === 'OPTIONS') return new Response(null, { headers: h });
     if (request.method === 'GET' && url.pathname === '/health') {
-      return new Response(JSON.stringify({ ok: true, key: !!env.ANTHROPIC_API_KEY, model: env.MODEL || DEFAULTS.MODEL }), { headers: { ...h, 'Content-Type': 'application/json' } });
+      return new Response(JSON.stringify({ ok: true, key: !!env.ANTHROPIC_API_KEY, library: !!(env.DOCS || env.AI), model: env.MODEL || DEFAULTS.MODEL }), { headers: { ...h, 'Content-Type': 'application/json' } });
     }
     if (request.method !== 'POST' || url.pathname !== '/ask') return new Response('Not found', { status: 404, headers: h });
     if (h['Access-Control-Allow-Origin'] !== origin) return new Response('Origen no permitido', { status: 403, headers: h });
@@ -77,7 +109,15 @@ export default {
       .map(m => ({ role: m.role, content: m.content.slice(0, 2000) }));
     if (!messages.length || messages[messages.length - 1].role !== 'user') return new Response('Falta la pregunta', { status: 400, headers: h });
 
-    const knowledge = await getKnowledge(env);
+    const [knowledge, hits] = await Promise.all([getKnowledge(env), searchLibrary(env, messages)]);
+    const system = [
+      { type: 'text', text: PERSONA },
+      { type: 'text', text: 'BASE DE CONOCIMIENTO DE SIEMA:\n\n' + knowledge, cache_control: { type: 'ephemeral' } }
+    ];
+    if (hits.length) {
+      const docs = hits.map((x, i) => `[Fragmento ${i + 1} · ${x.src.replace(/_[0-9a-f]{8}(_p\d+)?\.md$/, '').replace(/_/g, ' ')}]\n${x.text.slice(0, 2500)}`).join('\n\n');
+      system.push({ type: 'text', text: LIBRARY_RULES + '\n\nFRAGMENTOS DE LA BIBLIOTECA (relevantes para esta pregunta):\n\n' + docs });
+    }
     const upstream = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -91,10 +131,7 @@ export default {
         stream: true,
         output_config: { effort: 'low' },
         thinking: { type: 'between_tools' },
-        system: [
-          { type: 'text', text: PERSONA },
-          { type: 'text', text: 'BASE DE CONOCIMIENTO DE SIEMA:\n\n' + knowledge, cache_control: { type: 'ephemeral' } }
-        ],
+        system,
         messages
       })
     });
