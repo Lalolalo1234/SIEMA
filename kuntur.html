@@ -36,6 +36,12 @@ button{font:inherit}
 /* avatar */
 .bird{grid-row:2;grid-column:1;position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:0;z-index:2}
 .bird svg{height:100%;max-height:78vh;width:auto;overflow:visible}
+/* avatar en video (kuntur/video/*.mp4): si los archivos existen, reemplazan al dibujo */
+.bird .vids{position:relative;height:100%;max-height:78vh;aspect-ratio:var(--vid-ratio,9/16);display:none}
+.bird.has-video .vids{display:block}
+.bird.has-video svg{display:none}
+.bird video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease;border-radius:18px;-webkit-mask-image:radial-gradient(ellipse 72% 78% at 50% 48%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 72% 78% at 50% 48%,#000 62%,transparent 100%)}
+.bird video.on{opacity:1}
 /* panel */
 .panel{grid-row:2;grid-column:2;position:relative;min-height:0;z-index:2;margin:0 5vw 2vh 1vw}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
@@ -141,7 +147,8 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
     <div class="state" aria-live="polite"><i></i><span id="stateTxt">Listo</span></div>
   </header>
 
-  <div class="bird" aria-hidden="true">
+  <div class="bird" id="birdBox" aria-hidden="true">
+    <div class="vids" id="vids"></div>
     <svg id="condor" viewBox="40 70 560 640" role="img" aria-label="Kuntur, un cóndor andino">
       <defs>
         <radialGradient id="halo" cx="50%" cy="50%" r="50%">
@@ -307,7 +314,7 @@ const $ = id => document.getElementById(id);
 const stage = $('stage'), panel = $('panel'), subMain = $('subMain'), subTr = $('subTr');
 const STATE_TXT = { idle: 'Listo', listening: 'Escuchando', thinking: 'Pensando', speaking: 'Hablando', offline: 'Sin conexión' };
 let state = 'idle';
-function setState(s) { state = s; stage.dataset.state = s; $('stateTxt').textContent = STATE_TXT[s] || s; const bEs = $('bEs'), bEn = $('bEn'); if (bEs) { bEs.textContent = s === 'listening' && listenLang === 'es' ? '✔ Listo: enviar la pregunta' : '🎤 Preguntar en voz alta'; bEn.textContent = s === 'listening' && listenLang === 'en' ? '✔ Done: send the question' : '🎤 Ask in English'; } }
+function setState(s) { state = s; stage.dataset.state = s; $('stateTxt').textContent = STATE_TXT[s] || s; if (vidEls && Object.keys(vidEls).length) showVideo(s); const bEs = $('bEs'), bEn = $('bEn'); if (bEs) { bEs.textContent = s === 'listening' && listenLang === 'es' ? '✔ Listo: enviar la pregunta' : '🎤 Preguntar en voz alta'; bEn.textContent = s === 'listening' && listenLang === 'en' ? '✔ Done: send the question' : '🎤 Ask in English'; } }
 
 // ------------------------------------------------------------------
 // Escenario: estrellas, cordillera-onda y plumas del collar
@@ -474,6 +481,35 @@ const fig = (n, l, cls = '') => `<div class="fig ${cls}"><b>${n}</b><span>${l}</
 // (index.html?embed=kuntur cargado en un iframe y llevado a la pestaña y sección).
 // Para sumar una vista: agregarla a VIEWS (pestaña, sección y palabras que la activan).
 // ------------------------------------------------------------------
+
+// ------------------------------------------------------------------
+// Kuntur en video: un clip en bucle por estado (reposo, escuchando, pensando, hablando).
+// Archivos esperados en kuntur/video/: reposo.mp4, escucha.mp4, piensa.mp4, habla.mp4
+// (MP4 H.264, sin sonido, mismo encuadre). Si no están, se sigue usando el dibujo.
+// ------------------------------------------------------------------
+var VID_FILES = { idle: 'reposo', listening: 'escucha', thinking: 'piensa', speaking: 'habla' };
+var vidEls = {};
+function initVideos() {
+  const box = $('vids'); if (!box) return;
+  Object.entries(VID_FILES).forEach(([st, name]) => {
+    const v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'auto';
+    v.src = `kuntur/video/${name}.mp4`;
+    v.addEventListener('loadeddata', () => {
+      vidEls[st] = v;
+      if (st === 'idle') { if (v.videoWidth) box.style.setProperty('--vid-ratio', `${v.videoWidth}/${v.videoHeight}`); $('birdBox').classList.add('has-video'); showVideo(state); }
+    }, { once: true });
+    v.addEventListener('error', () => { v.remove(); }, { once: true });
+    box.appendChild(v);
+  });
+}
+function showVideo(st) {
+  const v = vidEls[st] || vidEls[st === 'offline' ? 'idle' : 'idle']; if (!v) return;
+  Object.values(vidEls).forEach(x => { if (x !== v) { x.classList.remove('on'); setTimeout(() => { if (!x.classList.contains('on')) x.pause(); }, 400); } });
+  if (!v.classList.contains('on')) { try { v.currentTime = 0; } catch (e) {} }
+  v.classList.add('on'); const pr = v.play(); if (pr && pr.catch) pr.catch(() => {});
+}
+
 const VIEWS = {
   eiti:        { tab: 'barometro', sel: '#gobernanzaEiti', es: 'Gobernanza · EITI', en: 'Governance · EITI', re: /\beiti\b|transparencia de las industrias|extractive industries transparency/i },
   macro:       { tab: 'barometro', sel: '#riesgoPais', es: 'Riesgo país y estabilidad macro', en: 'Country risk and macro stability', re: /riesgo pa[ií]s|estabilidad macro|\bmacro\b|calificador|calificaci[oó]n soberana|inflaci[oó]n|deuda de 2027|vencimientos|country risk|macro stability|rating agenc|inflation/i },
@@ -868,6 +904,7 @@ function wake() {
   subMain.textContent = ''; subTr.textContent = '';
   checkApi();
   initScreen();
+  initVideos();
 }
 $('startBtn').addEventListener('click', wake);
 window.kuntur = { present, ask, listen, hush, cfg, showView, pickView };
