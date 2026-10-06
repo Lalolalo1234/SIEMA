@@ -4317,10 +4317,17 @@
         // Kuntur muestra la parte de SIEMA de la que está hablando (index.html?embed=kuntur dentro de kuntur.html)
         window.siemaShow = function (tabId, sel) {
             navigateTo(tabId);
-            setTimeout(function () {
+            var go = function (smooth) {
                 var el = sel ? document.querySelector('#' + tabId + ' ' + sel) || document.querySelector(sel) : null;
+                if (el) el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+                return el;
+            };
+            // Las secciones se dibujan al abrir la pestaña: se vuelve a apuntar cuando terminan de acomodarse
+            setTimeout(function () { go(false); }, 900);
+            setTimeout(function () { go(false); }, 1800);
+            setTimeout(function () {
+                var el = go(true);
                 if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     document.querySelectorAll('.kuntur-focus').forEach(function (x) { x.classList.remove('kuntur-focus'); });
                     el.classList.add('kuntur-focus');
                     setTimeout(function () { el.classList.remove('kuntur-focus'); }, 3000);
