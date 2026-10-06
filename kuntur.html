@@ -468,7 +468,8 @@ function hush() { speakGen++; speakQueue = []; if (synth) synth.cancel(); speech
 
 // Divide en oraciones para hablar mientras llega el texto
 function splitSentences(buf) {
-  const out = []; const re = /(?:[^.!?]|[.!?](?=\S))*[.!?]+["”)]?\s+/g;  // un punto seguido de algo que no es espacio (3.9, U.S.) no corta la frase let m, last = 0;
+  // Un punto seguido de algo que no es espacio (3.9, U.S.) no corta la frase
+  const out = []; const re = /(?:[^.!?]|[.!?](?=\S))*[.!?]+["”)]?\s+/g; let m, last = 0;
   while ((m = re.exec(buf))) { if (m[0].trim().length > 1) out.push(m[0]); last = re.lastIndex; }
   return [out, buf.slice(last)];
 }
