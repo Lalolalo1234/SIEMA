@@ -1377,10 +1377,17 @@
         .ev-none { padding: 1rem; color: #667; }
         .ev-month::first-letter { text-transform: uppercase; }
         @media (max-width: 600px) { .ev-item { grid-template-columns: 4.5rem 1fr; } .ev-link { grid-column: 2; } }
-    </style>
+    
+        /* Modo pantalla de Kuntur (index.html?embed=kuntur): solo el contenido, sin cabecera ni menús */
+        html.kuntur-embed header, html.kuntur-embed .ticker-wrap, html.kuntur-embed .ticker-note,
+        html.kuntur-embed nav, html.kuntur-embed #subnav, html.kuntur-embed footer { display: none !important; }
+        html.kuntur-embed body { padding-top: 0 !important; }
+        html.kuntur-embed .kuntur-focus { outline: 3px solid #7fd3cf; outline-offset: 6px; border-radius: 10px; transition: outline-color 1s ease; }
+</style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script>if (/[?&]embed=kuntur/.test(location.search)) document.documentElement.classList.add('kuntur-embed');</script>
 </head>
 <body>
     <!-- Header -->
@@ -4306,6 +4313,20 @@
                 send(); f.addEventListener('load', send, { once: true });
             });
         }
+
+        // Kuntur muestra la parte de SIEMA de la que está hablando (index.html?embed=kuntur dentro de kuntur.html)
+        window.siemaShow = function (tabId, sel) {
+            navigateTo(tabId);
+            setTimeout(function () {
+                var el = sel ? document.querySelector('#' + tabId + ' ' + sel) || document.querySelector(sel) : null;
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.querySelectorAll('.kuntur-focus').forEach(function (x) { x.classList.remove('kuntur-focus'); });
+                    el.classList.add('kuntur-focus');
+                    setTimeout(function () { el.classList.remove('kuntur-focus'); }, 3000);
+                }
+            }, 350);
+        };
 
         function navigateTo(tabId) {
             // Un producto (grupo) abre su primera subpestaña

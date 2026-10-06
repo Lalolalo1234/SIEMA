@@ -63,6 +63,14 @@ button{font:inherit}
 .ask .q::before{content:'“';color:var(--brine)} .ask .q::after{content:'”';color:var(--brine)}
 .ask .from{color:var(--mist);margin-top:2vh;font-size:clamp(.85rem,1.1vw,1.1rem)}
 .ask .q.interim{color:var(--mist)}
+/* pantalla con la parte de SIEMA de la que habla Kuntur */
+.screen{position:absolute;inset:clamp(4rem,11vh,7rem) 0 0 0;border-radius:14px;overflow:hidden;background:#0b0f1e;border:1px solid rgba(127,211,207,.35);box-shadow:0 10px 40px rgba(0,0,0,.45);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;z-index:3}
+.screen.on{opacity:1;transform:none}
+.screen iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0;background:#fff}
+.screen .tag{position:absolute;left:.8rem;top:.7rem;z-index:2;background:rgba(10,13,26,.82);color:var(--brine);font-size:.85rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.3rem .7rem;border-radius:2rem}
+.screen .q{position:absolute;left:0;right:0;bottom:0;z-index:2;background:linear-gradient(transparent,rgba(10,13,26,.92) 35%);color:var(--salar);padding:2.2rem 1rem .8rem;font-size:clamp(.95rem,1.4vw,1.35rem);line-height:1.3}
+.screen .q:empty{display:none}
+.panel.has-screen .slide{opacity:0 !important}
 /* horizon / waveform */
 .ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:34vh;pointer-events:none;z-index:1}
 /* subtitles */
@@ -117,6 +125,7 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
   .typebox{bottom:auto;top:12vh;width:92vw}
   .start p{display:none}
 }
+@media (max-width:820px){ .panel{min-height:36vh} .screen{inset:0} }
 @media (prefers-reduced-motion:reduce){.slide{transition:none}.stage[data-state=listening] .state i{animation:none}}
 </style>
 </head>
@@ -201,7 +210,7 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
     </svg>
   </div>
 
-  <section class="panel" id="panel" aria-live="polite"></section>
+  <section class="panel" id="panel" aria-live="polite"><div class="screen" id="screen" aria-hidden="true"><iframe id="siemaFrame" title="SIEMA" tabindex="-1"></iframe><div class="tag" id="screenTag"></div><div class="q" id="screenQ"></div></div></section>
 
   <svg class="ridge" id="ridge" viewBox="0 0 1600 340" preserveAspectRatio="none" aria-hidden="true">
     <defs><linearGradient id="ridgeFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1426" stop-opacity=".0"/><stop offset=".35" stop-color="#0f1426" stop-opacity=".75"/><stop offset="1" stop-color="#0c1020" stop-opacity="1"/></linearGradient></defs>
@@ -459,6 +468,62 @@ function show(html) {
 }
 const AXES = [['Exportaciones', 'Exports', 9.0], ['Marco normativo', 'Regulatory framework', 7.2], ['Actitud mining friendly', 'Mining-friendly attitude', 7.0], ['Clima político', 'Political climate', 6.5], ['RIGI minero', 'Mining RIGI', 6.7], ['Financiamiento', 'Funding', 6.1], ['Capital humano', 'Human capital', 5.9], ['Licencia social', 'Social licence', 5.7], ['Infraestructura', 'Infrastructure', 5.3], ['Estabilidad macro', 'Macro stability', 5.0]];
 const fig = (n, l, cls = '') => `<div class="fig ${cls}"><b>${n}</b><span>${l}</span></div>`;
+
+// ------------------------------------------------------------------
+// Pantalla de SIEMA: Kuntur muestra la parte real de la web de la que habla
+// (index.html?embed=kuntur cargado en un iframe y llevado a la pestaña y sección).
+// Para sumar una vista: agregarla a VIEWS (pestaña, sección y palabras que la activan).
+// ------------------------------------------------------------------
+const VIEWS = {
+  eiti:        { tab: 'barometro', sel: '#gobernanzaEiti', es: 'Gobernanza · EITI', en: 'Governance · EITI', re: /\beiti\b|transparencia de las industrias|extractive industries transparency/i },
+  macro:       { tab: 'barometro', sel: '#riesgoPais', es: 'Riesgo país y estabilidad macro', en: 'Country risk and macro stability', re: /riesgo pa[ií]s|estabilidad macro|\bmacro\b|calificador|calificaci[oó]n soberana|inflaci[oó]n|deuda de 2027|vencimientos|country risk|macro stability|rating agenc|inflation/i },
+  licencia:    { tab: 'barometro', sel: '#licenciaSocial', es: 'Licencia social', en: 'Social licence', re: /licencia social|social licen[cs]e|comunidades|confianza en los controles|trust in (state )?oversight/i },
+  rigi:        { tab: 'rigi', sel: '#rigiDyn', es: 'RIGI minero', en: 'Mining RIGI', re: /\brigi\b|r[eé]gimen de incentivo|desembols|disburse/i },
+  mima:        { tab: 'monitor', sel: null, es: 'Monitor de Ingeniería de Minas (MIMA)', en: 'Mining Engineering Monitor (MIMA)', re: /\bmima\b|monitor de (la )?ingenier|ingenier[ií]a de minas|mining engineering monitor/i },
+  capital:     { tab: 'capital-humano', sel: null, es: 'Capital humano', en: 'Human capital', re: /capital humano|talento|human capital|talent/i },
+  externa:     { tab: 'pulsometro', sel: null, es: 'Percepción externa', en: 'External perception', re: /encuesta externa|percepci[oó]n externa|fraser|universidad de toronto|resources for the future|external survey|external perception/i },
+  brechas:     { tab: 'brechas', sel: null, es: 'Análisis de brechas', en: 'Gap analysis', re: /an[aá]lisis de brechas|\bbrechas\b|gap analysis/i },
+  prospectiva: { tab: 'prospectiva', sel: null, es: 'Prospectiva · Convergencias 2050', en: 'Foresight · Convergences 2050', re: /prospectiva|convergencias|macrotendencia|escenario|\b2050\b|foresight|convergences|megatrend|scenario/i },
+  argentina:   { tab: 'argentina', sel: null, es: 'Argentina frente a la demanda', en: 'Argentina vs projected demand', re: /tierras raras|rare earths?|demanda (mundial|global|proyectada)|cuarto productor|world demand|projected demand/i },
+  demanda:     { tab: 'demanda', sel: null, es: 'Demanda global', en: 'Global demand', re: /demanda de minerales|minerales cr[ií]ticos|critical minerals/i },
+  eventos:     { tab: 'eventos', sel: null, es: 'Eventos', en: 'Events', re: /\beventos?\b|conferencias?|congreso|events?\b|conferences?/i },
+  noticias:    { tab: 'noticias', sel: null, es: 'Noticias', en: 'News', re: /noticias|columna de opini|\bnews\b|opinion column/i },
+  infografias: { tab: 'infografias', sel: null, es: 'Infografías', en: 'Infographics', re: /infograf/i },
+  pulsometro:  { tab: 'barometro', sel: '#pulsoConsole', es: 'Pulsómetro · clima de inversión', en: 'Pulsometer · investment climate', re: /puls[oó]metro|pulsometer|clima de inversi[oó]n|investment climate|diez ejes|ten axes|\bejes?\b|infraestructura|infrastructure/i },
+  oferta:      { tab: 'oferta', sel: '#ofertaDyn', es: 'Oferta minera argentina', en: 'Argentine mining supply', re: /exportaci|exporta|producci[oó]n|cartera|proyectos? de (cobre|litio|oro|plata)|vicu[ñn]a|los azules|taca taca|pach[oó]n|\bmara\b|agua rica|\blitio\b|\bcobre\b|\boro\b|\bplata\b|export|pipeline|lithium|copper|gold|silver/i },
+  acerca:      { tab: 'acerca', sel: null, es: 'Acerca de SIEMA', en: 'About SIEMA', re: /promotor|centro argentino de ingenieros|universidad de buenos aires|argentine cent(er|re) of engineers/i },
+  consola:     { tab: 'inicio', sel: '#omaConsole', es: 'Consola SIEMA', en: 'SIEMA console', re: /consola|performance minera|performance index|\bsiema\b/i },
+  inicio:      { tab: 'inicio', sel: null, es: 'SIEMA', en: 'SIEMA', re: /(?!)/ }
+};
+const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
+let curView = null, frameReady = false, pendingView = null, viewLocked = false;
+function pickView(t) { for (const k of VIEW_ORDER) if (VIEWS[k].re.test(t || '')) return k; return null; }
+function sizeScreen() {
+  const sc = $('screen'), f = $('siemaFrame'); if (!sc || !f) return;
+  const W = window.innerWidth < 820 ? 1100 : 1280, k = (sc.clientWidth || 1) / W;
+  f.style.width = W + 'px'; f.style.height = ((sc.clientHeight || 1) / k) + 'px'; f.style.transform = `scale(${k})`;
+}
+function initScreen() {
+  const f = $('siemaFrame'); if (!f || f.getAttribute('src')) return;
+  f.addEventListener('load', () => { frameReady = true; if (pendingView) { const v = pendingView; pendingView = null; showView(v[0], v[1], true); } });
+  f.src = 'index.html?embed=kuntur';
+  window.addEventListener('resize', sizeScreen);
+}
+function showView(key, lang, force) {
+  const v = VIEWS[key]; if (!v) return;
+  lang = lang || 'es';
+  panel.classList.add('has-screen'); $('screen').classList.add('on');
+  $('screenTag').textContent = v[lang] || v.es;
+  sizeScreen();
+  if (key === curView && !force) return;
+  curView = key;
+  if (!frameReady) { pendingView = [key, lang]; initScreen(); return; }
+  try { $('siemaFrame').contentWindow.siemaShow(v.tab, v.sel); } catch (e) { console.warn('Kuntur: no se pudo mostrar la vista', key, e); }
+}
+function hideScreen() { curView = null; $('screen').classList.remove('on'); panel.classList.remove('has-screen'); }
+// En las respuestas: la vista la decide la pregunta; si la pregunta no alcanza, la primera frase que la nombre
+function cueAnswer(text, lang) { if (viewLocked) return; const k = pickView(text); if (k) { viewLocked = true; showView(k, lang); } }
+
 const V = {
   title: L => `<h2>${L === 'es' ? 'SIEMA, explicado por quien vive adentro' : 'SIEMA, explained from the inside'}</h2><p class="lead">${L === 'es' ? 'Sistema de Inteligencia Estratégica Minera Argentina' : 'Argentine Mining Strategic Intelligence System'}</p>`,
   scatter: L => `<h2>${L === 'es' ? 'Información + inteligencia + predicción' : 'Information + intelligence + prediction'}</h2><p class="lead">${L === 'es' ? 'Datos oficiales, reportes de empresas, encuestas y proyecciones, en un solo lugar y convertidos en decisiones.' : 'Official data, company reports, surveys and projections, in one place and turned into decisions.'}</p>`,
@@ -514,6 +579,7 @@ const SCRIPT = [
     es: 'SIEMA está pensado para fondos de inversión, compañías mineras, gobiernos provinciales, proveedores y organismos multilaterales. Es una iniciativa del Centro Argentino de Ingenieros, Panorama Minero y la Universidad de Buenos Aires. Mi trabajo es que cualquiera pueda preguntarle a SIEMA y recibir una respuesta con datos. Probemos. Eduardo, ¿cuál es tu primera pregunta?',
     en: 'SIEMA is designed for investment funds, mining companies, provincial governments, suppliers and multilateral organisations. It is an initiative of the Argentine Center of Engineers, Panorama Minero and the University of Buenos Aires. My job is to let anyone ask SIEMA a question and get an answer backed by data. Let us try. Eduardo, what is your first question?' }
 ];
+const STEP_VIEW = { title: null, scatter: 'inicio', trio: 'inicio', obs: 'oferta', pulse: 'pulsometro', rigi: 'rigi', pros: 'prospectiva', close: 'acerca' };
 let presenting = false, presStep = 0, presLang = 'es';
 async function present(lang) {
   hush(); const gen = ++speakGen; presenting = true; presLang = lang;
@@ -526,6 +592,8 @@ async function present(lang) {
 async function playStep(i, lang, gen) {
   const s = SCRIPT[i], other = lang === 'es' ? 'en' : 'es';
   show(V[s.v](lang));
+  $('screenQ').textContent = '';
+  if (STEP_VIEW[s.v]) showView(STEP_VIEW[s.v], lang, true); else hideScreen();
   const [sents] = splitSentences(s[lang] + ' ');
   const trs = splitSentences(s[other] + ' ')[0];
   for (let k = 0; k < sents.length; k++) {
@@ -576,6 +644,7 @@ function listen(lang) {
   let finalTxt = '', interimTxt = '', sent = false;
   const r0 = rec;
   setState('listening');
+  hideScreen();
   showQuestion('', lang, true);
   subMain.textContent = ''; subTr.textContent = lang === 'es' ? 'Te escucho. Cuando termines, tocá de nuevo el botón o presioná la misma tecla.' : 'Listening. When you finish, tap the button again or press the same key.';
   const send = () => {
@@ -631,6 +700,7 @@ const history = [];
 async function ask(q, lang) {
   hush(); const gen = ++speakGen;
   setState('thinking'); subMain.textContent = ''; subTr.textContent = '';
+  viewLocked = false; $('screenQ').textContent = q; cueAnswer(q, lang);
   history.push({ role: 'user', content: q });
   let full = '';
   if (cfg.api) {
@@ -663,7 +733,7 @@ async function askClaude(q, lang, gen) {
       if (cut >= 0) { toSplit = pending.slice(0, cut) + ' '; spokenPart = false; }
       const [sents, rest] = splitSentences(toSplit);
       pending = cut >= 0 ? '' : rest;
-      sents.forEach(s => { const gs = gen; chain = chain.then(() => { if (gs !== speakGen) return; idx++; shown = s.trim(); subMain.textContent = shown; subTr.textContent = trAt(idx); return speak(s, langOf(s, sayLang)); }); });
+      sents.forEach(s => { const gs = gen; chain = chain.then(() => { if (gs !== speakGen) return; idx++; shown = s.trim(); cueAnswer(shown, sayLang); subMain.textContent = shown; subTr.textContent = trAt(idx); return speak(s, langOf(s, sayLang)); }); });
       if (cut >= 0) { const leftover = rest.trim(); if (leftover) chain = chain.then(() => { if (gen !== speakGen) return; idx++; subMain.textContent = leftover; subTr.textContent = trAt(idx); return speak(leftover, langOf(leftover, sayLang)); }); }
     }
   }
@@ -678,6 +748,7 @@ async function speakAll(text, lang, gen) {
   const sents = sentencesOf(spoken), trs = sentencesOf(tr);
   for (let k = 0; k < sents.length; k++) {
     if (gen !== speakGen) return;
+    cueAnswer(sents[k], lang);
     subMain.textContent = sents[k];
     subTr.textContent = trs.length === sents.length ? trs[k] : (k === 0 ? (tr || '').trim() : subTr.textContent);
     await speak(sents[k], lang);
@@ -796,9 +867,10 @@ function wake() {
   show(V.title('es'));
   subMain.textContent = ''; subTr.textContent = '';
   checkApi();
+  initScreen();
 }
 $('startBtn').addEventListener('click', wake);
-window.kuntur = { present, ask, listen, hush, cfg };
+window.kuntur = { present, ask, listen, hush, cfg, showView, pickView };
 })();
 </script>
 </body>
