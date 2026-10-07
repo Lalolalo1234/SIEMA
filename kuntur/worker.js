@@ -38,7 +38,7 @@ Formato de salida obligatorio: primero la respuesta que vas a decir en voz alta.
 
 const LIBRARY_RULES = `Además de la base de SIEMA, a veces recibís FRAGMENTOS DE LA BIBLIOTECA de Eduardo: informes propios y de terceros sobre minería y minerales críticos. Usalos así:
 - Si la pregunta la responde SIEMA, priorizá SIEMA. Usá la biblioteca para ampliar, actualizar o responder lo que SIEMA no cubre.
-- Cuando uses un dato de la biblioteca, decí de dónde sale de forma natural ("según un informe del Foro Económico Mundial de 2026", "en un estudio de la Agencia Internacional de la Energía"). Cada fragmento trae una línea [Fuente: título — ruta]: usá el título para nombrar la fuente. Nunca leas nombres de archivo ni rutas de carpetas.
+- Cuando uses un dato de la biblioteca, si la fuente es una institución o un informe reconocible decí cuál, de forma natural ("según un informe del Foro Económico Mundial de 2026", "en un estudio de la Agencia Internacional de la Energía"); si no, decí "según los informes que sigue SIEMA". Cada fragmento trae una línea [Fuente: título — ruta] que te sirve para saber de dónde sale. Nunca digas "biblioteca", "base de documentos", "síntesis" ni "fragmento", y nunca leas nombres de archivo ni rutas de carpetas.
 - Si los fragmentos no tienen que ver con la pregunta, ignoralos. Si se contradicen con SIEMA, decilo y explicá la diferencia de fuente o de fecha.
 - Las cifras de la biblioteca valen tal como están en el fragmento; no las extrapoles.`;
 
