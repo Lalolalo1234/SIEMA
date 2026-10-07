@@ -37,7 +37,7 @@ Cómo responder:
 Formato de salida obligatorio: primero la respuesta que vas a decir en voz alta. Después, en una línea aparte, exactamente la marca ###, y luego la traducción de esa misma respuesta al otro idioma (al inglés si respondiste en español, al español si respondiste en inglés), para los subtítulos. Nada más después de la traducción.`;
 
 const LIBRARY_RULES = `Además de la base de SIEMA, a veces recibís FRAGMENTOS DE LA BIBLIOTECA de Eduardo: informes propios y de terceros sobre minería y minerales críticos. Usalos así:
-- Si la pregunta la responde SIEMA, priorizá SIEMA. Usá la biblioteca para ampliar, actualizar o responder lo que SIEMA no cubre.
+- Si la pregunta la responde SIEMA, priorizá SIEMA. Usá la biblioteca para ampliar, actualizar o responder lo que SIEMA no cubre, en especial novedades recientes (noticias, informes y hechos con fecha), que suelen estar solo en la biblioteca.
 - Cuando uses un dato de la biblioteca, si la fuente es una institución o un informe reconocible decí cuál, de forma natural ("según un informe del Foro Económico Mundial de 2026", "en un estudio de la Agencia Internacional de la Energía"); si no, decí "según los informes que sigue SIEMA". Cada fragmento trae una línea [Fuente: título — ruta] que te sirve para saber de dónde sale. Nunca digas "biblioteca", "base de documentos", "síntesis" ni "fragmento", y nunca leas nombres de archivo ni rutas de carpetas.
 - Si los fragmentos no tienen que ver con la pregunta, ignoralos. Si se contradicen con SIEMA, decilo y explicá la diferencia de fuente o de fecha.
 - Las cifras de la biblioteca valen tal como están en el fragmento; no las extrapoles.`;
@@ -48,18 +48,18 @@ async function searchLibrary(env, messages) {
   const name = env.DOCS_INSTANCE || 'kuntur-docs';
   const run = async () => {
     if (env.DOCS && typeof env.DOCS.search === 'function') {
-      const r = await env.DOCS.search({ messages: [{ role: 'user', content: q }], ai_search_options: { retrieval: { max_num_results: 6 } } });
+      const r = await env.DOCS.search({ messages: [{ role: 'user', content: q }], ai_search_options: { retrieval: { max_num_results: 10 } } });
       return (r.chunks || []).map(c => ({ src: (c.item && c.item.key) || '', text: c.text || '', score: c.score || 0 }));
     }
     if (env.AI && typeof env.AI.autorag === 'function') {
-      const r = await env.AI.autorag(name).search({ query: q, max_num_results: 6, rewrite_query: true });
+      const r = await env.AI.autorag(name).search({ query: q, max_num_results: 10, rewrite_query: true });
       return (r.data || []).map(d => ({ src: d.filename || '', text: (d.content || []).map(c => c.text).join('\n'), score: d.score || 0 }));
     }
     return [];
   };
   try {
     const hits = await Promise.race([run(), new Promise(res => setTimeout(() => res([]), 3500))]);
-    return hits.filter(x => x.text && x.score >= 0.3).slice(0, 6);
+    return hits.filter(x => x.text && x.score >= 0.15).slice(0, 8);
   } catch (e) { return []; }
 }
 
@@ -109,6 +109,12 @@ export default {
       .map(m => ({ role: m.role, content: m.content.slice(0, 2000) }));
     if (!messages.length || messages[messages.length - 1].role !== 'user') return new Response('Falta la pregunta', { status: 400, headers: h });
 
+    if (body.debug) {
+      // Diagnóstico: solo títulos de fuente y puntajes, sin texto ni llamada a Claude
+      const hits = await searchLibrary(env, messages);
+      const list = hits.map(x => ({ score: Math.round(x.score * 1000) / 1000, fuente: ((x.text.match(/\[Fuente: ([^\]—]+)/) || [])[1] || x.src).trim() }));
+      return new Response(JSON.stringify(list, null, 1), { headers: { ...h, 'Content-Type': 'application/json' } });
+    }
     const [knowledge, hits] = await Promise.all([getKnowledge(env), searchLibrary(env, messages)]);
     const system = [
       { type: 'text', text: PERSONA },
