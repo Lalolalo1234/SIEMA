@@ -38,7 +38,7 @@ Formato de salida obligatorio: primero la respuesta que vas a decir en voz alta.
 
 const LIBRARY_RULES = `Además de la base de SIEMA, a veces recibís FRAGMENTOS DE LA BIBLIOTECA de Eduardo: informes propios y de terceros sobre minería y minerales críticos. Usalos así:
 - Si la pregunta la responde SIEMA, priorizá SIEMA. Usá la biblioteca para ampliar, actualizar o responder lo que SIEMA no cubre.
-- Cuando uses un dato de la biblioteca, decí de dónde sale de forma natural ("según un informe del Foro Económico Mundial de 2026", "en un estudio de la Agencia Internacional de la Energía"). Nunca leas nombres de archivo ni rutas de carpetas.
+- Cuando uses un dato de la biblioteca, decí de dónde sale de forma natural ("según un informe del Foro Económico Mundial de 2026", "en un estudio de la Agencia Internacional de la Energía"). Cada fragmento trae una línea [Fuente: título — ruta]: usá el título para nombrar la fuente. Nunca leas nombres de archivo ni rutas de carpetas.
 - Si los fragmentos no tienen que ver con la pregunta, ignoralos. Si se contradicen con SIEMA, decilo y explicá la diferencia de fuente o de fecha.
 - Las cifras de la biblioteca valen tal como están en el fragmento; no las extrapoles.`;
 
@@ -115,7 +115,7 @@ export default {
       { type: 'text', text: 'BASE DE CONOCIMIENTO DE SIEMA:\n\n' + knowledge, cache_control: { type: 'ephemeral' } }
     ];
     if (hits.length) {
-      const docs = hits.map((x, i) => `[Fragmento ${i + 1} · ${x.src.replace(/_[0-9a-f]{8}(_p\d+)?\.md$/, '').replace(/_/g, ' ')}]\n${x.text.slice(0, 2500)}`).join('\n\n');
+      const docs = hits.map((x, i) => `[Fragmento ${i + 1}]\n${x.text.slice(0, 2500)}`).join('\n\n');
       system.push({ type: 'text', text: LIBRARY_RULES + '\n\nFRAGMENTOS DE LA BIBLIOTECA (relevantes para esta pregunta):\n\n' + docs });
     }
     const upstream = await fetch('https://api.anthropic.com/v1/messages', {
