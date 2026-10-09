@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Preguntale a Kuntur · SIEMA</title>
+<meta name="description" content="Registrate y hacele tu pregunta a Kuntur, el asistente de SIEMA, durante la presentación.">
+<meta name="theme-color" content="#12172b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--night:#12172b;--night2:#1b2140;--andesite:#2b3152;--salar:#eceee9;--mist:#a9b1c9;--brine:#7fd3cf;--ochre:#d6a645;--ember:#e2674f;--leaf:#8fd19e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night);color:var(--salar);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:17px;line-height:1.45}
+body{min-height:100vh;background:radial-gradient(ellipse 120% 60% at 50% 0%,#26305a 0%,var(--night2) 45%,var(--night) 100%)}
+main{max-width:30rem;margin:0 auto;padding:max(1.2rem,env(safe-area-inset-top)) 1rem max(2rem,env(safe-area-inset-bottom))}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.2rem}
+h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.75rem;line-height:1.05;margin:0}
+h1 em{font-style:normal;color:var(--brine)}
+.sub{color:var(--mist);margin:.4rem 0 0;font-size:.95rem}
+.lang{background:none;border:1px solid var(--andesite);color:var(--mist);border-radius:999px;padding:.3rem .75rem;font:inherit;font-size:.85rem;cursor:pointer;flex:none}
+.card{background:rgba(27,33,64,.85);border:1px solid var(--andesite);border-radius:14px;padding:1.1rem}
+label{display:block;font-weight:700;font-size:.92rem;margin:.9rem 0 .3rem}
+label:first-child{margin-top:0}
+label small{font-weight:400;color:var(--mist)}
+input[type=text],input[type=email],textarea{width:100%;font:inherit;color:var(--salar);background:var(--night);border:1px solid var(--andesite);border-radius:10px;padding:.7rem .8rem}
+textarea{min-height:7.5rem;resize:vertical}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--brine);outline-offset:2px}
+.check{display:flex;gap:.65rem;align-items:flex-start;margin-top:.9rem;font-size:.92rem}
+.check input{width:1.25rem;height:1.25rem;margin:.1rem 0 0;flex:none;accent-color:var(--brine)}
+.check label{margin:0;font-weight:400}
+.btn{display:block;width:100%;margin-top:1.1rem;font:inherit;font-weight:700;font-size:1.05rem;color:var(--night);background:var(--brine);border:none;border-radius:12px;padding:.85rem;cursor:pointer}
+.btn[disabled]{opacity:.55;cursor:wait}
+.link{background:none;border:none;color:var(--brine);font:inherit;text-decoration:underline;padding:0;cursor:pointer}
+.err{color:#ffb4a6;font-size:.92rem;margin:.6rem 0 0;min-height:1.2em}
+.ok{color:var(--leaf)}
+.count{display:flex;justify-content:space-between;color:var(--mist);font-size:.85rem;margin-top:.3rem}
+.priv{margin-top:1rem;font-size:.85rem;color:var(--mist)}
+.priv summary{cursor:pointer;color:var(--salar)}
+.priv p{margin:.5rem 0}
+.mine{list-style:none;padding:0;margin:1rem 0 0}
+.mine li{border-top:1px solid var(--andesite);padding:.6rem 0;font-size:.95rem}
+.tag{display:inline-block;font-size:.75rem;border-radius:999px;padding:.05rem .55rem;margin-left:.3rem;border:1px solid currentColor;vertical-align:1px}
+.t-pendiente{color:var(--mist)}.t-aprobada{color:var(--ochre)}.t-enviada,.t-respondida{color:var(--leaf)}.t-descartada{color:#8c93ab}
+.hello{font-size:1.05rem;margin:0 0 .2rem}
+.hidden{display:none}
+.closed{text-align:center;padding:1.6rem 1rem}
+.closed p{margin:.4rem 0;color:var(--mist)}
+footer{text-align:center;color:var(--mist);font-size:.8rem;margin-top:1.4rem}
+footer a{color:var(--mist)}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1 data-t="title">Preguntale a <em>Kuntur</em></h1>
+      <p class="sub" data-t="lead">El asistente de SIEMA responde en voz alta, en la pantalla, y te nombra.</p>
+    </div>
+    <button class="lang" id="lang" type="button" aria-label="Change language">EN</button>
+  </header>
+
+  <!-- 1. Registro -->
+  <section class="card" id="vReg">
+    <form id="fReg" novalidate>
+      <label for="nombre" data-t="name">Nombre y apellido</label>
+      <input id="nombre" type="text" autocomplete="name" maxlength="80" required>
+      <label for="org"><span data-t="org">Organización</span> <small data-t="opt">(opcional)</small></label>
+      <input id="org" type="text" autocomplete="organization" maxlength="120">
+      <label for="cargo"><span data-t="role">Cargo</span> <small data-t="opt">(opcional)</small></label>
+      <input id="cargo" type="text" autocomplete="organization-title" maxlength="80">
+      <label for="email" data-t="email">Correo electrónico</label>
+      <input id="email" type="email" autocomplete="email" inputmode="email" maxlength="160" required>
+      <label for="pais"><span data-t="country">País</span> <small data-t="opt">(opcional)</small></label>
+      <input id="pais" type="text" autocomplete="country-name" maxlength="60">
+      <div class="check">
+        <input id="cPriv" type="checkbox">
+        <label for="cPriv" data-t="cpriv">Leí el aviso de privacidad y acepto que el CAI guarde estos datos para gestionar mi pregunta.</label>
+      </div>
+      <div class="check">
+        <input id="cEnc" type="checkbox">
+        <label for="cEnc" data-t="cenc">Quiero que el CAI me invite a encuestas sobre el sector minero. <small>(opcional)</small></label>
+      </div>
+      <details class="priv">
+        <summary data-t="privh">Aviso de privacidad</summary>
+        <div data-t="privtxt" data-html="1"></div>
+      </details>
+      <p class="err" id="regErr" role="alert"></p>
+      <button class="btn" type="submit" id="bReg" data-t="continue">Continuar</button>
+    </form>
+  </section>
+
+  <!-- 2. Pregunta -->
+  <section class="card hidden" id="vAsk">
+    <p class="hello" id="hello"></p>
+    <form id="fAsk" novalidate>
+      <label for="texto" data-t="q">Tu pregunta para Kuntur</label>
+      <textarea id="texto" maxlength="300" required></textarea>
+      <div class="count"><span data-t="hint">Breve y concreta funciona mejor.</span><span id="cnt">0/300</span></div>
+      <p class="err" id="askErr" role="alert"></p>
+      <button class="btn" type="submit" id="bAsk" data-t="send">Enviar pregunta</button>
+    </form>
+    <ul class="mine" id="mine" aria-live="polite"></ul>
+    <p class="priv"><button class="link" type="button" id="notMe" data-t="notme">No soy yo / cambiar mis datos</button></p>
+  </section>
+
+  <!-- 3. Preguntas cerradas -->
+  <section class="card closed hidden" id="vClosed">
+    <p style="font-size:1.1rem;color:var(--salar)" data-t="closed1">Las preguntas del público todavía no están abiertas.</p>
+    <p data-t="closed2">Dejá esta página abierta: se habilita sola cuando empiece la ronda de preguntas.</p>
+  </section>
+
+  <footer><span data-t="foot">SIEMA · Sistema de Inteligencia Estratégica Minera Argentina</span> · <a href="../" target="_blank" rel="noopener">SIEMA</a></footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  // Correo del CAI para ejercer derechos sobre los datos personales.
+  var CONTACTO_CAI = 'comisionmineria@cai.org.ar';
+  var params = new URLSearchParams(location.search);
+  var API = (params.get('api') || 'https://kuntur-sala.oma-observatorio.workers.dev').replace(/\/+$/, '');
+
+  var T = {
+    es: {
+      title: 'Preguntale a <em>Kuntur</em>', lead: 'El asistente de SIEMA responde en voz alta, en la pantalla, y te nombra.',
+      name: 'Nombre y apellido', org: 'Organización', role: 'Cargo', email: 'Correo electrónico', country: 'País', opt: '(opcional)',
+      cpriv: 'Leí el aviso de privacidad y acepto que el CAI guarde estos datos para gestionar mi pregunta.',
+      cenc: 'Quiero que el CAI me invite a encuestas sobre el sector minero. <small>(opcional)</small>',
+      privh: 'Aviso de privacidad',
+      privtxt: '<p><strong>Responsable:</strong> Centro Argentino de Ingenieros (CAI).</p><p><strong>Para qué:</strong> gestionar tu pregunta en la presentación de SIEMA (Kuntur dirá tu nombre y, si la indicás, tu organización en voz alta y en la pantalla) y, solo si marcás la casilla de encuestas, invitarte a encuestas sobre el sector minero. Tu correo no se muestra en público.</p><p><strong>Datos obligatorios:</strong> nombre y correo. El resto es opcional.</p><p><strong>Tus derechos:</strong> podés pedir acceso, corrección o borrado de tus datos, o darte de baja de las encuestas, escribiendo a ' + '%C%' + '. La Agencia de Acceso a la Información Pública es la autoridad de control de la Ley 25.326 de Protección de Datos Personales.</p><p>Los datos no se venden ni se ceden a terceros.</p>',
+      continue: 'Continuar', q: 'Tu pregunta para Kuntur', hint: 'Breve y concreta funciona mejor.', send: 'Enviar pregunta',
+      notme: 'No soy yo / cambiar mis datos', hello: n => '¡Hola, ' + n + '!',
+      closed1: 'Las preguntas del público todavía no están abiertas.', closed2: 'Dejá esta página abierta: se habilita sola cuando empiece la ronda de preguntas.',
+      foot: 'SIEMA · Sistema de Inteligencia Estratégica Minera Argentina',
+      e_nombre: 'Escribí tu nombre.', e_email: 'Revisá el correo: no parece válido.', e_privacidad: 'Para continuar tenés que aceptar el aviso de privacidad.',
+      e_texto: 'Escribí una pregunta un poco más larga.', e_cerrada: 'La ronda de preguntas está cerrada en este momento.',
+      e_limite: 'Ya enviaste el máximo de preguntas. ¡Gracias!', e_registro: 'Tu registro expiró: volvé a ingresar tus datos.', e_red: 'No hay conexión. Probá de nuevo en unos segundos.',
+      sent: 'Recibida. El moderador elige las preguntas: si la tuya pasa, Kuntur la responde en pantalla.',
+      left: n => n === 1 ? 'Te queda 1 pregunta más.' : 'Te quedan ' + n + ' preguntas más.',
+      st: { pendiente: 'en espera', aprobada: 'en cola', enviada: 'en pantalla', respondida: 'respondida', descartada: 'no seleccionada' }
+    },
+    en: {
+      title: 'Ask <em>Kuntur</em>', lead: 'SIEMA’s assistant answers out loud, on screen, and calls you by name.',
+      name: 'Full name', org: 'Organisation', role: 'Position', email: 'Email', country: 'Country', opt: '(optional)',
+      cpriv: 'I have read the privacy notice and agree that CAI stores this data to handle my question.',
+      cenc: 'I would like CAI to invite me to surveys about the mining sector. <small>(optional)</small>',
+      privh: 'Privacy notice',
+      privtxt: '<p><strong>Controller:</strong> Centro Argentino de Ingenieros (CAI).</p><p><strong>Purpose:</strong> to handle your question during the SIEMA presentation (Kuntur will say your name and, if given, your organisation out loud and on screen) and, only if you tick the survey box, to invite you to surveys about the mining sector. Your email is never shown in public.</p><p><strong>Required data:</strong> name and email. Everything else is optional.</p><p><strong>Your rights:</strong> you can request access, correction or deletion of your data, or unsubscribe from surveys, by writing to ' + '%C%' + '. Argentina’s Agency for Access to Public Information is the supervisory authority under Personal Data Protection Law 25,326.</p><p>Your data is not sold or shared with third parties.</p>',
+      continue: 'Continue', q: 'Your question for Kuntur', hint: 'Short and specific works best.', send: 'Send question',
+      notme: 'Not me / change my details', hello: n => 'Hi, ' + n + '!',
+      closed1: 'Audience questions are not open yet.', closed2: 'Keep this page open: it will unlock by itself when the Q&A starts.',
+      foot: 'SIEMA · Argentine Mining Strategic Intelligence System',
+      e_nombre: 'Please enter your name.', e_email: 'Please check your email address.', e_privacidad: 'You need to accept the privacy notice to continue.',
+      e_texto: 'Please write a slightly longer question.', e_cerrada: 'The Q&A is closed right now.',
+      e_limite: 'You have sent the maximum number of questions. Thank you!', e_registro: 'Your registration expired: please enter your details again.', e_red: 'No connection. Please try again in a few seconds.',
+      sent: 'Received. The moderator picks the questions: if yours is chosen, Kuntur answers it on screen.',
+      left: n => n === 1 ? 'You can send 1 more question.' : 'You can send ' + n + ' more questions.',
+      st: { pendiente: 'waiting', aprobada: 'queued', enviada: 'on screen', respondida: 'answered', descartada: 'not selected' }
+    }
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+    del: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+  };
+  var lang = params.get('lang') === 'en' || (!params.get('lang') && store.get('ks_lang') === 'en') || (!params.get('lang') && !store.get('ks_lang') && /^en/i.test(navigator.language || '')) ? 'en' : 'es';
+  var token = store.get('ks_token'), nombre = store.get('ks_nombre') || '';
+  var abierta = false;
+
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function applyLang() {
+    var t = T[lang];
+    document.documentElement.lang = lang;
+    $('lang').textContent = lang === 'es' ? 'EN' : 'ES';
+    document.querySelectorAll('[data-t]').forEach(function (el) {
+      var v = t[el.getAttribute('data-t')];
+      if (typeof v !== 'string') return;
+      if (el.getAttribute('data-t') === 'privtxt') v = v.replace('%C%', esc(CONTACTO_CAI));
+      if (/<[a-z]/i.test(v)) el.innerHTML = v; else el.textContent = v;
+    });
+    if (nombre) $('hello').textContent = t.hello(nombre);
+    renderMine(lastMine);
+  }
+  $('lang').addEventListener('click', function () { lang = lang === 'es' ? 'en' : 'es'; store.set('ks_lang', lang); applyLang(); });
+
+  function api(path, data) {
+    return fetch(API + path, data ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) } : {})
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: 'red' }; }); });
+  }
+  function show(view) { ['vReg', 'vAsk', 'vClosed'].forEach(function (v) { $(v).classList.toggle('hidden', v !== view); }); }
+  function route() {
+    if (!token) return show('vReg');
+    show(abierta ? 'vAsk' : 'vClosed');
+    if (abierta) { $('hello').textContent = T[lang].hello(nombre); loadMine(); }
+  }
+
+  // Registro
+  $('fReg').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var t = T[lang], err = $('regErr');
+    err.textContent = '';
+    var data = { nombre: $('nombre').value, organizacion: $('org').value, cargo: $('cargo').value, email: $('email').value, pais: $('pais').value,
+      acepta_privacidad: $('cPriv').checked, acepta_encuestas: $('cEnc').checked, idioma: lang };
+    if (data.nombre.trim().length < 2) { err.textContent = t.e_nombre; $('nombre').focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email.trim())) { err.textContent = t.e_email; $('email').focus(); return; }
+    if (!data.acepta_privacidad) { err.textContent = t.e_privacidad; return; }
+    $('bReg').disabled = true;
+    api('/registro', data).then(function (r) {
+      $('bReg').disabled = false;
+      if (!r.ok) { err.textContent = t['e_' + r.error] || t.e_red; return; }
+      token = r.token; nombre = r.nombre;
+      store.set('ks_token', token); store.set('ks_nombre', nombre);
+      route();
+    }).catch(function () { $('bReg').disabled = false; err.textContent = t.e_red; });
+  });
+
+  // Pregunta
+  $('texto').addEventListener('input', function () { $('cnt').textContent = this.value.length + '/300'; });
+  $('fAsk').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var t = T[lang], err = $('askErr');
+    err.classList.remove('ok'); err.textContent = '';
+    var texto = $('texto').value.trim();
+    if (texto.length < 5) { err.textContent = t.e_texto; return; }
+    $('bAsk').disabled = true;
+    api('/pregunta', { token: token, texto: texto, idioma: lang }).then(function (r) {
+      $('bAsk').disabled = false;
+      if (!r.ok) {
+        if (r.error === 'registro') { store.del('ks_token'); token = null; route(); $('regErr').textContent = t.e_registro; return; }
+        if (r.error === 'cerrada') { abierta = false; route(); return; }
+        err.textContent = t['e_' + r.error] || t.e_red; return;
+      }
+      $('texto').value = ''; $('cnt').textContent = '0/300';
+      err.classList.add('ok');
+      err.textContent = t.sent + (r.restantes > 0 ? ' ' + t.left(r.restantes) : '');
+      if (r.restantes <= 0) $('bAsk').disabled = true;
+      loadMine();
+    }).catch(function () { $('bAsk').disabled = false; err.textContent = t.e_red; });
+  });
+
+  var lastMine = [];
+  function renderMine(list) {
+    lastMine = list || [];
+    var st = T[lang].st;
+    $('mine').innerHTML = lastMine.map(function (q) { return '<li>' + esc(q.texto) + ' <span class="tag t-' + esc(q.estado) + '">' + esc(st[q.estado] || q.estado) + '</span></li>'; }).join('');
+  }
+  function loadMine() {
+    if (!token) return;
+    api('/mis-preguntas', { token: token }).then(function (r) {
+      if (r.ok) { renderMine(r.preguntas); $('bAsk').disabled = r.preguntas.length >= r.max; if (r.preguntas.length >= r.max) $('askErr').textContent = T[lang].e_limite; }
+      else if (r.error === 'registro') { store.del('ks_token'); token = null; route(); }
+    }).catch(function () {});
+  }
+  $('notMe').addEventListener('click', function () { store.del('ks_token'); store.del('ks_nombre'); token = null; nombre = ''; renderMine([]); route(); });
+
+  // Estado de la ronda de preguntas (se consulta cada 10 segundos)
+  function poll() {
+    api('/estado').then(function (r) {
+      if (r.ok && r.abierta !== abierta) { abierta = r.abierta; route(); }
+      else if (r.ok && abierta && token) loadMine();
+    }).catch(function () {});
+  }
+  applyLang();
+  route();
+  poll();
+  setInterval(poll, 10000);
+})();
+</script>
+</body>
+</html>

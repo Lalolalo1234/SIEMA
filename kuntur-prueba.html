@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuntur · PRUEBA preguntas del público</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Kuntur, el asistente de SIEMA que presenta la plataforma y responde preguntas en voz alta. Funciona con Claude, de Anthropic.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#12172b; --night2:#1b2140; --andesite:#2b3152; --salar:#eceee9; --mist:#a9b1c9;
+  --brine:#7fd3cf; --ochre:#d6a645; --ember:#e2674f; --leaf:#8fd19e;
+  --sub-size:clamp(1.25rem,2.6vw,2.6rem);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--night);color:var(--salar);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;overflow:hidden}
+button{font:inherit}
+.stage{position:fixed;inset:0;display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);grid-template-rows:auto 1fr auto;
+  background:radial-gradient(ellipse 80% 70% at 28% 45%,#26305a 0%,var(--night2) 45%,var(--night) 100%)}
+/* stars */
+.stars{position:absolute;inset:0;pointer-events:none;opacity:.55}
+/* header */
+.plate{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-start;padding:2.2vh 3vw 0;z-index:3}
+.who strong{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1.4rem,2.6vw,2.6rem);letter-spacing:-.01em;line-height:1}
+.who span{display:block;color:var(--mist);font-size:clamp(.8rem,1.1vw,1.1rem);margin-top:.35rem}
+.who em{font-style:normal;color:var(--brine)}
+.state{display:flex;align-items:center;gap:.6rem;color:var(--mist);font-size:clamp(.8rem,1.05vw,1.05rem)}
+.state i{width:.7rem;height:.7rem;border-radius:50%;background:var(--mist);display:inline-block;transition:background .3s}
+.stage[data-state=listening] .state i{background:var(--brine);box-shadow:0 0 0 0 var(--brine);animation:ping 1.2s infinite}
+.stage[data-state=thinking] .state i{background:var(--ochre)}
+.stage[data-state=speaking] .state i{background:var(--leaf)}
+.stage[data-state=offline] .state i{background:var(--ember)}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(127,211,207,.6)}100%{box-shadow:0 0 0 .9rem rgba(127,211,207,0)}}
+/* avatar */
+.bird{grid-row:2;grid-column:1;position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:0;z-index:2}
+.bird svg{height:100%;max-height:78vh;width:auto;overflow:visible}
+/* avatar en video (kuntur/video/*.mp4): si los archivos existen, reemplazan al dibujo */
+.bird .vids{position:relative;height:100%;max-height:78vh;max-width:100%;aspect-ratio:var(--vid-ratio,9/16);display:none}
+.bird.has-video .vids{display:block}
+.bird.has-video svg{display:none}
+.bird video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease;border-radius:18px;-webkit-mask-image:radial-gradient(ellipse 66% 72% at 50% 42%,#000 48%,transparent 96%);mask-image:radial-gradient(ellipse 66% 72% at 50% 42%,#000 48%,transparent 96%)}
+.bird video.on{opacity:1}
+/* subtítulos: solo la traducción (la voz ya dice el texto en su idioma) y más lugar para la pantalla de SIEMA */
+.stage .subs .main{display:none}
+.stage .subs{min-height:0;padding:.4vh 6vw 2.6vh}
+.stage .subs .tr{font-size:calc(var(--sub-size)*.78);color:var(--salar);font-style:normal;margin-top:0;max-width:62ch}
+@media (min-width:821px){
+  .stage{grid-template-columns:minmax(0,24fr) minmax(0,76fr)}
+  .panel{margin:0 2.5vw 1.5vh 0}
+}
+/* panel */
+.panel{grid-row:2;grid-column:2;position:relative;min-height:0;z-index:2;margin:0 5vw 2vh 1vw}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.slide.on{opacity:1;transform:none;transition-delay:.25s}
+.slide.gone{opacity:0;transition:opacity .25s ease}
+.slide h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(1.6rem,3.3vw,3.6rem);line-height:1.05;margin:0 0 2.4vh;letter-spacing:-.015em;max-width:18ch}
+.slide p.lead{font-size:clamp(1rem,1.6vw,1.6rem);line-height:1.45;color:var(--mist);margin:0 0 2.6vh;max-width:34ch}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:2.4vh 2.4vw}
+.fig b{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(2rem,4.4vw,4.8rem);line-height:1;color:var(--salar);letter-spacing:-.02em}
+.fig b small{white-space:nowrap;font-size:.42em;font-weight:500;color:var(--mist);letter-spacing:0;margin-left:.15em}
+.fig span{display:block;color:var(--mist);font-size:clamp(.85rem,1.15vw,1.2rem);margin-top:.5vh;line-height:1.35;max-width:24ch}
+.fig.warm b{color:var(--ochre)} .fig.cool b{color:var(--brine)}
+.trio{display:grid;gap:2.2vh}
+.trio div{padding-left:1.2vw;border-left:3px solid var(--brine)}
+.trio div:nth-child(2){border-color:var(--ochre)} .trio div:nth-child(3){border-color:var(--leaf)}
+.trio strong{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.3rem,2.3vw,2.4rem)}
+.trio span{color:var(--mist);font-size:clamp(.95rem,1.35vw,1.4rem)}
+.axes{display:grid;gap:1.05vh;max-width:40rem}
+.ax{display:grid;grid-template-columns:12rem 1fr 3rem;align-items:center;gap:.8rem;font-size:clamp(.8rem,1.1vw,1.15rem)}
+.ax .bar{height:.75rem;background:rgba(255,255,255,.08);border-radius:.4rem;overflow:hidden}
+.ax .bar i{display:block;height:100%;border-radius:.4rem;background:var(--leaf)}
+.ax.w .bar i{background:var(--ochre)} .ax.c .bar i{background:var(--ember)}
+.ax b{text-align:right;font-variant-numeric:tabular-nums}
+.ask .q{font-size:clamp(1.3rem,2.4vw,2.6rem);line-height:1.3;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;max-width:28ch}
+.ask .q::before{content:'“';color:var(--brine)} .ask .q::after{content:'”';color:var(--brine)}
+.ask .from{color:var(--mist);margin-top:2vh;font-size:clamp(.85rem,1.1vw,1.1rem)}
+.ask .q.interim{color:var(--mist)}
+/* pantalla con la parte de SIEMA de la que habla Kuntur */
+.screen{position:absolute;inset:clamp(3.6rem,8.5vh,6rem) 0 0 0;border-radius:14px;overflow:hidden;background:#0b0f1e;border:1px solid rgba(127,211,207,.35);box-shadow:0 10px 40px rgba(0,0,0,.45);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;z-index:3}
+.screen.on{opacity:1;transform:none}
+.screen iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0;background:#fff}
+.screen .tag{position:absolute;left:.8rem;top:.7rem;z-index:2;background:rgba(10,13,26,.82);color:var(--brine);font-size:.85rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.3rem .7rem;border-radius:2rem}
+.screen .q{position:absolute;left:0;right:0;bottom:0;z-index:2;background:linear-gradient(transparent,rgba(10,13,26,.92) 35%);color:var(--salar);padding:2.2rem 1rem .8rem;font-size:clamp(.95rem,1.4vw,1.35rem);line-height:1.3}
+.screen .q:empty{display:none}
+.panel.has-screen .slide{opacity:0 !important}
+/* horizon / waveform */
+.ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:34vh;pointer-events:none;z-index:1}
+/* subtitles */
+.subs{grid-column:1/-1;grid-row:3;padding:0 6vw 4.5vh;min-height:20vh;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;z-index:3}
+.subs .main{font-size:var(--sub-size);line-height:1.3;max-width:52ch;text-wrap:balance;text-shadow:0 2px 12px rgba(10,12,25,.9)}
+.subs .tr{font-size:calc(var(--sub-size)*.62);line-height:1.35;color:var(--brine);max-width:70ch;margin-top:.8vh;text-wrap:balance;text-shadow:0 2px 10px rgba(10,12,25,.9);font-style:italic}
+/* controls (visible on hover or with H) */
+.dock{position:fixed;right:3vw;top:7vh;flex-wrap:wrap;justify-content:flex-end;max-width:46vw;display:flex;gap:.5rem;z-index:5;opacity:.45;transition:opacity .3s}
+body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
+.dock button{background:rgba(255,255,255,.08);color:var(--salar);border:1px solid rgba(255,255,255,.18);border-radius:2rem;padding:.45rem .9rem;cursor:pointer;font-size:.85rem}
+.dock button:hover{background:rgba(255,255,255,.16)}
+.dock button:focus-visible,.sheet button:focus-visible,.sheet input:focus-visible,.sheet select:focus-visible{outline:2px solid var(--brine);outline-offset:2px}
+.typebox{position:fixed;left:50%;bottom:24vh;transform:translateX(-50%);width:min(52rem,86vw);z-index:6;display:none}
+.typebox.on{display:block}
+.typebox input{width:100%;font:inherit;font-size:1.3rem;padding:.9rem 1.2rem;border-radius:.8rem;border:1px solid var(--brine);background:rgba(18,23,43,.95);color:var(--salar)}
+.sheet{position:fixed;inset:0;background:rgba(10,13,26,.88);z-index:8;display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+.sheet.on{display:flex}
+.sheet .card{background:var(--night2);border:1px solid var(--andesite);border-radius:1rem;padding:2rem 2.2rem;max-width:46rem;width:100%;max-height:92vh;overflow:auto}
+.sheet h3{font-family:'Bricolage Grotesque',sans-serif;margin:0 0 1rem;font-size:1.6rem}
+.sheet label{display:block;margin:1rem 0 .3rem;color:var(--mist);font-size:.95rem}
+.sheet input,.sheet select{width:100%;font:inherit;padding:.55rem .7rem;border-radius:.5rem;border:1px solid var(--andesite);background:var(--night);color:var(--salar)}
+.sheet .row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem}
+.sheet button{background:var(--brine);color:var(--night);border:0;border-radius:.5rem;padding:.55rem 1rem;cursor:pointer;font-weight:700}
+.sheet button.ghost{background:transparent;color:var(--salar);border:1px solid var(--andesite)}
+.sheet table{width:100%;border-collapse:collapse;margin-top:.5rem;font-size:.98rem}
+.sheet td{padding:.35rem .4rem;border-bottom:1px solid var(--andesite);vertical-align:top}
+.sheet td:first-child{white-space:nowrap;color:var(--brine);font-weight:700;width:8.5rem}
+.sheet .note{color:var(--mist);font-size:.9rem;line-height:1.45;margin-top:1rem}
+.status-line{font-size:.9rem;color:var(--mist);margin-top:.6rem;min-height:1.2em}
+.qrov{position:fixed;inset:0;z-index:7;display:none;align-items:center;justify-content:center;background:rgba(10,13,26,.78)}
+.qrov.on{display:flex}
+.qrov .card{background:var(--night2);border:1px solid rgba(127,211,207,.45);border-radius:1.4rem;padding:3.5vh 3.5vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);max-width:92vw}
+.qrov h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1.6rem,3.6vw,3.4rem);margin:0 0 .3em;line-height:1.05}
+.qrov h2 em{font-style:normal;color:var(--brine)}
+.qrov p{color:var(--mist);font-size:clamp(1rem,1.7vw,1.6rem);margin:.5em 0 0}
+.qrov .code{display:inline-block;background:#fff;padding:2vh;border-radius:1rem;margin:2.5vh 0 1vh;line-height:0}
+.qrov .code img,.qrov .code canvas{width:min(46vh,70vw)!important;height:min(46vh,70vw)!important}
+.pubtag{position:fixed;right:1.2vw;bottom:1.2vh;z-index:6;font-size:.85rem;color:var(--night);background:var(--brine);border-radius:999px;padding:.2rem .7rem;display:none}
+.pubtag.on{display:block}
+.start{position:fixed;inset:0;z-index:9;display:flex;align-items:center;justify-content:center;background:rgba(10,13,26,.6)}
+.start button{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.2rem,2vw,1.8rem);font-weight:700;background:var(--brine);color:var(--night);border:0;border-radius:3rem;padding:1rem 2.4rem;cursor:pointer}
+.start p{position:absolute;bottom:8vh;color:var(--mist);text-align:center;width:100%;font-size:1rem}
+@media (max-width:820px){
+  .panel{margin:0}
+  .slide{position:relative;inset:auto}
+  .slide.gone{display:none}
+  .stage{grid-template-columns:1fr;grid-template-rows:auto 42vh auto auto}
+  .panel{grid-row:3;grid-column:1;padding:2vh 6vw}
+  .subs{grid-row:4}
+  .ax{grid-template-columns:8rem 1fr 2.4rem}
+}
+/* Teléfono o tableta: botones siempre visibles abajo, para usar sin teclado */
+@media (hover:none),(max-width:820px){
+  .dock{opacity:1;top:auto;right:0;left:0;bottom:0;max-width:none;justify-content:center;padding:.6rem .6rem calc(.6rem + env(safe-area-inset-bottom));background:rgba(10,13,26,.92);border-top:1px solid rgba(255,255,255,.12)}
+  .dock button{font-size:1rem;padding:.7rem 1rem}
+  .dock #bEs{background:var(--brine);color:var(--night);border-color:var(--brine);font-weight:700;flex:1 1 100%;order:-1}
+  .dock #bHelp{display:none}
+  .stage{padding-bottom:14rem;overflow-y:auto;grid-template-rows:auto 28vh auto auto;--sub-size:1.15rem}
+  .stage>.panel{grid-row:3}
+  .subs{grid-row:4;min-height:0;padding:1.2rem 5vw 1rem;justify-content:flex-start}
+  .ridge{height:18vh}
+  .typebox{bottom:auto;top:12vh;width:92vw}
+  .start p{display:none}
+}
+@media (max-width:820px){ .panel{min-height:36vh} .screen{inset:0} }
+@media (prefers-reduced-motion:reduce){.slide{transition:none}.stage[data-state=listening] .state i{animation:none}}
+</style>
+</head>
+<body>
+<div class="stage" id="stage" data-state="idle">
+  <svg class="stars" id="stars" aria-hidden="true"></svg>
+
+  <header class="plate">
+    <div class="who">
+      <strong>Kuntur</strong>
+      <span id="whoLine">Asistente de SIEMA. Funciona con <em>Claude</em>, de Anthropic</span>
+    </div>
+    <div class="state" aria-live="polite"><i></i><span id="stateTxt">Listo</span></div>
+  </header>
+
+  <div class="bird" id="birdBox" aria-hidden="true">
+    <div class="vids" id="vids"></div>
+    <svg id="condor" viewBox="40 70 560 640" role="img" aria-label="Kuntur, un cóndor andino">
+      <defs>
+        <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#7fd3cf" stop-opacity=".28"/><stop offset=".6" stop-color="#7fd3cf" stop-opacity=".06"/><stop offset="1" stop-color="#7fd3cf" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#8a6a6c"/><stop offset=".55" stop-color="#6b5157"/><stop offset="1" stop-color="#4c3a42"/>
+        </linearGradient>
+        <linearGradient id="beakG" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#bfae94"/><stop offset=".35" stop-color="#efe5cf"/><stop offset="1" stop-color="#d9c9a8"/>
+        </linearGradient>
+        <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#262a3e"/><stop offset="1" stop-color="#121524"/>
+        </linearGradient>
+        <radialGradient id="iris" cx="45%" cy="40%" r="60%">
+          <stop offset="0" stop-color="#f2c56b"/><stop offset=".7" stop-color="#b9772f"/><stop offset="1" stop-color="#6e3f1a"/>
+        </radialGradient>
+        <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+      </defs>
+      <circle id="haloC" cx="320" cy="300" r="250" fill="url(#halo)"/>
+      <!-- body -->
+      <g id="body">
+        <path d="M70,710 C80,585 170,505 320,500 C470,505 560,585 570,710 Z" fill="url(#bodyG)"/>
+        <path d="M96,710 C104,640 140,590 196,556 C176,610 168,660 172,710 Z" fill="#9aa1b4" opacity=".55"/>
+        <path d="M544,710 C536,640 500,590 444,556 C464,610 472,660 468,710 Z" fill="#9aa1b4" opacity=".55"/>
+        <g stroke="#c9ced9" stroke-width="2" fill="none" opacity=".45"><path d="M118,700 C126,650 150,612 186,584"/><path d="M140,705 C146,662 162,628 190,604"/><path d="M522,700 C514,650 490,612 454,584"/><path d="M500,705 C494,662 478,628 450,604"/></g>
+        <g stroke="#3a3f5a" stroke-width="2" fill="none" opacity=".8">
+          <path d="M180,640 q20,-30 45,-38"/><path d="M215,680 q22,-40 55,-50"/><path d="M460,640 q-20,-30 -45,-38"/><path d="M425,680 q-22,-40 -55,-50"/>
+          <path d="M300,700 q8,-45 22,-70"/><path d="M345,700 q-6,-45 -20,-70"/>
+        </g>
+      </g>
+      <!-- neck + head (moves together) -->
+      <g id="head" style="transform-origin:320px 470px">
+        <path d="M268,470 C262,430 262,395 272,362 L372,356 C384,392 386,430 378,470 Z" fill="url(#skin)"/>
+        <g stroke="#5a434a" stroke-width="2" fill="none" opacity=".7"><path d="M282,400 q20,6 40,0"/><path d="M286,425 q22,6 44,-1"/><path d="M290,448 q20,5 40,0"/></g>
+        <!-- ruff -->
+        <g id="ruff"></g>
+        <!-- skull -->
+        <path d="M232,318 C220,252 262,196 330,192 C392,190 432,222 438,262 C444,298 430,330 408,346 C372,374 270,378 232,318 Z" fill="url(#skin)"/>
+        <!-- caruncle (comb) -->
+        <path d="M262,214 C262,182 290,166 306,184 C316,164 344,166 348,186 C362,174 384,186 380,204 C394,202 402,216 394,226 C356,214 300,214 262,214 Z" fill="#3b2b33"/>
+        <path d="M268,212 C280,200 300,196 318,200" stroke="#5c4450" stroke-width="3" fill="none"/>
+        <!-- cheek wrinkles -->
+        <g stroke="#5c464e" stroke-width="2" fill="none" opacity=".55"><path d="M330,212 q14,-4 28,2"/><path d="M392,226 q8,6 10,16"/><path d="M398,300 q-10,10 -26,14"/></g>
+        <!-- mouth interior -->
+        <path id="mouthIn" d="M402,282 L470,286 L466,300 L404,302 Z" fill="#2a1219"/>
+        <!-- lower mandible -->
+        <g id="jaw" style="transform-origin:404px 288px">
+          <path d="M402,286 L468,290 C466,300 452,307 434,307 L404,303 Z" fill="#cdbb98"/>
+          <path d="M404,303 L434,307" stroke="#a8956f" stroke-width="2"/>
+        </g>
+        <!-- upper beak -->
+        <path d="M398,246 C440,238 478,250 494,276 C502,290 498,306 484,308 C484,296 474,288 456,287 L400,290 Z" fill="url(#beakG)"/>
+        <path d="M398,246 C410,244 420,244 428,246 L428,289 L400,290 Z" fill="#5e4b46"/>
+        <circle cx="440" cy="262" r="3.2" fill="#3a2b2a"/>
+        <!-- eye -->
+        <g id="eye">
+          <circle cx="362" cy="252" r="21" fill="#3b2a30"/>
+          <circle cx="362" cy="252" r="14" fill="url(#iris)"/>
+          <circle id="pupil" cx="361" cy="252" r="6.2" fill="#140c10"/>
+          <circle id="glint" cx="366" cy="247" r="3" fill="#fff" opacity=".9"/>
+          <path id="lid" d="M340,252 C340,228 384,228 384,252 Z" fill="#6b5157" transform="scale(1,0)" style="transform-origin:362px 230px"/>
+          <path d="M340,252 C346,236 378,234 384,248" stroke="#2c1f25" stroke-width="2.5" fill="none"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <section class="panel" id="panel" aria-live="polite"><div class="screen" id="screen" aria-hidden="true"><iframe id="siemaFrame" title="SIEMA" tabindex="-1"></iframe><div class="tag" id="screenTag"></div><div class="q" id="screenQ"></div></div></section>
+
+  <svg class="ridge" id="ridge" viewBox="0 0 1600 340" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="ridgeFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1426" stop-opacity=".0"/><stop offset=".35" stop-color="#0f1426" stop-opacity=".75"/><stop offset="1" stop-color="#0c1020" stop-opacity="1"/></linearGradient></defs>
+    <path id="ridgeArea" fill="url(#ridgeFill)"/>
+    <path id="ridgeLine" fill="none" stroke="#7fd3cf" stroke-width="2" stroke-opacity=".8"/>
+  </svg>
+
+  <div class="subs" aria-live="polite">
+    <div class="main" id="subMain"></div>
+    <div class="tr" id="subTr"></div>
+  </div>
+</div>
+
+<div class="dock" id="dock">
+  <button type="button" id="bPres">Presentar</button>
+  <button type="button" id="bEs">🎤 Preguntar en voz alta</button>
+  <button type="button" id="bEn">🎤 Ask in English</button>
+  <button type="button" id="bNew">👤 Nueva persona</button>
+  <button type="button" id="bQr">📱 QR del público</button>
+  <button type="button" id="bType">Escribir pregunta</button>
+  <button type="button" id="bStop">Callar</button>
+  <button type="button" id="bSet">Ajustes</button>
+  <button type="button" id="bHelp">Atajos</button>
+</div>
+
+<div class="qrov" id="qrov" role="dialog" aria-label="QR para preguntas del público">
+  <div class="card">
+    <h2 id="qrH">Preguntale a <em>Kuntur</em></h2>
+    <p id="qrP">Escaneá el código, registrate y escribí tu pregunta.</p>
+    <div class="code" id="qrCode"></div>
+    <p id="qrUrl" style="font-size:clamp(.8rem,1.1vw,1.1rem)"></p>
+  </div>
+</div>
+<div class="pubtag" id="pubtag">Preguntas del público activas</div>
+
+<div class="typebox" id="typebox"><input id="typeIn" type="text" enterkeyhint="send" placeholder="Escribí la pregunta y presioná Enter" aria-label="Pregunta escrita"></div>
+
+<div class="sheet" id="helpSheet" role="dialog" aria-modal="true" aria-labelledby="helpH">
+  <div class="card">
+    <h3 id="helpH">Atajos de teclado</h3>
+    <table>
+      <tr><td>P</td><td>Presentar SIEMA en español, con subtítulos en inglés</td></tr>
+      <tr><td>Mayús + P</td><td>Presentar en inglés, con subtítulos en español</td></tr>
+      <tr><td>Espacio</td><td>Escuchar una pregunta en español. Las pausas no la cortan: presioná Espacio de nuevo, o Enter, al terminar (o esperá unos segundos de silencio)</td></tr>
+      <tr><td>E</td><td>Escuchar una pregunta en inglés (se termina igual: E de nuevo o Enter)</td></tr>
+      <tr><td>N</td><td>Nueva persona: Kuntur olvida la conversación anterior, saluda, pide el nombre y escucha (Mayús + N en inglés)</td></tr>
+      <tr><td>Q</td><td>Mostrar u ocultar el QR para que el público pregunte desde el teléfono. Kuntur toma solas las preguntas que apruebes en el panel del moderador, cuando termina de hablar</td></tr>
+      <tr><td>T</td><td>Escribir una pregunta (por ejemplo, una del público)</td></tr>
+      <tr><td>Esc</td><td>Callar a Kuntur o cerrar esta ventana</td></tr>
+      <tr><td>→</td><td>Saltar a la siguiente parte de la presentación</td></tr>
+      <tr><td>F</td><td>Pantalla completa</td></tr>
+      <tr><td>S</td><td>Ajustes: voces, velocidad y conexión</td></tr>
+      <tr><td>H</td><td>Mostrar u ocultar estos atajos</td></tr>
+    </table>
+    <p class="note">Usá Microsoft Edge o Google Chrome. Edge trae voces naturales gratuitas en español e inglés que suenan mucho mejor. El micrófono necesita permiso la primera vez.</p>
+    <div class="row"><button type="button" data-close>Cerrar</button></div>
+  </div>
+</div>
+
+<div class="sheet" id="setSheet" role="dialog" aria-modal="true" aria-labelledby="setH">
+  <div class="card">
+    <h3 id="setH">Ajustes de Kuntur</h3>
+    <label for="sApi">Dirección del servicio de respuestas (Cloudflare)</label>
+    <input id="sApi" type="url" placeholder="https://kuntur.tu-cuenta.workers.dev">
+    <div class="status-line" id="apiStatus"></div>
+    <label for="sSala">Servicio de preguntas del público (Cloudflare)</label>
+    <input id="sSala" type="url" placeholder="https://kuntur-sala.tu-cuenta.workers.dev">
+    <label for="sSalaKey">Clave del moderador (para que Kuntur tome las preguntas aprobadas)</label>
+    <input id="sSalaKey" type="password" autocomplete="off">
+    <div class="status-line" id="salaStatus"></div>
+    <label for="sVes">Voz en español</label>
+    <select id="sVes"></select>
+    <label for="sVen">Voz en inglés</label>
+    <select id="sVen"></select>
+    <label for="sRate">Velocidad de habla</label>
+    <input id="sRate" type="range" min="0.75" max="1.25" step="0.05" value="1">
+    <label for="sPitch">Tono</label>
+    <input id="sPitch" type="range" min="0.7" max="1.3" step="0.05" value="1">
+    <div class="row">
+      <button type="button" id="tEs">Probar voz en español</button>
+      <button type="button" id="tEn">Probar voz en inglés</button>
+      <button type="button" id="tApi" class="ghost">Probar conexión</button>
+      <button type="button" data-close class="ghost">Cerrar</button>
+    </div>
+    <p class="note">Sin dirección de servicio, o si falla internet, Kuntur responde en modo sin conexión con respuestas preparadas sobre los temas principales de SIEMA. Los ajustes se guardan en este navegador.</p>
+  </div>
+</div>
+
+<div class="start" id="start">
+  <button type="button" id="startBtn">Encender a Kuntur</button>
+  <p>Presioná H para ver los atajos de teclado</p>
+</div>
+
+<script>
+(() => {
+'use strict';
+// ------------------------------------------------------------------
+// Ajustes (se guardan en este navegador si es posible)
+// ------------------------------------------------------------------
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('kuntur.' + k); return v === null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('kuntur.' + k, v); } catch (e) {} }
+};
+const params = new URLSearchParams(location.search);
+const cfg = {
+  api: (params.get('api') || store.get('api', '') || 'https://kuntur.oma-observatorio.workers.dev').replace(/\/+$/, ''),
+  ves: store.get('ves', ''), ven: store.get('ven', ''),
+  rate: +store.get('rate', '1'), pitch: +store.get('pitch', '1'),
+  sala: (params.get('sala') || store.get('sala', '') || 'https://kuntur-sala.oma-observatorio.workers.dev').replace(/\/+$/, ''),
+  salaKey: store.get('salaKey', '')
+};
+if (params.get('sala')) store.set('sala', cfg.sala);
+if (params.get('api')) store.set('api', cfg.api);
+
+const $ = id => document.getElementById(id);
+const stage = $('stage'), panel = $('panel'), subMain = $('subMain'), subTr = $('subTr');
+const STATE_TXT = { idle: 'Listo', listening: 'Escuchando', thinking: 'Pensando', speaking: 'Hablando', offline: 'Sin conexión' };
+let state = 'idle';
+function setState(s) { state = s; stage.dataset.state = s; $('stateTxt').textContent = STATE_TXT[s] || s; if (vidEls && Object.keys(vidEls).length) showVideo(s); const bEs = $('bEs'), bEn = $('bEn'); if (bEs) { bEs.textContent = s === 'listening' && listenLang === 'es' ? '✔ Listo: enviar la pregunta' : '🎤 Preguntar en voz alta'; bEn.textContent = s === 'listening' && listenLang === 'en' ? '✔ Done: send the question' : '🎤 Ask in English'; } }
+
+// ------------------------------------------------------------------
+// Escenario: estrellas, cordillera-onda y plumas del collar
+// ------------------------------------------------------------------
+(function stars() {
+  const svg = $('stars'); const W = window.innerWidth, H = window.innerHeight;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  let s = '';
+  for (let i = 0; i < 140; i++) { const x = Math.random() * W, y = Math.random() * H * .62, r = Math.random() * 1.3 + .2; s += `<circle cx="${x}" cy="${y}" r="${r}" fill="#dfe6ff" opacity="${(Math.random() * .7 + .2).toFixed(2)}"/>`; }
+  svg.innerHTML = s;
+})();
+(function ruff() {
+  const g = $('ruff'); let s = '';
+  for (let i = 0; i < 26; i++) {
+    const a = Math.PI * (i / 25), x = 320 - Math.cos(a) * 128, y = 478 + Math.sin(a) * 26 - 8;
+    s += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${22 + (i % 3) * 3}" ry="${17 + (i % 2) * 4}" fill="${i % 2 ? '#f1f1ee' : '#e3e5e4'}"/>`;
+  }
+  for (let i = 0; i < 18; i++) { const x = 205 + i * 13.5, y = 462 + Math.sin(i) * 4; s += `<ellipse cx="${x}" cy="${y}" rx="16" ry="13" fill="#f6f6f3"/>`; }
+  g.innerHTML = s;
+})();
+// Perfil de la cordillera (cumbres fijas) + onda de voz
+const RIDGE_N = 160, ridgeBase = [];
+(function () {
+  const peaks = [[.04, .55], [.11, .35], [.17, .6], [.26, .22], [.33, .5], [.41, .3], [.5, .58], [.57, .18], [.64, .45], [.72, .28], [.8, .55], [.88, .32], [.96, .5]];
+  for (let i = 0; i <= RIDGE_N; i++) {
+    const t = i / RIDGE_N; let y = .75;
+    peaks.forEach(([px, py]) => { const d = Math.abs(t - px); y = Math.min(y, py + d * 4.2); });
+    ridgeBase.push(y);
+  }
+})();
+let voiceLevel = 0, voiceTarget = 0;
+function drawRidge(time) {
+  let line = '', area = '';
+  for (let i = 0; i <= RIDGE_N; i++) {
+    const x = i / RIDGE_N * 1600;
+    const wob = voiceLevel * (Math.sin(i * .55 + time * .018) * .5 + Math.sin(i * 1.7 - time * .031) * .35 + Math.sin(i * .21 + time * .007) * .3);
+    const y = 120 + ridgeBase[i] * 200 - wob * 52;
+    line += (i ? ' L' : 'M') + x.toFixed(1) + ',' + y.toFixed(1);
+  }
+  area = line + ' L1600,340 L0,340 Z';
+  $('ridgeLine').setAttribute('d', line);
+  $('ridgeArea').setAttribute('d', area);
+}
+
+// ------------------------------------------------------------------
+// Animación del cóndor
+// ------------------------------------------------------------------
+const head = $('head'), jaw = $('jaw'), mouthIn = $('mouthIn'), lid = $('lid'), pupil = $('pupil'), glint = $('glint'), haloC = $('haloC');
+let mouth = 0, mouthTarget = 0, nextBlink = performance.now() + 2500, blinkT = -1, gaze = 0, gazeTarget = 0, nextGaze = performance.now() + 4000;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function frame(t) {
+  // pico: apertura procedimental mientras habla, empujada por los límites de palabra
+  if (state === 'speaking' && speechActive) {
+    const syll = (Math.sin(t * .045) * .5 + .5) * (Math.sin(t * .013 + 1.3) * .35 + .65);
+    mouthTarget = Math.max(mouthTarget * .9, .15 + syll * .75);
+    voiceTarget = .55 + syll * .45;
+  } else { mouthTarget *= .82; voiceTarget = state === 'listening' ? .25 + Math.sin(t * .006) * .1 : 0; }
+  mouth += (mouthTarget - mouth) * .35;
+  voiceLevel += (voiceTarget - voiceLevel) * .08;
+  jaw.style.transform = `rotate(${(mouth * 16).toFixed(2)}deg)`;
+  mouthIn.style.opacity = Math.min(1, mouth * 2.2).toFixed(2);
+  // cabeza: respiración, inclinación al escuchar, énfasis al hablar
+  const breathe = reduceMotion ? 0 : Math.sin(t * .0016) * 3;
+  const tilt = state === 'listening' ? -7 : state === 'thinking' ? 4 + Math.sin(t * .002) * 2 : (reduceMotion ? 0 : Math.sin(t * .0011) * 1.6) + mouth * 2.5;
+  head.style.transform = `translateY(${breathe.toFixed(2)}px) rotate(${tilt.toFixed(2)}deg)`;
+  // mirada: al público casi siempre, a veces hacia la pantalla
+  if (t > nextGaze) { gazeTarget = Math.random() < .3 ? 3.2 : (Math.random() < .5 ? -1.6 : 0); nextGaze = t + 2500 + Math.random() * 4000; }
+  gaze += (gazeTarget - gaze) * .08;
+  pupil.setAttribute('cx', (361 + gaze).toFixed(2)); glint.setAttribute('cx', (366 + gaze).toFixed(2));
+  // parpadeo
+  if (t > nextBlink && blinkT < 0) blinkT = t;
+  if (blinkT >= 0) {
+    const p = (t - blinkT) / 170; const s = p < .5 ? p * 2 : 2 - p * 2;
+    lid.setAttribute('transform', `scale(1,${Math.max(0, s).toFixed(2)})`);
+    if (p >= 1) { blinkT = -1; lid.setAttribute('transform', 'scale(1,0)'); nextBlink = t + 2200 + Math.random() * 4200; }
+  }
+  // halo según estado
+  const hs = state === 'listening' ? 1.08 + Math.sin(t * .006) * .04 : state === 'speaking' ? 1 + voiceLevel * .08 : 1;
+  haloC.setAttribute('r', (250 * hs).toFixed(1));
+  drawRidge(t);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+// ------------------------------------------------------------------
+// Voz (síntesis del navegador, oración por oración)
+// ------------------------------------------------------------------
+const synth = window.speechSynthesis;
+let voices = [], speechActive = false, speakQueue = [], speakGen = 0;
+// Kuntur es un cóndor macho: se prefieren voces masculinas y se evitan las femeninas conocidas
+const MALE_VOICE = /\b(tom[aá]s|jorge|juan|diego|carlos|pablo|[aá]lvaro|ra[uú]l|enrique|gonzalo|alonso|jos[eé]|gerardo|alberto|dario|dar[ií]o|lorenzo|federico|daniel|fred|alex|aaron|arthur|gordon|guy|ryan|eric|christopher|andrew|brian|davis|tony|roger|ralph|oliver|george|thomas|william|liam|reed|rishi|eddy|rocko|grandpa|male|hombre|masculin)(?![a-z])/i;
+const FEMALE_VOICE = /\b(elena|m[oó]nica|paulina|helena|laura|sabina|dalia|elvira|ximena|francisca|marisol|camila|luc[ií]a|isabela|valentina|esperanza|samantha|karen|moira|tessa|victoria|fiona|susan|zira|aria|jenny|sonia|libby|emma|ava|allison|salli|joanna|kendra|kimberly|catherine|serena|martha|nicky|flo|sandy|shelley|grandma|female|mujer|femenin)(?![a-z])/i;
+const isMaleVoice = v => !!v && MALE_VOICE.test(v.name) && !FEMALE_VOICE.test(v.name);
+function rankVoice(v, lang) {
+  const n = (v.name + ' ' + v.voiceURI).toLowerCase(); let s = 0;
+  if (!v.lang.toLowerCase().startsWith(lang)) return -1;
+  if (MALE_VOICE.test(v.name) && !FEMALE_VOICE.test(v.name)) s += 100;
+  else if (FEMALE_VOICE.test(v.name) || /google (español|espanol)|google us english|google uk english female/i.test(v.name)) s -= 60;
+  if (/natural|online|neural/.test(n)) s += 50;
+  if (/google/.test(n)) s += 20;
+  if (lang === 'es') { if (/es-ar/i.test(v.lang)) s += 15; else if (/es-(us|mx|419)/i.test(v.lang)) s += 10; }
+  if (lang === 'en') { if (/en-(us|gb)/i.test(v.lang)) s += 8; }
+  if (v.localService === false) s += 3;
+  return s;
+}
+function bestVoice(lang) {
+  const want = lang === 'es' ? cfg.ves : cfg.ven;
+  const named = voices.find(v => v.voiceURI === want);
+  if (named && !FEMALE_VOICE.test(named.name)) return named;
+  return voices.filter(v => rankVoice(v, lang) >= 0).sort((a, b) => rankVoice(b, lang) - rankVoice(a, lang))[0] || null;
+}
+function loadVoices() {
+  if (!synth) return;
+  voices = synth.getVoices();
+  ['es', 'en'].forEach(lang => {
+    const sel = $(lang === 'es' ? 'sVes' : 'sVen'); const cur = bestVoice(lang);
+    sel.innerHTML = voices.filter(v => rankVoice(v, lang) >= 0).sort((a, b) => rankVoice(b, lang) - rankVoice(a, lang))
+      .map(v => `<option value="${v.voiceURI}"${cur && v.voiceURI === cur.voiceURI ? ' selected' : ''}>${v.name} (${v.lang})</option>`).join('') || '<option value="">Sin voces en este idioma</option>';
+  });
+}
+if (synth) { loadVoices(); synth.onvoiceschanged = loadVoices; }
+
+function cleanForSpeech(s) {
+  return s.replace(/US\$\s?/g, '').replace(/\bkt\b/g, 'mil toneladas').replace(/[*_#>`]/g, '').replace(/\s+/g, ' ').trim();
+}
+function speak(text, lang) {
+  return new Promise(resolve => {
+    if (!synth || !text.trim()) return resolve();
+    const u = new SpeechSynthesisUtterance(cleanForSpeech(text));
+    const v = bestVoice(lang); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = lang === 'es' ? 'es-AR' : 'en-US';
+    u.rate = cfg.rate; u.pitch = isMaleVoice(v) ? cfg.pitch : Math.min(cfg.pitch, 0.75);  // sin voz masculina disponible: tono más grave
+    u.onstart = () => { speechActive = true; setState('speaking'); };
+    u.onboundary = () => { mouthTarget = 1; };
+    const done = () => { speechActive = false; resolve(); };
+    u.onend = done; u.onerror = done;
+    // Chrome corta frases largas: un respaldo por tiempo
+    const guard = setTimeout(done, 4000 + text.length * 110);
+    u.onend = () => { clearTimeout(guard); done(); };
+    synth.speak(u);
+  });
+}
+function hush() { speakGen++; speakQueue = []; if (synth) synth.cancel(); speechActive = false; if (state === 'speaking' || state === 'thinking') setState('idle'); presenting = false; }
+
+// Divide en oraciones para hablar mientras llega el texto
+function splitSentences(buf) {
+  // Un punto seguido de algo que no es espacio (3.9, U.S.) no corta la frase
+  const out = []; const re = /(?:[^.!?]|[.!?](?=\S))*[.!?]+["”)]?\s+/g; let m, last = 0;
+  while ((m = re.exec(buf))) { if (m[0].trim().length > 1) out.push(m[0]); last = re.lastIndex; }
+  return [out, buf.slice(last)];
+}
+
+// ------------------------------------------------------------------
+// Paneles visuales
+// ------------------------------------------------------------------
+function show(html) {
+  panel.querySelectorAll('.slide').forEach(old => { old.classList.remove('on'); old.classList.add('gone'); setTimeout(() => old.remove(), 650); });
+  const el = document.createElement('div'); el.className = 'slide'; el.innerHTML = html;
+  panel.appendChild(el); requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
+}
+const AXES = [['Exportaciones', 'Exports', 9.0], ['Marco normativo', 'Regulatory framework', 7.2], ['Actitud mining friendly', 'Mining-friendly attitude', 7.0], ['Clima político', 'Political climate', 6.5], ['RIGI minero', 'Mining RIGI', 6.7], ['Financiamiento', 'Funding', 6.1], ['Capital humano', 'Human capital', 5.9], ['Licencia social', 'Social licence', 5.7], ['Infraestructura', 'Infrastructure', 5.3], ['Estabilidad macro', 'Macro stability', 5.0]];
+const fig = (n, l, cls = '') => `<div class="fig ${cls}"><b>${n}</b><span>${l}</span></div>`;
+
+// ------------------------------------------------------------------
+// Pantalla de SIEMA: Kuntur muestra la parte real de la web de la que habla
+// (index.html?embed=kuntur cargado en un iframe y llevado a la pestaña y sección).
+// Para sumar una vista: agregarla a VIEWS (pestaña, sección y palabras que la activan).
+// ------------------------------------------------------------------
+
+// ------------------------------------------------------------------
+// Kuntur en video: un clip en bucle por estado (reposo, escuchando, pensando, hablando).
+// Archivos esperados en kuntur/video/: reposo.mp4, escucha.mp4, piensa.mp4, habla.mp4
+// (MP4 H.264, sin sonido, mismo encuadre). Si no están, se sigue usando el dibujo.
+// ------------------------------------------------------------------
+var VID_FILES = { idle: 'reposo', listening: 'escucha', thinking: 'piensa', speaking: 'habla' };
+var vidEls = {};
+function initVideos() {
+  const box = $('vids'); if (!box) return;
+  Object.entries(VID_FILES).forEach(([st, name]) => {
+    const v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'auto';
+    v.src = `kuntur/video/${name}.mp4`;
+    v.addEventListener('loadeddata', () => {
+      vidEls[st] = v;
+      if (st === 'idle') { if (v.videoWidth) box.style.setProperty('--vid-ratio', `${v.videoWidth}/${v.videoHeight}`); $('birdBox').classList.add('has-video'); showVideo(state); }
+    }, { once: true });
+    v.addEventListener('error', () => { v.remove(); }, { once: true });
+    box.appendChild(v);
+  });
+}
+function showVideo(st) {
+  const v = vidEls[st] || vidEls[st === 'offline' ? 'idle' : 'idle']; if (!v) return;
+  Object.values(vidEls).forEach(x => { if (x !== v) { x.classList.remove('on'); setTimeout(() => { if (!x.classList.contains('on')) x.pause(); }, 400); } });
+  if (!v.classList.contains('on')) { try { v.currentTime = 0; } catch (e) {} }
+  v.classList.add('on'); const pr = v.play(); if (pr && pr.catch) pr.catch(() => {});
+}
+
+const VIEWS = {
+  eiti:        { tab: 'barometro', sel: '#gobernanzaEiti', es: 'Gobernanza · EITI', en: 'Governance · EITI', re: /\beiti\b|transparencia de las industrias|extractive industries transparency/i },
+  macro:       { tab: 'barometro', sel: '#riesgoPais', es: 'Riesgo país y estabilidad macro', en: 'Country risk and macro stability', re: /riesgo pa[ií]s|estabilidad macro|\bmacro\b|calificador|calificaci[oó]n soberana|inflaci[oó]n|deuda de 2027|vencimientos|country risk|macro stability|rating agenc|inflation/i },
+  licencia:    { tab: 'barometro', sel: '#licenciaSocial', es: 'Licencia social', en: 'Social licence', re: /licencia social|social licen[cs]e|comunidades|confianza en los controles|trust in (state )?oversight/i },
+  rigi:        { tab: 'rigi', sel: '#rigiDyn', es: 'RIGI minero', en: 'Mining RIGI', re: /\brigi\b|r[eé]gimen de incentivo|desembols|disburse/i },
+  mima:        { tab: 'monitor', sel: null, es: 'Monitor de Ingeniería de Minas (MIMA)', en: 'Mining Engineering Monitor (MIMA)', re: /\bmima\b|monitor de (la )?ingenier|ingenier[ií]a de minas|mining engineering monitor/i },
+  capital:     { tab: 'capital-humano', sel: null, es: 'Capital humano', en: 'Human capital', re: /capital humano|talento|human capital|talent/i },
+  externa:     { tab: 'pulsometro', sel: null, es: 'Percepción externa', en: 'External perception', re: /encuesta externa|percepci[oó]n externa|fraser|universidad de toronto|resources for the future|external survey|external perception/i },
+  brechas:     { tab: 'brechas', sel: null, es: 'Análisis de brechas', en: 'Gap analysis', re: /an[aá]lisis de brechas|\bbrechas\b|gap analysis/i },
+  cual:        { tab: 'demanda', sel: '#cualDyn', es: 'Relación de precios cobre/aluminio', en: 'Copper/aluminium price ratio', re: /alumin|sustituci[oó]n del cobre|relaci[oó]n (de precios )?cobre|copper substitution|copper.aluminium ratio/i },
+  prospectiva: { tab: 'prospectiva', sel: null, es: 'Prospectiva · Convergencias 2050', en: 'Foresight · Convergences 2050', re: /prospectiva|convergencias|macrotendencia|escenario|\b2050\b|foresight|convergences|megatrend|scenario/i },
+  argentina:   { tab: 'argentina', sel: null, es: 'Argentina frente a la demanda', en: 'Argentina vs projected demand', re: /tierras raras|rare earths?|demanda (mundial|global|proyectada)|cuarto productor|world demand|projected demand/i },
+  demanda:     { tab: 'demanda', sel: null, es: 'Demanda global', en: 'Global demand', re: /demanda de minerales|minerales cr[ií]ticos|critical minerals/i },
+  eventos:     { tab: 'eventos', sel: null, es: 'Eventos', en: 'Events', re: /\beventos?\b|conferencias?|congreso|events?\b|conferences?/i },
+  noticias:    { tab: 'noticias', sel: null, es: 'Noticias', en: 'News', re: /noticias|columna de opini|\bnews\b|opinion column/i },
+  infografias: { tab: 'infografias', sel: null, es: 'Infografías', en: 'Infographics', re: /infograf/i },
+  pulsometro:  { tab: 'barometro', sel: '#pulsoConsole', es: 'Pulsómetro · clima de inversión', en: 'Pulsometer · investment climate', re: /puls[oó]metro|pulsometer|clima de inversi[oó]n|investment climate|diez ejes|ten axes|\bejes?\b|infraestructura|infrastructure/i },
+  oferta:      { tab: 'oferta', sel: '#ofertaDyn', es: 'Oferta minera argentina', en: 'Argentine mining supply', re: /exportaci|exporta|producci[oó]n|cartera|proyectos? de (cobre|litio|oro|plata)|vicu[ñn]a|los azules|taca taca|pach[oó]n|\bmara\b|agua rica|\blitio\b|\bcobre\b|\boro\b|\bplata\b|export|pipeline|lithium|copper|gold|silver/i },
+  acerca:      { tab: 'acerca', sel: null, es: 'Acerca de SIEMA', en: 'About SIEMA', re: /promotor|centro argentino de ingenieros|universidad de buenos aires|argentine cent(er|re) of engineers/i },
+  consola:     { tab: 'inicio', sel: '#omaConsole', es: 'Consola SIEMA', en: 'SIEMA console', re: /consola|performance minera|performance index|\bsiema\b/i },
+  inicio:      { tab: 'inicio', sel: null, es: 'SIEMA', en: 'SIEMA', re: /(?!)/ }
+};
+const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
+let curView = null, frameReady = false, pendingView = null, viewLocked = false;
+function pickView(t) { for (const k of VIEW_ORDER) if (VIEWS[k].re.test(t || '')) return k; return null; }
+function sizeScreen() {
+  const sc = $('screen'), f = $('siemaFrame'); if (!sc || !f) return;
+  const W = window.innerWidth < 820 ? 1100 : 1280, k = (sc.clientWidth || 1) / W;
+  f.style.width = W + 'px'; f.style.height = ((sc.clientHeight || 1) / k) + 'px'; f.style.transform = `scale(${k})`;
+}
+function initScreen() {
+  const f = $('siemaFrame'); if (!f || f.getAttribute('src')) return;
+  f.addEventListener('load', () => { frameReady = true; if (pendingView) { const v = pendingView; pendingView = null; showView(v[0], v[1], true); } });
+  f.src = 'index.html?embed=kuntur';
+  window.addEventListener('resize', sizeScreen);
+}
+function showView(key, lang, force) {
+  const v = VIEWS[key]; if (!v) return;
+  lang = lang || 'es';
+  panel.classList.add('has-screen'); $('screen').classList.add('on');
+  $('screenTag').textContent = v[lang] || v.es;
+  sizeScreen();
+  if (key === curView && !force) return;
+  curView = key;
+  if (!frameReady) { pendingView = [key, lang]; initScreen(); return; }
+  try { $('siemaFrame').contentWindow.siemaShow(v.tab, v.sel); } catch (e) { console.warn('Kuntur: no se pudo mostrar la vista', key, e); }
+}
+function hideScreen() { curView = null; $('screen').classList.remove('on'); panel.classList.remove('has-screen'); }
+// En las respuestas: la vista la decide la pregunta; si la pregunta no alcanza, la primera frase que la nombre
+function cueAnswer(text, lang) { if (viewLocked) return; const k = pickView(text); if (k) { viewLocked = true; showView(k, lang); } }
+
+const V = {
+  title: L => `<h2>${L === 'es' ? 'SIEMA, explicado por quien vive adentro' : 'SIEMA, explained from the inside'}</h2><p class="lead">${L === 'es' ? 'Sistema de Inteligencia Estratégica Minera Argentina' : 'Argentine Mining Strategic Intelligence System'}</p>`,
+  scatter: L => `<h2>${L === 'es' ? 'Información + inteligencia + predicción' : 'Information + intelligence + prediction'}</h2><p class="lead">${L === 'es' ? 'Datos oficiales, reportes de empresas, encuestas y proyecciones, en un solo lugar y convertidos en decisiones.' : 'Official data, company reports, surveys and projections, in one place and turned into decisions.'}</p>`,
+  trio: L => `<h2>${L === 'es' ? 'Tres productos' : 'Three products'}</h2><div class="trio">
+      <div><strong>Observatorio</strong><span>${L === 'es' ? 'Qué está pasando' : 'What is happening'}</span></div>
+      <div><strong>${L === 'es' ? 'Pulsómetro' : 'Pulsometer'}</strong><span>${L === 'es' ? 'Cómo está el sector hoy' : 'How the sector is doing today'}</span></div>
+      <div><strong>${L === 'es' ? 'Prospectiva' : 'Foresight'}</strong><span>${L === 'es' ? 'Qué ocurrirá hasta 2050' : 'What will happen to 2050'}</span></div></div>`,
+  obs: L => `<h2>Observatorio</h2><div class="figs">
+      ${fig('6.071<small>M US$</small>', L === 'es' ? 'Exportaciones mineras 2025, récord' : 'Mining exports 2025, a record')}
+      ${fig('+65,7<small>%</small>', L === 'es' ? 'Enero a agosto 2026 contra 2025' : 'January to August 2026 vs 2025', 'cool')}
+      ${fig('+190<small>%</small>', L === 'es' ? 'Crecimiento del litio exportado' : 'Growth in lithium exports', 'cool')}
+      ${fig('325', L === 'es' ? 'Proyectos en la cartera oficial' : 'Projects in the official pipeline')}</div>`,
+  pulse: L => `<h2>${L === 'es' ? 'Pulsómetro: 6,4 sobre 10' : 'Pulsometer: 6.4 out of 10'}</h2><div class="axes">${AXES.map(a => `<div class="ax ${a[2] < 6 ? 'c' : a[2] < 7 ? 'w' : ''}"><span>${L === 'es' ? a[0] : a[1]}</span><div class="bar"><i style="width:${a[2] * 10}%"></i></div><b>${L === 'es' ? String(a[2].toFixed(1)).replace('.', ',') : a[2].toFixed(1)}</b></div>`).join('')}</div>`,
+  rigi: L => `<h2>${L === 'es' ? 'RIGI minero' : 'Mining RIGI'}</h2><div class="figs">
+      ${fig('13', L === 'es' ? 'Proyectos mineros de producción aprobados' : 'Approved mining production projects')}
+      ${fig('25.230<small>M US$</small>', L === 'es' ? 'Inversión anunciada, cuatro veces y media más que hace un año' : 'Announced investment, four and a half times a year ago', 'cool')}
+      ${fig('6.069<small>M US$</small>', L === 'es' ? 'Obligación con fecha cierta en dos años' : 'Firm-date obligation within two years')}
+      ${fig('625<small>M US$</small>', L === 'es' ? 'Desembolso identificado a la fecha' : 'Disbursement identified so far', 'warm')}</div>`,
+  pros: L => `<h2>${L === 'es' ? 'Prospectiva: Convergencias 2050' : 'Foresight: Convergences 2050'}</h2><div class="figs">
+      ${fig('3<small>%</small>', L === 'es' ? 'De la demanda mundial de cobre de 2040 que podría cubrir la cartera argentina' : 'Of 2040 world copper demand Argentina\'s pipeline could cover', 'cool')}
+      ${fig('4.º', L === 'es' ? 'Productor mundial de litio' : 'World lithium producer')}
+      ${fig('600<small>kt</small>', L === 'es' ? 'Meta de litio hacia 2036' : 'Lithium target by 2036', 'cool')}
+      ${fig('8', L === 'es' ? 'Macrotendencias que mueven la demanda' : 'Megatrends driving demand')}</div>`,
+  close: L => `<h2>${L === 'es' ? 'Para quién' : 'Who it is for'}</h2><p class="lead">${L === 'es' ? 'Fondos de inversión, compañías mineras, gobiernos provinciales, proveedores estratégicos y organismos multilaterales.' : 'Investment funds, mining companies, provincial governments, strategic suppliers and multilateral organisations.'}</p><p class="lead">${L === 'es' ? 'Una iniciativa del CAI, Panorama Minero y la UBA.' : 'An initiative of CAI, Panorama Minero and UBA.'}</p>`
+};
+
+// ------------------------------------------------------------------
+// Guion de la presentación (español e inglés)
+// ------------------------------------------------------------------
+const SCRIPT = [
+  { v: 'title',
+    es: 'Buenas tardes. Soy Kuntur, el asistente de SIEMA. Kuntur quiere decir cóndor en quechua: miro la cordillera desde arriba. Funciono con Claude, una inteligencia artificial de Anthropic. En los próximos minutos les cuento qué es SIEMA, y después Eduardo me va a hacer preguntas. Sin guion.',
+    en: 'Good afternoon. I am Kuntur, the SIEMA assistant. Kuntur means condor in Quechua: I look at the mountains from above. I run on Claude, an artificial intelligence made by Anthropic. In the next few minutes I will tell you what SIEMA is, and then Eduardo will ask me questions. No script.' },
+  { v: 'scatter',
+    es: 'La minería argentina vive un momento extraordinario. Pero la información para decidir está dispersa: datos oficiales, reportes de empresas, encuestas y proyecciones que no siempre coinciden. SIEMA las reúne en un solo lugar y las convierte en inteligencia para decidir.',
+    en: 'Argentine mining is going through an extraordinary moment. But the information needed to decide is scattered: official data, company reports, surveys and projections that do not always agree. SIEMA brings them together in one place and turns them into intelligence for decisions.' },
+  { v: 'trio',
+    es: 'SIEMA tiene tres productos. El Observatorio cuenta qué está pasando. El Pulsómetro mide cómo está el sector hoy. Y la Prospectiva proyecta qué puede ocurrir hasta 2050.',
+    en: 'SIEMA has three products. The Observatory tells what is happening. The Pulsometer measures how the sector is doing today. And Foresight projects what may happen up to 2050.' },
+  { v: 'obs',
+    es: 'Empecemos por lo que está pasando. En 2025 las exportaciones mineras fueron récord: seis mil setenta millones de dólares. Y entre enero y agosto de este año crecieron sesenta y cinco por ciento, con el litio casi triplicándose. Detrás hay una cartera oficial de trescientos veinticinco proyectos.',
+    en: 'Let us start with what is happening. In 2025 mining exports hit a record: six billion seventy million dollars. Between January and August this year they grew sixty-five percent, with lithium almost tripling. Behind that there is an official pipeline of three hundred and twenty-five projects.' },
+  { v: 'pulse',
+    es: 'El Pulsómetro resume el clima de inversión en diez ejes. Hoy marca seis coma cuatro sobre diez, más de un punto mejor que hace un año. Las exportaciones y el marco normativo empujan. Pero cuatro ejes siguen en alerta: licencia social, infraestructura, estabilidad macro y capital humano. Ahí está el trabajo pendiente.',
+    en: 'The Pulsometer sums up the investment climate in ten axes. Today it reads six point four out of ten, more than a point better than a year ago. Exports and the regulatory framework are pushing up. But four axes are still on alert: social licence, infrastructure, macro stability and human capital. That is where the work lies.' },
+  { v: 'rigi',
+    es: 'Uno de esos ejes es el RIGI minero. Hay trece proyectos de producción aprobados, por más de veinticinco mil millones de dólares: cuatro veces y media más que hace un año. Pero aprobado no es desembolsado. Hasta ahora identificamos unos seiscientos veinticinco millones invertidos. El grueso llega entre 2027 y 2029, y SIEMA lo va a seguir proyecto por proyecto.',
+    en: 'One of those axes is the mining RIGI. There are thirteen approved production projects, worth more than twenty-five billion dollars: four and a half times as much as a year ago. But approved is not disbursed. So far we have identified about six hundred and twenty-five million invested. The bulk arrives between 2027 and 2029, and SIEMA will track it project by project.' },
+  { v: 'pros',
+    es: 'Y hacia adelante, la Prospectiva modela cómo ocho grandes tendencias, de la electromovilidad a la inteligencia artificial y la fusión, mueven la demanda de minerales hasta 2050. Argentina ya es el cuarto productor mundial de litio, y su cartera de cobre podría cubrir cerca del tres por ciento de la demanda mundial de 2040.',
+    en: 'Looking ahead, Foresight models how eight major trends, from electric mobility to artificial intelligence and fusion, drive mineral demand up to 2050. Argentina is already the fourth largest lithium producer, and its copper pipeline could cover about three percent of world demand in 2040.' },
+  { v: 'close',
+    es: 'SIEMA está pensado para fondos de inversión, compañías mineras, gobiernos provinciales, proveedores y organismos multilaterales. Es una iniciativa del Centro Argentino de Ingenieros, Panorama Minero y la Universidad de Buenos Aires. Mi trabajo es que cualquiera pueda preguntarle a SIEMA y recibir una respuesta con datos. Probemos. Eduardo, ¿cuál es tu primera pregunta?',
+    en: 'SIEMA is designed for investment funds, mining companies, provincial governments, suppliers and multilateral organisations. It is an initiative of the Argentine Center of Engineers, Panorama Minero and the University of Buenos Aires. My job is to let anyone ask SIEMA a question and get an answer backed by data. Let us try. Eduardo, what is your first question?' }
+];
+const STEP_VIEW = { title: null, scatter: 'inicio', trio: 'inicio', obs: 'oferta', pulse: 'pulsometro', rigi: 'rigi', pros: 'prospectiva', close: 'acerca' };
+let presenting = false, presStep = 0, presLang = 'es';
+async function present(lang) {
+  hush(); const gen = ++speakGen; presenting = true; presLang = lang;
+  for (presStep = 0; presStep < SCRIPT.length; presStep++) {
+    if (gen !== speakGen) return;
+    await playStep(presStep, lang, gen);
+  }
+  if (gen === speakGen) { presenting = false; setState('idle'); }
+}
+async function playStep(i, lang, gen) {
+  const s = SCRIPT[i], other = lang === 'es' ? 'en' : 'es';
+  show(V[s.v](lang));
+  $('screenQ').textContent = '';
+  if (STEP_VIEW[s.v]) showView(STEP_VIEW[s.v], lang, true); else hideScreen();
+  const [sents] = splitSentences(s[lang] + ' ');
+  const trs = splitSentences(s[other] + ' ')[0];
+  for (let k = 0; k < sents.length; k++) {
+    if (gen !== speakGen) return;
+    subMain.textContent = sents[k].trim(); subTr.textContent = (trs[k] || '').trim();
+    await speak(sents[k], lang);
+  }
+  await new Promise(r => setTimeout(r, 450));
+}
+function skipStep() {
+  if (!presenting) return;
+  const next = presStep + 1; if (next >= SCRIPT.length) return;
+  speakGen++; if (synth) synth.cancel();
+  const gen = ++speakGen; presenting = true;
+  (async () => { for (presStep = next; presStep < SCRIPT.length; presStep++) { if (gen !== speakGen) return; await playStep(presStep, presLang, gen); } if (gen === speakGen) { presenting = false; setState('idle'); } })();
+}
+
+// ------------------------------------------------------------------
+// Preguntas: escuchar (micrófono) o escribir
+// ------------------------------------------------------------------
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null;
+// Corrige lo que el reconocimiento de voz suele confundir (voz grave o ronca, C por K, etc.)
+const FIXES = [
+  [/\b(c|k|q)u?[uoa]nt[h]?[uo]r\b/gi, 'Kuntur'],
+  [/\bcontour\b/gi, 'Kuntur'],
+  [/\b(c|s)i\s?e\s?m(a|á)\b/gi, 'SIEMA'],
+  [/\bsierra\s+minera\b/gi, 'SIEMA'],
+  [/\bri(g|j)u?i\b/gi, 'RIGI'],
+  [/\bregi\b/gi, 'RIGI'],
+  [/\bpuls[oó]metro\b/gi, 'Pulsómetro'],
+  [/\bmima\b/gi, 'MIMA'],
+  [/\b(eh+|em+|um+|mm+|mhm|mm-hmm|ehm)\b[,.]?\s*/gi, ''],
+  [/\s{2,}/g, ' ']
+];
+function fixTranscript(t) { let x = t; FIXES.forEach(([re, to]) => { x = x.replace(re, to); }); x = x.trim(); return x ? x.charAt(0).toUpperCase() + x.slice(1) : x; }
+
+// Escucha continua: no corta en las pausas. Termina al volver a presionar la misma tecla
+// (o Enter), o sola después de unos segundos de silencio.
+const SILENCE_MS = 3500;
+var listenLang = 'es', silenceTimer = null, endListening = null;
+function listen(lang) {
+  if (!SR) { openType(); flash(lang === 'es' ? 'Este navegador no reconoce voz. Escribí la pregunta.' : 'This browser cannot recognise speech. Type the question.'); return; }
+  if (rec && state === 'listening') { if (endListening) endListening(); return; }   // segunda pulsación: enviar
+  hush(); if (rec) try { rec.abort(); } catch (e) {}
+  listenLang = lang;
+  rec = new SR(); rec.lang = lang === 'es' ? 'es-AR' : 'en-US'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
+  let finalTxt = '', interimTxt = '', sent = false;
+  const r0 = rec;
+  setState('listening');
+  hideScreen();
+  showQuestion('', lang, true);
+  subMain.textContent = ''; subTr.textContent = lang === 'es' ? 'Te escucho. Cuando termines, tocá de nuevo el botón o presioná la misma tecla.' : 'Listening. When you finish, tap the button again or press the same key.';
+  const send = () => {
+    if (sent) return; sent = true; clearTimeout(silenceTimer); endListening = null;
+    try { r0.stop(); } catch (e) {}
+    const q = fixTranscript((finalTxt + ' ' + interimTxt).trim());
+    if (q) { showQuestion(q, lang, false); subTr.textContent = ''; ask(q, lang); } else { setState('idle'); subTr.textContent = ''; }
+  };
+  endListening = send;
+  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, SILENCE_MS); };
+  rec.onresult = e => {
+    let interim = ''; finalTxt = '';
+    for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalTxt += r[0].transcript + ' '; else interim += r[0].transcript; }
+    interimTxt = interim;
+    showQuestion(fixTranscript((finalTxt + ' ' + interim).trim()), lang, true);
+    arm();
+  };
+  rec.onerror = e => { if (e.error === 'no-speech' || e.error === 'aborted') return; if (e.error === 'not-allowed') { setState('idle'); flash('El navegador no tiene permiso para usar el micrófono.'); } };
+  rec.onend = () => {
+    // Chrome cierra la escucha continua cada tanto: si no se envió, se reabre sola
+    if (!sent && state === 'listening' && rec === r0) { try { r0.start(); return; } catch (e) {} }
+    if (rec === r0) rec = null;
+    if (!sent && (finalTxt + interimTxt).trim()) send(); else if (!sent && state === 'listening') setState('idle');
+  };
+  rec.start();
+}
+function showQuestion(q, lang, interim, from) {
+  const label = from ? (lang === 'es' ? 'Pregunta de ' : 'Question from ') + from : lang === 'es' ? (interim ? 'Escuchando' : 'Pregunta') : (interim ? 'Listening' : 'Question');
+  let el = panel.querySelector('.slide.ask:not(.gone)');
+  if (!el) { show(`<div class="ask"><div class="q"></div><div class="from"></div></div>`); el = panel.lastElementChild; el.classList.add('ask'); }
+  el.querySelector('.q').textContent = q || '…';
+  el.querySelector('.q').classList.toggle('interim', !!interim);
+  el.querySelector('.from').textContent = label;
+}
+function openType() { const tb = $('typebox'); tb.classList.add('on'); const i = $('typeIn'); i.value = ''; i.focus(); }
+function closeType() { $('typebox').classList.remove('on'); $('typeIn').blur(); }
+$('typeIn').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.value.trim()) { const q = fixTranscript(e.target.value.trim()); closeType(); const lang = guessLang(q); showQuestion(q, lang, false); ask(q, lang); }
+  if (e.key === 'Escape') closeType();
+  e.stopPropagation();
+});
+function guessLang(q) {
+  const en = (q.match(/\b(the|what|how|why|is|are|does|which|who|can|will|of|and|you|your)\b/gi) || []).length;
+  const es = (q.match(/\b(el|la|los|las|qué|que|cómo|como|por|para|es|son|cuál|cual|quién|de|y|vos|usted)\b/gi) || []).length + (/[¿¡ñáéíóú]/i.test(q) ? 3 : 0);
+  return en > es ? 'en' : 'es';
+}
+function flash(msg) { subMain.textContent = ''; subTr.textContent = msg; }
+
+// ------------------------------------------------------------------
+// Respuesta: Claude vía el servicio, o modo sin conexión
+// ------------------------------------------------------------------
+const history = [];
+async function ask(q, lang, display) {
+  hush(); const gen = ++speakGen;
+  setState('thinking'); subMain.textContent = ''; subTr.textContent = '';
+  viewLocked = false; $('screenQ').textContent = display || q; cueAnswer(display || q, lang);
+  history.push({ role: 'user', content: q });
+  let full = '';
+  if (cfg.api) {
+    try { full = await askClaude(q, lang, gen); }
+    catch (e) { console.warn('Kuntur: servicio no disponible', e); full = ''; }
+  }
+  if (gen !== speakGen) return;
+  if (!full) { full = offlineAnswer(q, lang); await speakAll(full, lang, gen); }
+  history.push({ role: 'assistant', content: full.split('###')[0].trim() });
+  if (history.length > 16) history.splice(0, history.length - 16);
+  if (gen === speakGen) setState('idle');
+}
+// Nueva persona: Kuntur no reconoce voces. Al pasar el micrófono a alguien del público
+// se borra la conversación anterior, Kuntur saluda, pide el nombre y escucha.
+async function newPerson(lang) {
+  hush(); const gen = ++speakGen;
+  endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} }
+  history.length = 0;
+  const g = { es: '¡Hola, bienvenido! ¿Me decís tu nombre y tu pregunta?', en: 'Hello, and welcome! Could you tell me your name and your question?' };
+  const other = lang === 'es' ? 'en' : 'es';
+  history.push({ role: 'assistant', content: g[lang] });
+  hideScreen && hideScreen();
+  setState('speaking'); subMain.textContent = g[lang]; subTr.textContent = g[other];
+  await speak(g[lang], lang);
+  if (gen !== speakGen) return;
+  setState('idle');
+  listen(lang);
+}
+// ------------------------------------------------------------------
+// Preguntas del público: QR en pantalla y cola moderada (kuntur/sala.html, kuntur/moderador.html)
+// ------------------------------------------------------------------
+const SALA_PAGE = new URL('kuntur/sala.html', location.href).href;
+let qrMade = false, pubBusy = false;
+function toggleQr(force) {
+  const ov = $('qrov'); const on = force === undefined ? !ov.classList.contains('on') : force;
+  if (on && !qrMade && window.QRCode) { new QRCode($('qrCode'), { text: SALA_PAGE, width: 512, height: 512, correctLevel: QRCode.CorrectLevel.M }); qrMade = true; }
+  $('qrUrl').textContent = SALA_PAGE.replace(/^https?:\/\//, '');
+  ov.classList.toggle('on', on);
+}
+async function pollPublic() {
+  if (!cfg.sala || !cfg.salaKey || pubBusy || $('start')) return;
+  if ((state !== 'idle' && state !== 'offline') || presenting || rec) return;
+  pubBusy = true;
+  try {
+    const r = await fetch(cfg.sala + '/mod/siguiente', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Mod-Key': cfg.salaKey }, body: '{}' });
+    const d = await r.json();
+    $('pubtag').classList.toggle('on', !!d.ok);
+    if (d.ok && d.pregunta && (state === 'idle' || state === 'offline') && !presenting) {
+      const p = d.pregunta, lang = p.idioma === 'en' ? 'en' : 'es';
+      toggleQr(false);
+      hush(); history.length = 0;
+      const from = p.nombre + (p.organizacion ? ' (' + p.organizacion + ')' : '');
+      const intro = lang === 'en' ? 'I am ' + p.nombre + (p.organizacion ? ', from ' + p.organizacion : '') + '. ' : 'Soy ' + p.nombre + (p.organizacion ? ', de ' + p.organizacion : '') + '. ';
+      showQuestion(p.texto, lang, false, from);
+      await ask(intro + p.texto, lang, p.nombre + ': ' + p.texto);
+    }
+  } catch (e) { $('pubtag').classList.remove('on'); }
+  pubBusy = false;
+}
+setInterval(pollPublic, 4000);
+
+async function askClaude(q, lang, gen) {
+  const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 20000);
+  const res = await fetch(cfg.api + '/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history }), signal: ctrl.signal });
+  clearTimeout(to);
+  if (!res.ok || !res.body) throw new Error('HTTP ' + res.status);
+  const reader = res.body.getReader(), dec = new TextDecoder();
+  let full = '', pending = '', spokenPart = true, chain = Promise.resolve(), shown = '', idx = -1;
+  const trAt = k => { const tr = full.split('###')[1]; if (!tr) return ''; const a = sentencesOf(tr); return a[k] || ''; };
+  const sayLang = lang;
+  for (;;) {
+    const { done, value } = await reader.read(); if (done) break;
+    if (gen !== speakGen) { try { reader.cancel(); } catch (e) {} return full || ' '; }
+    const chunk = dec.decode(value, { stream: true }); full += chunk;
+    // La traducción llega al final: en cuanto aparece, se completa el subtítulo de la frase que se está diciendo
+    if (!spokenPart && idx >= 0 && !subTr.textContent.trim()) { const t = trAt(idx); if (t) subTr.textContent = t; }
+    if (spokenPart) {
+      pending += chunk;
+      const cut = pending.indexOf('###');
+      let toSplit = pending;
+      if (cut >= 0) { toSplit = pending.slice(0, cut) + ' '; spokenPart = false; }
+      const [sents, rest] = splitSentences(toSplit);
+      pending = cut >= 0 ? '' : rest;
+      sents.forEach(s => { const gs = gen; chain = chain.then(() => { if (gs !== speakGen) return; idx++; shown = s.trim(); cueAnswer(shown, sayLang); subMain.textContent = shown; subTr.textContent = trAt(idx); return speak(s, langOf(s, sayLang)); }); });
+      if (cut >= 0) { const leftover = rest.trim(); if (leftover) chain = chain.then(() => { if (gen !== speakGen) return; idx++; subMain.textContent = leftover; subTr.textContent = trAt(idx); return speak(leftover, langOf(leftover, sayLang)); }); }
+    }
+  }
+  if (spokenPart && pending.trim()) { const p = pending.trim(); chain = chain.then(() => { if (gen !== speakGen) return; idx++; subMain.textContent = p; subTr.textContent = trAt(idx); return speak(p, langOf(p, sayLang)); }); }
+  if (idx >= 0 && !subTr.textContent.trim()) { const t = trAt(idx); if (t) subTr.textContent = t; }
+  await chain;
+  return full;
+}
+function langOf(s, fallback) { const g = guessLang(s); return s.length > 25 ? g : fallback; }
+function sentencesOf(t) { const [a, r] = splitSentences((t || '') + ' '); if (r.trim()) a.push(r); return a.map(x => x.trim()).filter(Boolean); }
+async function speakAll(text, lang, gen) {
+  const [spoken, tr] = text.split('###');
+  const sents = sentencesOf(spoken), trs = sentencesOf(tr);
+  for (let k = 0; k < sents.length; k++) {
+    if (gen !== speakGen) return;
+    cueAnswer(sents[k], lang);
+    subMain.textContent = sents[k];
+    subTr.textContent = trs.length === sents.length ? trs[k] : (k === 0 ? (tr || '').trim() : subTr.textContent);
+    await speak(sents[k], lang);
+  }
+}
+
+// Respuestas preparadas para cuando no hay conexión
+const FAQ = [
+  { k: /quién sos|quien sos|quién eres|who are you|kuntur|claude/i,
+    es: 'Soy Kuntur, el asistente de SIEMA. Mi nombre quiere decir cóndor en quechua. Funciono con Claude, una inteligencia artificial de Anthropic, y respondo a partir de los datos que reúne SIEMA.',
+    en: 'I am Kuntur, the SIEMA assistant. My name means condor in Quechua. I run on Claude, an artificial intelligence made by Anthropic, and I answer from the data SIEMA gathers.' },
+  { k: /rigi|incentiv|inversi|investment/i,
+    es: 'El RIGI minero ya suma trece proyectos de producción aprobados, por veinticinco mil doscientos treinta millones de dólares, cuatro veces y media más que hace un año. El último es MARA, de Glencore en Catamarca, aprobado el 2 de octubre. Pero solo unos seis mil setenta millones son obligación con fecha cierta, y el desembolso que hoy podemos identificar ronda los seiscientos veinticinco millones. El grueso llega entre 2027 y 2029.',
+    en: 'The mining RIGI now has thirteen approved production projects worth twenty-five billion two hundred and thirty million dollars, four and a half times as much as a year ago. The latest is MARA, Glencore\'s project in Catamarca, approved on 2 October. But only about six point one billion are firm-date obligations, and the disbursement we can identify today is around six hundred and twenty-five million. The bulk arrives between 2027 and 2029.' },
+  { k: /licencia social|social licen|comunidad|community|agua|water/i,
+    es: 'La licencia social está en cinco coma siete sobre diez. No está negada, está condicionada. La brecha principal es de confianza en los controles del Estado, que marca tres coma nueve, y de beneficios locales visibles. San Juan está en seis coma tres y Catamarca en cuatro coma siete.',
+    en: 'Social licence stands at five point seven out of ten. It is not denied, it is conditional. The main gap is trust in state oversight, at three point nine, and visible local benefits. San Juan is at six point three and Catamarca at four point seven.' },
+  { k: /litio|lithium/i,
+    es: 'Argentina es el cuarto productor mundial de litio, con unas doscientas mil toneladas de capacidad instalada y siete operaciones. La meta oficial es superar las seiscientas mil toneladas hacia 2036. Este año las exportaciones de litio crecen más de ciento noventa por ciento.',
+    en: 'Argentina is the world\'s fourth largest lithium producer, with about two hundred thousand tonnes of installed capacity and seven operations. The official target is over six hundred thousand tonnes by 2036. This year lithium exports are growing more than one hundred and ninety percent.' },
+  { k: /cobre|copper|vicuña|vicuna|azules/i,
+    es: 'Hoy Argentina casi no produce cobre, pero su cartera suma cerca de un millón de toneladas por año, con Vicuña, El Pachón, Taca Taca y Los Azules. Eso sería alrededor del tres por ciento de la demanda mundial de 2040 y pondría al país entre los grandes productores a mediados de la década de 2030.',
+    en: 'Today Argentina produces almost no copper, but its pipeline adds up to about one million tonnes a year, with Vicuña, El Pachón, Taca Taca and Los Azules. That would be around three percent of world demand in 2040 and would place the country among the major producers by the mid 2030s.' },
+  { k: /macro|riesgo país|country risk|inflaci|deuda|debt/i,
+    es: 'La estabilidad macro mejoró mucho, de dos coma siete a cinco sobre diez, pero sigue en alerta. Las tres calificadoras sacaron al país de la zona CCC, la inflación anual baja hacia el veinte por ciento, y el riesgo país ronda los seiscientos treinta puntos. El punto crítico son los vencimientos de deuda de 2027.',
+    en: 'Macro stability has improved a lot, from two point seven to five out of ten, but it is still on alert. All three rating agencies moved the country out of the CCC range, annual inflation is heading towards twenty percent, and country risk is around six hundred and thirty points. The critical point is the 2027 debt maturities.' },
+  { k: /export/i,
+    es: 'Las exportaciones mineras fueron récord en 2025, con seis mil setenta millones de dólares, y entre enero y agosto de 2026 crecieron sesenta y cinco por ciento. Para todo el año el sector proyecta unos nueve mil millones.',
+    en: 'Mining exports hit a record in 2025, at six billion seventy million dollars, and from January to August 2026 they grew sixty-five percent. For the full year the sector projects about nine billion.' },
+  { k: /infraestructura|infrastructure|energ|ruta|road/i,
+    es: 'La infraestructura es el eje peor puntuado del Pulsómetro, con cinco coma tres sobre diez. Energía, rutas, agua y logística no acompañan todavía el ritmo de los proyectos. La próxima etapa de SIEMA va a sumar los proyectos de infraestructura habilitante al seguimiento del RIGI.',
+    en: 'Infrastructure is the lowest-scoring Pulsometer axis, at five point three out of ten. Energy, roads, water and logistics are not yet keeping pace with the projects. SIEMA\'s next stage will add enabling infrastructure projects to its RIGI tracking.' },
+  { k: /capital humano|talento|talent|ingenier|engineer|human/i,
+    es: 'El capital humano está en cinco coma nueve y fue el segundo eje que menos mejoró, después de la licencia social. Para medirlo, SIEMA desarrolla con el Centro Argentino de Ingenieros el Monitor de Ingeniería de Minas, que sigue formación, empleo y demanda de talento.',
+    en: 'Human capital stands at five point nine and was the second axis that improved least, after social licence. To measure it, SIEMA is developing the Mining Engineering Monitor with the Argentine Center of Engineers, tracking training, employment and talent demand.' },
+  { k: /pondera|peso|weight|criterio|criteria|índice combinado|indice combinado|indicador combinado|composite|objetiv/i,
+    es: 'Un indicador combinado vale tanto como la transparencia de su receta. En SIEMA la regla general es simple: pesos iguales, salvo que haya una razón explícita para cambiarlos. El índice del Pulsómetro es el promedio simple de sus diez ejes. La licencia social promedia siete componentes externos, y el índice del RIGI minero, cuatro. La única excepción es el Índice de Performance Minera, que pondera cuarenta por ciento las exportaciones, treinta y cinco la producción y veinticinco la inversión, porque las exportaciones son el objetivo central de la política actual. ¿Son objetivos? Los datos sí lo son, pero los pesos y los umbrales son decisiones de criterio. Por eso están publicados en la plataforma y se pueden revisar: si los usuarios o el consejo de SIEMA proponen otra ponderación, el índice se recalcula y se ve el efecto.',
+    en: 'A composite indicator is only as good as the transparency of its recipe. At SIEMA the general rule is simple: equal weights, unless there is an explicit reason to change them. The Pulsometer index is the simple average of its ten axes. Social licence averages seven external components, and the mining RIGI index averages four. The only exception is the Mining Performance Index, which weights exports at forty percent, production at thirty-five and investment at twenty-five, because exports are the central goal of current policy. Are they objective? The data are, but the weights and thresholds are judgement calls. That is why they are published on the platform and open to review: if users or the SIEMA council propose a different weighting, the index is recalculated and the effect is visible.' },
+  { k: /metodolog|precisi|exactitud|confiab|cómo proyect|como proyect|methodolog|accura|reliab|how do you project/i,
+    es: 'Nadie puede predecir con exactitud cuánto cobre o litio va a necesitar el mundo en 2050, y desconfiaría de quien lo prometa. Por eso SIEMA no hace un pronóstico, sino escenarios. El modelo Convergencias 2050 parte de los usos finales: ocho grandes tendencias, como la electromovilidad, la inteligencia artificial, la defensa o la fusión. Para cada una estima cuánto mineral necesita, a qué ritmo se adopta y cómo se potencian entre sí. El escenario de referencia reproduce el de la Agencia Internacional de Energía, y las cifras se contrastan con el Servicio Geológico de Estados Unidos y otras fuentes reconocidas. Hasta 2030 la precisión es bastante buena, porque se apoya en proyectos que ya existen y tienen el RIGI aprobado. Más allá hablamos de órdenes de magnitud y rangos: el valor no está en acertar el número exacto, sino en mostrar qué tendencias mueven la aguja y dónde puede ubicarse Argentina.',
+    en: 'Nobody can predict exactly how much copper or lithium the world will need in 2050, and I would be wary of anyone who promises that. That is why SIEMA does not make a forecast but builds scenarios. The Convergences 2050 model starts from end uses: eight major trends, such as electric mobility, artificial intelligence, defence and fusion. For each one it estimates how much mineral it needs, how fast it is adopted and how they reinforce each other. The reference scenario reproduces the International Energy Agency\'s, and the figures are checked against the US Geological Survey and other recognised sources. Up to 2030 precision is quite good, because it rests on projects that already exist and have RIGI approval. Beyond that we are talking about orders of magnitude and ranges: the value is not in hitting the exact number, but in showing which trends move the needle and where Argentina can stand.' },
+  { k: /2050|prospectiva|foresight|futuro|future|demanda|demand/i,
+    es: 'La Prospectiva usa el modelo Convergencias 2050. Parte de ocho grandes tendencias, como la electromovilidad, la inteligencia artificial, la defensa y la fusión, y proyecta cómo mueven la demanda de cobre, litio, tierras raras y otros minerales en 2030, 2040 y 2050, frente a lo que Argentina puede ofrecer.',
+    en: 'Foresight uses the Convergences 2050 model. It starts from eight major trends, such as electric mobility, artificial intelligence, defence and fusion, and projects how they move demand for copper, lithium, rare earths and other minerals in 2030, 2040 and 2050, against what Argentina can supply.' },
+  { k: /pulsómetro|pulsometro|pulsometer|clima|climate/i,
+    es: 'El Pulsómetro marca seis coma cuatro sobre diez, más de un punto mejor que hace un año. Empujan las exportaciones y el marco normativo; siguen en alerta la licencia social, la infraestructura, la estabilidad macro y el capital humano.',
+    en: 'The Pulsometer reads six point four out of ten, more than a point better than a year ago. Exports and the regulatory framework are pushing up; social licence, infrastructure, macro stability and human capital remain on alert.' },
+  { k: /siema|plataforma|platform/i,
+    es: 'SIEMA es el Sistema de Inteligencia Estratégica Minera Argentina. Reúne en un solo lugar la información del sector y la convierte en inteligencia para decidir, con tres productos: el Observatorio, que cuenta qué está pasando; el Pulsómetro, que mide cómo está el sector hoy; y la Prospectiva, que proyecta oferta y demanda hasta 2050.',
+    en: 'SIEMA is the Argentine Mining Strategic Intelligence System. It brings the sector\'s information together in one place and turns it into intelligence for decisions, with three products: the Observatory, which tells what is happening; the Pulsometer, which measures how the sector is doing today; and Foresight, which projects supply and demand to 2050.' }
+];
+function offlineAnswer(q, lang) {
+  const hit = FAQ.find(f => f.k.test(q));
+  const other = lang === 'es' ? 'en' : 'es';
+  if (hit) return hit[lang] + '\n###\n' + hit[other];
+  return lang === 'es'
+    ? 'Buena pregunta. En este momento estoy sin conexión y solo puedo responder sobre los temas principales de SIEMA: el RIGI minero, el litio, el cobre, la licencia social, la macro, la infraestructura o la prospectiva a 2050.\n###\nGood question. I am offline right now and can only answer about SIEMA\'s main topics: the mining RIGI, lithium, copper, social licence, the macro picture, infrastructure or the 2050 foresight.'
+    : 'Good question. I am offline right now and can only answer about SIEMA\'s main topics: the mining RIGI, lithium, copper, social licence, the macro picture, infrastructure or the 2050 foresight.\n###\nBuena pregunta. En este momento estoy sin conexión y solo puedo responder sobre los temas principales de SIEMA: el RIGI minero, el litio, el cobre, la licencia social, la macro, la infraestructura o la prospectiva a 2050.';
+}
+
+// ------------------------------------------------------------------
+// Ajustes y atajos
+// ------------------------------------------------------------------
+function openSheet(id) { $(id).classList.add('on'); const f = $(id).querySelector('input,select,button'); if (f) f.focus(); }
+function closeSheets() { document.querySelectorAll('.sheet.on').forEach(s => s.classList.remove('on')); }
+document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeSheets));
+$('sApi').value = cfg.api; $('sRate').value = cfg.rate; $('sPitch').value = cfg.pitch;
+$('sSala').value = cfg.sala; $('sSalaKey').value = cfg.salaKey;
+$('sSala').addEventListener('change', e => { cfg.sala = e.target.value.trim().replace(/\/+$/, ''); store.set('sala', cfg.sala); });
+$('sSalaKey').addEventListener('change', e => { cfg.salaKey = e.target.value.trim(); store.set('salaKey', cfg.salaKey); $('salaStatus').textContent = cfg.salaKey ? 'Clave guardada en este equipo. Kuntur tomará las preguntas aprobadas.' : 'Sin clave: Kuntur no toma preguntas del público.'; });
+$('sApi').addEventListener('change', e => { cfg.api = e.target.value.trim().replace(/\/+$/, ''); store.set('api', cfg.api); checkApi(); });
+$('sVes').addEventListener('change', e => { cfg.ves = e.target.value; store.set('ves', cfg.ves); });
+$('sVen').addEventListener('change', e => { cfg.ven = e.target.value; store.set('ven', cfg.ven); });
+$('sRate').addEventListener('input', e => { cfg.rate = +e.target.value; store.set('rate', cfg.rate); });
+$('sPitch').addEventListener('input', e => { cfg.pitch = +e.target.value; store.set('pitch', cfg.pitch); });
+$('tEs').addEventListener('click', () => { hush(); speak('Hola, soy Kuntur, el asistente de SIEMA. Así suena esta voz.', 'es').then(() => setState('idle')); });
+$('tEn').addEventListener('click', () => { hush(); speak('Hello, I am Kuntur, the SIEMA assistant. This is how this voice sounds.', 'en').then(() => setState('idle')); });
+$('tApi').addEventListener('click', checkApi);
+async function checkApi() {
+  const st = $('apiStatus');
+  if (!cfg.api) { st.textContent = 'Sin servicio configurado: Kuntur usa las respuestas preparadas.'; setState('idle'); return false; }
+  st.textContent = 'Probando la conexión…';
+  try {
+    const r = await fetch(cfg.api + '/health'); const j = await r.json();
+    st.textContent = j.ok && j.key ? `Conectado. Modelo: ${j.model}.` : 'El servicio responde, pero falta la clave de Anthropic.';
+    if (state === 'offline') setState('idle'); return j.ok && j.key;
+  } catch (e) { st.textContent = 'No se pudo conectar con el servicio. Revisá la dirección o internet.'; setState('offline'); return false; }
+}
+
+$('bPres').addEventListener('click', () => present('es'));
+$('bEs').addEventListener('click', () => listen('es'));
+$('bEn').addEventListener('click', () => listen('en'));
+$('bType').addEventListener('click', openType);
+$('bNew').addEventListener('click', () => newPerson('es'));
+$('bQr').addEventListener('click', () => toggleQr());
+$('bStop').addEventListener('click', hush);
+$('bSet').addEventListener('click', () => openSheet('setSheet'));
+$('bHelp').addEventListener('click', () => openSheet('helpSheet'));
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') { if (e.key === 'Escape') closeSheets(); return; }
+  if ($('start')) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wake(); } return; }
+  const k = e.key.toLowerCase();
+  if (e.key === 'Escape') { if (document.querySelector('.sheet.on')) closeSheets(); else if ($('qrov').classList.contains('on')) toggleQr(false); else { endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} } hush(); setState('idle'); subTr.textContent = ''; } return; }
+  if (document.querySelector('.sheet.on')) return;
+  if (e.key === 'Enter' && state === 'listening' && endListening) { e.preventDefault(); endListening(); return; }
+  if (k === 'p') { e.preventDefault(); present(e.shiftKey ? 'en' : 'es'); }
+  else if (e.key === ' ') { e.preventDefault(); listen('es'); }
+  else if (k === 'e') { e.preventDefault(); listen('en'); }
+  else if (k === 't') { e.preventDefault(); openType(); }
+  else if (k === 'n') { e.preventDefault(); newPerson(e.shiftKey ? 'en' : 'es'); }
+  else if (k === 'q') { e.preventDefault(); toggleQr(); }
+  else if (k === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  else if (k === 's') { openSheet('setSheet'); }
+  else if (k === 'h') { if ($('helpSheet').classList.contains('on')) closeSheets(); else openSheet('helpSheet'); }
+  else if (e.key === 'ArrowRight' || e.key === 'PageDown') { skipStep(); }
+});
+
+// Arranque: un clic habilita audio y micrófono en el navegador
+function wake() {
+  const s = $('start'); if (!s) return; s.remove();
+  if (synth) { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; synth.speak(u); }
+  show(V.title('es'));
+  subMain.textContent = ''; subTr.textContent = '';
+  checkApi();
+  initScreen();
+  initVideos();
+}
+$('startBtn').addEventListener('click', wake);
+window.kuntur = { present, ask, listen, hush, cfg, showView, pickView, newPerson, toggleQr, pollPublic };
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</body>
+</html>

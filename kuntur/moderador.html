@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moderador · Preguntas a Kuntur</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--night:#12172b;--night2:#1b2140;--andesite:#2b3152;--salar:#eceee9;--mist:#a9b1c9;--brine:#7fd3cf;--ochre:#d6a645;--ember:#e2674f;--leaf:#8fd19e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night);color:var(--salar);font-family:'Atkinson Hyperlegible',system-ui,sans-serif;font-size:16px;line-height:1.4}
+main{max-width:56rem;margin:0 auto;padding:1.2rem 1rem 3rem}
+h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.6rem;margin:0 0 .2rem}
+h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.15rem;margin:1.6rem 0 .6rem}
+.sub{color:var(--mist);margin:0 0 1rem}
+.bar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;background:var(--night2);border:1px solid var(--andesite);border-radius:12px;padding:.8rem}
+.bar .grow{flex:1 1 12rem}
+button,.btn{font:inherit;font-weight:700;border-radius:9px;border:1px solid var(--andesite);background:var(--andesite);color:var(--salar);padding:.45rem .8rem;cursor:pointer}
+button.pri{background:var(--brine);color:var(--night);border-color:var(--brine)}
+button.ok{background:var(--leaf);color:var(--night);border-color:var(--leaf)}
+button.no{background:none;color:#ffb4a6;border-color:#5a3340}
+button.ghost{background:none}
+input{font:inherit;color:var(--salar);background:var(--night);border:1px solid var(--andesite);border-radius:9px;padding:.45rem .7rem}
+.pill{display:inline-flex;align-items:center;gap:.45rem;font-weight:700}
+.pill i{width:.75rem;height:.75rem;border-radius:50%;background:var(--ember);display:inline-block}
+.pill.on i{background:var(--leaf)}
+.stats{color:var(--mist);font-size:.92rem}
+.q{display:grid;grid-template-columns:1fr auto;gap:.5rem 1rem;background:var(--night2);border:1px solid var(--andesite);border-left:4px solid var(--mist);border-radius:10px;padding:.75rem .9rem;margin:.55rem 0}
+.q.aprobada{border-left-color:var(--ochre)}
+.q.enviada{border-left-color:var(--leaf);opacity:.8}
+.q.respondida,.q.descartada{opacity:.5}
+.q .who{font-size:.85rem;color:var(--mist)}
+.q .txt{font-size:1.08rem;margin:.15rem 0 0}
+.q .acts{display:flex;flex-wrap:wrap;gap:.35rem;align-items:flex-start;justify-content:flex-end}
+.tag{font-size:.75rem;border:1px solid currentColor;border-radius:999px;padding:0 .5rem;margin-left:.35rem}
+.empty{color:var(--mist);font-style:italic}
+.err{color:#ffb4a6}
+.hidden{display:none}
+.note{color:var(--mist);font-size:.88rem}
+#qrBox{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+#qr{background:#fff;padding:.6rem;border-radius:8px;line-height:0}
+</style>
+</head>
+<body>
+<main>
+  <h1>Preguntas del público a Kuntur</h1>
+  <p class="sub">Panel del moderador. Las preguntas aprobadas pasan a la pantalla de Kuntur en orden, cuando termina de responder la anterior.</p>
+
+  <section id="vKey" class="bar">
+    <label for="key" class="grow">Clave del moderador <input id="key" type="password" autocomplete="current-password" style="width:100%;margin-top:.3rem"></label>
+    <button class="pri" id="bKey" type="button">Entrar</button>
+    <span class="err" id="keyErr"></span>
+  </section>
+
+  <section id="vMain" class="hidden">
+    <div class="bar">
+      <span class="pill" id="pill"><i></i><span id="pillTxt">Cerrada</span></span>
+      <button id="bToggle" type="button" class="pri">Abrir preguntas</button>
+      <span class="stats grow" id="stats"></span>
+      <button id="bOut" type="button" class="ghost">Salir</button>
+    </div>
+
+    <h2>En cola para Kuntur</h2>
+    <div id="lAprob"></div>
+    <h2>Nuevas (por moderar)</h2>
+    <div id="lPend"></div>
+    <h2>Ya en pantalla o descartadas (últimos 30 minutos)</h2>
+    <div id="lDone"></div>
+
+    <h2>QR para el público</h2>
+    <div id="qrBox"><div id="qr"></div><div><p class="note" id="qrUrl"></p><p class="note">Kuntur muestra este mismo QR en pantalla con la tecla Q.</p></div></div>
+
+    <h2>Datos de participantes</h2>
+    <div class="bar">
+      <button type="button" id="bCsv">Descargar quienes aceptaron encuestas (CSV)</button>
+      <button type="button" id="bCsvAll" class="ghost">Descargar todos (CSV)</button>
+    </div>
+    <p class="note">El archivo se abre en Excel. Responsable de los datos: Centro Argentino de Ingenieros (CAI). Usalo solo para lo que dice el aviso de privacidad.</p>
+    <div class="bar" style="margin-top:.6rem">
+      <label class="grow">Borrar los datos de una persona que lo pidió (correo) <input id="delMail" type="email" style="width:100%;margin-top:.3rem"></label>
+      <button type="button" id="bDel" class="no">Borrar</button>
+      <span id="delMsg" class="note"></span>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var params = new URLSearchParams(location.search);
+  var API = (params.get('api') || 'https://kuntur-sala.oma-observatorio.workers.dev').replace(/\/+$/, '');
+  var SALA = new URL('sala.html', location.href).href + (params.get('api') ? '?api=' + encodeURIComponent(API) : '');
+  var $ = function (id) { return document.getElementById(id); };
+  var store = { get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }, del: function (k) { try { sessionStorage.removeItem(k); } catch (e) {} } };
+  var key = store.get('ks_mod') || '';
+  var abierta = false, timer = null;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function call(path, data) {
+    return fetch(API + path, { method: data ? 'POST' : 'GET', headers: { 'Content-Type': 'application/json', 'X-Mod-Key': key }, body: data ? JSON.stringify(data) : undefined })
+      .then(function (r) { return r.json(); });
+  }
+
+  function enter() {
+    key = $('key').value.trim() || key;
+    $('keyErr').textContent = '';
+    call('/mod/cola').then(function (r) {
+      if (!r.ok) { $('keyErr').textContent = r.error === 'clave' ? 'Clave incorrecta.' : 'Error: ' + r.error; return; }
+      store.set('ks_mod', key);
+      $('vKey').classList.add('hidden'); $('vMain').classList.remove('hidden');
+      render(r);
+      clearInterval(timer); timer = setInterval(refresh, 4000);
+    }).catch(function () { $('keyErr').textContent = 'No hay conexión con el servicio.'; });
+  }
+  function refresh() { call('/mod/cola').then(function (r) { if (r.ok) render(r); }).catch(function () {}); }
+
+  function card(q, acts) {
+    var who = esc(q.nombre) + (q.organizacion ? ' · ' + esc(q.organizacion) : '') + (q.cargo ? ' · ' + esc(q.cargo) : '') + ' · ' + new Date(q.creado).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }) + (q.idioma === 'en' ? '<span class="tag">EN</span>' : '');
+    return '<div class="q ' + esc(q.estado) + '"><div><div class="who">' + who + '</div><p class="txt">' + esc(q.texto) + '</p></div><div class="acts">' +
+      acts.map(function (a) { return '<button type="button" class="' + a[2] + '" data-id="' + q.id + '" data-a="' + a[0] + '">' + a[1] + '</button>'; }).join('') + '</div></div>';
+  }
+  function render(r) {
+    abierta = r.abierta;
+    $('pill').classList.toggle('on', abierta);
+    $('pillTxt').textContent = abierta ? 'Preguntas abiertas' : 'Preguntas cerradas';
+    $('bToggle').textContent = abierta ? 'Cerrar preguntas' : 'Abrir preguntas';
+    $('stats').textContent = r.stats.personas + ' registrados · ' + r.stats.encuestas + ' aceptan encuestas · ' + r.stats.preguntas + ' preguntas';
+    var ap = r.preguntas.filter(function (q) { return q.estado === 'aprobada'; });
+    var pe = r.preguntas.filter(function (q) { return q.estado === 'pendiente'; }).reverse();
+    var dn = r.preguntas.filter(function (q) { return ['enviada', 'respondida', 'descartada'].indexOf(q.estado) >= 0; });
+    $('lAprob').innerHTML = ap.length ? ap.map(function (q, i) { return card(q, (i ? [['primero', 'Pasar primero', '']] : []).concat([['volver', 'Quitar de la cola', 'ghost']])); }).join('') : '<p class="empty">Ninguna. Kuntur espera.</p>';
+    $('lPend').innerHTML = pe.length ? pe.map(function (q) { return card(q, [['aprobar', 'Aprobar', 'ok'], ['primero', 'Siguiente', ''], ['descartar', 'Descartar', 'no']]); }).join('') : '<p class="empty">No hay preguntas nuevas.</p>';
+    $('lDone').innerHTML = dn.length ? dn.map(function (q) { return card(q, q.estado === 'descartada' ? [['volver', 'Recuperar', 'ghost']] : []); }).join('') : '<p class="empty">—</p>';
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-a]'); if (!b) return;
+    b.disabled = true;
+    call('/mod/accion', { id: Number(b.getAttribute('data-id')), accion: b.getAttribute('data-a') }).then(refresh).catch(function () { b.disabled = false; });
+  });
+  $('bToggle').addEventListener('click', function () { call('/mod/config', { abierta: !abierta }).then(refresh); });
+  $('bKey').addEventListener('click', enter);
+  $('key').addEventListener('keydown', function (e) { if (e.key === 'Enter') enter(); });
+  $('bOut').addEventListener('click', function () { store.del('ks_mod'); key = ''; clearInterval(timer); $('vMain').classList.add('hidden'); $('vKey').classList.remove('hidden'); $('key').value = ''; });
+
+  function download(all) {
+    fetch(API + '/mod/export.csv' + (all ? '?todos=1' : ''), { headers: { 'X-Mod-Key': key } }).then(function (r) { return r.blob(); }).then(function (b) {
+      var a = document.createElement('a'); a.href = URL.createObjectURL(b);
+      a.download = 'kuntur-participantes' + (all ? '' : '-encuestas') + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    });
+  }
+  $('bCsv').addEventListener('click', function () { download(false); });
+  $('bCsvAll').addEventListener('click', function () { download(true); });
+  $('bDel').addEventListener('click', function () {
+    var m = $('delMail').value.trim(); if (!m) return;
+    if (!window.confirm('¿Borrar definitivamente los datos y preguntas de ' + m + '?')) return;
+    call('/mod/borrar', { email: m }).then(function (r) { $('delMsg').textContent = r.ok ? (r.borrados ? 'Borrado.' : 'No había datos con ese correo.') : 'Error.'; $('delMail').value = ''; refresh(); });
+  });
+
+  $('qrUrl').textContent = SALA;
+  if (window.QRCode) new QRCode($('qr'), { text: SALA, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.M });
+  if (key) enter();
+})();
+</script>
+</body>
+</html>
