@@ -521,6 +521,7 @@
             font-weight: bold;
         }
 
+        .ticker-item .mineral-change.ref { opacity: .7; font-size: .85em; }
         .ticker-item .mineral-change.up {
             color: #4ade80;
         }
@@ -2776,40 +2777,49 @@
         // ej: 'https://oma-observatorio-api.tu-cuenta.workers.dev'
         const SIEMA_API_BASE = 'https://oma-observatorio-api.oma-observatorio.workers.dev';
 
-        // --- Ticker de cotizaciones (fallback estático, se usa si no hay API o falla) ---
+        // --- Ticker de cotizaciones ---
+        // En vivo (Panorama Minero) solo se muestran los metales cuya unidad viene bien: cobre, oro y plata.
+        // Panorama Minero publica litio, zinc y estaño con unidades erróneas, así que se omiten.
+        const LIVE_TICKERS = { es: ['Cobre', 'Oro', 'Plata'], en: ['Copper', 'Gold', 'Silver'] };
+        // Precios de referencia con fecha (no vienen del feed en vivo). La tarea semanal "Datos SIEMA" los actualiza:
+        // editar solo REF_PRICES (valor, unidad, fecha y fuente).
+        const REF_PRICES = {
+            asOf: '09/10/2026',
+            items: [
+                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 18650, unit: 'USD/t', date: '09/10', src: 'GFEX, vía metalcharts.org' },
+                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 740, unit: 'CNY/kg', date: '09/10', src: 'China Rare Earth Price Index, vía Rare Earth Exchanges' }
+            ]
+        };
+        function refPriceItems(lang) {
+            const loc = lang === 'es' ? 'es-AR' : 'en-US';
+            return REF_PRICES.items.map(r => ({ name: r[lang], price: `${r.value.toLocaleString(loc)} ${r.unit}`, ref: r.date, title: r.src }));
+        }
+        // Respaldo si el feed en vivo no responde (valores del 09/10/2026)
         const FALLBACK_PRICES = {
             es: [
-                { name: 'Cobre', price: '6,67 USD/lb', change: 0.05 },
-                { name: 'Litio (carbonato, China)', price: '11.200 USD/t', change: 1.2 },
-                { name: 'Tierras Raras (NdPr)', price: '68,5 USD/kg', change: 0.8 },
-                { name: 'Oro', price: '4.477,20 USD/oz', change: -1.38 },
-                { name: 'Plata', price: '66,82 USD/oz', change: -1.31 },
-                { name: 'Zinc', price: '3.927,75 USD/t', change: 0.92 },
-                { name: 'Estaño', price: '54.622 USD/t', change: 1.39 },
-                { name: 'Manganeso (mineral 44% Mn)', price: '4,35 USD/dmtu', change: -0.5 }
+                { name: 'Cobre', price: '6,71 US$/lb', ref: '09/10' },
+                { name: 'Oro', price: '4.194,60 US$/ozt', ref: '09/10' },
+                { name: 'Plata', price: '60,89 US$/oz', ref: '09/10' }
             ],
             en: [
-                { name: 'Copper', price: '6.67 USD/lb', change: 0.05 },
-                { name: 'Lithium (carbonate, China)', price: '11,200 USD/t', change: 1.2 },
-                { name: 'Rare Earths (NdPr)', price: '68.5 USD/kg', change: 0.8 },
-                { name: 'Gold', price: '4,477.20 USD/oz', change: -1.38 },
-                { name: 'Silver', price: '66.82 USD/oz', change: -1.31 },
-                { name: 'Zinc', price: '3,927.75 USD/t', change: 0.92 },
-                { name: 'Tin', price: '54,622 USD/t', change: 1.39 },
-                { name: 'Manganese (44% Mn ore)', price: '4.35 USD/dmtu', change: -0.5 }
+                { name: 'Copper', price: '6.71 US$/lb', ref: '09/10' },
+                { name: 'Gold', price: '4,194.60 US$/ozt', ref: '09/10' },
+                { name: 'Silver', price: '60.89 US$/oz', ref: '09/10' }
             ]
         };
 
         const TICKER_TEXT = {
             es: {
-                reference: 'Precios de referencia (spot/futuro cercano), 04/09/2026 · integración de feed en vivo pendiente',
+                reference: 'Precios de referencia con fecha (ref.)',
+                refNote: ' · litio y NdPr: referencia con fecha (ref.)',
                 live: when => `En vivo vía Panorama Minero · actualizado ${when}`,
                 degraded: when => `Feed en vivo no disponible ahora — mostrando última referencia · ${when}`,
                 offline: 'No se pudo conectar al feed en vivo — mostrando valores de referencia',
                 locale: 'es-AR'
             },
             en: {
-                reference: 'Reference prices (spot/near futures), 09/04/2026 · live feed integration pending',
+                reference: 'Dated reference prices (ref.)',
+                refNote: ' · lithium and NdPr: dated reference (ref.)',
                 live: when => `Live via Panorama Minero · updated ${when}`,
                 degraded: when => `Live feed unavailable right now — showing last known reference · ${when}`,
                 offline: 'Could not connect to the live feed — showing reference values',
@@ -2822,7 +2832,8 @@
             const itemsHtml = items.map(c => {
                 const dir = c.change >= 0 ? 'up' : 'down';
                 const arrow = c.change >= 0 ? '▲' : '▼';
-                return `<div class="ticker-item"><span class="mineral-name">${c.name}</span><span class="mineral-price">${c.price}</span><span class="mineral-change ${dir}">${arrow} ${Math.abs(c.change).toFixed(2)}%</span></div>`;
+                const chg = c.ref ? `<span class="mineral-change ref">ref. ${c.ref}</span>` : `<span class="mineral-change ${dir}">${arrow} ${Math.abs(c.change).toFixed(2)}%</span>`;
+                return `<div class="ticker-item"${c.title ? ` title="${c.title}"` : ''}><span class="mineral-name">${c.name}</span><span class="mineral-price">${c.price}</span>${chg}</div>`;
             }).join('');
             // Se duplica el contenido para lograr el scroll continuo sin cortes
             track.innerHTML = itemsHtml + itemsHtml;
@@ -2834,22 +2845,23 @@
             const lang = currentLang;
             const t = TICKER_TEXT[lang];
             if (!SIEMA_API_BASE) {
-                renderTicker(FALLBACK_PRICES[lang], t.reference);
+                renderTicker([...FALLBACK_PRICES[lang], ...refPriceItems(lang)], t.reference);
                 return;
             }
             try {
                 const res = await fetch(`${SIEMA_API_BASE}/api/prices?lang=${lang}`);
                 const data = await res.json();
-                const items = data.items.map(it => ({
+                const items = data.items.filter(it => LIVE_TICKERS[lang].includes(it.name)).map(it => ({
                     name: it.name,
                     price: `${it.price} ${it.unit}`,
                     change: it.direction === 'down' ? -Math.abs(it.changePct) : Math.abs(it.changePct)
                 }));
                 const when = new Date(data.updated).toLocaleString(t.locale);
                 const label = data.degraded ? t.degraded(when) : t.live(when);
-                renderTicker(items, label);
+                if (data.degraded || items.length < 2) throw new Error('feed no disponible');
+                renderTicker([...items, ...refPriceItems(lang)], label + t.refNote);
             } catch (e) {
-                renderTicker(FALLBACK_PRICES[lang], t.offline);
+                renderTicker([...FALLBACK_PRICES[lang], ...refPriceItems(lang)], t.offline);
             }
         }
 

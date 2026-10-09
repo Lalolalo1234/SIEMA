@@ -67,6 +67,11 @@
 - Única excepción a los pesos iguales: el Índice de Performance Minera = 40 % exportaciones (ritmo frente a la proyección anual) + 35 % producción (litio producido frente a capacidad instalada) + 25 % inversión (avance del RIGI minero), porque las exportaciones son el objetivo central de la política actual.
 - Los ejes que todavía no tienen datos externos son un primer corte ilustrativo de la encuesta SIEMA a empresas mineras.
 
+## Cotizaciones (barra superior del sitio)
+- Cobre, oro y plata se muestran en vivo, tomados de Panorama Minero. Carbonato de litio y NdPr son precios de referencia con fecha, porque Panorama Minero no los publica con unidades correctas; la tarea semanal de SIEMA los actualiza.
+- Referencias al 09/10/2026: cobre 6,71 dólares por libra; oro 4.195 dólares la onza; plata 60,9 dólares la onza; carbonato de litio en China (futuros de Guangzhou) unos 18.650 dólares la tonelada; óxido de NdPr en China unos 740 yuanes por kilo.
+- Si preguntan por un precio, decí el valor de referencia y su fecha, y aclarás que el precio del día está en la barra de cotizaciones del sitio.
+
 ## Estabilidad macro y riesgo país (al 28/09/2026)
 - Riesgo país: 628 puntos básicos (mínimo del año 403 en julio). Un país con grado de inversión ronda los 200.
 - Calificaciones: Fitch B- y S&P B- (estable), Moody's B3 (positiva); todas salieron de la zona CCC en 2026.
