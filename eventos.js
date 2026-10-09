@@ -4,8 +4,8 @@ window.SIEMA_EVENTS = {
  "metadata": {
   "title": "Mining Events Database",
   "description": "Upcoming mining conferences, exhibitions, and symposiums",
-  "last_updated": "2026-06-02",
-  "total_events": 60,
+  "last_updated": "2026-10-09",
+  "total_events": 76,
   "source": "CeProMinDB (lalolalo1234/CeProMinDB) + SIEMA"
  },
  "events": [
@@ -1429,15 +1429,15 @@ window.SIEMA_EVENTS = {
   },
   {
    "id": 1001,
-   "name": "Panorama Minero — Oro, Plata y Cobre 2026",
+   "name": "Panorama Minero — 20.º Seminario Internacional Argentina Oro, Plata y Cobre 2026",
    "type": "Conferencia",
    "start_date": "2026-12-02",
    "end_date": "2026-12-03",
    "city": "Buenos Aires",
    "country": "Argentina",
-   "venue": "",
+   "venue": "Goldencenter",
    "organizer": "Panorama Minero",
-   "website": "https://www.panorama-minero.com",
+   "website": "https://www.oroplataycobre.com.ar",
    "focus": [
     "oro",
     "plata",
@@ -1451,6 +1451,370 @@ window.SIEMA_EVENTS = {
    "region": "Latin America",
    "siema": true,
    "notes": "Organizado por Panorama Minero, promotor de SIEMA."
+  },
+  {
+   "id": 1002,
+   "name": "UMining 2026 — Congreso Internacional de Minería Subterránea y a Cielo Abierto",
+   "type": "Conferencia",
+   "start_date": "2026-10-21",
+   "end_date": "2026-10-23",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "Facultad de Ciencias Físicas y Matemáticas, Universidad de Chile",
+   "organizer": "Depto. de Ingeniería de Minas y AMTC, Universidad de Chile",
+   "website": "https://www.portalminero.com/eventos",
+   "focus": [
+    "minería subterránea",
+    "rajo abierto",
+    "tecnología minera"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Congreso técnico de métodos de explotación, útil para los proyectos de cobre de San Juan, Catamarca y Salta."
+  },
+  {
+   "id": 1003,
+   "name": "Water Congress 2026 — Gestión del Agua en Minería y Procesos Industriales",
+   "type": "Conferencia",
+   "start_date": "2026-10-27",
+   "end_date": "2026-10-29",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "Hotel Sheraton Santiago",
+   "organizer": "Gecamin",
+   "website": "https://gecamin.com/",
+   "focus": [
+    "agua",
+    "desalación",
+    "sustentabilidad"
+   ],
+   "commodities": [
+    "copper",
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "El agua es el tema crítico de los salares del NOA y de los proyectos de cobre andinos."
+  },
+  {
+   "id": 1004,
+   "name": "Minexcellence 2026 — Excelencia Operacional en Minería",
+   "type": "Conferencia",
+   "start_date": "2026-11-24",
+   "end_date": "2026-11-26",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "",
+   "organizer": "Gecamin",
+   "website": "https://gecamin.com/",
+   "focus": [
+    "excelencia operacional",
+    "productividad"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Referencia operativa para las operaciones argentinas que entran en producción."
+  },
+  {
+   "id": 1005,
+   "name": "Vancouver Resource Investment Conference (VRIC) 2027",
+   "type": "Foro de inversión",
+   "start_date": "2027-01-24",
+   "end_date": "2027-01-25",
+   "city": "Vancouver",
+   "country": "Canada",
+   "venue": "Vancouver Convention Centre West",
+   "organizer": "Cambridge House International",
+   "website": "https://cambridgehouse.com/vancouver-resource-investment-conference",
+   "focus": [
+    "inversión",
+    "juniors"
+   ],
+   "commodities": [
+    "gold",
+    "silver",
+    "copper",
+    "lithium",
+    "uranium"
+   ],
+   "region": "North America",
+   "siema": true,
+   "notes": "Muchas juniors del TSX-V con proyectos en Argentina buscan capital aquí."
+  },
+  {
+   "id": 1006,
+   "name": "AME Roundup 2027",
+   "type": "Conferencia",
+   "start_date": "2027-01-25",
+   "end_date": "2027-01-28",
+   "city": "Vancouver",
+   "country": "Canada",
+   "venue": "Vancouver Convention Centre East",
+   "organizer": "Association for Mineral Exploration (AME BC)",
+   "website": "https://roundup.amebc.ca/",
+   "focus": [
+    "exploración",
+    "geociencia"
+   ],
+   "commodities": [
+    "copper",
+    "gold",
+    "silver"
+   ],
+   "region": "North America",
+   "siema": true,
+   "notes": "Encuentro de las exploradoras canadienses, que dominan la exploración en Argentina."
+  },
+  {
+   "id": 1007,
+   "name": "Investing in African Mining Indaba 2027",
+   "type": "Foro de inversión",
+   "start_date": "2027-02-08",
+   "end_date": "2027-02-11",
+   "city": "Cape Town",
+   "country": "South Africa",
+   "venue": "Cape Town International Convention Centre (CTICC)",
+   "organizer": "Hyve Group",
+   "website": "https://miningindaba.com/",
+   "focus": [
+    "inversión",
+    "política minera",
+    "minerales críticos"
+   ],
+   "commodities": [
+    "copper",
+    "cobalt",
+    "lithium",
+    "gold"
+   ],
+   "region": "Africa",
+   "siema": true,
+   "notes": "Muestra la competencia de África por el capital para cobre y litio."
+  },
+  {
+   "id": 1008,
+   "name": "PDAC 2027",
+   "type": "Convención + feria + foro de inversión",
+   "start_date": "2027-03-07",
+   "end_date": "2027-03-10",
+   "city": "Toronto",
+   "country": "Canada",
+   "venue": "Metro Toronto Convention Centre y Fairmont Royal York",
+   "organizer": "Prospectors & Developers Association of Canada",
+   "website": "https://www.pdac.ca/convention",
+   "focus": [
+    "exploración",
+    "inversión",
+    "financiamiento"
+   ],
+   "commodities": [
+    "copper",
+    "lithium",
+    "gold",
+    "silver"
+   ],
+   "region": "North America",
+   "siema": true,
+   "notes": "Principal vidriera internacional de Argentina: Argentina Day y pabellón argentino con provincias y gobierno nacional."
+  },
+  {
+   "id": 1009,
+   "name": "GEOSUR 2027 — Simposio Internacional de Geología y Geofísica del Hemisferio Sur",
+   "type": "Simposio",
+   "start_date": "2027-03-09",
+   "end_date": "2027-03-11",
+   "city": "Buenos Aires",
+   "country": "Argentina",
+   "venue": "Facultad de Ciencias Exactas y Naturales, UBA",
+   "organizer": "Universidad de Buenos Aires (FCEN)",
+   "website": "https://www.conicet.gov.ar/oportunidades-y-becas/publicacion/1783/congresosseminarios/",
+   "focus": [
+    "geología",
+    "geofísica",
+    "investigación"
+   ],
+   "commodities": [],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Simposio científico internacional en Buenos Aires, organizado por la UBA, promotora de SIEMA."
+  },
+  {
+   "id": 1010,
+   "name": "CRU World Copper Conference 2027",
+   "type": "Conferencia",
+   "start_date": "2027-04-12",
+   "end_date": "2027-04-14",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "W Hotel Santiago",
+   "organizer": "CRU Group",
+   "website": "https://www.crugroup.com/en/communities/events/world-copper-summit/",
+   "focus": [
+    "mercado del cobre",
+    "suministro",
+    "precios"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Evento central de la semana del cobre en Santiago; clave para posicionar Vicuña, Los Azules, El Pachón y MARA."
+  },
+  {
+   "id": 1011,
+   "name": "XXIII Congreso Geológico Argentino",
+   "type": "Congreso",
+   "start_date": "2027-04-19",
+   "end_date": "2027-04-23",
+   "city": "San Juan",
+   "country": "Argentina",
+   "venue": "",
+   "organizer": "Asociación Geológica Argentina y Universidad Nacional de San Juan",
+   "website": "https://www.tiempodesanjuan.com/mineria/el-xxiii-congreso-geologico-argentino-desembarca-en-san-juan-con-la-mineria-en-el-centro-del-debate-y-una-amplia-agenda-cientifica_1790624531",
+   "focus": [
+    "geología",
+    "exploración",
+    "recursos minerales"
+   ],
+   "commodities": [
+    "copper",
+    "gold",
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Principal congreso geológico del país, en la provincia del cobre, con la minería en el centro de la agenda."
+  },
+  {
+   "id": 1012,
+   "name": "Expomin 2027",
+   "type": "Feria + congreso",
+   "start_date": "2027-04-20",
+   "end_date": "2027-04-24",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "Espacio Riesco, Huechuraba",
+   "organizer": "GL events Chile",
+   "website": "https://www.expomin.cl/",
+   "focus": [
+    "proveedores",
+    "tecnología",
+    "equipamiento"
+   ],
+   "commodities": [
+    "copper",
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Mayor feria minera de Chile; interesa a proveedores argentinos y a la integración binacional."
+  },
+  {
+   "id": 1013,
+   "name": "Sustainable Mining 2027 — Ambiente y Responsabilidad Social en Minería",
+   "type": "Conferencia",
+   "start_date": "2027-05-05",
+   "end_date": "2027-05-07",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "",
+   "organizer": "Gecamin",
+   "website": "https://gecamin.com/",
+   "focus": [
+    "ambiente",
+    "licencia social",
+    "ESG"
+   ],
+   "commodities": [
+    "copper",
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Agenda ESG y de licencia social, central para el litio y el cobre argentinos."
+  },
+  {
+   "id": 1014,
+   "name": "Arminera 2027 — Exposición Internacional de la Industria Minera",
+   "type": "Feria",
+   "start_date": "2027-05-18",
+   "end_date": "2027-05-20",
+   "city": "Buenos Aires",
+   "country": "Argentina",
+   "venue": "La Rural Trade Center",
+   "organizer": "CAEM y Messe Frankfurt Argentina",
+   "website": "https://arminera.ar.messefrankfurt.com/",
+   "focus": [
+    "proveedores",
+    "maquinaria",
+    "exploración"
+   ],
+   "commodities": [
+    "copper",
+    "lithium",
+    "gold",
+    "silver"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "La feria minera más importante de Argentina; en 2027 crece a tres pabellones y suma un área de exploración."
+  },
+  {
+   "id": 1015,
+   "name": "Geomin Mine Planning 2027",
+   "type": "Conferencia",
+   "start_date": "2027-06-09",
+   "end_date": "2027-06-11",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "",
+   "organizer": "Gecamin",
+   "website": "https://gecamin.com/",
+   "focus": [
+    "geología",
+    "geomecánica",
+    "planificación minera"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Planificación minera de pórfidos de cobre, relevante para los proyectos argentinos."
+  },
+  {
+   "id": 1016,
+   "name": "Fastmarkets Lithium Supply & Battery Raw Materials 2027",
+   "type": "Conferencia",
+   "start_date": "2027-06-21",
+   "end_date": "2027-06-24",
+   "city": "Las Vegas",
+   "country": "USA",
+   "venue": "",
+   "organizer": "Fastmarkets",
+   "website": "https://globalevents.fastmarkets.com/",
+   "focus": [
+    "litio",
+    "baterías",
+    "precios",
+    "offtake"
+   ],
+   "commodities": [
+    "lithium",
+    "nickel",
+    "cobalt",
+    "graphite"
+   ],
+   "region": "North America",
+   "siema": true,
+   "notes": "Principal foro mundial del mercado de litio, donde se negocian contratos de venta; Argentina es el 4.º productor."
   }
  ]
 };

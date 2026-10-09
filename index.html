@@ -2786,8 +2786,8 @@
         const REF_PRICES = {
             asOf: '09/10/2026',
             items: [
-                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 18650, unit: 'USD/t', date: '09/10', src: 'GFEX, vía metalcharts.org' },
-                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 740, unit: 'CNY/kg', date: '09/10', src: 'China Rare Earth Price Index, vía Rare Earth Exchanges' }
+                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 17380, unit: 'USD/t', date: '09/10', src: 'GFEX, contrato LC2701: 117.000 CNY/t al cierre (SMM), a 6,733 CNY/US$' },
+                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 740, unit: 'CNY/kg', date: '09/10', src: 'SMM: óxido de PrNd 738–741 CNY/kg, sin cambios el 09/10' }
             ]
         };
         function refPriceItems(lang) {
@@ -3210,28 +3210,28 @@
         const PRIORITY_BADGE = { es: 'Prioridad #1 del Gobierno', en: "Government's #1 Priority" };
 
         // --- RIGI minero: Régimen de Incentivo para Grandes Inversiones, proyectos mineros de producción ---
-        // Datos al 01/10/2026. Fuente principal: análisis independiente de terceros sobre las resoluciones
+        // Datos al 09/10/2026. Fuente principal: análisis independiente de terceros sobre las resoluciones
         // del Boletín Oficial y el portal RIGI del Ministerio de Economía (uso autorizado, sin atribución).
         // Contraste: Ámbito (14/10/2025), El Cronista (2026), DF (17/06/2026).
         // Etapa 1: solo proyectos mineros de producción. Etapa 2 (pendiente): infraestructura habilitante
         // para la minería (energía, transporte, agua).
         // Para actualizar, editar solo RIGI_DATA. El índice alimenta el 10.º eje del Pulsómetro y el IPM.
         const RIGI_DATA = {
-            asOf: '02/10/2026',
+            asOf: '09/10/2026',
             // Proyectos mineros de producción aprobados y publicados (US$ M).
             // ann = inversión anunciada (padrón); com = activos computables (resolución);
             // disb = desembolso ejecutado a la fecha (null = sin dato publicado); stage = estado según fuente pública
             // disb = desembolso a la fecha (US$ M); dt: 'rep' = reportado por la empresa, 'est' = estimación SIEMA, null = sin dato
             projects: [
                 { n: 'Vicuña', m: 'cu', p: 'San Juan', ann: 9737, com: 9024.7, disb: 126.6, dt: 'rep', stage: { es: 'Obras tempranas (movimiento de suelos). Decisión de construcción de la Etapa 1 posible a fin de 2026; obras principales desde 2027. Dato: capex del 1S 2026, 100 % del JV.', en: 'Early works (earthmoving). Stage 1 construction decision possibly at end-2026; main works from 2027. Figure: H1 2026 capex, 100 % of the JV.' }, src: { l: 'Lundin Mining, 2T 2026', u: 'https://thelundingroup.com/lundin-group-of-companies/lundin-mining-corporation/news-releases/lundin-mining-reports-second-quarter-2026-results-123258/' } },
-                { n: 'Los Azules', m: 'cu', p: 'San Juan', ann: 2672, com: 2353.6, disb: 0, dt: 'est', stage: { es: 'Pre-construcción: decisión final de inversión prevista para el 4T 2026; obras desde inicios de 2027.', en: 'Pre-construction: final investment decision targeted for Q4 2026; works from early 2027.' }, src: { l: 'Mining Reporters, 10/08/2026', u: 'https://www.miningreporters.com/noticia/news/2026/08/mcewen-copper-los-azules-argentina-investment-decision' } },
+                { n: 'Los Azules', m: 'cu', p: 'San Juan', ann: 2672, com: 2353.6, disb: 0, dt: 'est', stage: { es: 'Pre-construcción: la decisión final de inversión y el cierre del financiamiento pasaron a mediados de 2027 (antes, fin de 2026). Producción prevista para 2030.', en: 'Pre-construction: final investment decision and financing close moved to mid-2027 (previously end-2026). Production planned for 2030.' }, src: { l: 'Shale24, 27/08/2026', u: 'https://www.shale24.com/mineria/los-azules-mcewen-copper-cerro-prestamo-us-240-millones-corrio-decision-final-inversion-mediados-2027-n1634' } },
                 { n: 'PSJ Cobre Mendocino', m: 'cu', p: 'Mendoza', ann: 891, com: 613.4, disb: null, dt: null, stage: { es: 'Ingeniería y preparación tras la aprobación ambiental (12/2025); construcción de 18 a 24 meses, operación prevista para 2028.', en: 'Engineering and preparation after environmental approval (12/2025); 18–24-month build, operation planned for 2028.' }, src: { l: 'Sitio Andino, 12/2025', u: 'https://www.sitioandino.com.ar/hebe-casado-psj-cobre-mendocino-nueva-etapa-mineria-mendoza' } },
                 { n: 'Rincón', m: 'li', p: 'Salta', ann: 2744, com: 2299.0, disb: null, dt: null, stage: { es: 'En construcción, etapa temprana: campamento, infraestructura y obras habilitantes. Primera producción en 2028. Probablemente el mayor desembolso sin dato.', en: 'Under construction, early stage: camp, infrastructure and enabling works. First production in 2028. Probably the largest undisclosed disbursement.' }, src: { l: 'Rio Tinto, 15/07/2026', u: 'https://www.sec.gov/Archives/edgar/data/0000863064/000086306426000035/ex991results.htm' } },
                 { n: 'Ampliación Cauchari-Olaroz', m: 'li', p: 'Jujuy', ann: 1241, com: 1166.7, disb: null, dt: null, stage: { es: 'RIGI aprobado en 06/2026; operación prevista para 12/2028. Sin datos públicos de avance.', en: 'RIGI approved 06/2026; operation planned for 12/2028. No public progress data.' }, src: { l: 'Ámbito, 06/2026', u: 'https://www.ambito.com/energia/bajo-el-rigi-un-proyecto-litio-invertira-us1166-millones-duplicar-su-produccion-n6285373' } },
                 { n: 'Liex S.A. (Tres Quebradas)', m: 'li', p: 'Catamarca', ann: 710, com: 594.1, disb: null, dt: null, stage: { es: 'Ampliación de 40 kt/año aprobada en 07/2026; sin cronograma público. La primera planta opera desde 09/2025.', en: '40 kt/yr expansion approved 07/2026; no public schedule. The first plant has operated since 09/2025.' }, src: { l: 'El Ancasti, 15/07/2026', u: 'https://www.elancasti.com.ar/edicion-impresa/luz-verde-al-rigi-la-litifera-china-que-invertira-709-millones-dolares-n617208' } },
-                { n: 'Sal de Oro II', m: 'li', p: 'Salta / Catamarca', ann: 547, com: 207.9, disb: null, dt: null, stage: { es: 'Construcción avanzada: planta de carbonato en el salar con inauguración prevista para fin de 2026 (capex total ~US$ 633 M).', en: 'Advanced construction: carbonate plant at the salar due to open by end-2026 (total capex ~US$ 633 M).' }, src: { l: 'Panorama Minero, 08/06/2026', u: 'https://www.panorama-minero.com/en/news/posco-approved-to-join-rigi-with-a-us-547-million-investment' } },
+                { n: 'Sal de Oro II', m: 'li', p: 'Salta / Catamarca', ann: 547, com: 207.9, disb: 207.9, dt: 'est', stage: { es: 'Construida: la planta II de carbonato de litio (23 kt/año) se inauguró el 06/10/2026. Se asume ejecutado el total computable.', en: 'Built: the 23 kt/yr lithium carbonate plant II was inaugurated on 06/10/2026. The full eligible amount is assumed spent.' }, src: { l: 'Infobae, 06/10/2026', u: 'https://www.infobae.com/america/agencias/2026/10/06/la-minera-surcoreana-posco-inaugura-su-segunda-planta-de-litio-en-argentina/' } },
                 { n: 'Fénix, expansión Fase 1B', m: 'li', p: 'Catamarca', ann: 531, com: 251.3, disb: 251.3, dt: 'est', stage: { es: 'Construida: primera producción en el 2T 2026, en puesta en marcha. Se asume ejecutado el total computable.', en: 'Built: first production in Q2 2026, commissioning. The full eligible amount is assumed spent.' }, src: { l: 'Rio Tinto, 15/07/2026', u: 'https://www.sec.gov/Archives/edgar/data/0000863064/000086306426000035/ex991results.htm' } },
-                { n: 'Hombre Muerto Oeste (HMW)', m: 'li', p: 'Catamarca', ann: 292, com: 217.1, disb: 217.1, dt: 'est', stage: { es: 'Fase 1 construida: puesta en marcha en el 2T 2026, primeras ventas en el 2S 2026. Se asume ejecutado el total computable.', en: 'Phase 1 built: commissioning in Q2 2026, first sales in H2 2026. The full eligible amount is assumed spent.' }, src: { l: 'Galan Lithium, informe 06/2026', u: 'https://www.accessnewswire.com/newsroom/en/metals-and-mining/quarterly-activities-report-june-2026-1199380' } },
+                { n: 'Hombre Muerto Oeste (HMW)', m: 'li', p: 'Catamarca', ann: 292, com: 217.1, disb: 217.1, dt: 'est', stage: { es: 'Fase 1 construida: primera producción en 05/2026; primeras ventas previstas para el 4T 2026 y 4 kt/año en el 1S 2027. Se asume ejecutado el total computable.', en: 'Phase 1 built: first production in 05/2026; first sales expected in Q4 2026 and 4 kt/yr in H1 2027. The full eligible amount is assumed spent.' }, src: { l: 'Galan Lithium, 23/09/2026', u: 'https://www.financialcontent.com/article/accwirecq-2026-9-24-hombre-muerto-west-project-update' } },
                 { n: 'Diablillos', m: 'ag', p: 'Salta', ann: 764, com: 481.7, disb: null, dt: null, stage: { es: 'Obras tempranas desde el 3T 2026; decisión final de inversión en el 2T 2027; producción antes de fin de 2029.', en: 'Early works from Q3 2026; final investment decision Q2 2027; production before end-2029.' }, src: { l: 'Mining Weekly, 25/09/2026', u: 'https://www.miningweekly.com/article/diablillos-silvergold-project-argentina-2026-09-25' } },
                 { n: 'Carbonatos Profundos (DCP)', m: 'au', p: 'San Juan', ann: 665, com: 519.6, disb: 30, dt: 'est', stage: { es: 'Factibilidad, ingeniería y pruebas piloto (plan 2026: US$ 40 M); construcción desde fines de 2027. Estimación: 9 meses del plan anual.', en: 'Feasibility, engineering and pilot tests (2026 plan: US$ 40 M); construction from late 2027. Estimate: 9 months of the annual plan.' }, src: { l: 'Diario de Cuyo, 16/02/2026', u: 'https://www.diariodecuyo.com.ar/cuyominero/gualcamayo-trabaja-en-3-frentes-con-un-plan-de-inversion-de-usd-40-millones-para-2026-1830873.html' } },
                 { n: 'Veladero, fases 8 y 9', m: 'au', p: 'San Juan', ann: 436, com: 380.1, disb: 0, dt: 'est', stage: { es: 'Licitación en 07/2026; la obra de la fase 8 empieza en 10/2026 y termina en 05/2027.', en: 'Tender in 07/2026; phase 8 works start 10/2026 and finish 05/2027.' }, src: { l: 'Tiempo de San Juan, 2026', u: 'https://www.tiempodesanjuan.com/politica-y-economia/veladero-contratara-800-trabajadores-para-una-ampliacion-y-el-gobierno-mira-con-expectativa-el-impacto-del-rigi_1782348185' } },
@@ -3291,7 +3291,7 @@
                 disbH: 'Nivel de desembolso',
                 disb: (m, c, p, g, ds, dp) => [
                     `<strong>Lo que es obligación:</strong> los 13 proyectos se comprometieron a invertir US$ ${m} M en sus dos primeros años, el ${p} % de lo comprometido (US$ ${c} M). Es la única cifra con fecha cierta: cada resolución la vuelve exigible.`,
-                    `<strong>Lo que se desembolsó:</strong> no hay dato oficial; el portal del Ministerio de Economía informa montos aprobados, no ejecutados. A partir de los reportes de las empresas, SIEMA identifica al menos US$ ${ds} M, el ${dp} % de lo comprometido: dos proyectos de litio ya construidos (Fénix 1B y Hombre Muerto Oeste), las obras tempranas de Vicuña y los estudios de Carbonatos Profundos. Es un piso: Rincón y Sal de Oro II están en obra y no publican cuánto llevan gastado. Como referencia, una estimación oficial de abril de 2026 preveía unos US$ ${g} M en dos años para los primeros 12 proyectos aprobados de todos los sectores.`,
+                    `<strong>Lo que se desembolsó:</strong> no hay dato oficial; el portal del Ministerio de Economía informa montos aprobados, no ejecutados. A partir de los reportes de las empresas, SIEMA identifica al menos US$ ${ds} M, el ${dp} % de lo comprometido: tres proyectos de litio ya construidos (Fénix 1B, Hombre Muerto Oeste y Sal de Oro II, inaugurado el 06/10/2026), las obras tempranas de Vicuña y los estudios de Carbonatos Profundos. Es un piso: Rincón está en obra y no publica cuánto lleva gastado. Como referencia, una estimación oficial de abril de 2026 preveía unos US$ ${g} M en dos años para los primeros 12 proyectos aprobados de todos los sectores.`,
                     '<strong>Lectura:</strong> el 76 % de la inversión minera comprometida (Vicuña, Los Azules, PSJ Cobre Mendocino, MARA, Diablillos y Veladero) todavía no empezó la construcción principal. El grueso del desembolso del RIGI minero cae en 2027-2029. La tabla se actualiza con cada reporte trimestral; cuando la cobertura alcance a la mayoría de los proyectos, el desembolso pasará a ser un componente del índice.'
                 ],
                 profH: 'Cuánto vale el RIGI para la minería',
@@ -3319,7 +3319,7 @@
                 con: [
                     '<strong>El RIGI funciona sobre todo como política minera.</strong> Los 13 proyectos mineros son el 47 % de la inversión anunciada del régimen, y los 12 valuados reciben más de dos tercios de su beneficio: el VAN sube un tercio de su inversión.',
                     '<strong>El cobre manda en monto; el litio, en dependencia del régimen.</strong> Cuatro proyectos de cobre concentran más de dos tercios de la inversión minera (69 %). En el litio, en cambio, el RIGI decide si el proyecto da VAN positivo.',
-                    '<strong>Aprobado no es desembolsado.</strong> Solo el 27 % de lo comprometido tiene fecha cierta y lo desembolsado que se puede identificar no llega al 3 %. Lo que ya está construido es litio de escala media; los grandes proyectos de cobre arrancan en 2027 (MARA, a fines de 2027).',
+                    '<strong>Aprobado no es desembolsado.</strong> Solo el 27 % de lo comprometido tiene fecha cierta y lo desembolsado que se puede identificar no llega al 4 %. Lo que ya está construido es litio de escala media; los grandes proyectos de cobre arrancan en 2027 (MARA, a fines de 2027).',
                     '<strong>Las provincias mineras ganan más que la Nación.</strong> Las regalías quedan enteras en la provincia productora; la Nación paga la mayor parte del costo fiscal. Es una tensión federal a seguir en los ejes Clima Político y Licencia Social.',
                     '<strong>Falta la infraestructura habilitante.</strong> Sin energía, transporte y agua, el ritmo de desembolso de estos proyectos depende de obras que hoy no se miden en esta pestaña.'
                 ],
@@ -3344,7 +3344,7 @@
                 disbH: 'Disbursement level',
                 disb: (m, c, p, g, ds, dp) => [
                     `<strong>What is an obligation:</strong> the 13 projects committed to invest US$ ${m} M in their first two years, ${p} % of committed investment (US$ ${c} M). It is the only figure with a firm date: each resolution makes it enforceable.`,
-                    `<strong>What has been disbursed:</strong> there is no official figure; the Ministry of Economy portal reports approved amounts, not execution. From company reports, SIEMA identifies at least US$ ${ds} M, ${dp} % of committed investment: two lithium projects already built (Fénix 1B and Hombre Muerto West), Vicuña's early works and the Deep Carbonates studies. It is a floor: Rincón and Sal de Oro II are under construction and do not publish how much they have spent. For reference, an official April 2026 estimate expected about US$ ${g} M over two years for the first 12 approved projects across all sectors.`,
+                    `<strong>What has been disbursed:</strong> there is no official figure; the Ministry of Economy portal reports approved amounts, not execution. From company reports, SIEMA identifies at least US$ ${ds} M, ${dp} % of committed investment: three lithium projects already built (Fénix 1B, Hombre Muerto West and Sal de Oro II, inaugurated on 06/10/2026), Vicuña's early works and the Deep Carbonates studies. It is a floor: Rincón is under construction and does not publish how much it has spent. For reference, an official April 2026 estimate expected about US$ ${g} M over two years for the first 12 approved projects across all sectors.`,
                     '<strong>Reading:</strong> 76 % of committed mining investment (Vicuña, Los Azules, PSJ Cobre Mendocino, MARA, Diablillos and Veladero) has not yet started main construction. The bulk of mining RIGI disbursement falls in 2027–2029. The table is updated with each quarterly report; when coverage reaches most projects, disbursement will become a component of the index.'
                 ],
                 profH: 'What RIGI is worth to mining',
@@ -3372,7 +3372,7 @@
                 con: [
                     '<strong>RIGI works above all as a mining policy.</strong> The 13 mining projects are 47 % of the regime\'s announced investment, and the 12 valued ones receive more than two thirds of its benefit: NPV rises by a third of their investment.',
                     '<strong>Copper leads in size; lithium in dependence on the regime.</strong> Four copper projects hold more than two thirds of mining investment (69 %). In lithium, by contrast, RIGI decides whether the project has a positive NPV.',
-                    '<strong>Approved is not disbursed.</strong> Only 27 % of committed investment has a firm date and identifiable disbursement is below 3 %. What is already built is mid-sized lithium; the large copper projects start in 2027 (MARA in late 2027).',
+                    '<strong>Approved is not disbursed.</strong> Only 27 % of committed investment has a firm date and identifiable disbursement is below 4 %. What is already built is mid-sized lithium; the large copper projects start in 2027 (MARA in late 2027).',
                     '<strong>Mining provinces gain more than the nation.</strong> Royalties stay entirely in the producing province; the national government pays most of the fiscal cost. A federal tension to follow in the Political Climate and Social License axes.',
                     '<strong>Enabling infrastructure is missing.</strong> Without energy, transport and water, the pace of disbursement depends on works this tab does not yet measure.'
                 ],
@@ -3462,8 +3462,8 @@
         // --- Demanda: relación de precios cobre/aluminio (indicador de sustitución) ---
         // Para actualizar: editar CUAL_DATA (relación, fecha y estimaciones). La curva es la misma del modelo Convergencias 2050.
         const CUAL_DATA = {
-            asOf: '29/08/2026',
-            now: 4.3,          // relación Cu/Al (US$/t ÷ US$/t), récord
+            asOf: '08/10/2026',
+            now: 4.7,          // relación Cu/Al (US$/t ÷ US$/t), récord: oficial LME 08/10/2026, cobre 14.526 ÷ aluminio 3.061 = 4,75 (KME, ftmercati)
             hist: 3.7,         // promedio histórico de largo plazo
             curve: [[3.5, 0], [4.0, 0.015], [4.2, 0.02], [4.5, 0.035], [5.0, 0.055], [5.5, 0.07]],
             cuDemand2040: 34,  // Mt, demanda total de cobre 2040 (AIE STEPS), para pasar porcentajes a toneladas
@@ -3473,52 +3473,52 @@
             es: {
                 h2: 'Relación de precios cobre/aluminio: el indicador de sustitución',
                 intro: 'Cuando el cobre se encarece mucho frente al aluminio, la industria rediseña cables, equipos de climatización y autos para usar aluminio, y una parte de la demanda de cobre desaparece. La señal que vigila el mercado es la relación entre ambos precios (US$ por tonelada de cobre ÷ US$ por tonelada de aluminio). Este indicador alimenta el modelo de <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Prospectiva</a>.',
-                k1: 'Relación actual', k1s: d => `Récord · ${d} · cobre a más de 4 veces el aluminio`,
+                k1: 'Relación actual', k1s: d => `Récord · ${d} · supera el 4,3 de agosto de 2026`,
                 k2: 'Promedio histórico', k2s: 'Largo plazo',
                 k3: 'Umbral de sustitución', k3s: 'Desde acá la industria cambia de material (BHP)',
                 k4: 'Demanda de cobre desplazada', k4s: 'Hoy, según ICA (menos de 2 %) y JPMorgan (≈2 % en 2026)',
                 zones: ['Cobre competitivo', 'Empieza la sustitución', 'Sustitución material', 'Presión fuerte', 'Sustitución muy intensa'],
                 hist: 'Promedio', now: 'Hoy',
                 tabH: 'Cuánto cobre se pierde según la relación', cols: ['Relación sostenida', 'Lectura', 'Demanda mundial de cobre desplazada (largo plazo)', 'En 2040'],
-                reads: ['Por debajo del promedio histórico', 'Promedio histórico', 'Inicio de la sustitución material', 'Nivel actual', 'Presión fuerte', 'Destrucción estructural de demanda'],
+                reads: ['Por debajo del promedio histórico', 'Promedio histórico', 'Inicio de la sustitución material', 'Récord de agosto de 2026', 'Presión fuerte (hoy, algo por encima)', 'Destrucción estructural de demanda'],
                 tabNote: 'Modelo SIEMA, calibrado con JPMorgan (≈2 % en 2026 y hasta 6 % hacia 2030 si se acelera), International Copper Association (menos de 2 %) y el umbral industrial de 3,5–4 : 1. El efecto llega en dos a cuatro años: es el tiempo de rediseñar y homologar productos. Toneladas sobre una demanda total de 34 Mt en 2040 (AIE, escenario STEPS).',
                 whereH: 'Dónde ya se sustituye', where: ['Líneas aéreas de transmisión: aluminio desde hace décadas', 'Cables de potencia y distribución', 'Climatización (Daikin)', 'Cableado automotriz (BMW, Ferrari)', 'Cerca del 10 % de los cables de los vehículos eléctricos'],
                 notH: 'Dónde casi no', not: ['Bobinados de motores eléctricos', 'Electrónica de precisión', 'Conexiones en espacios reducidos', 'Instalaciones con normas de seguridad estrictas'],
                 tech: 'Por qué: el aluminio conduce cerca del 61 % de lo que conduce el cobre y necesita 1,6 veces más sección, pero para la misma conducción pesa la mitad. Lo frenan los conectores (se oxida y se deforma bajo presión), las normas eléctricas y el costo de rediseñar.',
                 readH: 'Lectura del SIEMA',
                 read: (t35, ar) => [
-                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Con la relación en 4,3 : 1, el aluminio desplaza alrededor del 2 a 2,5 % de la demanda mundial de cobre. Es un efecto real, no un cambio de era.',
+                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un nuevo récord de 4,7 : 1 en octubre de 2026 (4,3 en agosto): si se sostuviera, el desplazamiento de largo plazo subiría a cerca del 4 %. Es un efecto real, no un cambio de era.',
                     `<strong>Para Argentina, el número importa.</strong> Si la relación se sostuviera en 4,5 : 1, el cobre desplazado rondaría ${t35} Mt por año en 2040: tanto como toda la cartera argentina de cobre (~${ar} Mt por año). Es un riesgo a seguir para el precio del cobre y, por esa vía, para el ritmo de las decisiones de inversión de los proyectos.`,
                     '<strong>Tiene un freno natural.</strong> Si sube la demanda de aluminio, sube su precio y la relación baja. Por eso los niveles de 5 : 1 o más son difíciles de sostener.',
                     '<strong>Qué seguir.</strong> La relación mensual, las decisiones de diseño de la industria automotriz y de climatización, y las normas eléctricas de los grandes mercados.'
                 ],
                 btn: 'Mover la relación en el modelo de Prospectiva',
-                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
+                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales LME del 08/10/2026 (cobre US$ 14.526/t, aluminio US$ 3.061/t); JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
             },
             en: {
                 h2: 'Copper/aluminium price ratio: the substitution indicator',
                 intro: 'When copper becomes much more expensive than aluminium, industry redesigns cables, air-conditioning units and cars to use aluminium, and part of copper demand disappears. The signal the market watches is the ratio between both prices (US$ per tonne of copper ÷ US$ per tonne of aluminium). This indicator feeds the <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Foresight</a> model.',
-                k1: 'Current ratio', k1s: d => `Record · ${d} · copper above 4 times aluminium`,
+                k1: 'Current ratio', k1s: d => `Record · ${d} · above the 4.3 of August 2026`,
                 k2: 'Historical average', k2s: 'Long term',
                 k3: 'Substitution threshold', k3s: 'Where industry switches material (BHP)',
                 k4: 'Copper demand displaced', k4s: 'Today, per ICA (below 2 %) and JPMorgan (≈2 % in 2026)',
                 zones: ['Copper competitive', 'Substitution starts', 'Material substitution', 'Strong pressure', 'Very intense substitution'],
                 hist: 'Average', now: 'Today',
                 tabH: 'How much copper is lost depending on the ratio', cols: ['Sustained ratio', 'Reading', 'World copper demand displaced (long term)', 'In 2040'],
-                reads: ['Below historical average', 'Historical average', 'Material substitution begins', 'Current level', 'Strong pressure', 'Structural demand destruction'],
+                reads: ['Below historical average', 'Historical average', 'Material substitution begins', 'August 2026 record', 'Strong pressure (today, slightly above)', 'Structural demand destruction'],
                 tabNote: 'SIEMA model, calibrated with JPMorgan (≈2 % in 2026 and up to 6 % by 2030 if it accelerates), the International Copper Association (below 2 %) and the 3.5–4 : 1 industry threshold. The effect arrives in two to four years, the time needed to redesign and certify products. Tonnes on total demand of 34 Mt in 2040 (IEA STEPS).',
                 whereH: 'Where it already happens', where: ['Overhead transmission lines: aluminium for decades', 'Power and distribution cables', 'Air conditioning (Daikin)', 'Automotive wiring (BMW, Ferrari)', 'About 10 % of electric-vehicle cables'],
                 notH: 'Where it hardly happens', not: ['Electric motor windings', 'Precision electronics', 'Space-constrained connections', 'Installations with strict safety codes'],
                 tech: 'Why: aluminium conducts about 61 % as well as copper and needs 1.6 times the cross-section, but weighs half as much for the same conduction. Connectors (it oxidises and creeps under pressure), electrical codes and redesign costs hold it back.',
                 readH: 'SIEMA reading',
                 read: (t35, ar) => [
-                    '<strong>Substitution is under way, but limited.</strong> With the ratio at 4.3 : 1, aluminium displaces about 2 to 2.5 % of world copper demand. A real effect, not a change of era.',
+                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a new record of 4.7 : 1 in October 2026 (4.3 in August): if sustained, long-term displacement would rise to about 4 %. A real effect, not a change of era.',
                     `<strong>For Argentina, the number matters.</strong> If the ratio held at 4.5 : 1, displaced copper would be around ${t35} Mt a year in 2040: as much as Argentina's entire copper pipeline (~${ar} Mt a year). It is a risk to watch for the copper price and, through it, for the pace of the projects' investment decisions.`,
                     '<strong>It has a natural brake.</strong> If aluminium demand rises, its price rises and the ratio falls. That is why levels of 5 : 1 or more are hard to sustain.',
                     '<strong>What to watch.</strong> The monthly ratio, design decisions in the automotive and air-conditioning industries, and electrical codes in the big markets.'
                 ],
                 btn: 'Move the ratio in the Foresight model',
-                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
+                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official prices on 08/10/2026 (copper US$ 14,526/t, aluminium US$ 3,061/t); JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
             }
         };
         function cualShareAt(r) {
@@ -4100,7 +4100,7 @@
         // Producción 2025: CAEM, Informe productivo (datos Secretaría de Minería). Exportaciones: Secretaría de Minería.
         // Operadores y capacidades de los proyectos avanzados: Secretaría de Minería y comunicados de las empresas.
         const OF_DATA = {
-            asOf: '01/10/2026',
+            asOf: '09/10/2026',
             stages: [
                 { k: 'prod', n: 26 }, { k: 'cons', n: 7 }, { k: 'feas', n: 10 }, { k: 'pfs', n: 6 }, { k: 'pea', n: 11 },
                 { k: 'advx', n: 73 }, { k: 'initx', n: 131 }, { k: 'prosp', n: 61 }
@@ -4129,7 +4129,7 @@
                 { n: 'Cauchari-Olaroz', m: 'li', p: 'Jujuy', o: 'Minera Exar (Ganfeng, Lithium Argentina, JEMSE)', cap: '40 kt LCE', x: { es: 'Meta de 85 kt hacia 2029', en: 'Target of 85 kt by 2029' } },
                 { n: 'Olaroz', m: 'li', p: 'Jujuy', o: 'Rio Tinto', cap: '42,5 kt LCE' },
                 { n: 'Fénix', m: 'li', p: 'Catamarca', o: 'Rio Tinto', cap: '≈30 kt LCE', x: { es: 'Fase 1B: +9,5 kt (RIGI)', en: 'Phase 1B: +9.5 kt (RIGI)' } },
-                { n: 'Sal de Oro', m: 'li', p: 'Salta / Catamarca', o: 'POSCO', cap: '25 kt LiOH', x: { es: 'Fase 2 anunciada', en: 'Phase 2 announced' } },
+                { n: 'Sal de Oro', m: 'li', p: 'Salta / Catamarca', o: 'POSCO', cap: '25 kt LiOH', x: { es: 'Planta II de carbonato (23 kt/año, RIGI) inaugurada el 06/10/2026', en: 'Carbonate plant II (23 kt/yr, RIGI) inaugurated on 06/10/2026' } },
                 { n: 'Centenario-Ratones', m: 'li', p: 'Salta', o: 'Eramet', cap: '24 kt LCE' },
                 { n: 'Tres Quebradas', m: 'li', p: 'Catamarca', o: 'Zijin Mining', cap: '20 kt LCE' },
                 { n: 'Mariana', m: 'li', p: 'Salta', o: 'Ganfeng Lithium', cap: '20 kt LiCl' },
@@ -4163,7 +4163,7 @@
                 { n: 'Sal de los Ángeles', m: 'li', s: 'cons', p: 'Salta', o: 'Revotech Asia' },
                 { n: 'Calcatreu', m: 'au', s: 'cons', p: 'Río Negro', o: 'Patagonia Gold', cap: '≈32 koz Au/año', y: 2026 },
                 { n: 'Los Azules', m: 'cu', s: 'feas', p: 'San Juan', o: 'McEwen Copper', cap: '205 kt Cu/año (primeros 5 años)', y: 2030, rigi: 'ok', capex: 'US$ 2.672 M' },
-                { n: 'Taca Taca', m: 'cu', s: 'feas', p: 'Salta', o: 'First Quantum Minerals', cap: '>200 kt Cu/año (>320 kt con expansión)', y: '2031–2033', rigi: 'ok', capex: 'US$ 5.250 M' },
+                { n: 'Taca Taca', m: 'cu', s: 'feas', p: 'Salta', o: 'First Quantum Minerals', cap: '>200 kt Cu/año (>320 kt con expansión)', y: '2031–2033', capex: 'US$ 5.250 M', x: { es: 'Todavía no presentado al RIGI: First Quantum lo hará tras la aprobación ambiental (Minería y Desarrollo, 24/08/2026)', en: 'Not yet filed for RIGI: First Quantum will apply after environmental approval (Minería y Desarrollo, 24/08/2026)' } },
                 { n: 'MARA (Agua Rica – Alumbrera)', m: 'cu', s: 'feas', p: 'Catamarca', o: 'Glencore', cap: '>200 kt Cu/año (primeros 10 años)', y: '2031', rigi: 'ok', capex: 'US$ 4.000 M', x: { es: 'RIGI aprobado el 02/10/2026; obras desde 11/2027. Reactivación de Alumbrera desde 2027 (~70 kt en 4 años)', en: 'RIGI approved 02/10/2026; works from 11/2027. Alumbrera restart from 2027 (~70 kt over 4 years)' } },
                 { n: 'El Pachón', m: 'cu', s: 'feas', p: 'San Juan', o: 'Glencore', cap: '≈280 kt Cu/año', rigi: 'eval', capex: 'US$ 9.500 M' },
                 { n: 'Pozuelos – Pastos Grandes', m: 'li', s: 'feas', p: 'Salta', o: 'Ganfeng Lithium', cap: '≈150 kt LCE (distrito, plan)', rigi: 'eval' },
@@ -4679,7 +4679,7 @@
                 real: 'DATO REAL', ill: 'ILUSTRATIVO', noSignal: 'SIN SEÑAL',
                 ipm: ['ÍNDICE DE PERFORMANCE MINERA', '0,40 × Exportaciones + 0,35 × Producción + 0,25 × Inversión', (e, p, i) => `E ${e} · P ${p} · I ${i}`,
                     ['Exportaciones: ritmo vs. proyección anual', 'Producción: litio producido / capacidad instalada', 'Inversión: avance del RIGI minero (escala de la cartera aprobada y compromiso con fecha cierta, pestaña RIGI)']],
-                exp: ['EXPORTACIONES MINERAS 2026', '1S acumulado vs. proyección anual US$ 9.000 M', '▲ +74,4 % interanual', 'mil M US$'],
+                exp: ['EXPORTACIONES MINERAS 2026', 'Ene–ago acumulado vs. proyección anual US$ 9.000 M', '▲ +65,7 % interanual', 'mil M US$'],
                 bar: ['ÍNDICE PULSÓMETRO', 'Promedio 10 ejes · percepción interna', d => `▲ +${d} vs 2025`],
                 pul: ['PERCEPCIÓN EXTERNA', 'Percepción externa · 1.ª edición en preparación'],
                 li: ['CAPACIDAD INSTALADA', 'Meta oficial 2036: más de 600 kt/año', '33 % de la meta · 4.º productor mundial', 'kt LCE'],
@@ -4688,7 +4688,7 @@
                 sys: [['Pulsómetro', 'EN LÍNEA'], ['Prospectiva (Convergencias 2050)', 'EN LÍNEA'], ['Análisis de Brechas', 'FASE 1'], ['Monitor MIMA (CAI)', 'EN DISEÑO'], ['Percepción externa', 'CALIBRANDO'], ['RIGI minero', 'EN LÍNEA']],
                 short: ['Exportaciones', 'Marco normativo', 'Licencia social', 'Clima político', 'Mining-friendly', 'Financiamiento', 'Infraestructura', 'Estab. macro', 'Capital humano', 'RIGI minero'],
                 tipGo: 'Clic → ', tabs: { barometro: 'Pulsómetro', brechas: 'Brechas', monitor: 'Monitor MIMA', prospectiva: 'Prospectiva', argentina: 'Argentina hoy', pulsometro: 'Percepción externa', oferta: 'Oferta', rigi: 'RIGI minero' },
-                foot: 'Datos reales: exportaciones mineras 1S 2026 (INDEC / Secretaría de Minería) y proyección anual; capacidad de litio (Secretaría de Minería, pestaña Oferta) y cartera de cobre (CeProMin, pestaña Argentina hoy). Índice de Performance Minera: exportaciones 1S 2026 vs. proyección anual US$ 9.000 M, producción de litio 2025 (116,6 kt) / capacidad (200,8 kt), avance del RIGI minero: promedio de los componentes Escala y Compromiso con fecha cierta del índice RIGI minero (pestaña RIGI, 02/10/2026). Licencia Social, Estabilidad Macro y RIGI se calculan con datos externos (RIGI minero: proyectos mineros de producción, pestaña RIGI); el resto del Pulsómetro es un primer corte ilustrativo de la encuesta SIEMA.',
+                foot: 'Datos reales: exportaciones mineras enero–agosto 2026 (Secretaría de Minería) y proyección anual; capacidad de litio (Secretaría de Minería, pestaña Oferta) y cartera de cobre (CeProMin, pestaña Argentina hoy). Índice de Performance Minera: exportaciones enero–agosto 2026 vs. proyección anual US$ 9.000 M, producción de litio 2025 (116,6 kt) / capacidad (200,8 kt), avance del RIGI minero: promedio de los componentes Escala y Compromiso con fecha cierta del índice RIGI minero (pestaña RIGI, 02/10/2026). Licencia Social, Estabilidad Macro y RIGI se calculan con datos externos (RIGI minero: proyectos mineros de producción, pestaña RIGI); el resto del Pulsómetro es un primer corte ilustrativo de la encuesta SIEMA.',
                 locale: 'es-AR'
             },
             en: {
@@ -4702,7 +4702,7 @@
                 real: 'REAL DATA', ill: 'ILLUSTRATIVE', noSignal: 'NO SIGNAL',
                 ipm: ['MINING PERFORMANCE INDEX', '0.40 × Exports + 0.35 × Production + 0.25 × Investment', (e, p, i) => `E ${e} · P ${p} · I ${i}`,
                     ['Exports: pace vs. annual projection', 'Production: lithium output / installed capacity', 'Investment: mining RIGI progress (approved portfolio scale and commitment with firm dates, RIGI tab)']],
-                exp: ['MINING EXPORTS 2026', 'H1 cumulative vs. US$ 9.0 bn annual projection', '▲ +74.4 % year-on-year', 'US$ bn'],
+                exp: ['MINING EXPORTS 2026', 'Jan–Aug cumulative vs. US$ 9.0 bn annual projection', '▲ +65.7 % year-on-year', 'US$ bn'],
                 bar: ['PULSOMETER INDEX', '10-axis average · internal perception', d => `▲ +${d} vs 2025`],
                 pul: ['EXTERNAL PERCEPTION', 'External perception · 1st edition in preparation'],
                 li: ['INSTALLED CAPACITY', 'Official 2036 target: over 600 kt/yr', '33 % of target · world #4 producer', 'kt LCE'],
@@ -4711,7 +4711,7 @@
                 sys: [['Pulsometer', 'ONLINE'], ['Foresight (Convergences 2050)', 'ONLINE'], ['Gap Analysis', 'PHASE 1'], ['MIMA Monitor (CAI)', 'IN DESIGN'], ['External perception', 'CALIBRATING'], ['Mining RIGI', 'ONLINE']],
                 short: ['Exports', 'Regulatory', 'Social license', 'Political climate', 'Mining-friendly', 'Funding', 'Infrastructure', 'Macro stability', 'Human capital', 'Mining RIGI'],
                 tipGo: 'Click → ', tabs: { barometro: 'Pulsometer', brechas: 'Gap Analysis', monitor: 'MIMA Monitor', prospectiva: 'Foresight', argentina: 'Argentina today', pulsometro: 'External perception', oferta: 'Supply', rigi: 'Mining RIGI' },
-                foot: 'Real data: H1 2026 mining exports (INDEC / Mining Secretariat) and annual projection; lithium capacity (Mining Secretariat, Supply tab) and copper pipeline (CeProMin, Argentina today tab). Mining Performance Index: H1 2026 exports vs. US$ 9.0 bn annual projection, 2025 lithium output (116.6 kt) / capacity (200.8 kt), mining RIGI progress: average of the Scale and Firm-date commitment components of the mining RIGI index (RIGI tab, 02/10/2026). Social Licence, Macro Stability and RIGI are calculated from external data (mining RIGI: mining production projects, RIGI tab); the rest of the Pulsometer is an illustrative first cut of the SIEMA survey.',
+                foot: 'Real data: January–August 2026 mining exports (Mining Secretariat) and annual projection; lithium capacity (Mining Secretariat, Supply tab) and copper pipeline (CeProMin, Argentina today tab). Mining Performance Index: January–August 2026 exports vs. US$ 9.0 bn annual projection, 2025 lithium output (116.6 kt) / capacity (200.8 kt), mining RIGI progress: average of the Scale and Firm-date commitment components of the mining RIGI index (RIGI tab, 02/10/2026). Social Licence, Macro Stability and RIGI are calculated from external data (mining RIGI: mining production projects, RIGI tab); the rest of the Pulsometer is an illustrative first cut of the SIEMA survey.',
                 locale: 'en-GB'
             }
         };
@@ -4719,9 +4719,9 @@
         // Índice de Performance Minera (IPM) = 0,40·E + 0,35·P + 0,25·I  (cada componente 0–100)
         // Actualizar estos insumos cuando haya datos nuevos (INDEC mensual, RIGI, producción de litio).
         const IPM_DATA = {
-            exportYTD: 4742,        // US$ M exportados en el año (1S 2026, INDEC)
+            exportYTD: 6059,        // US$ M exportados en el año (enero–agosto 2026, Secretaría de Minería, 30/09/2026)
             exportTarget: 9000,     // US$ M proyección anual 2026 (sector)
-            yearFraction: 0.5,      // parte del año cubierta por exportYTD
+            yearFraction: 8 / 12,   // parte del año cubierta por exportYTD (meses / 12)
             lithiumOutput: 116.6,   // kt LCE producidas (2025, Secretaría de Minería)
             lithiumCapacity: 200.8, // kt LCE capacidad instalada (Portfolio 2026)
             // Inversión: se lee de RIGI_DATA (pestaña RIGI), única fuente del RIGI en SIEMA
@@ -4845,7 +4845,7 @@
             const I = {
                 ipm: { min: 0, max: 100, val: ipm.total, txt: String(ipm.total), unit: '/100', zones: [[0, 40, C.crit], [40, 65, C.warn], [65, 100, C.good]], lbl: t.ipm[0], sub: t.ipm[1], delta: t.ipm[2](ipm.E, ipm.P, ipm.I), real: true, go: 'oferta',
                        tip: `<b>${t.ipm[0]}</b><br>E ${ipm.E} — ${t.ipm[3][0]}<br>P ${ipm.P} — ${t.ipm[3][1]}<br>I ${ipm.I} — ${t.ipm[3][2]}` },
-                exp: { min: 0, max: 9000, val: 4742, target: 4500, txt: nf(4.742, 2, lang), unit: t.exp[3], zones: [[0, 3000, C.crit], [3000, 4500, C.warn], [4500, 9000, C.good]], lbl: t.exp[0], sub: t.exp[1], delta: t.exp[2], real: true, go: 'barometro' },
+                exp: { min: 0, max: 9000, val: IPM_DATA.exportYTD, target: IPM_DATA.exportTarget * IPM_DATA.yearFraction, txt: nf(IPM_DATA.exportYTD / 1000, 2, lang), unit: t.exp[3], zones: [[0, IPM_DATA.exportTarget * IPM_DATA.yearFraction * 2 / 3, C.crit], [IPM_DATA.exportTarget * IPM_DATA.yearFraction * 2 / 3, IPM_DATA.exportTarget * IPM_DATA.yearFraction, C.warn], [IPM_DATA.exportTarget * IPM_DATA.yearFraction, 9000, C.good]], lbl: t.exp[0], sub: t.exp[1], delta: t.exp[2], real: true, go: 'barometro' },
                 bar: { min: 0, max: 10, val: avg26, txt: nf(avg26, 1, lang), unit: '/10', zones: RYG10, lbl: t.bar[0], sub: t.bar[1], delta: t.bar[2](nf(avg26 - avg25, 1, lang)), real: false, go: 'barometro' },
                 pul: { min: 0, max: 10, val: null, standby: t.noSignal, zones: RYG10, lbl: t.pul[0], sub: t.pul[1], real: false, go: 'pulsometro' },
                 li: { min: 0, max: 600, val: 200.8, txt: '201', unit: t.li[3], zones: [[0, 650, C.cyan]], lbl: t.li[0], sub: t.li[1], delta: t.li[2], real: true, go: 'argentina' },
