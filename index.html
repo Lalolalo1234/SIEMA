@@ -2856,7 +2856,7 @@
                     price: `${it.price} ${it.unit}`,
                     change: it.direction === 'down' ? -Math.abs(it.changePct) : Math.abs(it.changePct)
                 }));
-                const when = new Date(data.updated).toLocaleString(t.locale);
+                const when = new Date(data.updated).toLocaleString(t.locale, { dateStyle: 'short', timeStyle: 'short', hourCycle: 'h23' });
                 const label = data.degraded ? t.degraded(when) : t.live(when);
                 if (data.degraded || items.length < 2) throw new Error('feed no disponible');
                 renderTicker([...items, ...refPriceItems(lang)], label + t.refNote);
@@ -2963,7 +2963,7 @@
             try {
                 const res = await fetch(`${SIEMA_API_BASE}/api/news?lang=${lang}`);
                 const data = await res.json();
-                const when = new Date(data.updated).toLocaleString(t.locale);
+                const when = new Date(data.updated).toLocaleString(t.locale, { dateStyle: 'short', timeStyle: 'short', hourCycle: 'h23' });
                 const note = data.degraded ? t.degraded(when) : t.live(when);
                 renderNews(data.items, note, t.sourceLabel);
             } catch (e) {
