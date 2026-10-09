@@ -57,11 +57,17 @@ async function searchLibrary(env, messages) {
     }
     return [];
   };
-  try {
-    const hits = await Promise.race([run(), new Promise(res => setTimeout(() => res([]), 7000))]);
-    return hits.filter(x => x.text && x.score >= 0.15).slice(0, 8);
-  } catch (e) { return []; }
+  const once = () => Promise.race([
+    run().catch(e => { lastSearchError = String(e && e.message || e).slice(0, 200); return null; }),
+    new Promise(res => setTimeout(() => { lastSearchError = 'tiempo agotado'; res(null); }, 6000))
+  ]);
+  lastSearchError = '';
+  let hits = await once();
+  // A veces la primera consulta falla o vuelve vacía; un reintento suele resolverlo
+  if (!hits || !hits.length) hits = await once();
+  return (hits || []).filter(x => x.text && x.score >= 0.15).slice(0, 8);
 }
+let lastSearchError = '';
 
 let knowledgeCache = { text: '', at: 0 };
 
@@ -113,7 +119,7 @@ export default {
       // Diagnóstico: solo títulos de fuente y puntajes, sin texto ni llamada a Claude
       const hits = await searchLibrary(env, messages);
       const list = hits.map(x => ({ score: Math.round(x.score * 1000) / 1000, fuente: ((x.text.match(/\[Fuente: ([^\]—]+)/) || [])[1] || x.src).trim() }));
-      return new Response(JSON.stringify(list, null, 1), { headers: { ...h, 'Content-Type': 'application/json' } });
+      return new Response(JSON.stringify(list.length ? list : { vacio: true, error: lastSearchError }, null, 1), { headers: { ...h, 'Content-Type': 'application/json' } });
     }
     const [knowledge, hits] = await Promise.all([getKnowledge(env), searchLibrary(env, messages)]);
     const system = [
