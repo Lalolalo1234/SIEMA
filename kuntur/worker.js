@@ -58,7 +58,7 @@ async function searchLibrary(env, messages) {
     return [];
   };
   try {
-    const hits = await Promise.race([run(), new Promise(res => setTimeout(() => res([]), 3500))]);
+    const hits = await Promise.race([run(), new Promise(res => setTimeout(() => res([]), 7000))]);
     return hits.filter(x => x.text && x.score >= 0.15).slice(0, 8);
   } catch (e) { return []; }
 }
