@@ -243,6 +243,7 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
   <button type="button" id="bPres">Presentar</button>
   <button type="button" id="bEs">🎤 Preguntar en voz alta</button>
   <button type="button" id="bEn">🎤 Ask in English</button>
+  <button type="button" id="bNew">👤 Nueva persona</button>
   <button type="button" id="bType">Escribir pregunta</button>
   <button type="button" id="bStop">Callar</button>
   <button type="button" id="bSet">Ajustes</button>
@@ -259,6 +260,7 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
       <tr><td>Mayús + P</td><td>Presentar en inglés, con subtítulos en español</td></tr>
       <tr><td>Espacio</td><td>Escuchar una pregunta en español. Las pausas no la cortan: presioná Espacio de nuevo, o Enter, al terminar (o esperá unos segundos de silencio)</td></tr>
       <tr><td>E</td><td>Escuchar una pregunta en inglés (se termina igual: E de nuevo o Enter)</td></tr>
+      <tr><td>N</td><td>Nueva persona: Kuntur olvida la conversación anterior, saluda, pide el nombre y escucha (Mayús + N en inglés)</td></tr>
       <tr><td>T</td><td>Escribir una pregunta (por ejemplo, una del público)</td></tr>
       <tr><td>Esc</td><td>Callar a Kuntur o cerrar esta ventana</td></tr>
       <tr><td>→</td><td>Saltar a la siguiente parte de la presentación</td></tr>
@@ -718,7 +720,7 @@ function listen(lang) {
   rec.start();
 }
 function showQuestion(q, lang, interim) {
-  const label = lang === 'es' ? (interim ? 'Escuchando la pregunta' : 'Pregunta de Eduardo') : (interim ? 'Listening to the question' : 'Question from Eduardo');
+  const label = lang === 'es' ? (interim ? 'Escuchando' : 'Pregunta') : (interim ? 'Listening' : 'Question');
   let el = panel.querySelector('.slide.ask:not(.gone)');
   if (!el) { show(`<div class="ask"><div class="q"></div><div class="from"></div></div>`); el = panel.lastElementChild; el.classList.add('ask'); }
   el.querySelector('.q').textContent = q || '…';
@@ -758,6 +760,22 @@ async function ask(q, lang) {
   history.push({ role: 'assistant', content: full.split('###')[0].trim() });
   if (history.length > 16) history.splice(0, history.length - 16);
   if (gen === speakGen) setState('idle');
+}
+// Nueva persona: Kuntur no reconoce voces. Al pasar el micrófono a alguien del público
+// se borra la conversación anterior, Kuntur saluda, pide el nombre y escucha.
+async function newPerson(lang) {
+  hush(); const gen = ++speakGen;
+  endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} }
+  history.length = 0;
+  const g = { es: '¡Hola, bienvenido! ¿Me decís tu nombre y tu pregunta?', en: 'Hello, and welcome! Could you tell me your name and your question?' };
+  const other = lang === 'es' ? 'en' : 'es';
+  history.push({ role: 'assistant', content: g[lang] });
+  hideScreen && hideScreen();
+  setState('speaking'); subMain.textContent = g[lang]; subTr.textContent = g[other];
+  await speak(g[lang], lang);
+  if (gen !== speakGen) return;
+  setState('idle');
+  listen(lang);
 }
 async function askClaude(q, lang, gen) {
   const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 20000);
@@ -888,6 +906,7 @@ $('bPres').addEventListener('click', () => present('es'));
 $('bEs').addEventListener('click', () => listen('es'));
 $('bEn').addEventListener('click', () => listen('en'));
 $('bType').addEventListener('click', openType);
+$('bNew').addEventListener('click', () => newPerson('es'));
 $('bStop').addEventListener('click', hush);
 $('bSet').addEventListener('click', () => openSheet('setSheet'));
 $('bHelp').addEventListener('click', () => openSheet('helpSheet'));
@@ -903,6 +922,7 @@ document.addEventListener('keydown', e => {
   else if (e.key === ' ') { e.preventDefault(); listen('es'); }
   else if (k === 'e') { e.preventDefault(); listen('en'); }
   else if (k === 't') { e.preventDefault(); openType(); }
+  else if (k === 'n') { e.preventDefault(); newPerson(e.shiftKey ? 'en' : 'es'); }
   else if (k === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   else if (k === 's') { openSheet('setSheet'); }
   else if (k === 'h') { if ($('helpSheet').classList.contains('on')) closeSheets(); else openSheet('helpSheet'); }
@@ -920,7 +940,7 @@ function wake() {
   initVideos();
 }
 $('startBtn').addEventListener('click', wake);
-window.kuntur = { present, ask, listen, hush, cfg, showView, pickView };
+window.kuntur = { present, ask, listen, hush, cfg, showView, pickView, newPerson };
 })();
 </script>
 </body>
