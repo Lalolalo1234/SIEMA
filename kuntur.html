@@ -114,6 +114,16 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
 .sheet td:first-child{white-space:nowrap;color:var(--brine);font-weight:700;width:8.5rem}
 .sheet .note{color:var(--mist);font-size:.9rem;line-height:1.45;margin-top:1rem}
 .status-line{font-size:.9rem;color:var(--mist);margin-top:.6rem;min-height:1.2em}
+.qrov{position:fixed;inset:0;z-index:7;display:none;align-items:center;justify-content:center;background:rgba(10,13,26,.78)}
+.qrov.on{display:flex}
+.qrov .card{background:var(--night2);border:1px solid rgba(127,211,207,.45);border-radius:1.4rem;padding:3.5vh 3.5vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5);max-width:92vw}
+.qrov h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1.6rem,3.6vw,3.4rem);margin:0 0 .3em;line-height:1.05}
+.qrov h2 em{font-style:normal;color:var(--brine)}
+.qrov p{color:var(--mist);font-size:clamp(1rem,1.7vw,1.6rem);margin:.5em 0 0}
+.qrov .code{display:inline-block;background:#fff;padding:2vh;border-radius:1rem;margin:2.5vh 0 1vh;line-height:0}
+.qrov .code img,.qrov .code canvas{width:min(46vh,70vw)!important;height:min(46vh,70vw)!important}
+.pubtag{position:fixed;right:1.2vw;bottom:1.2vh;z-index:6;font-size:.85rem;color:var(--night);background:var(--brine);border-radius:999px;padding:.2rem .7rem;display:none}
+.pubtag.on{display:block}
 .start{position:fixed;inset:0;z-index:9;display:flex;align-items:center;justify-content:center;background:rgba(10,13,26,.6)}
 .start button{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.2rem,2vw,1.8rem);font-weight:700;background:var(--brine);color:var(--night);border:0;border-radius:3rem;padding:1rem 2.4rem;cursor:pointer}
 .start p{position:absolute;bottom:8vh;color:var(--mist);text-align:center;width:100%;font-size:1rem}
@@ -244,11 +254,22 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
   <button type="button" id="bEs">🎤 Preguntar en voz alta</button>
   <button type="button" id="bEn">🎤 Ask in English</button>
   <button type="button" id="bNew">👤 Nueva persona</button>
+  <button type="button" id="bQr">📱 QR del público</button>
   <button type="button" id="bType">Escribir pregunta</button>
   <button type="button" id="bStop">Callar</button>
   <button type="button" id="bSet">Ajustes</button>
   <button type="button" id="bHelp">Atajos</button>
 </div>
+
+<div class="qrov" id="qrov" role="dialog" aria-label="QR para preguntas del público">
+  <div class="card">
+    <h2 id="qrH">Preguntale a <em>Kuntur</em></h2>
+    <p id="qrP">Escaneá el código, registrate y escribí tu pregunta.</p>
+    <div class="code" id="qrCode"></div>
+    <p id="qrUrl" style="font-size:clamp(.8rem,1.1vw,1.1rem)"></p>
+  </div>
+</div>
+<div class="pubtag" id="pubtag">Preguntas del público activas</div>
 
 <div class="typebox" id="typebox"><input id="typeIn" type="text" enterkeyhint="send" placeholder="Escribí la pregunta y presioná Enter" aria-label="Pregunta escrita"></div>
 
@@ -261,6 +282,7 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
       <tr><td>Espacio</td><td>Escuchar una pregunta en español. Las pausas no la cortan: presioná Espacio de nuevo, o Enter, al terminar (o esperá unos segundos de silencio)</td></tr>
       <tr><td>E</td><td>Escuchar una pregunta en inglés (se termina igual: E de nuevo o Enter)</td></tr>
       <tr><td>N</td><td>Nueva persona: Kuntur olvida la conversación anterior, saluda, pide el nombre y escucha (Mayús + N en inglés)</td></tr>
+      <tr><td>Q</td><td>Mostrar u ocultar el QR para que el público pregunte desde el teléfono. Kuntur toma solas las preguntas que apruebes en el panel del moderador, cuando termina de hablar</td></tr>
       <tr><td>T</td><td>Escribir una pregunta (por ejemplo, una del público)</td></tr>
       <tr><td>Esc</td><td>Callar a Kuntur o cerrar esta ventana</td></tr>
       <tr><td>→</td><td>Saltar a la siguiente parte de la presentación</td></tr>
@@ -279,6 +301,11 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
     <label for="sApi">Dirección del servicio de respuestas (Cloudflare)</label>
     <input id="sApi" type="url" placeholder="https://kuntur.tu-cuenta.workers.dev">
     <div class="status-line" id="apiStatus"></div>
+    <label for="sSala">Servicio de preguntas del público (Cloudflare)</label>
+    <input id="sSala" type="url" placeholder="https://kuntur-sala.tu-cuenta.workers.dev">
+    <label for="sSalaKey">Clave del moderador (para que Kuntur tome las preguntas aprobadas)</label>
+    <input id="sSalaKey" type="password" autocomplete="off">
+    <div class="status-line" id="salaStatus"></div>
     <label for="sVes">Voz en español</label>
     <select id="sVes"></select>
     <label for="sVen">Voz en inglés</label>
@@ -316,8 +343,11 @@ const params = new URLSearchParams(location.search);
 const cfg = {
   api: (params.get('api') || store.get('api', '') || 'https://kuntur.oma-observatorio.workers.dev').replace(/\/+$/, ''),
   ves: store.get('ves', ''), ven: store.get('ven', ''),
-  rate: +store.get('rate', '1'), pitch: +store.get('pitch', '1')
+  rate: +store.get('rate', '1'), pitch: +store.get('pitch', '1'),
+  sala: (params.get('sala') || store.get('sala', '') || 'https://kuntur-sala.oma-observatorio.workers.dev').replace(/\/+$/, ''),
+  salaKey: store.get('salaKey', '')
 };
+if (params.get('sala')) store.set('sala', cfg.sala);
 if (params.get('api')) store.set('api', cfg.api);
 
 const $ = id => document.getElementById(id);
@@ -719,8 +749,8 @@ function listen(lang) {
   };
   rec.start();
 }
-function showQuestion(q, lang, interim) {
-  const label = lang === 'es' ? (interim ? 'Escuchando' : 'Pregunta') : (interim ? 'Listening' : 'Question');
+function showQuestion(q, lang, interim, from) {
+  const label = from ? (lang === 'es' ? 'Pregunta de ' : 'Question from ') + from : lang === 'es' ? (interim ? 'Escuchando' : 'Pregunta') : (interim ? 'Listening' : 'Question');
   let el = panel.querySelector('.slide.ask:not(.gone)');
   if (!el) { show(`<div class="ask"><div class="q"></div><div class="from"></div></div>`); el = panel.lastElementChild; el.classList.add('ask'); }
   el.querySelector('.q').textContent = q || '…';
@@ -745,10 +775,10 @@ function flash(msg) { subMain.textContent = ''; subTr.textContent = msg; }
 // Respuesta: Claude vía el servicio, o modo sin conexión
 // ------------------------------------------------------------------
 const history = [];
-async function ask(q, lang) {
+async function ask(q, lang, display) {
   hush(); const gen = ++speakGen;
   setState('thinking'); subMain.textContent = ''; subTr.textContent = '';
-  viewLocked = false; $('screenQ').textContent = q; cueAnswer(q, lang);
+  viewLocked = false; $('screenQ').textContent = display || q; cueAnswer(display || q, lang);
   history.push({ role: 'user', content: q });
   let full = '';
   if (cfg.api) {
@@ -777,6 +807,39 @@ async function newPerson(lang) {
   setState('idle');
   listen(lang);
 }
+// ------------------------------------------------------------------
+// Preguntas del público: QR en pantalla y cola moderada (kuntur/sala.html, kuntur/moderador.html)
+// ------------------------------------------------------------------
+const SALA_PAGE = new URL('kuntur/sala.html', location.href).href;
+let qrMade = false, pubBusy = false;
+function toggleQr(force) {
+  const ov = $('qrov'); const on = force === undefined ? !ov.classList.contains('on') : force;
+  if (on && !qrMade && window.QRCode) { new QRCode($('qrCode'), { text: SALA_PAGE, width: 512, height: 512, correctLevel: QRCode.CorrectLevel.M }); qrMade = true; }
+  $('qrUrl').textContent = SALA_PAGE.replace(/^https?:\/\//, '');
+  ov.classList.toggle('on', on);
+}
+async function pollPublic() {
+  if (!cfg.sala || !cfg.salaKey || pubBusy || $('start')) return;
+  if ((state !== 'idle' && state !== 'offline') || presenting || rec) return;
+  pubBusy = true;
+  try {
+    const r = await fetch(cfg.sala + '/mod/siguiente', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Mod-Key': cfg.salaKey }, body: '{}' });
+    const d = await r.json();
+    $('pubtag').classList.toggle('on', !!d.ok);
+    if (d.ok && d.pregunta && (state === 'idle' || state === 'offline') && !presenting) {
+      const p = d.pregunta, lang = p.idioma === 'en' ? 'en' : 'es';
+      toggleQr(false);
+      hush(); history.length = 0;
+      const from = p.nombre + (p.organizacion ? ' (' + p.organizacion + ')' : '');
+      const intro = lang === 'en' ? 'I am ' + p.nombre + (p.organizacion ? ', from ' + p.organizacion : '') + '. ' : 'Soy ' + p.nombre + (p.organizacion ? ', de ' + p.organizacion : '') + '. ';
+      showQuestion(p.texto, lang, false, from);
+      await ask(intro + p.texto, lang, p.nombre + ': ' + p.texto);
+    }
+  } catch (e) { $('pubtag').classList.remove('on'); }
+  pubBusy = false;
+}
+setInterval(pollPublic, 4000);
+
 async function askClaude(q, lang, gen) {
   const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 20000);
   const res = await fetch(cfg.api + '/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history }), signal: ctrl.signal });
@@ -883,6 +946,9 @@ function openSheet(id) { $(id).classList.add('on'); const f = $(id).querySelecto
 function closeSheets() { document.querySelectorAll('.sheet.on').forEach(s => s.classList.remove('on')); }
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeSheets));
 $('sApi').value = cfg.api; $('sRate').value = cfg.rate; $('sPitch').value = cfg.pitch;
+$('sSala').value = cfg.sala; $('sSalaKey').value = cfg.salaKey;
+$('sSala').addEventListener('change', e => { cfg.sala = e.target.value.trim().replace(/\/+$/, ''); store.set('sala', cfg.sala); });
+$('sSalaKey').addEventListener('change', e => { cfg.salaKey = e.target.value.trim(); store.set('salaKey', cfg.salaKey); $('salaStatus').textContent = cfg.salaKey ? 'Clave guardada en este equipo. Kuntur tomará las preguntas aprobadas.' : 'Sin clave: Kuntur no toma preguntas del público.'; });
 $('sApi').addEventListener('change', e => { cfg.api = e.target.value.trim().replace(/\/+$/, ''); store.set('api', cfg.api); checkApi(); });
 $('sVes').addEventListener('change', e => { cfg.ves = e.target.value; store.set('ves', cfg.ves); });
 $('sVen').addEventListener('change', e => { cfg.ven = e.target.value; store.set('ven', cfg.ven); });
@@ -907,6 +973,7 @@ $('bEs').addEventListener('click', () => listen('es'));
 $('bEn').addEventListener('click', () => listen('en'));
 $('bType').addEventListener('click', openType);
 $('bNew').addEventListener('click', () => newPerson('es'));
+$('bQr').addEventListener('click', () => toggleQr());
 $('bStop').addEventListener('click', hush);
 $('bSet').addEventListener('click', () => openSheet('setSheet'));
 $('bHelp').addEventListener('click', () => openSheet('helpSheet'));
@@ -915,7 +982,7 @@ document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') { if (e.key === 'Escape') closeSheets(); return; }
   if ($('start')) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); wake(); } return; }
   const k = e.key.toLowerCase();
-  if (e.key === 'Escape') { if (document.querySelector('.sheet.on')) closeSheets(); else { endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} } hush(); setState('idle'); subTr.textContent = ''; } return; }
+  if (e.key === 'Escape') { if (document.querySelector('.sheet.on')) closeSheets(); else if ($('qrov').classList.contains('on')) toggleQr(false); else { endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} } hush(); setState('idle'); subTr.textContent = ''; } return; }
   if (document.querySelector('.sheet.on')) return;
   if (e.key === 'Enter' && state === 'listening' && endListening) { e.preventDefault(); endListening(); return; }
   if (k === 'p') { e.preventDefault(); present(e.shiftKey ? 'en' : 'es'); }
@@ -923,6 +990,7 @@ document.addEventListener('keydown', e => {
   else if (k === 'e') { e.preventDefault(); listen('en'); }
   else if (k === 't') { e.preventDefault(); openType(); }
   else if (k === 'n') { e.preventDefault(); newPerson(e.shiftKey ? 'en' : 'es'); }
+  else if (k === 'q') { e.preventDefault(); toggleQr(); }
   else if (k === 'f') { if (!document.fullscreenElement) document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
   else if (k === 's') { openSheet('setSheet'); }
   else if (k === 'h') { if ($('helpSheet').classList.contains('on')) closeSheets(); else openSheet('helpSheet'); }
@@ -940,8 +1008,9 @@ function wake() {
   initVideos();
 }
 $('startBtn').addEventListener('click', wake);
-window.kuntur = { present, ask, listen, hush, cfg, showView, pickView, newPerson };
+window.kuntur = { present, ask, listen, hush, cfg, showView, pickView, newPerson, toggleQr, pollPublic };
 })();
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </body>
 </html>
