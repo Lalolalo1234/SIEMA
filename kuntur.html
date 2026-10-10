@@ -425,7 +425,7 @@ function rankVoice(v, lang) {
   else if (FEMALE_VOICE.test(v.name) || /google (español|espanol)|google us english|google uk english female/i.test(v.name)) s -= 60;
   if (/natural|online|neural/.test(n)) s += 50;
   if (/google/.test(n)) s += 20;
-  if (lang === 'es') { if (/es-ar/i.test(v.lang)) s += 15; else if (/es-(us|mx|419)/i.test(v.lang)) s += 10; }
+  if (lang === 'es') { if (/es-ar/i.test(v.lang)) s += 80; else if (/es-(us|mx|419)/i.test(v.lang)) s += 10; }  // acento argentino (Diego) primero
   if (lang === 'en') { if (/en-(us|gb)/i.test(v.lang)) s += 8; }
   if (v.localService === false) s += 3;
   return s;
