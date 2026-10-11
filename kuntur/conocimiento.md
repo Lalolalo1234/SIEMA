@@ -114,7 +114,7 @@
 - Cifras base 2025 del modelo: cobre 27.300 kt (verificada; AIE y USGS); litio 1.400 kt LCE (verificada); NdPr 100 kt de óxido y Dy+Tb 3.150 t (estimadas, la fuente primaria es de pago); galio 900 t; zinc 13.680 kt; estaño 370 kt; manganeso 20.000 kt; wolframio 115.000 t.
 
 ## Energía e infraestructura (Libro Blanco de OLACDE, octubre de 2026)
-- OLACDE (Organización Latinoamericana y Caribeña de Energía) publicó en octubre de 2026 su primer Libro Blanco sobre minería: "White Paper on Mining Development and Energy Planning in Latin America and the Caribbean". Se presentó en la XI Semana de la Energía, en Santo Domingo. Está en la pestaña Argentina hoy, sección Energía, con descarga del PDF.
+- OLACDE (Organización Latinoamericana y Caribeña de Energía) publicó en octubre de 2026 su primer Libro Blanco sobre minería: "White Paper on Mining Development and Energy Planning in Latin America and the Caribbean". Se presentó en la XI Semana de la Energía, en Santo Domingo. Está en la pestaña Argentina hoy, sección Energía, con descarga del PDF en español y en inglés. En español se titula "Libro Blanco sobre el desarrollo minero y la planificación energética en América Latina y el Caribe".
 - Tesis: la competitividad minera ya no depende solo de la geología, sino de que la energía y la infraestructura lleguen a tiempo a la mina. Hay que planificar minería y energía juntas.
 - Región: la minería consume el 9 % de la electricidad de América Latina y el Caribe (122 TWh en 2024) y crecería 51 % hacia 2034 (184 TWh). Cerca del 70 % de la electricidad regional es renovable.
 - Argentina tiene el mayor crecimiento relativo de la región: su demanda eléctrica minera crecería 428 % hacia 2034, por los nuevos proyectos de litio y cobre.
