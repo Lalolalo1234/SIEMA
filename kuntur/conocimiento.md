@@ -1,5 +1,5 @@
 # Base de conocimiento de Kuntur — SIEMA
-<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 4 de octubre de 2026; RIGI con MARA, aprobado el 2 de octubre. -->
+<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 4 de octubre de 2026; RIGI con MARA, aprobado el 2 de octubre. Energía: Libro Blanco de OLACDE (octubre de 2026), sumado el 11 de octubre. -->
 
 ## Qué es SIEMA
 - SIEMA es el Sistema de Inteligencia Estratégica Minera Argentina: una plataforma integral de información, análisis y prospectiva que concentra en un único entorno digital la información relevante del sector minero argentino y la convierte en inteligencia para decidir.
@@ -113,6 +113,19 @@
 - Qué no incluye todavía: elasticidad de la demanda a los demás precios, restricciones de oferta, metales del grupo del platino, níquel, cobalto, grafito, germanio y antimonio. Se pueden añadir con la misma estructura.
 - Cifras base 2025 del modelo: cobre 27.300 kt (verificada; AIE y USGS); litio 1.400 kt LCE (verificada); NdPr 100 kt de óxido y Dy+Tb 3.150 t (estimadas, la fuente primaria es de pago); galio 900 t; zinc 13.680 kt; estaño 370 kt; manganeso 20.000 kt; wolframio 115.000 t.
 
+## Energía e infraestructura (Libro Blanco de OLACDE, octubre de 2026)
+- OLACDE (Organización Latinoamericana y Caribeña de Energía) publicó en octubre de 2026 su primer Libro Blanco sobre minería: "White Paper on Mining Development and Energy Planning in Latin America and the Caribbean". Se presentó en la XI Semana de la Energía, en Santo Domingo. Está en la pestaña Argentina hoy, sección Energía, con descarga del PDF.
+- Tesis: la competitividad minera ya no depende solo de la geología, sino de que la energía y la infraestructura lleguen a tiempo a la mina. Hay que planificar minería y energía juntas.
+- Región: la minería consume el 9 % de la electricidad de América Latina y el Caribe (122 TWh en 2024) y crecería 51 % hacia 2034 (184 TWh). Cerca del 70 % de la electricidad regional es renovable.
+- Argentina tiene el mayor crecimiento relativo de la región: su demanda eléctrica minera crecería 428 % hacia 2034, por los nuevos proyectos de litio y cobre.
+- Cartera argentina (Plusmining): unos 63.000 millones de dólares de inversión inicial, 47.000 de ellos en proyectos nuevos. Litio cerca de 19.000 millones, más que Chile. El país pasaría de casi cero a más de 1 millón de toneladas de cobre por año hacia 2035.
+- Cuatro megaproyectos de cobre en San Juan necesitan unos 1,5 GW adicionales. Vicuña Fase I: 220 MW (260 pico); Fase II: 295 MW (380 pico); Taca Taca: 137 MW, hasta 205; Los Azules: pico de 129 MW netos; MARA: unos 45 MVA, reutilizando la infraestructura de Alumbrera.
+- El cuello de botella es el transporte eléctrico, no la generación: en diez años la red de alta tensión creció 8 % y la demanda pico 20 %. El plan federal de mayo de 2025 prevé 5.610 km de líneas nuevas (38 % más de red) por más de 6.600 millones de dólares.
+- Riesgo eléctrico de Argentina según el informe: suficiencia del sistema media; capacidad de red alta en el NOA y Cuyo; conexión en boca de mina alta por las distancias.
+- Casos argentinos: Veladero importa hasta 25 MW de Chile por una línea de 220 kV (ahorra 23 millones de litros de diésel por año); Mariana, de Ganfeng en Salta, funciona con 120 MW solares y baterías fuera de red; YPF Luz y Central Puerto acordaron una línea para la Puna de hasta 400 MW.
+- Cooperación europea: AFD y BEI financian 200 millones de euros para la red de alta tensión; la AFD aporta 800 mil euros para el monitoreo del agua en salares de Salta y Catamarca; un programa de la Unión Europea de 5 millones de euros (Global Gateway, Team Europe) fortalece a las agencias provinciales.
+- Lectura SIEMA: coincide con el Pulsómetro, donde infraestructura es el eje peor puntuado (5,3). Es la próxima etapa del índice RIGI minero.
+
 ## Preguntas que van más allá de los datos de SIEMA
 - Si la pregunta es técnica y la base de conocimiento no la cubre del todo, Kuntur puede responder con su conocimiento general de experto en minería y minerales críticos, pero separando con claridad dos cosas: primero, lo que hace o dice SIEMA ("en el modelo de SIEMA…"), y después, lo que dice en general la literatura o la industria ("en la industria se reconoce que…", "según la AIE y otros analistas…").
 - En ese conocimiento general, usar solo hechos y órdenes de magnitud bien establecidos y conocidos (por ejemplo, que el aluminio conduce alrededor del 60 por ciento de lo que conduce el cobre y su densidad es cerca de un tercio de la del cobre). No inventar cifras precisas, fechas ni estudios.
@@ -155,6 +168,7 @@
 - P: ¿Cuánto representa el litio argentino frente a la demanda? R: La capacidad instalada equivale a entre el 11 y el 15 por ciento de la demanda actual. La meta de 2036 equivaldría a entre el 5 y el 11 por ciento de la demanda de 2040, según el escenario. La cartera tiene 216 millones de toneladas de recursos identificados.
 - P: ¿Y las tierras raras? R: Hoy no hay producción ni reservas definidas. El Segemar registra 19 ocurrencias y unas 190 mil toneladas inferidas, con un potencial no descubierto de hasta 3,3 millones. Es una oportunidad de seguridad de suministro en elementos para imanes.
 - P: ¿El reciclaje va a reducir la necesidad de minería? R: Algo, pero menos de lo que se dice. La reducción del 25 al 40 por ciento hacia 2050 es un techo: fuerte en cobre y cobalto, menor en níquel y litio, y apenas del 5 al 15 por ciento en tierras raras. Con políticas actuales, en cobre baja al 10 o 15 por ciento.
+- P: ¿Alcanza la energía para la nueva minería argentina? R: Energía primaria hay: gas, sol, viento e hidroelectricidad. El problema es llevarla a la mina. Según el Libro Blanco de OLACDE, la demanda eléctrica minera argentina crecería 428 por ciento hacia 2034, la mayor suba de la región, y la red de alta tensión creció apenas 8 por ciento en diez años. El plan federal prevé 5.610 kilómetros de líneas nuevas.
 - P: ¿Qué mide SIEMA en capital humano? R: El stock de profesionales mineros por especialidad y provincia, la brecha de talento, los sueldos comparados con Chile y Perú, la oferta de formación y la política para retener talento.
 - P: ¿Cuál es el problema de fondo en talento? R: Nación y provincias suelen reaccionar a precios históricos en lugar de anticipar. Falta vincular la formación de talento con la demanda proyectada a 2030-2050; ese es el vacío que SIEMA quiere cerrar.
 
