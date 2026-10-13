@@ -805,7 +805,7 @@ async function ask(q, lang, display) {
   if (!full) { full = offlineAnswer(q, lang); await speakAll(full, lang, gen); }
   history.push({ role: 'assistant', content: full.split('###')[0].trim() });
   if (history.length > 16) history.splice(0, history.length - 16);
-  if (gen === speakGen) { setState('idle'); if (dialogo) setTimeout(() => { if (dialogo && state === 'idle' && !rec) listen(listenLang); }, 350); }
+  if (gen === speakGen) { setState('idle'); if (dialogo) setTimeout(() => { if (dialogo && state === 'idle' && !rec) listen(listenLang); }, 700); }
 }
 // Nueva persona: Kuntur no reconoce voces. Al pasar el micrófono a alguien del público
 // se borra la conversación anterior, Kuntur saluda, pide el nombre y escucha.
