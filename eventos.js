@@ -4,8 +4,8 @@ window.SIEMA_EVENTS = {
  "metadata": {
   "title": "Mining Events Database",
   "description": "Upcoming mining conferences, exhibitions, and symposiums",
-  "last_updated": "2026-10-09",
-  "total_events": 76,
+  "last_updated": "2026-10-14",
+  "total_events": 78,
   "source": "CeProMinDB (lalolalo1234/CeProMinDB) + SIEMA"
  },
  "events": [
@@ -1815,6 +1815,52 @@ window.SIEMA_EVENTS = {
    "region": "North America",
    "siema": true,
    "notes": "Principal foro mundial del mercado de litio, donde se negocian contratos de venta; Argentina es el 4.º productor."
+  },
+  {
+   "id": 1017,
+   "name": "XV Seminario Internacional Litio en la Región de Sudamérica 2026",
+   "type": "Seminario",
+   "start_date": "2026-10-07",
+   "end_date": "2026-10-08",
+   "city": "San Salvador de Jujuy",
+   "country": "Argentina",
+   "venue": "",
+   "organizer": "Panorama Minero",
+   "website": "https://panorama-minero.com/en/event/lithium-in-south-america",
+   "focus": [
+    "litio",
+    "inversión",
+    "política minera"
+   ],
+   "commodities": [
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "15.ª edición del seminario de litio de Panorama Minero, en Jujuy, con el precio del litio en recuperación."
+  },
+  {
+   "id": 1018,
+   "name": "Congreso Confiabilidad y Gestión de Activos 2026",
+   "type": "Congreso",
+   "start_date": "2026-11-12",
+   "end_date": "2026-11-13",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "Hotel Best Western Premier Marina Las Condes",
+   "organizer": "Core Mining Conferences",
+   "website": "https://coreminingconferences.cl/congreso-confiabilidad-y-gestion-de-activos/",
+   "focus": [
+    "mantenimiento",
+    "confiabilidad",
+    "gestión de activos"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Mantenimiento y gestión de activos en la gran minería chilena; referencia para los proveedores de los proyectos de cobre argentinos."
   }
  ]
 };
