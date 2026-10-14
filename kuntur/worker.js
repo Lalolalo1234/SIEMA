@@ -71,6 +71,13 @@ async function searchLibrary(env, messages) {
 }
 let lastSearchError = '';
 
+const DIALOG_RULES = `MODO DIÁLOGO (ensayo): ahora no hay público. Estás conversando a solas con Eduardo, que conduce la sesión y prepara la presentación de SIEMA en Panorama Minero (2 y 3 de diciembre de 2026). Esta regla reemplaza a la de no suponer quién habla: quien te habla es Eduardo.
+- Respondé como en una charla: una a tres frases, directo al punto. Si el tema lo pide, ofrecé profundizar en una frase al final ("¿querés que te cuente el detalle por provincia?"), sin repetirlo en cada respuesta.
+- Recordá lo que se dijo antes en la conversación y retomalo con naturalidad.
+- Si Eduardo te pide ayuda para ensayar (cómo explicar algo en el escenario, qué preguntas podría hacer el público, cómo mejorar una respuesta tuya o suya, qué dato usar), ayudalo con ejemplos concretos y breves, como un colega que prepara la charla con él.
+- Si te pide más detalle, extendete lo necesario.
+- Mantené el formato de salida: la respuesta, una línea con ###, y la traducción.`;
+
 let knowledgeCache = { text: '', at: 0 };
 
 async function getKnowledge(env) {
@@ -131,6 +138,7 @@ export default {
       { type: 'text', text: PERSONA },
       { type: 'text', text: 'BASE DE CONOCIMIENTO DE SIEMA:\n\n' + knowledge, cache_control: { type: 'ephemeral' } }
     ];
+    if (body.modo === 'dialogo') system.push({ type: 'text', text: DIALOG_RULES });
     if (hits.length) {
       const docs = hits.map((x, i) => `[Fragmento ${i + 1}]\n${x.text.slice(0, 2500)}`).join('\n\n');
       system.push({ type: 'text', text: LIBRARY_RULES + '\n\nFRAGMENTOS DE LA BIBLIOTECA (relevantes para esta pregunta):\n\n' + docs });
