@@ -44,35 +44,36 @@ const LIBRARY_RULES = `Además de la base de SIEMA, a veces recibís FRAGMENTOS 
 - Si los fragmentos no tienen que ver con la pregunta, ignoralos. Si se contradicen con SIEMA, decilo y explicá la diferencia de fuente o de fecha.
 - Las cifras de la biblioteca valen tal como están en el fragmento; no las extrapoles.`;
 
-async function searchLibrary(env, messages) {
+async function searchLibrary(env, messages, opts = {}) {
+  const budget = opts.budget || 6000, retry = opts.retry !== false;
   const users = messages.filter(m => m.role === 'user');
   const q = users.slice(-2).map(m => m.content).join('\n').slice(-1500);
   const name = env.DOCS_INSTANCE || 'kuntur-docs';
   const run = async () => {
     if (env.DOCS && typeof env.DOCS.search === 'function') {
-      const r = await env.DOCS.search({ messages: [{ role: 'user', content: q }], ai_search_options: { retrieval: { max_num_results: 10 } } });
+      const r = await env.DOCS.search({ messages: [{ role: 'user', content: q }], ai_search_options: { retrieval: { max_num_results: 10 }, query_rewrite: { enabled: false } } });
       return (r.chunks || []).map(c => ({ src: (c.item && c.item.key) || '', text: c.text || '', score: c.score || 0 }));
     }
     if (env.AI && typeof env.AI.autorag === 'function') {
-      const r = await env.AI.autorag(name).search({ query: q, max_num_results: 10, rewrite_query: true });
+      const r = await env.AI.autorag(name).search({ query: q, max_num_results: 10, rewrite_query: false });
       return (r.data || []).map(d => ({ src: d.filename || '', text: (d.content || []).map(c => c.text).join('\n'), score: d.score || 0 }));
     }
     return [];
   };
   const once = () => Promise.race([
     run().catch(e => { lastSearchError = String(e && e.message || e).slice(0, 200); return null; }),
-    new Promise(res => setTimeout(() => { lastSearchError = 'tiempo agotado'; res(null); }, 6000))
+    new Promise(res => setTimeout(() => { lastSearchError = 'tiempo agotado'; res(null); }, budget))
   ]);
   lastSearchError = '';
   let hits = await once();
   // A veces la primera consulta falla o vuelve vacía; un reintento suele resolverlo
-  if (!hits || !hits.length) hits = await once();
+  if (retry && (!hits || !hits.length)) hits = await once();
   return (hits || []).filter(x => x.text && x.score >= 0.15).slice(0, 8);
 }
 let lastSearchError = '';
 
 const DIALOG_RULES = `MODO DIÁLOGO (ensayo): ahora no hay público. Estás conversando a solas con Eduardo, que conduce la sesión y prepara la presentación de SIEMA en Panorama Minero (2 y 3 de diciembre de 2026). Esta regla reemplaza a la de no suponer quién habla: quien te habla es Eduardo.
-- Respondé como en una charla: una a tres frases, directo al punto. Si el tema lo pide, ofrecé profundizar en una frase al final ("¿querés que te cuente el detalle por provincia?"), sin repetirlo en cada respuesta.
+- Respondé como en una charla: una a tres frases, directo al punto. La primera frase, corta (menos de quince palabras), para que se escuche enseguida. Si el tema lo pide, ofrecé profundizar en una frase al final ("¿querés que te cuente el detalle por provincia?"), sin repetirlo en cada respuesta.
 - Recordá lo que se dijo antes en la conversación y retomalo con naturalidad.
 - Si Eduardo te pide ayuda para ensayar (cómo explicar algo en el escenario, qué preguntas podría hacer el público, cómo mejorar una respuesta tuya o suya, qué dato usar), ayudalo con ejemplos concretos y breves, como un colega que prepara la charla con él.
 - Si te pide más detalle, extendete lo necesario.
@@ -133,7 +134,9 @@ export default {
       const list = hits.map(x => ({ score: Math.round(x.score * 1000) / 1000, fuente: ((x.text.match(/\[Fuente: ([^\]—]+)/) || [])[1] || x.src).trim() }));
       return new Response(JSON.stringify(list.length ? list : { vacio: true, error: lastSearchError }, null, 1), { headers: { ...h, 'Content-Type': 'application/json' } });
     }
-    const [knowledge, hits] = await Promise.all([getKnowledge(env), searchLibrary(env, messages)]);
+    const dlg = body.modo === 'dialogo';
+    // En diálogo la biblioteca tiene un tope de tiempo corto: si no llega, Kuntur responde con la base de SIEMA
+    const [knowledge, hits] = await Promise.all([getKnowledge(env), searchLibrary(env, messages, dlg ? { budget: 1800, retry: false } : {})]);
     const system = [
       { type: 'text', text: PERSONA },
       { type: 'text', text: 'BASE DE CONOCIMIENTO DE SIEMA:\n\n' + knowledge, cache_control: { type: 'ephemeral' } }
