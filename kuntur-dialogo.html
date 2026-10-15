@@ -45,6 +45,8 @@ button{font:inherit}
 .bird video.on{opacity:1}
 /* subtítulos: solo la traducción (la voz ya dice el texto en su idioma) y más lugar para la pantalla de SIEMA */
 .stage .subs .main{display:none}
+/* Modo diálogo: sin textos en pantalla (ni pregunta, ni respuesta, ni traducción) */
+body.dlg-quiet .stage .subs, body.dlg-quiet .panel .slide.ask, body.dlg-quiet #screenQ{display:none!important}
 .stage .subs{min-height:0;padding:.4vh 6vw 2.6vh}
 .stage .subs .tr{font-size:calc(var(--sub-size)*.78);color:var(--salar);font-style:normal;margin-top:0;max-width:62ch}
 @media (min-width:821px){
@@ -858,11 +860,11 @@ setInterval(pollPublic, 4000);
 
 function startDialog(lang) {
   if (!SR) { flash('Este navegador no reconoce voz: el modo diálogo necesita Chrome o Edge.'); return; }
-  dialogo = true; $('bDlg').classList.add('on'); $('dlgtag').classList.add('on'); toggleQr(false);
+  dialogo = true; document.body.classList.add('dlg-quiet'); $('bDlg').classList.add('on'); $('dlgtag').classList.add('on'); toggleQr(false);
   listen(lang || listenLang || 'es');
 }
 function stopDialog(msg) {
-  dialogo = false; clearTimeout(dlgIdle); stopBarge();
+  dialogo = false; document.body.classList.remove('dlg-quiet'); clearTimeout(dlgIdle); stopBarge();
   $('bDlg').classList.remove('on'); $('dlgtag').classList.remove('on');
   endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} }
   if (state === 'listening') setState('idle');

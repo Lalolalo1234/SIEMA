@@ -77,7 +77,7 @@ const DIALOG_RULES = `MODO DIÁLOGO (ensayo): ahora no hay público. Estás conv
 - Recordá lo que se dijo antes en la conversación y retomalo con naturalidad.
 - Si Eduardo te pide ayuda para ensayar (cómo explicar algo en el escenario, qué preguntas podría hacer el público, cómo mejorar una respuesta tuya o suya, qué dato usar), ayudalo con ejemplos concretos y breves, como un colega que prepara la charla con él.
 - Si te pide más detalle, extendete lo necesario.
-- Mantené el formato de salida: la respuesta, una línea con ###, y la traducción.`;
+- En este modo NO hay subtítulos: escribí solo la respuesta que vas a decir. No agregues la marca ### ni la traducción (esto reemplaza la regla de formato de salida).`;
 
 let knowledgeCache = { text: '', at: 0 };
 
