@@ -731,7 +731,7 @@ function listen(lang, seed) {
   hush(); if (rec) try { rec.abort(); } catch (e) {}
   listenLang = lang;
   rec = new SR(); rec.lang = lang === 'es' ? 'es-AR' : 'en-US'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
-  let finalTxt = '', interimTxt = seed || '', sent = false;
+  let finalTxt = '', interimTxt = seed || '', sent = false, lastFinal = false;
   const r0 = rec;
   clearTimeout(dlgIdle);
   if (dialogo) dlgIdle = setTimeout(() => { if (state === 'listening' && !(finalTxt + interimTxt).trim()) { stopDialog(lang === 'es' ? 'Pausé la conversación. Tocá «Conversar» o la tecla D para seguir.' : 'Conversation paused. Tap «Conversar» or press D to continue.'); } }, 25000);
@@ -748,11 +748,11 @@ function listen(lang, seed) {
     if (q) { showQuestion(q, lang, false); subTr.textContent = ''; ask(q, lang); } else { setState('idle'); subTr.textContent = ''; }
   };
   endListening = send;
-  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, dialogo ? 1800 : SILENCE_MS); };
+  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, dialogo ? (lastFinal ? 900 : 1700) : SILENCE_MS); };
   rec.onresult = e => {
     let interim = ''; finalTxt = '';
     for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalTxt += r[0].transcript + ' '; else interim += r[0].transcript; }
-    interimTxt = interim;
+    interimTxt = interim; lastFinal = !interim.trim();
     showQuestion(fixTranscript((finalTxt + ' ' + interim).trim()), lang, true);
     arm();
   };
