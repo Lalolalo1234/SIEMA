@@ -316,6 +316,8 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
     <input id="sSalaKey" type="password" autocomplete="off">
     <div class="status-line" id="salaStatus"></div>
     <label style="display:flex;gap:.6rem;align-items:center"><input id="sBarge" type="checkbox" style="width:auto"> Permitir interrumpir a Kuntur mientras habla (usalo solo con auricular: con altavoces el micrófono capta su propia voz)</label>
+    <label for="sPat">Paciencia al escuchar en el modo diálogo: <span id="sPatV"></span> s de silencio antes de responder</label>
+    <input id="sPat" type="range" min="1" max="4" step="0.2" value="1.8">
     <label for="sVes">Voz en español</label>
     <select id="sVes"></select>
     <label for="sVen">Voz en inglés</label>
@@ -356,10 +358,22 @@ const cfg = {
   rate: +store.get('rate', '1'), pitch: +store.get('pitch', '1'),
   sala: (params.get('sala') || store.get('sala', '') || 'https://kuntur-sala.oma-observatorio.workers.dev').replace(/\/+$/, ''),
   salaKey: store.get('salaKey', ''),
-  barge: store.get('barge', '0') === '1'
+  barge: store.get('barge', '0') === '1',
+  patience: +store.get('patience', '1.8')
 };
 // Modo diálogo (ensayo): escucha continua por turnos
 var dialogo = false, dlgIdle = null, bargeRec = null;
+// Cuánto esperar en silencio antes de dar por terminada la pregunta (modo diálogo).
+// Base ajustable en Ajustes; más tiempo si la frase quedó abierta (muletilla, conector) o es muy corta.
+const OPEN_END_RX = /(?:^|\s)(eh+|em+|este|esto|bueno|digamos|o sea|y|o|de|del|que|qué|pero|porque|como|cómo|cuál|cuáles|la|el|los|las|un|una|a|al|en|con|para|por|sobre|si|entre|hasta|desde|más|mas|también|the|and|of|to|for|in|with|or|but|um+|uh+)\s*$/i;
+function dlgWait(text, isFinal) {
+  const base = cfg.patience * 1000;
+  const words = text ? text.split(/\s+/).length : 0;
+  let w = isFinal ? base : base + 700;
+  if (OPEN_END_RX.test(text)) w += 1400;
+  if (words < 4) w += 800;
+  return w;
+}
 const END_RX = /\b(gracias,? kuntur|terminamos|eso es todo|fin del ensayo|hasta luego,? kuntur|thank you,? kuntur|that'?s all)\b/i;
 if (params.get('sala')) store.set('sala', cfg.sala);
 if (params.get('api')) store.set('api', cfg.api);
@@ -750,7 +764,7 @@ function listen(lang, seed) {
     if (q) { showQuestion(q, lang, false); subTr.textContent = ''; ask(q, lang); } else { setState('idle'); subTr.textContent = ''; }
   };
   endListening = send;
-  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, dialogo ? (lastFinal ? 900 : 1700) : SILENCE_MS); };
+  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, dialogo ? dlgWait((finalTxt + ' ' + interimTxt).trim(), lastFinal) : SILENCE_MS); };
   rec.onresult = e => {
     let interim = ''; finalTxt = '';
     for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalTxt += r[0].transcript + ' '; else interim += r[0].transcript; }
@@ -1029,6 +1043,8 @@ $('bType').addEventListener('click', openType);
 $('bNew').addEventListener('click', () => newPerson('es'));
 $('bDlg').addEventListener('click', () => dialogo ? stopDialog('') : startDialog('es'));
 $('sBarge').checked = cfg.barge;
+$('sPat').value = cfg.patience; $('sPatV').textContent = cfg.patience.toFixed(1).replace('.', ',');
+$('sPat').addEventListener('input', e => { cfg.patience = +e.target.value; store.set('patience', cfg.patience); $('sPatV').textContent = cfg.patience.toFixed(1).replace('.', ','); });
 $('sBarge').addEventListener('change', e => { cfg.barge = e.target.checked; store.set('barge', cfg.barge ? '1' : '0'); if (!cfg.barge) stopBarge(); });
 $('bQr').addEventListener('click', () => toggleQr());
 $('bStop').addEventListener('click', hush);
