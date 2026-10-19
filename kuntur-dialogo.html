@@ -317,7 +317,7 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
     <div class="status-line" id="salaStatus"></div>
     <label style="display:flex;gap:.6rem;align-items:center"><input id="sBarge" type="checkbox" style="width:auto"> Permitir interrumpir a Kuntur mientras habla (usalo solo con auricular: con altavoces el micrófono capta su propia voz)</label>
     <label for="sPat">Paciencia al escuchar en el modo diálogo: <span id="sPatV"></span> s de silencio antes de responder</label>
-    <input id="sPat" type="range" min="1" max="4" step="0.2" value="1.8">
+    <input id="sPat" type="range" min="0.4" max="4" step="0.1" value="0.8">
     <label for="sVes">Voz en español</label>
     <select id="sVes"></select>
     <label for="sVen">Voz en inglés</label>
@@ -359,7 +359,7 @@ const cfg = {
   sala: (params.get('sala') || store.get('sala', '') || 'https://kuntur-sala.oma-observatorio.workers.dev').replace(/\/+$/, ''),
   salaKey: store.get('salaKey', ''),
   barge: store.get('barge', '0') === '1',
-  patience: +store.get('patience', '1.8')
+  patience: +store.get('patience2', '0.8')
 };
 // Modo diálogo (ensayo): escucha continua por turnos
 var dialogo = false, dlgIdle = null, bargeRec = null;
@@ -1049,7 +1049,7 @@ $('bNew').addEventListener('click', () => newPerson('es'));
 $('bDlg').addEventListener('click', () => dialogo ? stopDialog('') : startDialog('es'));
 $('sBarge').checked = cfg.barge;
 $('sPat').value = cfg.patience; $('sPatV').textContent = cfg.patience.toFixed(1).replace('.', ',');
-$('sPat').addEventListener('input', e => { cfg.patience = +e.target.value; store.set('patience', cfg.patience); $('sPatV').textContent = cfg.patience.toFixed(1).replace('.', ','); });
+$('sPat').addEventListener('input', e => { cfg.patience = +e.target.value; store.set('patience2', cfg.patience); $('sPatV').textContent = cfg.patience.toFixed(1).replace('.', ','); });
 $('sBarge').addEventListener('change', e => { cfg.barge = e.target.checked; store.set('barge', cfg.barge ? '1' : '0'); if (!cfg.barge) stopBarge(); });
 $('bQr').addEventListener('click', () => toggleQr());
 $('bStop').addEventListener('click', hush);
