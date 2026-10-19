@@ -1599,8 +1599,25 @@
 
             <div class="button-group">
                 <button class="btn" onclick="omaOpenArgentinaView()">Ver Argentina vs demanda proyectada</button>
+                <button class="btn" onclick="navigateTo('oro-plata')">Ver Oro y plata</button>
                 <button class="btn btn-secondary" onclick="navigateTo('argentina')">Ver Argentina hoy</button>
                 <button class="btn btn-secondary" onclick="navigateTo('demanda')">Ver Demanda Global</button>
+            </div>
+        </div>
+
+        <!-- Prospectiva: oro y plata -->
+        <div id="oro-plata" class="tab-content">
+            <h1>Prospectiva — Oro y plata 2050</h1>
+            <p>El oro es el primer rubro de exportación minera de Argentina: en 2025 aportó US$ 4.094 millones, el 67 % de los US$ 6.071 millones que exportó el sector, y la plata otros US$ 785 millones. A diferencia del cobre o el litio, su demanda la mueven sobre todo la inversión, los bancos centrales y el consumo, y en la plata también la energía solar y la electrónica. Elegí un escenario o mové los controles para ver cómo cambia la demanda mundial hasta 2050.</p>
+            <p>El botón <strong>Argentina: producción y exportaciones</strong> proyecta la producción de las minas actuales, que se agotan en pocos años, y la de los proyectos nuevos: Vicuña, Gualcamayo, Diablillos, Taca Taca y otros. También calcula el valor exportado con el precio que elijas.</p>
+            <div class="oma-conv-frame">
+                <iframe src="oro-plata-2050.html?embed=1" title="Modelo Oro y plata 2050" loading="lazy"></iframe>
+            </div>
+            <p class="table-note">Cifras base del World Gold Council (Gold Demand Trends 2025), el Silver Institute (World Silver Survey 2026), el USGS (Mineral Commodity Summaries 2026), la Secretaría de Minería y los estudios técnicos de cada proyecto. La tabla de fuentes dentro del modelo indica qué cifra está verificada y cuál es estimada. <a href="oro-plata-2050.html" target="_blank" rel="noopener">Abrir el modelo a pantalla completa ↗</a></p>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="navigateTo('prospectiva')">Ver minerales críticos (Convergencias 2050)</button>
+                <button class="btn btn-secondary" onclick="navigateTo('argentina')">Ver Argentina hoy</button>
             </div>
         </div>
 
@@ -2060,7 +2077,7 @@
         // español ya presente en el documento, y se define acá el HTML
         // en inglés. Al togglear, se reemplaza el innerHTML completo del
         // tab (misma estructura/clases, solo cambia el texto).
-        const STATIC_TAB_IDS = ['inicio', 'demanda', 'prospectiva', 'argentina', 'oferta', 'capital-humano', 'pulsometro', 'brechas', 'monitor', 'acerca'];
+        const STATIC_TAB_IDS = ['inicio', 'demanda', 'prospectiva', 'oro-plata', 'argentina', 'oferta', 'capital-humano', 'pulsometro', 'brechas', 'monitor', 'acerca'];
         const TAB_HTML_ES = {};
         STATIC_TAB_IDS.forEach(id => { TAB_HTML_ES[id] = document.getElementById(id).innerHTML; });
 
@@ -2189,8 +2206,24 @@
 
             <div class="button-group">
                 <button class="btn" onclick="omaOpenArgentinaView()">View Argentina vs projected demand</button>
+                <button class="btn" onclick="navigateTo('oro-plata')">View Gold and silver</button>
                 <button class="btn btn-secondary" onclick="navigateTo('argentina')">View Argentina today</button>
                 <button class="btn btn-secondary" onclick="navigateTo('demanda')">View Global Demand</button>
+            </div>
+            `,
+
+            'oro-plata': `
+            <h1>Foresight — Gold and silver 2050</h1>
+            <p>Gold is Argentina's leading mining export: in 2025 it brought in US$4,094 million, 67% of the sector's US$6,071 million, and silver another US$785 million. Unlike copper or lithium, their demand is driven mainly by investment, central banks and consumption, and in silver's case also by solar power and electronics. Pick a scenario or move the controls to see how global demand changes to 2050. The model is currently available in Spanish only.</p>
+            <p>The <strong>Argentina: producción y exportaciones</strong> button projects output from current mines, which run out within a few years, and from new projects: Vicuña, Gualcamayo, Diablillos, Taca Taca and others. It also calculates export value at the price you choose.</p>
+            <div class="oma-conv-frame">
+                <iframe src="oro-plata-2050.html?embed=1" title="Gold and silver 2050 model" loading="lazy"></iframe>
+            </div>
+            <p class="table-note">Baseline figures from the World Gold Council (Gold Demand Trends 2025), the Silver Institute (World Silver Survey 2026), USGS (Mineral Commodity Summaries 2026), Argentina's Mining Secretariat and each project's technical studies. The sources table inside the model shows which figures are verified and which are estimates. <a href="oro-plata-2050.html" target="_blank" rel="noopener">Open the model full screen ↗</a></p>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="navigateTo('prospectiva')">View critical minerals (Convergences 2050)</button>
+                <button class="btn btn-secondary" onclick="navigateTo('argentina')">View Argentina today</button>
             </div>
             `,
 
@@ -2584,7 +2617,7 @@
             inicio: { tabs: ['inicio'] },
             observatorio: { tabs: ['oferta', 'demanda', 'argentina', 'capital-humano', 'brechas'] },
             'pulsometro-grupo': { tabs: ['barometro', 'pulsometro', 'rigi', 'monitor'] },
-            prospectiva: { tabs: ['prospectiva'] },
+            prospectiva: { tabs: ['prospectiva', 'oro-plata'] },
             'noticias-eventos': { tabs: ['noticias', 'eventos', 'infografias'] },
             acerca: { tabs: ['acerca'] }
         };
@@ -2592,14 +2625,16 @@
             es: {
                 observatorio: ['Observatorio', 'Qué está pasando', 'Recopila y organiza toda la información pública relevante del sector minero argentino.'],
                 'pulsometro-grupo': ['Pulsómetro', 'Cómo está el sector hoy', 'Mide la salud y la evolución de la actividad con indicadores dinámicos, actualizados a medida que llegan los datos.'],
+                prospectiva: ['Prospectiva', 'Hacia dónde va', 'Escenarios de demanda mundial y oferta argentina hasta 2050.'],
                 'noticias-eventos': ['Noticias y eventos', 'Qué se dice y dónde se encuentra el sector', 'Noticias del sector, agenda de conferencias y seminarios, e infografías.'],
-                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
+                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', prospectiva: 'Minerales críticos', 'oro-plata': 'Oro y plata', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
             },
             en: {
                 observatorio: ['Observatory', 'What is happening', 'Gathers and organises all relevant public information on the Argentine mining sector.'],
                 'pulsometro-grupo': ['Pulsometer', 'How the sector is doing today', 'Measures the health and evolution of the activity with dynamic indicators, updated as data arrives.'],
+                prospectiva: ['Foresight', 'Where it is heading', 'Global demand scenarios and Argentine supply to 2050.'],
                 'noticias-eventos': ['News and events', 'What is being said and where the sector meets', 'Sector news, the conference and seminar calendar, and infographics.'],
-                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
+                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', prospectiva: 'Critical minerals', 'oro-plata': 'Gold and silver', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
             }
         };
         const siemaGroupOf = tabId => Object.keys(SIEMA_GROUPS).find(g => SIEMA_GROUPS[g].tabs.includes(tabId));

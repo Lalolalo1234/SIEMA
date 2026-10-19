@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oro y plata 2050</title>
+<meta name="description" content="Modelo prospectivo de demanda mundial de oro y plata a 2050 y de la producción y exportación argentina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+html { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+html.embed .rail { position: static; max-height: none; overflow: visible; }
+html.embed .wrap { padding-block: 4px 16px; padding-inline: 0; }
+html.embed body { background: transparent; }
+html.embed header.top { display: none; }
+</style>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  if (q.has('embed')) {
+    document.documentElement.classList.add('embed');
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script>
+</head>
+<body>
+<style>
+:root {
+  --bg: #eceff0;
+  --surface: #fbfcfc;
+  --surface-2: #f3f5f6;
+  --ink: #131b20;
+  --ink-2: #47545c;
+  --ink-3: #6b7880;
+  --line: #d3d9dc;
+  --line-soft: #e3e7e9;
+  --accent: #a4502a;
+  --accent-soft: #f3e3da;
+  --accent-ink: #ffffff;
+  --grid: #e1e5e7;
+  --band: rgba(164, 80, 42, 0.14);
+  --s-base: #b7bfc4;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+  --up: #b3401f;
+  --down: #1f6f8b;
+  --shadow: 0 1px 2px rgba(19, 27, 32, 0.06), 0 4px 16px rgba(19, 27, 32, 0.05);
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e1417; --surface: #151d21; --surface-2: #1b252a; --ink: #e7edef; --ink-2: #aab7bd; --ink-3: #85939a;
+    --line: #2b373d; --line-soft: #223036; --accent: #e08a5c; --accent-soft: #3a261d; --accent-ink: #1a0f0a;
+    --grid: #243036; --band: rgba(224, 138, 92, 0.18); --s-base: #56636a;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --up: #ee8a67; --down: #62b6d4; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1417; --surface: #151d21; --surface-2: #1b252a; --ink: #e7edef; --ink-2: #aab7bd; --ink-3: #85939a;
+  --line: #2b373d; --line-soft: #223036; --accent: #e08a5c; --accent-soft: #3a261d; --accent-ink: #1a0f0a;
+  --grid: #243036; --band: rgba(224, 138, 92, 0.18); --s-base: #56636a;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --up: #ee8a67; --down: #62b6d4; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25);
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14px; line-height: 1.5; }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 56px; display: grid; gap: 22px; }
+@media (max-width: 600px) { .wrap { padding-inline: 16px; padding-block: 20px 40px; } }
+
+/* Cabecera */
+header.top { display: grid; grid-template-columns: 1fr auto; gap: 16px 32px; align-items: end; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.eyebrow { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 5vw, 54px); line-height: 1; letter-spacing: -0.01em; margin: 6px 0 10px; text-wrap: balance; }
+h1 span { color: var(--accent); }
+.lede { max-width: 64ch; color: var(--ink-2); font-size: 15px; margin: 0; }
+.chain { font-family: var(--f-mono); font-size: 12px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: flex-end; max-width: 420px; }
+.chain b { font-weight: 500; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 3px 7px; }
+.chain i { font-style: normal; color: var(--ink-3); }
+@media (max-width: 860px) { header.top { grid-template-columns: 1fr; } .chain { justify-content: flex-start; } }
+
+/* Escenarios */
+.scen { display: grid; gap: 10px; }
+.scen-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.scen-btn { font: 500 13.5px/1.2 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.scen-btn:hover { border-color: var(--ink-3); }
+.scen-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.scen-btn.custom { font-style: italic; }
+.scen-desc { color: var(--ink-2); font-size: 13.5px; margin: 0; min-height: 1.5em; }
+
+/* Layout principal */
+.main { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 980px) { .main { grid-template-columns: 1fr; } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.rail { display: grid; gap: 0; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); max-height: calc(100vh - 24px); overflow-y: auto; }
+@media (max-width: 980px) { .rail { position: static; max-height: none; } }
+.group { padding: 16px 18px 18px; border-bottom: 1px solid var(--line-soft); display: grid; gap: 14px; }
+.group:last-child { border-bottom: 0; }
+.group h2 { font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: .02em; text-transform: uppercase; margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.group h2 small { font-family: var(--f-body); text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 12px; color: var(--ink-3); }
+
+.ctl { display: grid; gap: 5px; }
+.ctl-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.ctl label { font-weight: 600; font-size: 13.5px; display: flex; align-items: center; gap: 7px; }
+.sw { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+.ctl-val { font-family: var(--f-mono); font-size: 12px; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ctl-desc { font-size: 12px; color: var(--ink-3); line-height: 1.35; }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 22px; background: transparent; margin: 0; cursor: pointer; }
+input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--accent) 0 var(--p, 50%), var(--line) var(--p, 50%) 100%); }
+input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--line); }
+input[type=range]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--accent); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); margin-top: -6px; }
+input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.conv { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 10px; align-items: start; padding: 10px 0; border-top: 1px dashed var(--line-soft); }
+.conv:first-of-type { border-top: 0; padding-top: 0; }
+.conv input { margin: 3px 0 0; accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+.conv-name { font-weight: 600; font-size: 13px; line-height: 1.3; }
+.conv-path { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); letter-spacing: .02em; }
+.conv-desc { grid-column: 2 / 4; font-size: 12px; color: var(--ink-3); line-height: 1.35; }
+.delta { font-family: var(--f-mono); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; padding: 1px 6px; border-radius: 4px; background: var(--surface-2); color: var(--ink-2); }
+.delta.up { color: var(--up); }
+.delta.down { color: var(--down); }
+
+/* Contenido */
+.content { display: grid; gap: 22px; min-width: 0; }
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tab { font: 600 14px/1.2 var(--f-display); letter-spacing: .01em; color: var(--ink-2); background: none; border: 0; border-bottom: 3px solid transparent; padding: 12px 14px 10px; cursor: pointer; white-space: nowrap; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab:focus-visible, .scen-btn:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.card { padding: 20px 22px 22px; display: grid; gap: 16px; }
+@media (max-width: 600px) { .card { padding: 16px; } }
+.card-head { display: flex; justify-content: space-between; gap: 12px 24px; align-items: flex-start; flex-wrap: wrap; }
+.card h3 { font-family: var(--f-display); font-weight: 600; font-size: 20px; margin: 0; line-height: 1.2; text-wrap: balance; }
+.card .sub { color: var(--ink-3); font-size: 13px; margin: 3px 0 0; max-width: 70ch; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line-soft); border-radius: 8px; overflow: hidden; }
+.kpi { padding: 12px 14px; display: grid; gap: 2px; border-left: 1px solid var(--line-soft); }
+.kpi:first-child { border-left: 0; background: var(--surface-2); }
+.kpi .y { font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-3); letter-spacing: .05em; }
+.kpi .v { font-family: var(--f-display); font-weight: 600; font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .v small { font-size: 14px; color: var(--ink-3); font-weight: 500; margin-left: 3px; }
+.kpi .r { font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpi:nth-child(3) { border-left: 0; } .kpi:nth-child(n+3) { border-top: 1px solid var(--line-soft); } }
+
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg button { font: 500 12.5px/1 var(--f-body); background: var(--surface); color: var(--ink-2); border: 0; padding: 7px 11px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend .ln { width: 16px; height: 0; border-top: 2px dashed var(--ink); }
+.legend .bd { width: 14px; height: 10px; background: var(--band); border: 1px solid var(--accent); border-radius: 2px; }
+
+.chart-box { position: relative; width: 100%; }
+.chart-box svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart-box text { font-family: var(--f-mono); font-size: 11px; fill: var(--ink-3); }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 8px; padding: 10px 12px; font-size: 12.5px; min-width: 210px; z-index: 5; }
+.tip h4 { margin: 0 0 6px; font-family: var(--f-display); font-size: 14px; font-weight: 600; }
+.tip table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.tip td { padding: 1.5px 0; color: var(--ink-2); }
+.tip td.n { text-align: right; font-family: var(--f-mono); font-size: 11.5px; color: var(--ink); padding-left: 12px; }
+.tip tr.tot td { border-top: 1px solid var(--line-soft); padding-top: 4px; color: var(--ink); font-weight: 600; }
+
+.two { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 22px; }
+@media (max-width: 1480px) { .two { grid-template-columns: 1fr; } }
+
+.insight { border-left: 3px solid var(--accent); padding: 2px 0 2px 12px; color: var(--ink-2); font-size: 13.5px; margin: 0; max-width: 72ch; }
+.insight b { color: var(--ink); font-weight: 600; }
+
+
+[hidden] { display: none !important; }
+/* Vista Argentina */
+.scen-sep { width: 1px; align-self: stretch; background: var(--line); margin: 2px 6px; }
+.scen-btn.arg { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.scen-btn.arg[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.arg-ctls-wrap { display: grid; gap: 10px; }
+.arg-presets { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12.5px; color: var(--ink-3); }
+.arg-presets button { font: 500 12.5px/1.2 var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.arg-presets button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.arg-presets button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.arg-ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 28px; padding: 14px 16px; background: var(--surface-2); border-radius: 8px; }
+.arg-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+@media (max-width: 1100px) { .arg-grid { grid-template-columns: 1fr; } }
+.arg-grid h4 { font-family: var(--f-display); font-weight: 600; font-size: 15px; margin: 0 0 8px; }
+.h4x { font-family: var(--f-display); font-weight: 600; font-size: 15px; margin: 4px 0 8px; }
+.arg-empty { border: 1px dashed var(--line); border-radius: 8px; padding: 18px; color: var(--ink-2); font-size: 13.5px; display: grid; gap: 8px; }
+.arg-empty b { color: var(--ink); }
+table.mx.proj td { font-size: 12.5px; color: var(--ink-2); }
+table.mx.proj { min-width: 760px; }
+table.mx.proj td:last-child { min-width: 320px; }
+table.mx.proj .st { margin-top: 5px; }
+
+/* Tabla */
+.tbl-wrap { overflow-x: auto; }
+table.mx { border-collapse: collapse; width: 100%; font-size: 13px; min-width: 620px; }
+table.mx th { text-align: left; font-family: var(--f-mono); font-weight: 500; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.mx th.n, table.mx td.n { text-align: right; }
+table.mx td { padding: 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+table.mx tr:last-child td { border-bottom: 0; }
+table.mx td.n { font-variant-numeric: tabular-nums; }
+table.mx td.n b { font-family: var(--f-display); font-size: 17px; font-weight: 600; display: block; }
+table.mx td.n span { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); }
+table.mx tr.sel td { background: var(--accent-soft); }
+table.mx td .mn { font-weight: 600; }
+table.mx.src { min-width: 860px; }
+table.mx.src td { font-size: 12.5px; color: var(--ink-2); line-height: 1.45; }
+table.mx.src td:nth-child(4) { max-width: 46ch; }
+.st { display: inline-block; font-family: var(--f-mono); font-size: 11px; padding: 2px 7px; border-radius: 999px; white-space: nowrap; margin: 0 4px 4px 0; }
+.st.ok { background: color-mix(in srgb, var(--down) 15%, transparent); color: var(--down); }
+.st.est { background: color-mix(in srgb, var(--s4) 22%, transparent); color: var(--ink); }
+table.mx td .un { font-family: var(--f-mono); font-size: 11px; color: var(--ink-3); display: block; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--ink); }
+
+details.notes { padding: 0; }
+details.notes summary { cursor: pointer; padding: 16px 22px; font-family: var(--f-display); font-weight: 600; font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+details.notes summary::-webkit-details-marker { display: none; }
+details.notes summary::after { content: "+"; font-family: var(--f-mono); color: var(--ink-3); font-size: 18px; }
+details.notes[open] summary::after { content: "−"; }
+.notes-body { padding: 0 22px 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px 28px; color: var(--ink-2); font-size: 13px; }
+.notes-body h4 { font-family: var(--f-display); font-weight: 600; font-size: 14px; color: var(--ink); margin: 0 0 4px; }
+.notes-body p { margin: 0 0 6px; }
+.notes-body code { font-family: var(--f-mono); font-size: 12px; background: var(--surface-2); padding: 1px 4px; border-radius: 3px; color: var(--ink); }
+footer { color: var(--ink-3); font-size: 12px; font-family: var(--f-mono); }
+@media (prefers-reduced-motion: no-preference) { .chart-box path.area { transition: none; } }
+.arg-ctls.price { background: var(--accent-soft); }
+.scen-btn.custom[disabled] { cursor: default; }
+.scen-btn.custom[disabled]:not([aria-pressed="true"]) { display: none; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Prospectiva de metales preciosos · Horizonte 2030 / 2040 / 2050</div>
+      <h1>Oro y plata <span>2050</span></h1>
+      <p class="lede">El oro es hoy el primer rubro de exportación minera de Argentina y la plata el tercero. Su demanda no la mueven solo las tecnologías, como en el cobre o el litio: la mueven sobre todo la inversión, los bancos centrales y el consumo. Elegí un escenario o mové los controles para ver cómo cambia la demanda mundial y cuánto podría producir y exportar Argentina.</p>
+    </div>
+    <div class="chain" aria-label="Estructura del modelo">
+      <b>Incertidumbre y reservas</b><i>→</i><b>Inversión y bancos centrales</b><i>+</i><b>Consumo</b><i>+</i><b>Industria</b><i>−</i><b>Reciclaje</b><i>=</i><b>Demanda primaria</b>
+    </div>
+  </header>
+
+  <section class="scen" aria-label="Escenarios">
+    <div class="scen-row" id="scenRow"></div>
+    <p class="scen-desc" id="scenDesc"></p>
+  </section>
+
+  <div class="main">
+    <aside class="panel rail" aria-label="Controles del modelo">
+      <div class="group" id="gInv"><h2>Refugio y reservas <small>valor en 2050</small></h2></div>
+      <div class="group" id="gCons"><h2>Consumo</h2></div>
+      <div class="group" id="gInd"><h2>Industria y tecnología</h2></div>
+      <div class="group" id="gLev"><h2>Palancas</h2></div>
+    </aside>
+
+    <div class="content">
+      <div id="argView" class="panel card" hidden>
+        <div class="card-head">
+          <div>
+            <h3>Argentina: producción y exportaciones</h3>
+            <p class="sub" id="argSub"></p>
+          </div>
+          <div class="seg" role="group" aria-label="Metal" id="argSeg">
+            <button type="button" data-am="au" aria-pressed="true">Oro</button>
+            <button type="button" data-am="ag" aria-pressed="false">Plata</button>
+          </div>
+        </div>
+        <div class="arg-ctls-wrap">
+          <div class="arg-presets" role="group" aria-label="Condiciones internas de Argentina" id="argPresets"></div>
+          <div class="arg-ctls" id="argCtls"></div>
+          <div class="arg-ctls price" id="priceCtls"></div>
+        </div>
+        <div class="kpis" id="argKpis"></div>
+        <div class="arg-grid" id="argGrid">
+          <div><h4 id="argProdTitle"></h4><div class="legend" id="argLegend"></div><div class="chart-box" id="argProd"></div></div>
+          <div><h4 id="argExpTitle"></h4><div class="legend"><span><span class="ln" style="border-top-style:solid;border-color:var(--accent)"></span>Exportación esperada</span></div><div class="chart-box" id="argExp"></div></div>
+        </div>
+        <p class="insight" id="argInsight"></p>
+        <div class="tbl-wrap"><table class="mx proj" id="argTable"></table></div>
+        <p class="sub" id="argNote"></p>
+      </div>
+
+      <div id="demandView" class="content">
+        <div class="panel">
+          <div class="tabs" role="tablist" id="tabs" aria-label="Metal"></div>
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <h3 id="mTitle"></h3>
+                <p class="sub" id="mSub"></p>
+              </div>
+              <div class="seg" role="group" aria-label="Vista del gráfico">
+                <button type="button" id="vComp" aria-pressed="true">Composición por uso</button>
+                <button type="button" id="vUnc" aria-pressed="false">Rango de incertidumbre</button>
+              </div>
+            </div>
+            <div class="kpis" id="kpis"></div>
+            <div class="legend" id="legend"></div>
+            <div class="chart-box" id="mainChart"></div>
+            <p class="insight" id="insight"></p>
+          </div>
+        </div>
+
+        <div class="panel card">
+          <div class="card-head">
+            <div>
+              <h3>¿Qué mueve la demanda en 2050?</h3>
+              <p class="sub" id="tornSub"></p>
+            </div>
+          </div>
+          <div class="chart-box" id="tornado"></div>
+        </div>
+
+        <div class="panel card">
+          <div class="card-head">
+            <div>
+              <h3>Cifras base y fuentes</h3>
+              <p class="sub">Demanda de 2025 que usa el modelo y su origen. <b>Verificada</b>: la cifra procede de una fuente pública. <b>Estimada</b>: la fuente no publica el desglose y el modelo lo estima de forma coherente con los totales públicos.</p>
+            </div>
+          </div>
+          <div class="tbl-wrap"><table class="mx src">
+            <thead><tr><th>Concepto</th><th class="n">2025 en el modelo</th><th>Contraste</th><th>Fuentes y cifras de referencia</th></tr></thead>
+            <tbody>
+              <tr><td><span class="mn">Oro: demanda total</span></td><td class="n">4.900 t</td><td><span class="st ok">Verificada</span></td><td>World Gold Council, Gold Demand Trends 2025: récord de 5.002 t (incluye OTC). Inversión 2.175 t (barras y monedas 1.374 t; ETF 801 t), bancos centrales 863 t, joyería −18 % frente a 2024. El modelo excluye el OTC (~100 t).</td></tr>
+              <tr><td><span class="mn">Oro: joyería y tecnología</span></td><td class="n">1.540 t · 323 t</td><td><span class="st est">Estimada</span></td><td>Joyería: 1.877 t en 2024 con una caída del 18 % (WGC). Tecnología: estable en torno a 320–330 t. USGS MCS 2026: electrónica ≈ 7 % del consumo sin ETF.</td></tr>
+              <tr><td><span class="mn">Oro: oferta</span></td><td class="n">3.672 t mina · 1.410 t reciclaje</td><td><span class="st ok">Verificada</span> <span class="st est">reciclaje estimado</span></td><td>WGC: producción minera récord de 3.672 t; reciclaje +3 % frente a 2024. USGS MCS 2026: 3.300 t de minería en 2025 y reservas mundiales de 66.000 t.</td></tr>
+              <tr><td><span class="mn">Plata: demanda total</span></td><td class="n">1.134 Moz</td><td><span class="st ok">Verificada</span> <span class="st est">reparto estimado</span></td><td>Silver Institute, World Silver Survey 2026: 1.130 Moz (−2 %), industria 657,4 Moz (−3 %), inversión física +14 %, joyería −8 %, platería −21 %. Sexto año de déficit previsto en 2026 (46,3 Moz). El reparto de la industria (fotovoltaica 185, electrónica 195, automotriz 85, resto 192 Moz) es una estimación del modelo.</td></tr>
+              <tr><td><span class="mn">Plata: oferta</span></td><td class="n">846,6 Moz mina · 197,6 Moz reciclaje</td><td><span class="st ok">Verificada</span></td><td>World Silver Survey 2026. Dos tercios de la plata salen como subproducto de minas de plomo-zinc, cobre y oro, por eso la oferta responde poco al precio.</td></tr>
+              <tr><td><span class="mn">Argentina</span></td><td class="n">1.184 koz (36,8 t) de oro · 22,1 Moz de plata</td><td><span class="st ok">Verificada</span></td><td>Secretaría de Minería: exportaciones mineras récord de US$ 6.071 M en 2025, de las cuales oro US$ 4.094 M (67 %), litio US$ 911 M y plata US$ 785 M. Enero–agosto de 2026: oro US$ 3.623 M y plata US$ 726 M. La producción de oro cayó más de 6 % frente a 2024 (INDEC).</td></tr>
+            </tbody>
+          </table></div>
+          <p class="insight">El modelo no pronostica precios. La demanda de inversión y de bancos centrales depende de factores financieros y geopolíticos que no se pueden proyectar con precisión: los escenarios muestran órdenes de magnitud, no una predicción.</p>
+        </div>
+      </div>
+
+      <details class="panel notes">
+        <summary>Método, supuestos y límites</summary>
+        <div class="notes-body">
+          <div>
+            <h4>Estructura</h4>
+            <p>Cada uso parte de su demanda de 2025 y se mueve hacia el valor de 2050 que fija su control, siguiendo una curva S. A la demanda total se le resta el reciclaje para obtener la demanda primaria, la que tiene que venir de la minería.</p>
+          </div>
+          <div>
+            <h4>Oro</h4>
+            <p>La inversión y los bancos centrales explican hoy más de la mitad de la demanda. Con un control en el medio, la inversión vuelve a unas 1.850 t y los bancos centrales a unas 700 t en 2050, por debajo de los récords de 2022–2025. La joyería cae cuando el precio sube más que el ingreso.</p>
+          </div>
+          <div>
+            <h4>Plata</h4>
+            <p>La fotovoltaica es el uso de mayor crecimiento, pero cada celda usa cada vez menos plata y el cobre empieza a reemplazarla. Por eso hay dos controles: cuánta energía solar se instala y cuánta plata se ahorra por vatio.</p>
+          </div>
+          <div>
+            <h4>Oferta argentina</h4>
+            <p>Las operaciones actuales declinan según la exploración cercana a mina; la Cámara Argentina de Empresas Mineras estima una vida restante media de 3 a 4 años. Los proyectos nuevos entran con su probabilidad y su demora según las condiciones internas. Vicuña y Taca Taca producen oro y plata como subproducto del cobre.</p>
+          </div>
+          <div>
+            <h4>Incertidumbre</h4>
+            <p>El rango p10–p90 sale de 200 simulaciones que mueven cada control (desviación de 12 puntos) y el valor de cada uso en 2050 (±10 %). En la oferta argentina, cada proyecto se concreta o no según su probabilidad, con demoras aleatorias.</p>
+          </div>
+          <div>
+            <h4>Qué no incluye</h4>
+            <p>Formación de precios, ventas de bancos centrales, cobertura de productores y existencias sobre el suelo. MARA, El Pachón y Los Azules también tienen oro y plata, pero no hay cifras públicas de producción de estos metales para incluirlos.</p>
+          </div>
+        </div>
+      </details>
+      <footer>Modelo ilustrativo para discusión · Cifras indicativas, calibrables con fuentes oficiales · Octubre 2026</footer>
+    </div>
+  </div>
+</div>
+
+<script>
+const YEARS = []; for (let y = 2025; y <= 2050; y++) YEARS.push(y);
+const yi = y => y - 2025;
+const lerp = (a, b, s) => a + (b - a) * s;
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+
+const CTLS = [
+  { id: 'incert', g: 'gInv', name: 'Incertidumbre y tasas reales bajas', desc: 'Tensión geopolítica, inflación y tasas reales bajas empujan la inversión en oro y plata' },
+  { id: 'bancos', g: 'gInv', name: 'Compras de bancos centrales', desc: 'Diversificación de reservas fuera del dólar' },
+  { id: 'ingreso', g: 'gCons', name: 'Ingreso en India y China', desc: 'Joyería, platería y consumo; cae si el precio sube más que el ingreso' },
+  { id: 'tecno', g: 'gInd', name: 'Electrónica, IA y electromovilidad', desc: 'Chips, conectores, centros de datos y vehículos eléctricos' },
+  { id: 'trans', g: 'gInd', name: 'Instalación solar', desc: 'Gigavatios fotovoltaicos nuevos por año hacia 2050' },
+  { id: 'ahorro', g: 'gInd', name: 'Ahorro de plata en celdas solares', desc: 'Menos plata por vatio y sustitución por cobre' },
+  { id: 'recic', g: 'gLev', name: 'Reciclaje', desc: 'Joyería fundida, chatarra electrónica y paneles al final de su vida' },
+];
+const CTL = id => CTLS.find(c => c.id === id);
+
+// Usos: demanda 2025 (v0) y valor 2050 con el control en 0 (lo) y en 100 (hi)
+const METALS = {
+  au: { name: 'Oro', unit: 't', unitLong: 't de oro', mine2025: 3672, rec0: 0.288, recLo: 0.24, recHi: 0.34, dec: 0,
+    segs: [
+      { id: 'inv', name: 'Inversión (barras, monedas y ETF)', v0: 2175, lo: 900, hi: 2800, ctl: 'incert', col: 'var(--s4)' },
+      { id: 'bc', name: 'Bancos centrales', v0: 863, lo: 300, hi: 1100, ctl: 'bancos', col: 'var(--s7)' },
+      { id: 'joy', name: 'Joyería', v0: 1540, lo: 1080, hi: 1920, ctl: 'ingreso', col: 'var(--s5)' },
+      { id: 'tec', name: 'Tecnología y electrónica', v0: 323, lo: 320, hi: 580, ctl: 'tecno', col: 'var(--s3)' },
+    ] },
+  ag: { name: 'Plata', unit: 'Moz', unitLong: 'millones de onzas de plata', mine2025: 846.6, rec0: 0.175, recLo: 0.16, recHi: 0.27, dec: 0,
+    segs: [
+      { id: 'pv', name: 'Fotovoltaica', v0: 185, pv: true, col: 'var(--s4)' },
+      { id: 'ele', name: 'Electrónica, centros de datos e IA', v0: 195, lo: 234, hi: 468, ctl: 'tecno', col: 'var(--s3)' },
+      { id: 'auto', name: 'Automotriz y electromovilidad', v0: 85, lo: 102, hi: 187, ctl: 'tecno', col: 'var(--s2)' },
+      { id: 'ind', name: 'Otros usos industriales y fotografía', v0: 217, lo: 195, hi: 282, ctl: 'ingreso', col: 'var(--s-base)' },
+      { id: 'joy', name: 'Joyería y platería', v0: 235, lo: 165, hi: 305, ctl: 'ingreso', col: 'var(--s5)' },
+      { id: 'inv', name: 'Inversión (barras y monedas)', v0: 217, lo: 100, hi: 400, ctl: 'incert', col: 'var(--s7)' },
+    ] },
+};
+const pvTarget = v => 185 * lerp(0.9, 2.5, v.trans / 100) * lerp(0.85, 0.30, v.ahorro / 100);
+const ctlsFor = mid => mid === 'au' ? ['incert', 'bancos', 'ingreso', 'tecno', 'recic'] : ['incert', 'ingreso', 'tecno', 'trans', 'ahorro', 'recic'];
+
+const SCENARIOS = [
+  { id: 'ref', name: 'Referencia', desc: 'La inversión y las compras de los bancos centrales vuelven de a poco desde los récords de 2022–2025; la industria crece al ritmo de la electrificación.', v: { incert: 50, bancos: 50, ingreso: 50, tecno: 50, trans: 50, ahorro: 50, recic: 50 } },
+  { id: 'refugio', name: 'Refugio prolongado', desc: 'Tensión geopolítica, deuda alta y desdolarización: inversores y bancos centrales siguen comprando oro y plata como en 2022–2025.', v: { incert: 85, bancos: 85, ingreso: 40, tecno: 50, trans: 50, ahorro: 50, recic: 55 } },
+  { id: 'normal', name: 'Normalización', desc: 'Tasas reales altas y menos riesgo: la inversión y los bancos centrales compran mucho menos y pesa más el consumo.', v: { incert: 20, bancos: 25, ingreso: 60, tecno: 45, trans: 45, ahorro: 50, recic: 45 } },
+  { id: 'electro', name: 'Electrificación acelerada', desc: 'Más energía solar, más centros de datos y más autos eléctricos: la plata se vuelve un metal industrial escaso.', v: { incert: 50, bancos: 50, ingreso: 55, tecno: 85, trans: 85, ahorro: 40, recic: 60 } },
+  { id: 'sustit', name: 'Plata sustituida', desc: 'La industria solar reemplaza buena parte de la plata por cobre y el reciclaje de paneles despega.', v: { incert: 45, bancos: 50, ingreso: 50, tecno: 50, trans: 60, ahorro: 90, recic: 75 } },
+];
+
+function prog(y) {
+  const f = t => 1 / (1 + Math.exp(-0.3 * (t - 2035)));
+  return (f(y) - f(2025)) / (f(2050) - f(2025));
+}
+// pert: { ctl: {id: delta}, seg: {metal_seg: factor} }
+function runModel(v0, pert) {
+  const v = {}; CTLS.forEach(c => v[c.id] = clamp(v0[c.id] + (pert ? pert.ctl[c.id] : 0), 0, 100));
+  const out = {};
+  for (const mid of Object.keys(METALS)) {
+    const M = METALS[mid]; const seg = {}; const total = YEARS.map(() => 0);
+    M.segs.forEach(s => {
+      let t = s.pv ? pvTarget(v) : lerp(s.lo, s.hi, v[s.ctl] / 100);
+      if (pert) t *= pert.seg[mid + s.id];
+      seg[s.id] = YEARS.map((y, i) => { const x = s.v0 + (t - s.v0) * prog(y); total[i] += x; return x; });
+    });
+    const r50 = lerp(M.recLo, M.recHi, v.recic / 100);
+    const rec = YEARS.map((y, i) => total[i] * (M.rec0 + (r50 - M.rec0) * prog(y)));
+    out[mid] = { seg, total, rec, primary: total.map((x, i) => x - rec[i]) };
+  }
+  return out;
+}
+
+const state = { scen: 'ref', v: Object.assign({}, SCENARIOS[0].v), metal: 'au', view: 'comp', page: 'demand' };
+const fmtN = (x, d) => x.toLocaleString('es-ES', { maximumFractionDigits: d ?? 0, minimumFractionDigits: d ?? 0, useGrouping: 'always' });
+const fmtV = (x, mid) => fmtN(x, mid === 'ag' && x < 100 ? 1 : 0);
+const fmtPct = x => (x >= 0 ? '+' : '−') + fmtN(Math.abs(x), Math.abs(x) < 10 ? 1 : 0) + ' %';
+const level = v => v < 20 ? 'muy bajo' : v < 40 ? 'bajo' : v < 60 ? 'medio' : v < 80 ? 'alto' : 'muy alto';
+
+function ctlText(id, val) {
+  const v = Object.assign({}, state.v, { [id]: val });
+  const s = (mid, sid) => { const g = METALS[mid].segs.find(x => x.id === sid); return lerp(g.lo, g.hi, val / 100); };
+  switch (id) {
+    case 'incert': return `${level(val)} · oro ${fmtN(s('au', 'inv'))} t`;
+    case 'bancos': return `${level(val)} · ${fmtN(s('au', 'bc'))} t`;
+    case 'ingreso': return `${level(val)} · joyería ${fmtN(s('au', 'joy'))} t`;
+    case 'tecno': return `${level(val)} · plata ${fmtN(s('ag', 'ele') + s('ag', 'auto'))} Moz`;
+    case 'trans': return `${level(val)} · ×${fmtN(lerp(0.9, 2.5, val / 100), 1)} GW`;
+    case 'ahorro': return `${level(val)} · solar ${fmtN(pvTarget(v))} Moz`;
+    case 'recic': return `${fmtN(lerp(24, 34, val / 100))} % oro · ${fmtN(lerp(16, 27, val / 100))} % plata`;
+  }
+  return val;
+}
+
+// Escenarios
+const scenRow = document.getElementById('scenRow');
+SCENARIOS.forEach(s => {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'scen-btn'; b.textContent = s.name; b.dataset.id = s.id;
+  b.addEventListener('click', () => { state.scen = s.id; state.v = Object.assign({}, s.v); state.page = 'demand'; update(); });
+  scenRow.appendChild(b);
+});
+const custom = document.createElement('button'); custom.type = 'button'; custom.className = 'scen-btn custom'; custom.textContent = 'Personalizado'; custom.dataset.id = 'custom'; custom.disabled = true;
+scenRow.appendChild(custom);
+const argSep = document.createElement('span'); argSep.className = 'scen-sep'; argSep.setAttribute('aria-hidden', 'true');
+const argBtn = document.createElement('button'); argBtn.type = 'button'; argBtn.className = 'scen-btn arg'; argBtn.textContent = 'Argentina: producción y exportaciones';
+argBtn.addEventListener('click', () => { state.page = state.page === 'arg' ? 'demand' : 'arg'; update(); });
+scenRow.appendChild(argSep); scenRow.appendChild(argBtn);
+
+// Controles
+CTLS.forEach(c => {
+  const w = document.createElement('div'); w.className = 'ctl';
+  w.innerHTML = `<div class="ctl-head"><label for="c_${c.id}">${c.name}</label><span class="ctl-val" id="t_${c.id}"></span></div>
+    <input type="range" id="c_${c.id}" min="0" max="100" step="1" aria-describedby="d_${c.id}">
+    <div class="ctl-desc" id="d_${c.id}">${c.desc}</div>`;
+  document.getElementById(c.g).appendChild(w);
+  w.querySelector('input').addEventListener('input', e => { state.v[c.id] = +e.target.value; state.scen = 'custom'; schedule(); });
+});
+
+// Pestañas
+const tabs = document.getElementById('tabs');
+Object.keys(METALS).forEach(mid => {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'tab'; b.role = 'tab'; b.dataset.id = mid; b.textContent = METALS[mid].name;
+  b.addEventListener('click', () => { state.metal = mid; update(); });
+  tabs.appendChild(b);
+});
+document.getElementById('vComp').addEventListener('click', () => { state.view = 'comp'; update(); });
+document.getElementById('vUnc').addEventListener('click', () => { state.view = 'unc'; update(); });
+
+function syncControls() {
+  CTLS.forEach(c => {
+    const inp = document.getElementById('c_' + c.id); inp.value = state.v[c.id]; inp.style.setProperty('--p', state.v[c.id] + '%');
+    document.getElementById('t_' + c.id).textContent = ctlText(c.id, state.v[c.id]);
+    const used = state.page === 'arg' || ctlsFor(state.metal).includes(c.id);
+    inp.closest('.ctl').style.opacity = used ? 1 : 0.45;
+  });
+  scenRow.querySelectorAll('.scen-btn:not(.arg)').forEach(b => b.setAttribute('aria-pressed', b.dataset.id === state.scen));
+  const s = SCENARIOS.find(x => x.id === state.scen);
+  document.getElementById('scenDesc').textContent = s ? s.desc : 'Combinación propia de controles.';
+}
+
+let raf = 0;
+function schedule() { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; update(); }); }
+function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function gauss(r) { let u = 0, v = 0; while (u === 0) u = r(); v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+const q = (arr, p) => { const s = arr.slice().sort((a, b) => a - b); const i = (s.length - 1) * p; const lo = Math.floor(i); return s[lo] + (s[Math.ceil(i)] - s[lo]) * (i - lo); };
+function randPert(r) {
+  const p = { ctl: {}, seg: {} };
+  CTLS.forEach(c => p.ctl[c.id] = gauss(r) * 12);
+  Object.keys(METALS).forEach(mid => METALS[mid].segs.forEach(s => p.seg[mid + s.id] = Math.exp(gauss(r) * 0.1)));
+  return p;
+}
+function monteCarlo(n) {
+  const r = mulberry(2050); const out = {};
+  Object.keys(METALS).forEach(mid => out[mid] = { tot: YEARS.map(() => []), pri: YEARS.map(() => []) });
+  for (let k = 0; k < n; k++) {
+    const res = runModel(state.v, randPert(r));
+    Object.keys(METALS).forEach(mid => YEARS.forEach((y, i) => { out[mid].tot[i].push(res[mid].total[i]); out[mid].pri[i].push(res[mid].primary[i]); }));
+  }
+  const fin = {};
+  Object.keys(out).forEach(mid => fin[mid] = { t10: out[mid].tot.map(a => q(a, .1)), t90: out[mid].tot.map(a => q(a, .9)), p10: out[mid].pri.map(a => q(a, .1)), p90: out[mid].pri.map(a => q(a, .9)) });
+  return fin;
+}
+
+function niceMax(v) { const e = Math.pow(10, Math.floor(Math.log10(v))); const f = v / e; const n = f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10; return n * e; }
+function ticks(max) { const step = max / 5; return [0, 1, 2, 3, 4, 5].map(i => i * step); }
+function lineChart(box, W, H, pad, ymax, yfmt, drawFn) {
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
+  const X = i => pad.l + iw * i / (YEARS.length - 1), Y = v => pad.t + ih - ih * v / ymax;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  ticks(ymax).forEach(t => { s += `<line x1="${pad.l}" x2="${W - pad.r}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(--grid)"/><text x="${pad.l - 8}" y="${Y(t) + 4}" text-anchor="end">${yfmt(t)}</text>`; });
+  [2025, 2030, 2035, 2040, 2045, 2050].forEach(y => { s += `<text x="${X(yi(y))}" y="${H - 8}" text-anchor="middle">${y}</text>`; });
+  s += drawFn(X, Y, iw, ih);
+  s += `<line class="xh" x1="0" x2="0" y1="${pad.t}" y2="${pad.t + ih}" stroke="var(--ink-2)" visibility="hidden"/><rect class="hit" x="${pad.l}" y="${pad.t}" width="${iw}" height="${ih}" fill="transparent"/></svg>`;
+  box.innerHTML = s;
+  return { X, Y, iw, ih };
+}
+function attachTip(box, W, pad, geo, rowsFn) {
+  const svg = box.querySelector('svg'); const tp = document.createElement('div'); tp.className = 'tip'; tp.hidden = true; box.appendChild(tp);
+  const xh = svg.querySelector('.xh'), hit = svg.querySelector('.hit');
+  const show = ev => {
+    const rect = svg.getBoundingClientRect(); const sx = (ev.clientX - rect.left) * W / rect.width;
+    const i = Math.max(0, Math.min(YEARS.length - 1, Math.round((sx - pad.l) / geo.iw * (YEARS.length - 1))));
+    xh.setAttribute('x1', geo.X(i)); xh.setAttribute('x2', geo.X(i)); xh.setAttribute('visibility', 'visible');
+    tp.innerHTML = `<h4>${YEARS[i]}</h4><table>${rowsFn(i)}</table>`; tp.hidden = false;
+    const px = geo.X(i) * rect.width / W; const bw = box.getBoundingClientRect().width;
+    tp.style.left = (px + 14 + tp.offsetWidth > bw ? px - tp.offsetWidth - 14 : px + 14) + 'px'; tp.style.top = '8px';
+  };
+  hit.addEventListener('pointermove', show); hit.addEventListener('pointerdown', show);
+  hit.addEventListener('pointerleave', () => { tp.hidden = true; xh.setAttribute('visibility', 'hidden'); });
+}
+const sw = c => `<span class="sw" style="display:inline-block;background:${c};margin-right:6px"></span>`;
+
+function drawDemand(res, mc) {
+  const mid = state.metal, M = METALS[mid], R = res[mid], C = mc[mid];
+  document.getElementById('mTitle').textContent = `${M.name}: demanda mundial por uso · ${M.unit}`;
+  document.getElementById('mSub').textContent = mid === 'au'
+    ? 'Demanda total en toneladas por año (sin OTC). La línea punteada marca la producción minera de 2025.'
+    : 'Demanda total en millones de onzas por año. La línea punteada marca la producción minera de 2025.';
+  // KPIs
+  let k = `<div class="kpi"><span class="y">2025 · demanda</span><span class="v">${fmtV(R.total[0], mid)}<small>${M.unit}</small></span><span class="r">primaria ${fmtV(R.primary[0], mid)} · mina ${fmtV(M.mine2025, mid)}</span></div>`;
+  [2030, 2040, 2050].forEach(y => { const i = yi(y); k += `<div class="kpi"><span class="y">${y} · demanda</span><span class="v">${fmtV(R.total[i], mid)}<small>${M.unit}</small></span><span class="r">${fmtPct((R.total[i] / R.total[0] - 1) * 100)} · p10–p90 ${fmtV(C.t10[i], mid)}–${fmtV(C.t90[i], mid)}</span></div>`; });
+  document.getElementById('kpis').innerHTML = k;
+
+  const box = document.getElementById('mainChart');
+  const W = Math.max(320, box.clientWidth || 760), H = W < 560 ? 300 : 360, pad = { l: 56, r: 14, t: 14, b: 28 };
+  const ymax = niceMax(Math.max(...C.t90, ...R.total, M.mine2025) * 1.05);
+  const segs = M.segs;
+  let legend = '';
+  const geo = lineChart(box, W, H, pad, ymax, t => fmtN(t, 0), (X, Y) => {
+    let s = '';
+    if (state.view === 'comp') {
+      const cum = YEARS.map(() => 0);
+      segs.forEach(g => {
+        const lower = cum.slice(); R.seg[g.id].forEach((v, i) => cum[i] += v);
+        s += `<polygon points="${cum.map((v, i) => `${X(i)},${Y(v)}`).join(' ')} ${lower.map((v, i) => `${X(i)},${Y(v)}`).reverse().join(' ')}" fill="${g.col}" stroke="var(--surface)" stroke-width="1.2"/>`;
+      });
+      s += `<polyline points="${R.primary.map((v, i) => `${X(i)},${Y(v)}`).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
+    } else {
+      s += `<polygon points="${C.t90.map((v, i) => `${X(i)},${Y(v)}`).join(' ')} ${C.t10.map((v, i) => `${X(i)},${Y(v)}`).reverse().join(' ')}" fill="var(--band)"/>`;
+      s += `<polygon points="${C.p90.map((v, i) => `${X(i)},${Y(v)}`).join(' ')} ${C.p10.map((v, i) => `${X(i)},${Y(v)}`).reverse().join(' ')}" fill="var(--band)"/>`;
+      s += `<polyline points="${R.total.map((v, i) => `${X(i)},${Y(v)}`).join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>`;
+      s += `<polyline points="${R.primary.map((v, i) => `${X(i)},${Y(v)}`).join(' ')}" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
+    }
+    s += `<line x1="${X(0)}" x2="${X(YEARS.length - 1)}" y1="${Y(M.mine2025)}" y2="${Y(M.mine2025)}" stroke="var(--ink-2)" stroke-width="1.4" stroke-dasharray="5 4"/><text x="${X(YEARS.length - 1)}" y="${Y(M.mine2025) - 6}" text-anchor="end" style="fill:var(--ink-2)">producción minera 2025</text>`;
+    return s;
+  });
+  if (state.view === 'comp') legend = [...segs].reverse().map(g => `<span><span class="sw" style="background:${g.col}"></span>${g.name}</span>`).join('') + `<span><span class="ln" style="border-top-style:solid"></span>Demanda primaria (sin reciclaje)</span>`;
+  else legend = `<span><span class="ln" style="border-top-style:solid;border-color:var(--accent)"></span>Demanda total</span><span><span class="ln" style="border-top-style:solid"></span>Demanda primaria</span><span><span class="bd"></span>Rango p10–p90</span>`;
+  document.getElementById('legend').innerHTML = legend;
+  attachTip(box, W, pad, geo, i => [...segs].reverse().map(g => `<tr><td>${sw(g.col)}${g.name}</td><td class="n">${fmtV(R.seg[g.id][i], mid)}</td></tr>`).join('') +
+    `<tr class="tot"><td>Demanda total</td><td class="n">${fmtV(R.total[i], mid)}</td></tr><tr><td>Reciclaje</td><td class="n">−${fmtV(R.rec[i], mid)}</td></tr><tr class="tot"><td>Demanda primaria</td><td class="n">${fmtV(R.primary[i], mid)}</td></tr><tr><td>p10–p90 (total)</td><td class="n">${fmtV(C.t10[i], mid)}–${fmtV(C.t90[i], mid)}</td></tr>`);
+
+  // Interpretación
+  const i50 = yi(2050), i40 = yi(2040);
+  const top = segs.map(g => ({ g, d: R.seg[g.id][i50] - g.v0 })).sort((a, b) => b.d - a.d)[0];
+  const gap = R.primary[i40] - M.mine2025;
+  const gapTxt = gap > 0
+    ? `En 2040 la demanda primaria superaría en <b>${fmtV(gap, mid)} ${M.unit}</b> la producción minera de 2025 (${fmtPct(gap / M.mine2025 * 100)}): harán falta minas nuevas o precios más altos.`
+    : `En 2040 la demanda primaria quedaría <b>${fmtV(-gap, mid)} ${M.unit}</b> por debajo de la producción minera de 2025: el precio dejaría de tener el sostén de los últimos años.`;
+  document.getElementById('insight').innerHTML = mid === 'au'
+    ? `${gapTxt} El oro depende sobre todo de la inversión y de los bancos centrales: juntos pasan de ${fmtN((2175 + 863) / R.total[0] * 100)} % de la demanda en 2025 a <b>${fmtN((R.seg.inv[i50] + R.seg.bc[i50]) / R.total[i50] * 100)} %</b> en 2050 en este escenario.`
+    : `${gapTxt} La industria pasaría de ${fmtN(657 / R.total[0] * 100)} % de la demanda en 2025 a <b>${fmtN((R.seg.pv[i50] + R.seg.ele[i50] + R.seg.auto[i50] + R.seg.ind[i50]) / R.total[i50] * 100)} %</b> en 2050; el uso que más crece es <b>${top.g.name.charAt(0).toLowerCase() + top.g.name.slice(1)}</b>.`;
+}
+
+function drawTornado() {
+  const mid = state.metal, M = METALS[mid];
+  const base = runModel(state.v)[mid].primary[yi(2050)];
+  const rows = ctlsFor(mid).map(id => {
+    const lo = runModel(Object.assign({}, state.v, { [id]: 0 }))[mid].primary[yi(2050)] - base;
+    const hi = runModel(Object.assign({}, state.v, { [id]: 100 }))[mid].primary[yi(2050)] - base;
+    return { id, lo: Math.min(lo, hi), hi: Math.max(lo, hi), span: Math.abs(hi - lo) };
+  }).sort((a, b) => b.span - a.span);
+  document.getElementById('tornSub').textContent = `Cambio de la demanda primaria de ${M.name.toLowerCase()} en 2050 (${M.unit}) al llevar cada control de 0 a 100, con el resto fijo.`;
+  const box = document.getElementById('tornado'); const W = Math.max(320, box.clientWidth || 700);
+  const narrow = W < 560, lab = narrow ? 0 : 250, rowH = narrow ? 44 : 30, top = 6;
+  const m = niceMax(Math.max(...rows.map(r => Math.max(Math.abs(r.lo), Math.abs(r.hi)))) * 1.05);
+  const x0 = lab + 8, iw = W - x0 - 16, X = v => x0 + iw / 2 + iw / 2 * v / m;
+  let s = `<svg viewBox="0 0 ${W} ${rows.length * rowH + 34}" role="img">`;
+  [-m, -m / 2, 0, m / 2, m].forEach(t => { s += `<line x1="${X(t)}" x2="${X(t)}" y1="${top}" y2="${rows.length * rowH + top}" stroke="var(--grid)"/><text x="${X(t)}" y="${rows.length * rowH + top + 18}" text-anchor="middle">${t > 0 ? '+' : t < 0 ? '−' : ''}${fmtN(Math.abs(t))}</text>`; });
+  rows.forEach((r, k) => {
+    const y = top + k * rowH + (narrow ? 16 : 6);
+    if (narrow) s += `<text x="${x0}" y="${y - 4}" style="fill:var(--ink);font-family:var(--f-body);font-size:12px;font-weight:600">${CTL(r.id).name}</text>`;
+    else s += `<text x="${lab}" y="${y + 12}" text-anchor="end" style="fill:var(--ink);font-family:var(--f-body);font-size:12.5px;font-weight:600">${CTL(r.id).name}</text>`;
+    if (r.lo < 0) s += `<rect x="${X(r.lo)}" y="${y}" width="${X(0) - X(r.lo)}" height="16" rx="3" fill="var(--down)" opacity=".85"/>`;
+    if (r.hi > 0) s += `<rect x="${X(0)}" y="${y}" width="${X(r.hi) - X(0)}" height="16" rx="3" fill="var(--up)" opacity=".85"/>`;
+  });
+  s += `<line x1="${X(0)}" x2="${X(0)}" y1="${top}" y2="${rows.length * rowH + top}" stroke="var(--ink-2)"/>`;
+  box.innerHTML = s + '</svg>';
+}
+
+// ---------------- Argentina ----------------
+const OZ_T = 32150.75;  // onzas troy por tonelada
+const SUPPLY_FACTORS = [
+  { id: 'macro', name: 'Estabilidad macro y regulatoria', desc: 'RIGI, reglas cambiarias y fiscales estables' },
+  { id: 'social', name: 'Licencia social y ambiental', desc: 'Aceptación local, agua y leyes provinciales (Chubut, Mendoza)' },
+  { id: 'infra', name: 'Infraestructura', desc: 'Energía, agua, rutas y puertos' },
+  { id: 'talento', name: 'Capital humano', desc: 'Ingenieros, técnicos y operarios disponibles' },
+  { id: 'explor', name: 'Exploración', desc: 'Extiende la vida de las minas actuales y suma descubrimientos' },
+];
+const SUPPLY_PRESETS = [
+  { id: 'estanca', name: 'Estancamiento', v: { macro: 25, social: 30, infra: 30, talento: 35, explor: 20 } },
+  { id: 'rigi', name: 'Continuidad RIGI', v: { macro: 60, social: 55, infra: 50, talento: 50, explor: 45 } },
+  { id: 'despegue', name: 'Despegue', v: { macro: 85, social: 75, infra: 80, talento: 80, explor: 80 } },
+];
+const TIERS = {
+  P: { name: 'En producción', cls: 'ok', delaySd: 0 },
+  A: { name: 'RIGI aprobado', cls: 'ok', delaySd: 1 },
+  B: { name: 'En evaluación', cls: 'est', delaySd: 2.5 },
+  X: { name: 'Frenado por ley provincial', cls: 'est', delaySd: 3 },
+};
+// stages: [año, oro koz/año, plata Moz/año]
+const AR_PROJECTS = [
+  { id: 'vicuna', name: 'Vicuña (Josemaría + Filo del Sol)', prov: 'San Juan', tier: 'A', p: 0.85, stages: [[2030, 330, 1.2], [2038, 711, 22.2]],
+    src: 'Evaluación económica preliminar (Lundin Mining, feb. 2026): 37 Moz de oro y 762 Moz de plata en 70 años; 711 koz de oro y 22,2 Moz de plata por año en los primeros 25. Josemaría sola (factibilidad 2020): 331 koz de oro y 1,25 Moz de plata por año en los primeros 10 años.', sup: 'Etapa 1 en 2030 y plena producción en 2038: supuesto SIEMA, igual que en el modelo de cobre.' },
+  { id: 'gualcamayo', name: 'Gualcamayo: Carbonatos Profundos', prov: 'San Juan', tier: 'A', p: 0.8, stages: [[2031, 166, 0]],
+    src: 'RIGI aprobado (US$ 665 M). AISA Group: unas 166 koz de oro por año durante unos 30 años, producción comercial en 2030–2031.', sup: '' },
+  { id: 'diablillos', name: 'Diablillos', prov: 'Salta', tier: 'A', p: 0.8, stages: [[2030, 89, 14], [2035, 35, 7.5]],
+    src: 'RIGI aprobado. Factibilidad definitiva (AbraSilver, jun. 2026): capex US$ 722 M, 14 Moz de plata y 89 koz de oro por año en los primeros cinco años, unos 10 Moz equivalentes de plata de media en 25 años. Decisión de inversión prevista para el 2.º trimestre de 2027 y primera producción a fines de 2029.', sup: 'Reparto oro/plata desde 2035: supuesto SIEMA.' },
+  { id: 'taca', name: 'Taca Taca', prov: 'Salta', tier: 'A', p: 0.75, stages: [[2032, 133, 0], [2042, 96, 0]],
+    src: 'First Quantum, NI 43-101 (2026): 133 koz de oro por año en los primeros 10 años (pico de 171 koz) y unas 96 koz de media en la vida útil.', sup: 'Inicio en 2032: supuesto SIEMA, igual que en el modelo de cobre.' },
+  { id: 'calcatreu', name: 'Calcatreu', prov: 'Río Negro', tier: 'P', p: 0.95, ramp: 1, stages: [[2026, 51, 0.2], [2032, 0, 0]],
+    src: 'Patagonia Gold: entró en producción en abril de 2026; 31.734 oz de oro y 127.952 oz de plata en 2026 y más de 256.700 oz de oro en cinco años.', sup: 'Cierre en 2032: supuesto SIEMA a partir del plan de cinco años.' },
+  { id: 'hualilan', name: 'Hualilán', prov: 'San Juan', tier: 'B', p: 0.55, stages: [[2029, 45, 0.1]],
+    src: 'Challenger Gold: procesa mineral en la planta de Casposo desde dic. 2025 (Casposo producía unas 40 koz por año); prefactibilidad de planta propia en curso.', sup: '45 koz por año desde 2029: orden de magnitud estimado por SIEMA.' },
+  { id: 'suyai', name: 'Suyai', prov: 'Chubut', tier: 'X', p: 0.3, stages: [[2033, 250, 0]],
+    src: 'Factibilidad: 250 koz de oro por año, capex US$ 220 M (Pan American Silver 60 %). Chubut prohíbe la minería a cielo abierto y el uso de cianuro (ley 5001); Esquel rechazó el proyecto en el plebiscito de 2003.', sup: 'Su probabilidad depende casi solo de la licencia social.' },
+  { id: 'navidad', name: 'Navidad', prov: 'Chubut', tier: 'X', p: 0.25, stages: [[2034, 0, 15]],
+    src: 'Pan American Silver: uno de los mayores depósitos de plata sin desarrollar del mundo, frenado por la ley 5001 de Chubut.', sup: '15 Moz de plata por año desde 2034: orden de magnitud de estudios previos, supuesto SIEMA.' },
+];
+const AR_MET = {
+  au: { name: 'Oro', low: 'oro', del: 'del oro', fut: 'del oro argentino', unit: 't', base0: 36.8, r: [0.10, 0.04], nuevosMax: 30, price: { lo: 2500, hi: 6000, step: 50, def: 4200, p2025: 3460 }, pay: 0.99, eco: 5675, ofi: 3448 },
+  ag: { name: 'Plata', low: 'plata', del: 'de la plata', fut: 'de la plata argentina', unit: 'Moz', base0: 22.1, r: [0.13, 0.06], nuevosMax: 20, price: { lo: 30, hi: 90, step: 1, def: 60, p2025: 40 }, pay: 0.89, eco: 1131, ofi: 2597 },
+};
+state.argMet = 'au'; state.sv = Object.assign({}, SUPPLY_PRESETS[1].v); state.sPreset = 'rigi';
+state.price = { au: AR_MET.au.price.def, ag: AR_MET.ag.price.def };
+
+function projOutput(pr, y, mid) {
+  const k = mid === 'au' ? 1 : 2; const rp = pr.ramp || 3;
+  let v = 0;
+  for (const st of pr.stages) {
+    if (y < st[0]) break;
+    const target = mid === 'au' ? st[k] / OZ_T * 1000 : st[k];
+    v = v + (target - v) * Math.min(1, (y - st[0] + 1) / rp);
+  }
+  return v;
+}
+function runSupply(mid, sv, rnd) {
+  const A = AR_MET[mid]; const g = id => sv[id] / 100;
+  const reg = (g('macro') + g('social')) / 2, pFac = 0.5 + reg;
+  const delay = Math.max(0, 4 * (0.6 - g('infra')) + 2.5 * (0.6 - g('talento')) + 2 * (0.5 - g('macro')));
+  const series = {}; const total = YEARS.map(() => 0);
+  let r = lerp(A.r[0], A.r[1], g('explor')); if (rnd) r *= 0.85 + rnd() * 0.3;
+  series.actual = YEARS.map((y, i) => { const v = A.base0 * Math.exp(-r * i); total[i] += v; return v; });
+  for (const pr of AR_PROJECTS) {
+    if (Math.max(...pr.stages.map(s => s[mid === 'au' ? 1 : 2])) <= 0) continue;
+    let p = pr.tier === 'X' ? Math.min(0.95, pr.p * Math.pow(g('social') / 0.5, 2)) : Math.min(0.98, pr.p * (pr.tier === 'B' ? pFac : Math.sqrt(pFac)));
+    let d = pr.tier === 'P' ? 0 : delay * (pr.tier === 'A' ? 0.5 : 1);
+    let scale = 1;
+    if (rnd) { scale = rnd() < p ? 0.85 + rnd() * 0.3 : 0; p = 1; if (pr.tier !== 'P') d = Math.max(0, d + (rnd() - 0.35) * 2 * TIERS[pr.tier].delaySd); }
+    series[pr.id] = YEARS.map((y, i) => { const v = p * scale * projOutput(pr, y - Math.round(d), mid); total[i] += v; return v; });
+  }
+  const share = g('explor') * (0.4 + 0.6 * reg) * (rnd ? 0.5 + rnd() : 1);
+  series.nuevos = YEARS.map((y, i) => { const yy = y - Math.round(delay); const v = yy < 2036 ? 0 : A.nuevosMax * share * Math.min(1, (yy - 2035) / 14); total[i] += v; return v; });
+  return { series, total, delay };
+}
+const expVal = (mid, x, i) => { const A = AR_MET[mid]; const P = i === 0 ? A.price.p2025 : state.price[mid]; return (mid === 'au' ? x * OZ_T : x * 1e6) * P * A.pay / 1e6; };
+const fmtUSD = x => 'US$ ' + fmtN(x, 0) + ' M';
+
+// Controles de oferta y precios
+const argPresets = document.getElementById('argPresets');
+argPresets.innerHTML = '<span>Condiciones internas:</span>';
+SUPPLY_PRESETS.forEach(p => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = p.name; b.dataset.id = p.id;
+  b.addEventListener('click', () => { state.sPreset = p.id; state.sv = Object.assign({}, p.v); update(); });
+  argPresets.appendChild(b);
+});
+const argCtls = document.getElementById('argCtls');
+SUPPLY_FACTORS.forEach(f => {
+  const w = document.createElement('div'); w.className = 'ctl';
+  w.innerHTML = `<div class="ctl-head"><label for="sv_${f.id}">${f.name}</label><span class="ctl-val" id="tv_${f.id}"></span></div>
+    <input type="range" id="sv_${f.id}" min="0" max="100" step="1" aria-describedby="dv_${f.id}"><div class="ctl-desc" id="dv_${f.id}">${f.desc}</div>`;
+  argCtls.appendChild(w);
+  w.querySelector('input').addEventListener('input', e => { state.sv[f.id] = +e.target.value; state.sPreset = 'custom'; schedule(); });
+});
+const priceCtls = document.getElementById('priceCtls');
+['au', 'ag'].forEach(mid => {
+  const P = AR_MET[mid].price; const w = document.createElement('div'); w.className = 'ctl';
+  w.innerHTML = `<div class="ctl-head"><label for="pr_${mid}">Precio ${AR_MET[mid].del} desde 2026</label><span class="ctl-val" id="tp_${mid}"></span></div>
+    <input type="range" id="pr_${mid}" min="${P.lo}" max="${P.hi}" step="${P.step}"><div class="ctl-desc">Referencia del 09/10/2026: ${mid === 'au' ? '4.195' : '60,9'} US$ la onza. Supuesto constante, en dólares de hoy.</div>`;
+  priceCtls.appendChild(w);
+  w.querySelector('input').addEventListener('input', e => { state.price[mid] = +e.target.value; schedule(); });
+});
+document.querySelectorAll('[data-am]').forEach(b => b.addEventListener('click', () => { state.argMet = b.dataset.am; update(); }));
+const svText = v => v < 34 ? 'débil' : v < 67 ? 'intermedia' : 'fuerte';
+
+function argMonteCarlo(n) {
+  const r = mulberry(4242), mid = state.argMet;
+  const s = YEARS.map(() => []), e = YEARS.map(() => []);
+  for (let k = 0; k < n; k++) { const t = runSupply(mid, state.sv, r).total; t.forEach((x, i) => { s[i].push(x); e[i].push(expVal(mid, x, i)); }); }
+  return { s10: s.map(a => q(a, .1)), s90: s.map(a => q(a, .9)), e10: e.map(a => q(a, .1)), e90: e.map(a => q(a, .9)) };
+}
+const AR_COLORS = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)', 'var(--s6)', 'var(--s7)', 'var(--s8)'];
+
+function drawArgentina(res) {
+  const mid = state.argMet, A = AR_MET[mid];
+  const sup = runSupply(mid, state.sv); const mc = argMonteCarlo(200);
+  const exp = sup.total.map((x, i) => expVal(mid, x, i));
+  const dem = res[mid].primary;
+  const share = sup.total.map((x, i) => x / dem[i] * 100);
+  const fmtS = x => fmtN(x, x >= 100 ? 0 : 1);
+  const fmtP = x => fmtN(x, x < 10 ? 1 : 0) + ' %';
+
+  SUPPLY_FACTORS.forEach(f => { const inp = document.getElementById('sv_' + f.id); inp.value = state.sv[f.id]; inp.style.setProperty('--p', state.sv[f.id] + '%'); document.getElementById('tv_' + f.id).textContent = svText(state.sv[f.id]) + ' · ' + state.sv[f.id]; });
+  ['au', 'ag'].forEach(m => { const P = AR_MET[m].price, inp = document.getElementById('pr_' + m); inp.value = state.price[m]; inp.style.setProperty('--p', (state.price[m] - P.lo) / (P.hi - P.lo) * 100 + '%'); document.getElementById('tp_' + m).textContent = fmtN(state.price[m], 0) + ' US$/oz'; });
+  argPresets.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.id === state.sPreset));
+  document.querySelectorAll('[data-am]').forEach(b => b.setAttribute('aria-pressed', b.dataset.am === mid));
+  document.getElementById('argSub').innerHTML = `Producción argentina de ${A.low} proyectada con las minas actuales y la cartera de proyectos, y su valor exportado al precio elegido. La cuota se mide sobre la demanda primaria mundial del escenario <b>${(SCENARIOS.find(x => x.id === state.scen) || { name: 'personalizado' }).name}</b>.`;
+
+  const kz = x => mid === 'au' ? ` (${fmtN(x * OZ_T / 1e6, 2)} Moz)` : '';
+  let k = `<div class="kpi"><span class="y">2025 · producción</span><span class="v">${fmtS(sup.total[0])}<small>${A.unit}</small></span><span class="r">exportó ${mid === 'au' ? 'US$ 4.094 M' : 'US$ 785 M'} · ${fmtP(share[0])} del mundo</span></div>`;
+  [2030, 2040, 2050].forEach(y => { const i = yi(y); k += `<div class="kpi"><span class="y">${y} · exportación</span><span class="v">${fmtN(exp[i] / 1000, 1)}<small>mil M US$</small></span><span class="r">${fmtS(sup.total[i])} ${A.unit}${kz(sup.total[i])} · ${fmtP(share[i])} del mundo</span></div>`; });
+  document.getElementById('argKpis').innerHTML = k;
+
+  const keys = ['actual', ...AR_PROJECTS.filter(p => sup.series[p.id]).map(p => p.id), 'nuevos'];
+  const names = Object.fromEntries([['actual', 'Minas actuales'], ...AR_PROJECTS.map(p => [p.id, p.name]), ['nuevos', 'Nuevos descubrimientos']]);
+  const col = Object.fromEntries(keys.map((kk, i) => [kk, kk === 'actual' ? 'var(--s-base)' : AR_COLORS[(i - 1) % 8]]));
+  document.getElementById('argProdTitle').textContent = `Producción proyectada · ${mid === 'au' ? 't de oro por año' : 'Moz de plata por año'}`;
+  document.getElementById('argExpTitle').textContent = `Exportaciones de ${A.low} · millones de US$ por año`;
+  const pBox = document.getElementById('argProd'), eBox = document.getElementById('argExp');
+  const H = 280, pad = { l: 56, r: 14, t: 14, b: 28 };
+  const Wp = Math.max(300, pBox.clientWidth || 520);
+  const ymax = niceMax(Math.max(...mc.s90, ...sup.total) * 1.05);
+  const geo = lineChart(pBox, Wp, H, pad, ymax, t => fmtN(t, 0), (X, Y) => {
+    let s = ''; const cum = YEARS.map(() => 0);
+    keys.forEach(kk => {
+      const lower = cum.slice(); sup.series[kk].forEach((v, i) => cum[i] += v);
+      if (Math.max(...sup.series[kk]) < 1e-6) return;
+      s += `<polygon points="${cum.map((v, i) => `${X(i)},${Y(v)}`).join(' ')} ${lower.map((v, i) => `${X(i)},${Y(v)}`).reverse().join(' ')}" fill="${col[kk]}" stroke="var(--surface)" stroke-width="1.2"/>`;
+    });
+    s += `<polyline points="${mc.s90.map((v, i) => `${X(i)},${Y(v)}`).join(' ')}" fill="none" stroke="var(--ink-2)" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+    s += `<polyline points="${mc.s10.map((v, i) => `${X(i)},${Y(v)}`).join(' ')}" fill="none" stroke="var(--ink-2)" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+    return s;
+  });
+  attachTip(pBox, Wp, pad, geo, i => [...keys].reverse().filter(kk => sup.series[kk][i] > 0.05).map(kk => `<tr><td>${sw(col[kk])}${names[kk]}</td><td class="n">${fmtS(sup.series[kk][i])}</td></tr>`).join('') + `<tr class="tot"><td>Producción esperada</td><td class="n">${fmtS(sup.total[i])}</td></tr><tr><td>p10–p90</td><td class="n">${fmtS(mc.s10[i])}–${fmtS(mc.s90[i])}</td></tr>`);
+  document.getElementById('argLegend').innerHTML = keys.filter(kk => Math.max(...sup.series[kk]) > 1e-6).map(kk => `<span><span class="sw" style="background:${col[kk]}"></span>${names[kk]}</span>`).join('') + `<span><span class="ln" style="border-color:var(--ink-2)"></span>p10–p90</span>`;
+
+  const We = Math.max(300, eBox.clientWidth || 520);
+  const emax = niceMax(Math.max(...mc.e90, ...exp, A.eco, A.ofi) * 1.08);
+  const geoE = lineChart(eBox, We, H, pad, emax, t => fmtN(t, 0), (X, Y) => {
+    let s = `<polygon points="${mc.e90.map((v, i) => `${X(i)},${Y(v)}`).join(' ')} ${mc.e10.map((v, i) => `${X(i)},${Y(v)}`).reverse().join(' ')}" fill="var(--band)"/>`;
+    s += `<polyline points="${exp.map((v, i) => `${X(i)},${Y(v)}`).join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>`;
+    s += `<rect x="${X(yi(2036)) - 5}" y="${Y(A.eco) - 5}" width="10" height="10" fill="var(--surface)" stroke="var(--ink)" stroke-width="2" transform="rotate(45 ${X(yi(2036))} ${Y(A.eco)})"/>`;
+    s += `<rect x="${X(yi(2035)) - 5}" y="${Y(A.ofi) - 5}" width="10" height="10" fill="var(--ink-2)"/>`;
+    [2030, 2040, 2050].forEach(y => { s += `<circle cx="${X(yi(y))}" cy="${Y(exp[yi(y)])}" r="4" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>`; });
+    return s;
+  });
+  attachTip(eBox, We, pad, geoE, i => `<tr class="tot"><td>Exportación esperada</td><td class="n">${fmtUSD(exp[i])}</td></tr><tr><td>p10–p90</td><td class="n">${fmtN(mc.e10[i])}–${fmtN(mc.e90[i])}</td></tr><tr><td>Precio supuesto</td><td class="n">${fmtN(i === 0 ? A.price.p2025 : state.price[mid])} US$/oz</td></tr>${YEARS[i] === 2036 ? `<tr><td>Eco Go, escenario central</td><td class="n">${fmtUSD(A.eco)}</td></tr>` : ''}${YEARS[i] === 2035 ? `<tr><td>Sendero oficial</td><td class="n">${fmtUSD(A.ofi)}</td></tr>` : ''}`);
+  const legE = eBox.parentElement.querySelector('.legend');
+  legE.innerHTML = `<span><span class="ln" style="border-top-style:solid;border-color:var(--accent)"></span>Exportación esperada</span><span><span class="bd"></span>Rango p10–p90</span><span><span class="sw" style="background:var(--surface);border:2px solid var(--ink);transform:rotate(45deg);width:9px;height:9px"></span>Eco Go, escenario central 2036</span><span><span class="sw" style="background:var(--ink-2)"></span>Sendero oficial 2035</span>`;
+
+  // Interpretación
+  const i30 = yi(2030), i35 = yi(2035), i40 = yi(2040);
+  const vic = sup.series.vicuna ? sup.series.vicuna[i40] : 0;
+  const act40 = sup.series.actual[i40];
+  const minY = YEARS[sup.total.slice(0, 12).indexOf(Math.min(...sup.total.slice(0, 12)))];
+  let t = `Con las condiciones elegidas, la producción de ${A.low} ${sup.total[i30] < sup.total[0] ? 'cae' : 'sube'} de ${fmtS(sup.total[0])} a <b>${fmtS(sup.total[i30])} ${A.unit}</b> en 2030 y llega a <b>${fmtS(sup.total[i40])} ${A.unit}</b> en 2040. `;
+  if (minY > 2025 && minY < 2036) t += `El punto más bajo llega en <b>${minY}</b>, cuando las minas actuales se agotan antes de que los proyectos nuevos lleguen a plena producción. `;
+  if (vic > act40) t += `En 2040, Vicuña produciría más ${A.low} (${fmtS(vic)} ${A.unit}) que todas las minas actuales juntas (${fmtS(act40)} ${A.unit}): el futuro ${A.fut} depende en buena parte del cobre. `;
+  t += `Al precio de ${fmtN(state.price[mid])} US$ la onza, las exportaciones serían de <b>${fmtUSD(exp[i35])}</b> en 2035 (${fmtN(mc.e10[i35])}–${fmtN(mc.e90[i35])} en el rango p10–p90).`;
+  document.getElementById('argInsight').innerHTML = t;
+
+  // Tabla
+  const reg = (state.sv.macro + state.sv.social) / 200, pFac = 0.5 + reg;
+  let tb = `<thead><tr><th>Proyecto y estado</th><th class="n">Inicio</th><th class="n">A régimen</th><th class="n">Prob. en este escenario</th><th>Fuente y supuestos</th></tr></thead><tbody>`;
+  tb += `<tr><td><span class="mn">Minas actuales</span><span class="un">Santa Cruz, San Juan, Salta, Jujuy, Catamarca</span><span class="st ok">En producción</span></td><td class="n">en operación</td><td class="n">${fmtS(A.base0)} ${A.unit} en 2025</td><td class="n">—</td><td>${mid === 'au' ? 'Veladero, Cerro Negro, Cerro Vanguardia, Cerro Moro, San José, Lindero, Gualcamayo y otras. Unas 1.184 koz en 2025 (Secretaría de Minería). Veladero amplía con las fases 8 y 9 (RIGI, US$ 380 M) sin cambiar su vida útil de unos 7 años.' : 'San José, Cerro Moro, Cerro Vanguardia, Puna (Chinchillas) y otras: 22,1 Moz en 2025 (Secretaría de Minería).'}<i> Caen entre ${fmtN(A.r[1] * 100)} % y ${fmtN(A.r[0] * 100)} % por año según la exploración cercana a mina: supuesto SIEMA a partir de la vida restante media de 3 a 4 años que estima la CAEM.</i></td></tr>`;
+  AR_PROJECTS.forEach(pr => {
+    const k2 = mid === 'au' ? 1 : 2; const cap = Math.max(...pr.stages.map(s => s[k2]));
+    if (cap <= 0) return;
+    const p = pr.tier === 'X' ? Math.min(0.95, pr.p * Math.pow(state.sv.social / 50, 2)) : Math.min(0.98, pr.p * (pr.tier === 'B' ? pFac : Math.sqrt(pFac)));
+    const capTxt = mid === 'au' ? `${fmtN(cap)} koz (${fmtN(cap / OZ_T * 1000, 1)} t)` : `${fmtN(cap, 1)} Moz`;
+    tb += `<tr><td><span class="mn">${pr.name}</span><span class="un">${pr.prov}</span><span class="st ${TIERS[pr.tier].cls}">${TIERS[pr.tier].name}</span></td><td class="n">${pr.stages[0][0]}</td><td class="n">${capTxt}</td><td class="n">${fmtN(p * 100)} %</td><td>${pr.src}${pr.sup ? ` <i>${pr.sup}</i>` : ''}</td></tr>`;
+  });
+  tb += `<tr><td><span class="mn">Nuevos descubrimientos</span><span class="un">después de la cartera actual</span><span class="st est">Proyección SIEMA</span></td><td class="n">desde 2036</td><td class="n">hasta ${fmtN(A.nuevosMax)} ${A.unit}</td><td class="n">—</td><td>La Secretaría de Minería registra 56,4 Moz de oro en 25 proyectos de exploración avanzada. El aporte crece con la exploración y el clima regulatorio y social.</td></tr>`;
+  document.getElementById('argTable').innerHTML = tb + '</tbody>';
+  document.getElementById('argNote').innerHTML = `Contraste: el sendero oficial (Secretaría de Minería) proyecta para 2035 exportaciones de oro por US$ 3.448 M y de plata por US$ 2.597 M; el escenario central de Eco Go (julio 2026), para 2036, oro por US$ 5.675 M y plata por US$ 1.131 M, con oro a 3.782 US$ la onza. La exportación se calcula como producción × precio${mid === 'ag' ? ' × 89 % (la plata se vende en buena parte en concentrado y se paga una parte del contenido; calibrado con las exportaciones de 2025)' : ''}.`;
+}
+
+function update() {
+  syncControls();
+  const isArg = state.page === 'arg';
+  argBtn.setAttribute('aria-pressed', isArg);
+  document.getElementById('argView').hidden = !isArg;
+  document.getElementById('demandView').hidden = isArg;
+  const res = runModel(state.v);
+  if (isArg) { drawArgentina(res); return; }
+  document.querySelectorAll('.tab').forEach(b => { const on = b.dataset.id === state.metal; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; });
+  document.getElementById('vComp').setAttribute('aria-pressed', state.view === 'comp');
+  document.getElementById('vUnc').setAttribute('aria-pressed', state.view === 'unc');
+  drawDemand(res, monteCarlo(200));
+  drawTornado();
+}
+let rw = 0, aw = 0;
+new ResizeObserver(() => { const w = document.getElementById('mainChart').clientWidth; if (Math.abs(w - rw) > 4) { rw = w; schedule(); } }).observe(document.getElementById('mainChart'));
+new ResizeObserver(() => { const w = document.getElementById('argGrid').clientWidth; if (state.page === 'arg' && Math.abs(w - aw) > 4) { aw = w; schedule(); } }).observe(document.getElementById('argGrid'));
+function openFromHash() { if (location.hash === '#argentina') state.page = 'arg'; if (location.hash === '#plata') state.metal = 'ag'; }
+openFromHash();
+window.addEventListener('hashchange', () => { openFromHash(); update(); });
+window.addEventListener('message', e => { if (e.data && e.data.type === 'oma-oroplata-view') { state.page = e.data.view === 'argentina' ? 'arg' : 'demand'; update(); } });
+update();
+</script>
+
+<script>
+(function () {
+  if (!document.documentElement.classList.contains('embed') || window.parent === window) return;
+  var last = 0;
+  function send() {
+    var h = document.documentElement.scrollHeight;
+    if (Math.abs(h - last) < 2) return;
+    last = h;
+    window.parent.postMessage({ type: 'oma-convergencias-height', height: h }, '*');
+  }
+  new ResizeObserver(send).observe(document.body);
+  window.addEventListener('load', send);
+  send();
+})();
+</script>
+</body>
+</html>
