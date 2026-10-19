@@ -589,6 +589,10 @@ const VIEWS = {
   externa:     { tab: 'pulsometro', sel: null, es: 'Percepción externa', en: 'External perception', re: /encuesta externa|percepci[oó]n externa|fraser|universidad de toronto|resources for the future|external survey|external perception/i },
   brechas:     { tab: 'brechas', sel: null, es: 'Análisis de brechas', en: 'Gap analysis', re: /an[aá]lisis de brechas|\bbrechas\b|gap analysis/i },
   cual:        { tab: 'demanda', sel: '#cualDyn', es: 'Relación de precios cobre/aluminio', en: 'Copper/aluminium price ratio', re: /alumin|sustituci[oó]n del cobre|relaci[oó]n (de precios )?cobre|copper substitution|copper.aluminium ratio/i },
+  infraAgua:   { tab: 'infra-agua', sel: null, es: 'Infraestructura · Agua', en: 'Infrastructure · Water', re: /\bagua\b|h[ií]dric|desalin|acueducto|glaciar|periglacial|\bwater\b|desalinat|glacier/i },
+  infraEnerg:  { tab: 'infra-energia', sel: null, es: 'Infraestructura · Energía', en: 'Infrastructure · Energy', re: /energ[ií]a el[eé]ctrica|electricidad|l[ií]nea(s)? (de alta tensi[oó]n|el[eé]ctrica|de 500)|500 ?kv|transmisi[oó]n el[eé]ctrica|megavatios|\bcammesa\b|\benre\b|transener|electricity|power line|transmission line|power grid/i },
+  infraTransp: { tab: 'infra-transporte', sel: null, es: 'Infraestructura · Transporte', en: 'Infrastructure · Transport', re: /ferrocarril|belgrano cargas|\btren(es)?\b|ramal c-?14|socompa|ruta (nacional )?(51|52|60|40|150)|rutas mineras|paso (de )?(jama|sico|san francisco)|agua negra|camiones|puertos? (chilenos?|del pac[ií]fico)|log[ií]stica|railway|\brail\b|trucks?|roads?\b|logistics/i },
+  infra:       { tab: 'infra-agua', sel: null, es: 'Infraestructuras habilitantes', en: 'Enabling infrastructure', re: /infraestructura(s)? habilitante|cuello(s)? de botella|enabling infrastructure|bottleneck/i },
   oroplata:    { tab: 'oro-plata', sel: null, es: 'Prospectiva · Oro y plata 2050', en: 'Foresight · Gold and silver 2050', re: /oro y plata|demanda (mundial |global )?de (oro|plata)|bancos centrales|metales preciosos|futuro del oro|futuro de la plata|plata (en|para) (la )?(energ[ií]a )?solar|gold and silver|demand for (gold|silver)|(gold|silver) demand|central banks|precious metals/i },
   prospectiva: { tab: 'prospectiva', sel: null, es: 'Prospectiva · Convergencias 2050', en: 'Foresight · Convergences 2050', re: /prospectiva|convergencias|macrotendencia|escenario|\b2050\b|foresight|convergences|megatrend|scenario/i },
   argentina:   { tab: 'argentina', sel: null, es: 'Argentina frente a la demanda', en: 'Argentina vs projected demand', re: /tierras raras|rare earths?|demanda (mundial|global|proyectada)|cuarto productor|world demand|projected demand/i },
@@ -602,7 +606,7 @@ const VIEWS = {
   consola:     { tab: 'inicio', sel: '#omaConsole', es: 'Consola SIEMA', en: 'SIEMA console', re: /consola|performance minera|performance index|\bsiema\b/i },
   inicio:      { tab: 'inicio', sel: null, es: 'SIEMA', en: 'SIEMA', re: /(?!)/ }
 };
-const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'oroplata', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
+const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'infra', 'infraTransp', 'infraEnerg', 'infraAgua', 'oroplata', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
 let curView = null, frameReady = false, pendingView = null, viewLocked = false;
 function pickView(t) { for (const k of VIEW_ORDER) if (VIEWS[k].re.test(t || '')) return k; return null; }
 function sizeScreen() {

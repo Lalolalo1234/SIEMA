@@ -1070,6 +1070,25 @@
         .prosp-grid .node-card h3 { color: #1e3c72; }
         .prosp-grid .node-card p { font-size: 0.9rem; line-height: 1.6; text-align: left; margin-bottom: 0; }
 
+        /* Infraestructuras habilitantes */
+        .infra-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin: 1.2rem 0 0.4rem; }
+        .infra-card { font: inherit; text-align: left; background: white; border: 1px solid #e3e7ec; border-radius: 6px; padding: 0.8rem 0.9rem; cursor: pointer; display: grid; gap: 0.3rem; align-content: start; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        .infra-card:hover { border-color: #1e3c72; }
+        .infra-card.on { border: 2px solid #1e3c72; padding: calc(0.8rem - 1px) calc(0.9rem - 1px); }
+        .infra-card:focus-visible, .infra-seg button:focus-visible { outline: 2px solid #1e3c72; outline-offset: 2px; }
+        .infra-k { font-weight: 700; color: #1e3c72; font-size: 1rem; }
+        .infra-d { font-size: 0.84rem; color: #444; line-height: 1.45; }
+        .lvl { justify-self: start; font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .lvl.crit { background: #fde2e1; color: #9b1c1c; }
+        .lvl.alta { background: #fff4d6; color: #7a5a00; }
+        .infra-list { padding-left: 1.2rem; line-height: 1.6; }
+        .infra-list li { margin-bottom: 0.45rem; text-align: left; }
+        .infra-seg { display: inline-flex; border: 1px solid #c9d2dc; border-radius: 6px; overflow: hidden; margin: 1.6rem 0 0.4rem; }
+        .infra-seg button { font: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.55rem 1.3rem; border: 0; background: white; color: #1e3c72; cursor: pointer; }
+        .infra-seg button + button { border-left: 1px solid #c9d2dc; }
+        .infra-seg button.on { background: #1e3c72; color: white; }
+        @media (max-width: 720px) { .infra-strip { grid-template-columns: 1fr; } }
+
         /* Alianza CAI + Monitor */
         .quote-block small { display: block; margin-top: 0.5rem; font-style: normal; color: #555; }
         .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
@@ -1432,6 +1451,7 @@
                 <li><button class="nav-btn active" data-tab="inicio">Inicio</button></li>
                 <li><button class="nav-btn" data-tab="observatorio">Observatorio</button></li>
                 <li><button class="nav-btn" data-tab="pulsometro-grupo">Pulsómetro</button></li>
+                <li><button class="nav-btn" data-tab="infraestructura">Infraestructuras habilitantes</button></li>
                 <li><button class="nav-btn" data-tab="prospectiva">Prospectiva</button></li>
                 <li><button class="nav-btn" data-tab="noticias-eventos">Noticias y eventos</button></li>
                 <li><button class="nav-btn" data-tab="acerca">Acerca de</button></li>
@@ -1618,6 +1638,223 @@
             <div class="button-group">
                 <button class="btn btn-secondary" onclick="navigateTo('prospectiva')">Ver minerales críticos (Convergencias 2050)</button>
                 <button class="btn btn-secondary" onclick="navigateTo('argentina')">Ver Argentina hoy</button>
+            </div>
+        </div>
+
+        <!-- Infraestructuras habilitantes: Agua -->
+        <div id="infra-agua" class="tab-content">
+            <h1>Infraestructuras habilitantes — Agua</h1>
+            <p>Sin agua, energía y transporte no hay producción, por más competitivo que sea el régimen legal y fiscal. Es probablemente el principal cuello de botella para que Argentina alcance la producción que esperan la cartera de proyectos y el RIGI. En el <a href="#" onclick="navigateTo('barometro'); return false;">Pulsómetro</a>, la infraestructura es el eje peor puntuado: 5,3 sobre 10.</p>
+            <div class="infra-strip">
+                <button type="button" class="infra-card on" onclick="navigateTo('infra-agua')"><span class="infra-k">Agua</span><span class="lvl alta">Alta</span><span class="infra-d">Hay soluciones por proyecto, pero ninguna obra compartida en marcha del lado argentino.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-energia')"><span class="infra-k">Energía</span><span class="lvl crit">Crítica</span><span class="infra-d">Las líneas de alta tensión no llegan a los distritos mineros y su capacidad ya se disputa.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-transporte')"><span class="infra-k">Transporte</span><span class="lvl crit">Crítica</span><span class="infra-d">Rutas de ripio en la Puna y un ferrocarril con una fracción de la capacidad que hará falta.</span></button>
+            </div>
+            <p class="table-note">Nivel de restricción: lectura del SIEMA sobre la información de esta sección.</p>
+
+            <p>El agua es el desafío más severo del cobre y el más controvertido del litio. Los grandes proyectos de cobre de San Juan están en alta montaña, entre glaciares y ambiente periglacial, donde el agua superficial es escasa. Los salares de la Puna son cuencas cerradas, sin renovación superficial significativa.</p>
+            <div class="stat-row">
+                <div class="stat-card"><span class="stat-num">2.000–2.500</span><span class="stat-label">litros por segundo de agua de reposición necesitaría el distrito Vicuña a largo plazo (evaluación preliminar, 2026)</span></div>
+                <div class="stat-card"><span class="stat-num">6–13 %</span><span class="stat-label">del escurrimiento del río San Juan equivale a ese caudal, en un año medio y en un año seco (estimación SIEMA)</span></div>
+                <div class="stat-card"><span class="stat-num">94 %</span><span class="stat-label">de la demanda de agua de San Juan es agrícola; la minería usaba menos del 1 % del agua de los ríos San Juan y Jáchal</span></div>
+                <div class="stat-card"><span class="stat-num">1.956 L/s</span><span class="stat-label">capacidad ampliable del acueducto con agua de mar que Techint construyó en Chile para Codelco (US$ 1.000 M)</span></div>
+            </div>
+
+            <h2>Cuánta agua necesitan los grandes proyectos</h2>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Proyecto</th><th>Agua requerida</th><th>Fuente prevista</th><th>Fuente del dato</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Vicuña</strong> (Josemaría + Filo del Sol), San Juan</td><td>2.000–2.500 L/s a largo plazo para todo el distrito</td><td>Fuentes continentales y agua desalinizada; se recomienda diseñar el sistema para 2.500 L/s</td><td>Evaluación económica preliminar, Lundin Mining, 2026</td></tr>
+                    <tr><td><strong>Josemaría</strong> (etapa 1 de Vicuña)</td><td>500–660 L/s de reposición en el pico</td><td>Pozos en La Majadita; reúso del 73 % del agua de proceso</td><td>Factibilidad, 2020</td></tr>
+                    <tr><td><strong>Los Azules</strong>, San Juan</td><td>158 L/s de proceso en promedio; 244 L/s de pico en el sitio</td><td>Lixiviación y cátodos: 73 % menos agua que una concentradora convencional (unos 600 L/s)</td><td>Factibilidad, McEwen Copper, 2025</td></tr>
+                    <tr><td><strong>Taca Taca</strong>, Salta</td><td>Unos 430 L/s de agua dulce y unos 1.500 L/s de agua salada</td><td>Usa agua salada de acuíferos para la flotación</td><td>Informe técnico anterior de First Quantum</td></tr>
+                    <tr><td><strong>PSJ Cobre Mendocino</strong>, Mendoza</td><td>141 L/s</td><td>Arroyo El Tigre (caudal medio de unos 300 L/s)</td><td>Informe de síntesis del estudio de impacto ambiental</td></tr>
+                    <tr><td><strong>Litio</strong>, Puna</td><td>Cerca de dos millones de litros de salmuera evaporada por tonelada de litio con el método de piletas</td><td>Salmuera de cuencas cerradas; la extracción directa evapora menos pero puede usar más agua dulce</td><td>Cobertura ambiental, 2026</td></tr>
+                </tbody>
+            </table></div>
+            <p class="table-note">Estimación SIEMA: 2.500 L/s son unos 79 hm³ por año, frente a un escurrimiento medio del río San Juan de unos 1.214 hm³ en los últimos quince años y 609 hm³ en la temporada seca 2020–2021. Es una referencia de escala: Vicuña no prevé tomar esa agua del río, sino de pozos y de agua desalinizada.</p>
+
+            <h2>Qué está cambiando</h2>
+            <div class="subsection">
+                <h3>Agua de mar desde Chile</h3>
+                <p>En Chile ya funciona el sistema de Aguas Horizonte (Marubeni y Transelec), construido por Techint: desaliniza agua del Pacífico y la sube por un acueducto de 160 km hasta más de 3.000 metros para tres minas de Codelco. Arrancó con 840 L/s y se puede ampliar a 1.956 L/s. En 2026 Chile aprobó la ley 21.823, que regula el uso del agua de mar desalinizada, y el 7 de julio ambos países reactivaron la Comisión Binacional Minera del tratado de 1997. Eso abre la puerta a que las minas de San Juan compren agua desalinizada del lado chileno. Del lado argentino no hay todavía un proyecto equivalente con fecha, costo e inversores.</p>
+            </div>
+            <div class="subsection">
+                <h3>Ley de Glaciares</h3>
+                <p>La reforma promulgada el 24 de abril de 2026 limita la protección a los glaciares con una función hidrológica efectiva y relevante, y transfiere a las provincias la decisión sobre actividades en el ambiente periglacial. Amplía el margen para los proyectos de alta montaña, pero también la exigencia de datos públicos y verificables para sostener la licencia social.</p>
+            </div>
+            <div class="subsection">
+                <h3>Planificación provincial</h3>
+                <p>San Juan tiene una Mesa del Agua desde 2022 y en junio de 2026 envió a la Legislatura un plan de infraestructura que incluye obras hidráulicas. Ese plan apunta a la eficiencia del riego, que podría ahorrar hasta el 40 % del agua agrícola, y no incluye desalinización. Los planes de agua de cada proyecto siguen corriendo en paralelo a la planificación provincial. En la Puna, la Agencia Francesa de Desarrollo financia con 800.000 euros el monitoreo hidrogeológico de los salares de Salta y Catamarca, con el servicio geológico de Francia.</p>
+            </div>
+
+            <h2>Soluciones que sigue SIEMA</h2>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Solución</th><th>Qué propone</th><th>Caso</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Agua Positiva</strong></td><td>Que la minería devuelva a la cuenca más agua de la que usa, financiando reducción de pérdidas, reúso y recarga, con beneficio verificable.</td><td>Propuesta a Obras Sanitarias de San Juan para reducir fugas de la red sin costo para la empresa, financiada con créditos de agua (caso Aqua Plus).</td></tr>
+                    <tr><td><strong>Reúso de aguas tratadas</strong></td><td>Usar el agua residual tratada del Gran San Juan para riego y liberar agua de río.</td><td>Plan de reúso del Gran San Juan con apoyo de Corea y el BID (caso Cerro Barboza).</td></tr>
+                    <tr><td><strong>Infraestructura hídrica compartida</strong></td><td>Plantas desalinizadoras y acueductos que abastecen a varias minas y a otros usuarios, como en el norte de Chile.</td><td>Sistema de Aguas Horizonte para Codelco; estudio de infraestructura compartida en Chile.</td></tr>
+                </tbody>
+            </table></div>
+
+            <h2>Qué falta</h2>
+            <ul class="infra-list">
+                <li>Un proyecto de agua compartida para el distrito de cobre de San Juan, con trazado, costo, financiamiento y cronograma.</li>
+                <li>Integrar los planes de agua de cada proyecto en la planificación provincial.</li>
+                <li>Datos de agua públicos y verificados por terceros, proyecto por proyecto: es la principal brecha de credibilidad de la <a href="#" onclick="navigateTo('brechas'); return false;">licencia social</a>.</li>
+                <li>Balances hídricos de las cuencas del litio antes de sumar nuevas plantas.</li>
+            </ul>
+            <p class="table-note">Fuentes: informes técnicos de Vicuña (2026), Josemaría (2020), Los Azules (2025) y Taca Taca; informe de síntesis del EIA de PSJ Cobre Mendocino; Departamento de Hidráulica de San Juan; OLACDE, Libro Blanco sobre el Desarrollo Minero y la Planificación Energética (oct. 2026); cobertura de La Nación, Tiempo de San Juan y El Inversor Energético (2026); ley chilena 21.823; carpeta Agua Positiva del SIEMA.</p>
+            <div class="button-group">
+                <button class="btn" onclick="navigateTo('infra-energia')">Ver Energía</button>
+                <button class="btn btn-secondary" onclick="navigateTo('infra-transporte')">Ver Transporte</button>
+            </div>
+        </div>
+
+        <!-- Infraestructuras habilitantes: Energía -->
+        <div id="infra-energia" class="tab-content">
+            <h1>Infraestructuras habilitantes — Energía</h1>
+            <p>La energía es la restricción que más cita la propia industria. Argentina no tiene un problema de recursos: tiene gas, hidroelectricidad, energía nuclear y sol y viento de primer nivel, y muchos distritos mineros están cerca de esos recursos. El problema es la red de transmisión: en la última década creció 8 %, mientras la demanda creció 20 %.</p>
+            <div class="infra-strip">
+                <button type="button" class="infra-card" onclick="navigateTo('infra-agua')"><span class="infra-k">Agua</span><span class="lvl alta">Alta</span><span class="infra-d">Hay soluciones por proyecto, pero ninguna obra compartida en marcha del lado argentino.</span></button>
+                <button type="button" class="infra-card on" onclick="navigateTo('infra-energia')"><span class="infra-k">Energía</span><span class="lvl crit">Crítica</span><span class="infra-d">Las líneas de alta tensión no llegan a los distritos mineros y su capacidad ya se disputa.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-transporte')"><span class="infra-k">Transporte</span><span class="lvl crit">Crítica</span><span class="infra-d">Rutas de ripio en la Puna y un ferrocarril con una fracción de la capacidad que hará falta.</span></button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-card"><span class="stat-num">×5,3</span><span class="stat-label">crecería el consumo eléctrico de la minería argentina: de 1.256 GWh en 2024 a 6.630 GWh en 2034 (OLACDE)</span></div>
+                <div class="stat-card"><span class="stat-num">1,5 GW</span><span class="stat-label">de potencia adicional para los cuatro grandes proyectos de cobre de San Juan, según estimaciones de la industria</span></div>
+                <div class="stat-card"><span class="stat-num">5.610 km</span><span class="stat-label">de nuevas líneas de 500 kV en el plan oficial, por más de US$ 6.600 M; la primera licitación no es minera</span></div>
+                <div class="stat-card"><span class="stat-num">33 %</span><span class="stat-label">de la energía solar del país se genera en San Juan: 21 parques y más de 860 MW</span></div>
+            </div>
+
+            <h2>Cuánta potencia necesitan los grandes proyectos</h2>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Proyecto</th><th>Potencia</th><th>Cómo se abastece</th><th>Fuente del dato</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Vicuña</strong>, San Juan</td><td>220 MW en la etapa 1 (pico 260 MW); 295 MW en la etapa 2; hasta 620 MW con las cuatro etapas (pico 738 MW)</td><td>Línea de 500 kV Nueva San Juan–Rodeo, nueva línea Rodeo–Chaparro (unos 160 km), estación Chaparro de 500/220 kV y 450 MVA, y una línea de 220 kV hasta la mina; Vicuña financia las obras</td><td>Evaluación preliminar, 2026; ENRE, resolución 79/2026</td></tr>
+                    <tr><td><strong>Los Azules</strong>, San Juan</td><td>119 MW en promedio; pico de 157 MW en el año 10</td><td>Propuso una alternativa por Mendoza con YPF Luz y PSJ; usa 48 % menos energía que una concentradora</td><td>Factibilidad, 2025</td></tr>
+                    <tr><td><strong>Taca Taca</strong>, Salta</td><td>180–240 MW</td><td>Nueva línea hasta la línea existente de 345 kV que cruza a Chile (InterAndes)</td><td>Informe técnico anterior de First Quantum</td></tr>
+                    <tr><td><strong>Mariana</strong> (Ganfeng), Salta</td><td>120 MW solares, ampliables a 150 MW</td><td>Parque solar sin conexión a la red, con baterías; en producción desde febrero de 2025</td><td>OLACDE, 2026</td></tr>
+                    <tr><td><strong>Veladero</strong>, San Juan</td><td>Hasta 25 MW importados</td><td>Interconexión de 220 kV con Chile desde 2022 (US$ 54 M); antes, generación diésel</td><td>OLACDE, 2026</td></tr>
+                </tbody>
+            </table></div>
+            <p class="table-note">El litio, más disperso y en altura, tiende a generar su propia energía. Los grandes proyectos de cobre no pueden: necesitan la red.</p>
+
+            <h2>El primer conflicto entre mineras fue por una línea eléctrica</h2>
+            <p>La línea de 500 kV Nueva San Juan–Rodeo tiene 854 MVA, de los que CAMMESA calcula disponible un 71 %. Vicuña pidió 260 MW para la etapa 1 de Josemaría.</p>
+            <ul class="infra-list">
+                <li><strong>18 de febrero de 2026.</strong> El ENRE, con la resolución 79/2026, le da a Vicuña prioridad sobre el 90 % de la capacidad disponible y de la ampliación durante 25 años.</li>
+                <li><strong>Objeciones.</strong> El ente regulador de San Juan (EPRE), Los Azules, Barrick, Casposo, Hualilán, Golden Mining, los municipios de Calingasta, Jáchal e Iglesia y la Secretaría de Energía de La Rioja. El EPRE reclama que Vicuña aporte por una línea pagada con fondos públicos y de los usuarios sanjuaninos.</li>
+                <li><strong>18 de marzo.</strong> El ENRE convoca una audiencia pública (resolución 165/2026), que se hace el 3 de junio.</li>
+                <li><strong>Después.</strong> La cobertura sectorial informa que se ratificó la resolución y que Transener recibió el certificado de conveniencia y necesidad pública para ampliar la línea. El reparto de capacidad entre proyectos sigue siendo el punto a seguir.</li>
+            </ul>
+            <p>La lección: el primer conflicto del distrito no fue por regalías ni por el régimen legal, sino por la capacidad de una línea. Hacen falta reglas para sumar nuevos usuarios a líneas financiadas por uno solo. San Juan propuso un modelo de reparto de costos y beneficios entre generadores, grandes usuarios y el Estado, con la empresa provincial EPSE.</p>
+
+            <h2>Obras del plan federal que tocan a la minería</h2>
+            <p>El plan de transmisión presentado en mayo de 2025 suma 5.610 km de líneas de 500 kV, un 38 % más de red. Estas obras atienden a los distritos mineros:</p>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Obra</th><th>Provincias</th><th>Para qué sirve</th></tr></thead>
+                <tbody>
+                    <tr><td>Rodeo–Chaparro–La Rioja Sur</td><td>San Juan, La Rioja</td><td>Distrito de cobre de San Juan (Vicuña, Los Azules, El Pachón)</td></tr>
+                    <tr><td>Chaparro–Antofagasta de la Sierra–La Puna</td><td>San Juan, Catamarca, Salta</td><td>Llevar la red de alta tensión a la Puna del litio y del cobre</td></tr>
+                    <tr><td>Lavalle–Chumbicha</td><td>Catamarca</td><td>Refuerzo hacia Catamarca (MARA y litio)</td></tr>
+                    <tr><td>Estación El Espinillo</td><td>Tucumán</td><td>Refuerzo del Noroeste</td></tr>
+                    <tr><td>Río Diamante–Charlone–O'Higgins</td><td>Mendoza, Buenos Aires</td><td>Refuerzo de Cuyo</td></tr>
+                    <tr><td>Interconexión Yaguacua (Bolivia)–Salvador Mazza</td><td>Salta, Jujuy</td><td>Intercambio con Bolivia</td></tr>
+                </tbody>
+            </table></div>
+            <p class="table-note">Estado a octubre de 2026: la única obra licitada es AMBA I (US$ 800 M, 270 km), en el área metropolitana, con apertura de ofertas hacia diciembre de 2026, adjudicación en 2027 y hasta 52 meses de obra. Las líneas mineras todavía no tienen licitación.</p>
+
+            <h2>Iniciativas privadas y regionales</h2>
+            <ul class="infra-list">
+                <li><strong>Puna:</strong> YPF Luz y Central Puerto estudian una línea para los proyectos mineros de la Puna: 140 km iniciales ampliables a 350 km, hasta 400 MW y entre US$ 250 y 400 M.</li>
+                <li><strong>Chile:</strong> AES Andes ya exporta electricidad a Argentina por la interconexión InterAndes y en febrero de 2026 pidió ampliar la exportación de 80 a 250 MW.</li>
+                <li><strong>Financiamiento europeo:</strong> la Agencia Francesa de Desarrollo y el Banco Europeo de Inversiones financian con 200 M de euros la ampliación de la red de alta tensión, y estudian con las provincias nuevas líneas hacia zonas mineras.</li>
+                <li><strong>Energía limpia:</strong> Vicuña planea reemplazar la generación diésel de sus campamentos con contratos renovables en el mercado a término.</li>
+            </ul>
+
+            <h2>Qué falta</h2>
+            <ul class="infra-list">
+                <li>Licitar las líneas mineras del plan federal con un calendario compatible con el de las minas. Si la línea se estructura después de que la mina consigue financiamiento, no llega a tiempo; si se construye antes sin demanda comprometida, puede quedar ociosa.</li>
+                <li>Reglas de acceso abierto y de reparto de costos para líneas que comparten varios proyectos.</li>
+                <li>Un mapa público de la demanda eléctrica de la cartera minera, proyecto por proyecto y año por año.</li>
+            </ul>
+            <p class="table-note">Fuentes: OLACDE, Nota técnica 17 (abr. 2026) y Libro Blanco (oct. 2026); Secretaría de Energía, plan de transmisión en extra alta tensión (2025); ENRE, resoluciones 79/2026 y 165/2026; informes técnicos de Vicuña, Los Azules y Taca Taca; Dirección de Recursos Energéticos de San Juan; cobertura de Tiempo de San Juan, iProfesional, Más Energía y El Cronista (2025–2026).</p>
+            <div class="button-group">
+                <button class="btn" onclick="navigateTo('infra-transporte')">Ver Transporte</button>
+                <button class="btn btn-secondary" onclick="navigateTo('infra-agua')">Ver Agua</button>
+            </div>
+        </div>
+
+        <!-- Infraestructuras habilitantes: Transporte (Rutas y Ferrocarriles) -->
+        <div id="infra-transporte" class="tab-content">
+            <h1>Infraestructuras habilitantes — Transporte</h1>
+            <p>Casi todo el cobre y buena parte del litio argentinos saldrán por puertos chilenos del Pacífico: según analistas, reducen el costo de transporte entre 50 % y 60 % frente a la ruta del Atlántico. En julio de 2026 Argentina y Chile reactivaron la Comisión Binacional Minera. Con el corredor a pleno, podrían cruzar la frontera entre 300 y 500 camiones por día.</p>
+            <div class="infra-strip">
+                <button type="button" class="infra-card" onclick="navigateTo('infra-agua')"><span class="infra-k">Agua</span><span class="lvl alta">Alta</span><span class="infra-d">Hay soluciones por proyecto, pero ninguna obra compartida en marcha del lado argentino.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-energia')"><span class="infra-k">Energía</span><span class="lvl crit">Crítica</span><span class="infra-d">Las líneas de alta tensión no llegan a los distritos mineros y su capacidad ya se disputa.</span></button>
+                <button type="button" class="infra-card on" onclick="navigateTo('infra-transporte')"><span class="infra-k">Transporte</span><span class="lvl crit">Crítica</span><span class="infra-d">Rutas de ripio en la Puna y un ferrocarril con una fracción de la capacidad que hará falta.</span></button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-card"><span class="stat-num">≈ 5 Mt</span><span class="stat-label">de concentrado de cobre por año habría que mover con la meta de 1,5–1,6 Mt de cobre (estimación SIEMA)</span></div>
+                <div class="stat-card"><span class="stat-num">≈ 470</span><span class="stat-label">camiones de 30 t por día equivaldría ese volumen si todo fuera por ruta (estimación SIEMA)</span></div>
+                <div class="stat-card"><span class="stat-num">×9</span><span class="stat-label">la capacidad del ramal C-14 necesitaría solo Taca Taca: 1,13 Mt de concentrado por año frente a 120.000 t</span></div>
+                <div class="stat-card"><span class="stat-num">+US$ 700</span><span class="stat-label">ahorraría cada viaje de camión a la Puna si se pavimentara la Ruta 51, según transportistas</span></div>
+            </div>
+            <p class="table-note">Estimación SIEMA: 1,4 Mt de cobre en concentrado (la meta menos los cátodos de Los Azules) con una ley media de 27 %. Taca Taca: 291 kt de cobre por año con concentrado de 25,7 % (informe técnico 2026).</p>
+
+            <div class="infra-seg" role="tablist" aria-label="Modo de transporte">
+                <button type="button" role="tab" class="on" aria-selected="true" data-pane="rutas" onclick="infraTransp('rutas')">Rutas</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="ferro" onclick="infraTransp('ferro')">Ferrocarriles</button>
+            </div>
+
+            <div class="infra-pane" data-pane="rutas">
+                <h2>Rutas y pasos a Chile</h2>
+                <div class="table-scroll"><table>
+                    <thead><tr><th>Corredor</th><th>Proyectos</th><th>Estado</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Paso de Jama</strong> · Ruta Nacional 52, Jujuy</td><td>Litio de Jujuy: Olaroz, Cauchari-Olaroz</td><td>Pavimentado. Principal salida del litio de Jujuy hacia Antofagasta y Mejillones.</td></tr>
+                        <tr><td><strong>Paso de Sico</strong> · Ruta Nacional 51, Salta</td><td>Rincón, Taca Taca, Lindero, Mariana y litio del Salar de Arizaro</td><td>El paso volvió a operar plenamente en junio de 2026. La ruta tiene tramos de ripio muy deteriorados en alta montaña; su pavimentación se anuncia desde hace más de 15 años.</td></tr>
+                        <tr><td><strong>Paso de San Francisco</strong> · Ruta Nacional 60, Catamarca</td><td>Litio de Catamarca: Fénix, Sal de Vida, Tres Quebradas</td><td>Operación diaria desde febrero de 2025. Desde enero de 2026 Catamarca exige escolta en tramos de las rutas 60, 40, 43 y 157.</td></tr>
+                        <tr><td><strong>Agua Negra</strong> · Ruta Nacional 150, San Juan</td><td>Distrito de cobre de San Juan</td><td>Túnel binacional sin obras principales del lado argentino; Chile avanzó en los accesos. Vicuña exportaría por puertos chilenos (Punta Padrones o Caldera) y Los Azules llevaría sus cátodos a Chile.</td></tr>
+                        <tr><td><strong>Rutas provinciales</strong></td><td>Puna de Catamarca y Salta</td><td>Catamarca pavimentó la Ruta Provincial 43 con fondos mineros. El tramo pavimentado Salta–San Antonio de los Cobres ya muestra desgaste por falta de mantenimiento.</td></tr>
+                    </tbody>
+                </table></div>
+                <h2>Qué falta en rutas</h2>
+                <ul class="infra-list">
+                    <li>Pavimentar y mantener la Ruta 51: los transportistas proponen esquemas mixtos con aportes privados y peaje.</li>
+                    <li>Coordinar a las provincias del Norte, que compiten por liderar los corredores bioceánicos.</li>
+                    <li>Medir el tránsito de camiones mineros por corredor, hoy sin datos públicos.</li>
+                </ul>
+            </div>
+
+            <div class="infra-pane" data-pane="ferro" hidden>
+                <h2>Ferrocarriles</h2>
+                <p>El tren mueve grandes volúmenes con menos energía por tonelada que el camión, y es clave para el litio y el concentrado de cobre del Noroeste. Hoy la única salida ferroviaria activa al Pacífico es el ramal C-14 del Belgrano Cargas.</p>
+                <div class="table-scroll"><table>
+                    <thead><tr><th>Tema</th><th>Situación</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Privatización del Belgrano Cargas</strong></td><td>Llamado a licitación del 19 de agosto de 2026 (decreto 748/2026): las líneas Belgrano, San Martín y Urquiza, 7.594 km en 16 provincias, por 50 años y con acceso abierto para otros operadores. Quien invierta al menos US$ 200 M en renovar vías puede pedir el RIGI.</td></tr>
+                        <tr><td><strong>Ramal C-14</strong> (General Güemes–Socompa, Salta)</td><td>Único cruce ferroviario activo a Chile; opera con Ferronor hasta los puertos de Antofagasta y Mejillones. Sube carbonato de sodio a la Puna y baja carbonato de litio. Carga actual: unas 1.500 t por mes. Capacidad declarada: 120.000 t por año. Meta de Salta: 2 Mt por año.</td></tr>
+                        <tr><td><strong>C-14 y C-15 en la licitación</strong></td><td>Figuran como inversiones optativas. Salta, el agro, la industria y la minería piden que sean obligatorias (octubre de 2026); el Gobierno convocará a mineras y operadores logísticos para optimizar el C-14.</td></tr>
+                        <tr><td><strong>Taca Taca</strong></td><td>Prevé exportar su concentrado por tren hasta puertos chilenos, con ramal propio y estación de carga. Solo este proyecto necesitaría unas nueve veces la capacidad actual del C-14.</td></tr>
+                        <tr><td><strong>Corredor ferroviario por el Paso de San Francisco</strong></td><td>Propuesta de Tucumán y Catamarca para un ferrocarril bioceánico.</td></tr>
+                        <tr><td><strong>Bolivia</strong></td><td>La conexión ferroviaria está interrumpida.</td></tr>
+                    </tbody>
+                </table></div>
+                <h2>Qué falta en ferrocarriles</h2>
+                <ul class="infra-list">
+                    <li>Que la licitación obligue a invertir en el C-14, o que las mineras y los operadores financien su ampliación.</li>
+                    <li>Planificar la carga de ida, no solo la de vuelta: cada tonelada de carbonato de litio necesita unas dos toneladas de carbonato de sodio, más cal y combustible.</li>
+                    <li>Coordinar la capacidad del lado chileno (Ferronor y FCAB) y de los puertos.</li>
+                </ul>
+            </div>
+
+            <p class="table-note">Fuentes: Ministerio de Economía, licitación del Belgrano Cargas (decreto 748/2026); Shale24, Ámbito y La Nación (2026); informe técnico de Taca Taca (2026); Reporte Minero (jun. 2026); Panorama Minero (feb. 2026); Más Energía (2025–2026); síntesis SIEMA sobre el tratado binacional Chile–Argentina (jul. 2026).</p>
+            <div class="button-group">
+                <button class="btn" onclick="navigateTo('infra-agua')">Ver Agua</button>
+                <button class="btn btn-secondary" onclick="navigateTo('infra-energia')">Ver Energía</button>
             </div>
         </div>
 
@@ -1825,7 +2062,7 @@
                         <td>5.3</td>
                         <td>+0.8 (2025: 4.5)</td>
                         <td>Sigue siendo, en términos absolutos, el eje peor puntuado del Pulsómetro.</td>
-                        <td>Mapa de cuellos de botella logísticos y energéticos por corredor minero, coordinación explícita entre RIGI e infraestructura asociada.</td>
+                        <td>Mapa de cuellos de botella logísticos y energéticos por corredor minero, coordinación explícita entre RIGI e infraestructura asociada. Ver <a href="#" onclick="navigateTo('infra-agua'); return false;">Infraestructuras habilitantes</a>.</td>
                     </tr>
                     <tr>
                         <td>Estabilidad Macro</td>
@@ -2077,7 +2314,7 @@
         // español ya presente en el documento, y se define acá el HTML
         // en inglés. Al togglear, se reemplaza el innerHTML completo del
         // tab (misma estructura/clases, solo cambia el texto).
-        const STATIC_TAB_IDS = ['inicio', 'demanda', 'prospectiva', 'oro-plata', 'argentina', 'oferta', 'capital-humano', 'pulsometro', 'brechas', 'monitor', 'acerca'];
+        const STATIC_TAB_IDS = ['inicio', 'demanda', 'prospectiva', 'oro-plata', 'infra-agua', 'infra-energia', 'infra-transporte', 'argentina', 'oferta', 'capital-humano', 'pulsometro', 'brechas', 'monitor', 'acerca'];
         const TAB_HTML_ES = {};
         STATIC_TAB_IDS.forEach(id => { TAB_HTML_ES[id] = document.getElementById(id).innerHTML; });
 
@@ -2227,6 +2464,219 @@
             </div>
             `,
 
+            'infra-agua': `
+            <h1>Enabling infrastructure — Water</h1>
+            <p>Without water, energy and transport there is no production, however competitive the legal and fiscal regime. It is probably the main bottleneck for Argentina to reach the output expected from its project pipeline and the RIGI. In the <a href="#" onclick="navigateTo('barometro'); return false;">Pulsometer</a>, infrastructure is the lowest-scoring axis: 5.3 out of 10.</p>
+            <div class="infra-strip">
+                <button type="button" class="infra-card on" onclick="navigateTo('infra-agua')"><span class="infra-k">Water</span><span class="lvl alta">High</span><span class="infra-d">There are project-level solutions, but no shared works under way on the Argentine side.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-energia')"><span class="infra-k">Energy</span><span class="lvl crit">Critical</span><span class="infra-d">High-voltage lines do not reach the mining districts and their capacity is already contested.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-transporte')"><span class="infra-k">Transport</span><span class="lvl crit">Critical</span><span class="infra-d">Gravel roads in the Puna and a railway with a fraction of the capacity that will be needed.</span></button>
+            </div>
+            <p class="table-note">Constraint level: SIEMA's reading of the information in this section.</p>
+
+            <p>Water is the toughest challenge for copper and the most contested one for lithium. San Juan's large copper projects sit high in the Andes, among glaciers and periglacial terrain, where surface water is scarce. The Puna salt flats are closed basins with no significant surface recharge.</p>
+            <div class="stat-row">
+                <div class="stat-card"><span class="stat-num">2,000–2,500</span><span class="stat-label">litres per second of make-up water the Vicuña district would need in the long term (preliminary assessment, 2026)</span></div>
+                <div class="stat-card"><span class="stat-num">6–13%</span><span class="stat-label">of the San Juan River's runoff is what that flow amounts to, in an average year and in a dry year (SIEMA estimate)</span></div>
+                <div class="stat-card"><span class="stat-num">94%</span><span class="stat-label">of San Juan's water demand is agricultural; mining used less than 1% of the San Juan and Jáchal rivers' water</span></div>
+                <div class="stat-card"><span class="stat-num">1,956 L/s</span><span class="stat-label">expandable capacity of the seawater pipeline Techint built in Chile for Codelco (US$1,000M)</span></div>
+            </div>
+
+            <h2>How much water the large projects need</h2>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Project</th><th>Water required</th><th>Planned source</th><th>Data source</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Vicuña</strong> (Josemaría + Filo del Sol), San Juan</td><td>2,000–2,500 L/s long term for the whole district</td><td>Continental sources and desalinated water; the system should be designed for 2,500 L/s</td><td>Preliminary economic assessment, Lundin Mining, 2026</td></tr>
+                    <tr><td><strong>Josemaría</strong> (Vicuña stage 1)</td><td>500–660 L/s of make-up water at peak</td><td>Wells at La Majadita; 73% of process water reused</td><td>Feasibility study, 2020</td></tr>
+                    <tr><td><strong>Los Azules</strong>, San Juan</td><td>158 L/s of process water on average; 244 L/s peak site use</td><td>Leaching and cathodes: 73% less water than a conventional concentrator (about 600 L/s)</td><td>Feasibility study, McEwen Copper, 2025</td></tr>
+                    <tr><td><strong>Taca Taca</strong>, Salta</td><td>About 430 L/s of fresh water and about 1,500 L/s of saline water</td><td>Uses saline aquifer water for flotation</td><td>Earlier First Quantum technical report</td></tr>
+                    <tr><td><strong>PSJ Cobre Mendocino</strong>, Mendoza</td><td>141 L/s</td><td>El Tigre stream (mean flow of about 300 L/s)</td><td>Environmental impact study summary</td></tr>
+                    <tr><td><strong>Lithium</strong>, Puna</td><td>Close to two million litres of brine evaporated per tonne of lithium with the pond method</td><td>Brine from closed basins; direct extraction evaporates less but may use more fresh water</td><td>Environmental reporting, 2026</td></tr>
+                </tbody>
+            </table></div>
+            <p class="table-note">SIEMA estimate: 2,500 L/s is about 79 hm³ a year, against an average San Juan River runoff of about 1,214 hm³ over the last fifteen years and 609 hm³ in the dry 2020–2021 season. It is a reference for scale: Vicuña does not plan to take that water from the river but from wells and desalinated water.</p>
+
+            <h2>What is changing</h2>
+            <div class="subsection">
+                <h3>Seawater from Chile</h3>
+                <p>Chile already runs the Aguas Horizonte system (Marubeni and Transelec), built by Techint: it desalinates Pacific water and pumps it up a 160 km pipeline to more than 3,000 metres for three Codelco mines. It started at 840 L/s and can be expanded to 1,956 L/s. In 2026 Chile passed Law 21,823 regulating the use of desalinated seawater, and on 7 July both countries revived the Binational Mining Commission of the 1997 treaty. That opens the door for San Juan mines to buy desalinated water from the Chilean side. The Argentine side still has no equivalent project with a date, cost and investors.</p>
+            </div>
+            <div class="subsection">
+                <h3>Glacier Law</h3>
+                <p>The amendment enacted on 24 April 2026 limits protection to glaciers with an effective and relevant hydrological function and gives provinces the decision over activities in periglacial areas. It widens the room for high-altitude projects, and also the need for public, verifiable data to sustain the social licence.</p>
+            </div>
+            <div class="subsection">
+                <h3>Provincial planning</h3>
+                <p>San Juan has had a Water Table since 2022, and in June 2026 it sent the legislature an infrastructure plan that includes water works. That plan targets irrigation efficiency, which could save up to 40% of agricultural water, and does not include desalination. Each project's water plan still runs in parallel with provincial planning. In the Puna, the French Development Agency is funding hydrogeological monitoring of the Salta and Catamarca salt flats with €800,000, together with France's geological survey.</p>
+            </div>
+
+            <h2>Solutions SIEMA follows</h2>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Solution</th><th>What it proposes</th><th>Case</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Water Positive</strong></td><td>Mining returns more water to the basin than it uses, funding loss reduction, reuse and recharge with verifiable benefits.</td><td>Proposal to San Juan's water utility to cut network leaks at no cost to the utility, funded with water credits (Aqua Plus case).</td></tr>
+                    <tr><td><strong>Treated wastewater reuse</strong></td><td>Use treated wastewater from Greater San Juan for irrigation and free up river water.</td><td>Greater San Juan reuse plan with support from Korea and the IDB (Cerro Barboza case).</td></tr>
+                    <tr><td><strong>Shared water infrastructure</strong></td><td>Desalination plants and pipelines serving several mines and other users, as in northern Chile.</td><td>Aguas Horizonte system for Codelco; shared-infrastructure study in Chile.</td></tr>
+                </tbody>
+            </table></div>
+
+            <h2>What is missing</h2>
+            <ul class="infra-list">
+                <li>A shared water project for San Juan's copper district, with a route, cost, financing and schedule.</li>
+                <li>Integrating each project's water plan into provincial planning.</li>
+                <li>Public, third-party verified water data project by project: the main credibility gap in the <a href="#" onclick="navigateTo('brechas'); return false;">social licence</a>.</li>
+                <li>Water balances for the lithium basins before more plants are added.</li>
+            </ul>
+            <p class="table-note">Sources: technical reports for Vicuña (2026), Josemaría (2020), Los Azules (2025) and Taca Taca; PSJ Cobre Mendocino EIA summary; San Juan Hydraulics Department; OLACDE White Paper on Mining Development and Energy Planning (Oct. 2026); reporting by La Nación, Tiempo de San Juan and El Inversor Energético (2026); Chilean Law 21,823; SIEMA's Water Positive collection.</p>
+            <div class="button-group">
+                <button class="btn" onclick="navigateTo('infra-energia')">View Energy</button>
+                <button class="btn btn-secondary" onclick="navigateTo('infra-transporte')">View Transport</button>
+            </div>
+            `,
+
+            'infra-energia': `
+            <h1>Enabling infrastructure — Energy</h1>
+            <p>Energy is the constraint the industry itself mentions most. Argentina does not lack resources: it has gas, hydropower, nuclear and world-class sun and wind, and many mining districts are close to them. The problem is the transmission grid: over the last decade it grew 8% while demand grew 20%.</p>
+            <div class="infra-strip">
+                <button type="button" class="infra-card" onclick="navigateTo('infra-agua')"><span class="infra-k">Water</span><span class="lvl alta">High</span><span class="infra-d">There are project-level solutions, but no shared works under way on the Argentine side.</span></button>
+                <button type="button" class="infra-card on" onclick="navigateTo('infra-energia')"><span class="infra-k">Energy</span><span class="lvl crit">Critical</span><span class="infra-d">High-voltage lines do not reach the mining districts and their capacity is already contested.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-transporte')"><span class="infra-k">Transport</span><span class="lvl crit">Critical</span><span class="infra-d">Gravel roads in the Puna and a railway with a fraction of the capacity that will be needed.</span></button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-card"><span class="stat-num">×5.3</span><span class="stat-label">growth in Argentine mining's electricity use: from 1,256 GWh in 2024 to 6,630 GWh in 2034 (OLACDE)</span></div>
+                <div class="stat-card"><span class="stat-num">1.5 GW</span><span class="stat-label">of additional capacity for San Juan's four large copper projects, according to industry estimates</span></div>
+                <div class="stat-card"><span class="stat-num">5,610 km</span><span class="stat-label">of new 500 kV lines in the official plan, for more than US$6,600M; the first tender is not for mining</span></div>
+                <div class="stat-card"><span class="stat-num">33%</span><span class="stat-label">of the country's solar power is generated in San Juan: 21 plants and more than 860 MW</span></div>
+            </div>
+
+            <h2>How much power the large projects need</h2>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Project</th><th>Power</th><th>How it is supplied</th><th>Data source</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Vicuña</strong>, San Juan</td><td>220 MW in stage 1 (260 MW peak); 295 MW in stage 2; up to 620 MW with all four stages (738 MW peak)</td><td>Nueva San Juan–Rodeo 500 kV line, a new Rodeo–Chaparro line (about 160 km), a 500/220 kV, 450 MVA Chaparro substation and a 220 kV line to the mine; Vicuña funds the works</td><td>Preliminary assessment, 2026; ENRE Resolution 79/2026</td></tr>
+                    <tr><td><strong>Los Azules</strong>, San Juan</td><td>119 MW on average; 157 MW peak in year 10</td><td>Proposed an alternative through Mendoza with YPF Luz and PSJ; uses 48% less power than a concentrator</td><td>Feasibility study, 2025</td></tr>
+                    <tr><td><strong>Taca Taca</strong>, Salta</td><td>180–240 MW</td><td>New line to the existing 345 kV line that crosses into Chile (InterAndes)</td><td>Earlier First Quantum technical report</td></tr>
+                    <tr><td><strong>Mariana</strong> (Ganfeng), Salta</td><td>120 MW of solar, expandable to 150 MW</td><td>Off-grid solar plant with batteries; producing since February 2025</td><td>OLACDE, 2026</td></tr>
+                    <tr><td><strong>Veladero</strong>, San Juan</td><td>Up to 25 MW imported</td><td>220 kV interconnection with Chile since 2022 (US$54M); diesel generation before that</td><td>OLACDE, 2026</td></tr>
+                </tbody>
+            </table></div>
+            <p class="table-note">Lithium, more scattered and at altitude, tends to generate its own power. The large copper projects cannot: they need the grid.</p>
+
+            <h2>The first dispute between miners was over a power line</h2>
+            <p>The Nueva San Juan–Rodeo 500 kV line has 854 MVA, of which CAMMESA estimates 71% is available. Vicuña asked for 260 MW for stage 1 of Josemaría.</p>
+            <ul class="infra-list">
+                <li><strong>18 February 2026.</strong> ENRE Resolution 79/2026 gives Vicuña priority over 90% of the available capacity and of the expansion for 25 years.</li>
+                <li><strong>Objections.</strong> San Juan's regulator (EPRE), Los Azules, Barrick, Casposo, Hualilán, Golden Mining, the municipalities of Calingasta, Jáchal and Iglesia, and La Rioja's Energy Secretariat. EPRE wants Vicuña to contribute to a line paid for with public money and San Juan ratepayers' funds.</li>
+                <li><strong>18 March.</strong> ENRE calls a public hearing (Resolution 165/2026), held on 3 June.</li>
+                <li><strong>Afterwards.</strong> Sector reporting says the resolution was upheld and Transener received the certificate of public convenience and necessity to expand the line. How capacity is shared among projects remains the issue to watch.</li>
+            </ul>
+            <p>The lesson: the district's first dispute was not over royalties or the legal regime but over the capacity of a line. Rules are needed for adding new users to lines funded by a single one. San Juan has proposed a model for sharing costs and benefits among generators, large users and the state, with the provincial energy company EPSE.</p>
+
+            <h2>Federal plan works that matter for mining</h2>
+            <p>The transmission plan presented in May 2025 adds 5,610 km of 500 kV lines, 38% more grid. These works serve the mining districts:</p>
+            <div class="table-scroll"><table>
+                <thead><tr><th>Work</th><th>Provinces</th><th>What it is for</th></tr></thead>
+                <tbody>
+                    <tr><td>Rodeo–Chaparro–La Rioja Sur</td><td>San Juan, La Rioja</td><td>San Juan's copper district (Vicuña, Los Azules, El Pachón)</td></tr>
+                    <tr><td>Chaparro–Antofagasta de la Sierra–La Puna</td><td>San Juan, Catamarca, Salta</td><td>Bringing the high-voltage grid to the lithium and copper Puna</td></tr>
+                    <tr><td>Lavalle–Chumbicha</td><td>Catamarca</td><td>Reinforcement towards Catamarca (MARA and lithium)</td></tr>
+                    <tr><td>El Espinillo substation</td><td>Tucumán</td><td>Northwest reinforcement</td></tr>
+                    <tr><td>Río Diamante–Charlone–O'Higgins</td><td>Mendoza, Buenos Aires</td><td>Cuyo reinforcement</td></tr>
+                    <tr><td>Yaguacua (Bolivia)–Salvador Mazza interconnection</td><td>Salta, Jujuy</td><td>Exchange with Bolivia</td></tr>
+                </tbody>
+            </table></div>
+            <p class="table-note">Status as of October 2026: the only work tendered is AMBA I (US$800M, 270 km) in the Buenos Aires metropolitan area, with bids opening around December 2026, award in 2027 and up to 52 months of construction. The mining lines have not been tendered yet.</p>
+
+            <h2>Private and regional initiatives</h2>
+            <ul class="infra-list">
+                <li><strong>Puna:</strong> YPF Luz and Central Puerto are studying a line for Puna mining projects: 140 km initially, expandable to 350 km, up to 400 MW and US$250–400M.</li>
+                <li><strong>Chile:</strong> AES Andes already exports power to Argentina through the InterAndes interconnection and in February 2026 asked to raise exports from 80 to 250 MW.</li>
+                <li><strong>European finance:</strong> the French Development Agency and the European Investment Bank are funding a €200M high-voltage grid expansion and studying new lines to mining areas with the provinces.</li>
+                <li><strong>Clean power:</strong> Vicuña plans to replace diesel generation at its camps with renewable contracts in the term market.</li>
+            </ul>
+
+            <h2>What is missing</h2>
+            <ul class="infra-list">
+                <li>Tendering the federal plan's mining lines on a schedule that matches the mines'. If a line is structured only after a mine secures financing, it arrives late; if it is built earlier without committed demand, it may sit idle.</li>
+                <li>Open-access and cost-sharing rules for lines shared by several projects.</li>
+                <li>A public map of the mining pipeline's electricity demand, project by project and year by year.</li>
+            </ul>
+            <p class="table-note">Sources: OLACDE Technical Note 17 (Apr. 2026) and White Paper (Oct. 2026); Energy Secretariat extra-high-voltage transmission plan (2025); ENRE Resolutions 79/2026 and 165/2026; technical reports for Vicuña, Los Azules and Taca Taca; San Juan Energy Resources Directorate; reporting by Tiempo de San Juan, iProfesional, Más Energía and El Cronista (2025–2026).</p>
+            <div class="button-group">
+                <button class="btn" onclick="navigateTo('infra-transporte')">View Transport</button>
+                <button class="btn btn-secondary" onclick="navigateTo('infra-agua')">View Water</button>
+            </div>
+            `,
+
+            'infra-transporte': `
+            <h1>Enabling infrastructure — Transport</h1>
+            <p>Almost all Argentine copper and much of its lithium will leave through Chilean Pacific ports: analysts estimate they cut transport costs by 50–60% compared with the Atlantic route. In July 2026 Argentina and Chile revived the Binational Mining Commission. With the corridor at full operation, 300 to 500 trucks a day could cross the border.</p>
+            <div class="infra-strip">
+                <button type="button" class="infra-card" onclick="navigateTo('infra-agua')"><span class="infra-k">Water</span><span class="lvl alta">High</span><span class="infra-d">There are project-level solutions, but no shared works under way on the Argentine side.</span></button>
+                <button type="button" class="infra-card" onclick="navigateTo('infra-energia')"><span class="infra-k">Energy</span><span class="lvl crit">Critical</span><span class="infra-d">High-voltage lines do not reach the mining districts and their capacity is already contested.</span></button>
+                <button type="button" class="infra-card on" onclick="navigateTo('infra-transporte')"><span class="infra-k">Transport</span><span class="lvl crit">Critical</span><span class="infra-d">Gravel roads in the Puna and a railway with a fraction of the capacity that will be needed.</span></button>
+            </div>
+            <div class="stat-row">
+                <div class="stat-card"><span class="stat-num">≈ 5 Mt</span><span class="stat-label">of copper concentrate a year would have to be moved under the 1.5–1.6 Mt copper target (SIEMA estimate)</span></div>
+                <div class="stat-card"><span class="stat-num">≈ 470</span><span class="stat-label">30-tonne trucks a day is what that volume would mean if it all went by road (SIEMA estimate)</span></div>
+                <div class="stat-card"><span class="stat-num">×9</span><span class="stat-label">the C-14 branch's capacity is what Taca Taca alone would need: 1.13 Mt of concentrate a year against 120,000 t</span></div>
+                <div class="stat-card"><span class="stat-num">+US$700</span><span class="stat-label">saved per truck trip to the Puna if Route 51 were paved, according to hauliers</span></div>
+            </div>
+            <p class="table-note">SIEMA estimate: 1.4 Mt of copper in concentrate (the target minus Los Azules' cathodes) at an average grade of 27%. Taca Taca: 291 kt of copper a year in 25.7% concentrate (2026 technical report).</p>
+
+            <div class="infra-seg" role="tablist" aria-label="Transport mode">
+                <button type="button" role="tab" class="on" aria-selected="true" data-pane="rutas" onclick="infraTransp('rutas')">Roads</button>
+                <button type="button" role="tab" aria-selected="false" data-pane="ferro" onclick="infraTransp('ferro')">Railways</button>
+            </div>
+
+            <div class="infra-pane" data-pane="rutas">
+                <h2>Roads and passes to Chile</h2>
+                <div class="table-scroll"><table>
+                    <thead><tr><th>Corridor</th><th>Projects</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Jama Pass</strong> · National Route 52, Jujuy</td><td>Jujuy lithium: Olaroz, Cauchari-Olaroz</td><td>Paved. Main outlet for Jujuy lithium to Antofagasta and Mejillones.</td></tr>
+                        <tr><td><strong>Sico Pass</strong> · National Route 51, Salta</td><td>Rincón, Taca Taca, Lindero, Mariana and Salar de Arizaro lithium</td><td>The pass returned to full operation in June 2026. The road has badly worn gravel sections at high altitude; paving has been announced for more than 15 years.</td></tr>
+                        <tr><td><strong>San Francisco Pass</strong> · National Route 60, Catamarca</td><td>Catamarca lithium: Fénix, Sal de Vida, Tres Quebradas</td><td>Daily operation since February 2025. Since January 2026 Catamarca requires escorts on sections of Routes 60, 40, 43 and 157.</td></tr>
+                        <tr><td><strong>Agua Negra</strong> · National Route 150, San Juan</td><td>San Juan copper district</td><td>Binational tunnel with no main works on the Argentine side; Chile has advanced on access roads. Vicuña would export through Chilean ports (Punta Padrones or Caldera) and Los Azules would truck its cathodes to Chile.</td></tr>
+                        <tr><td><strong>Provincial roads</strong></td><td>Catamarca and Salta Puna</td><td>Catamarca paved Provincial Route 43 with mining funds. The paved Salta–San Antonio de los Cobres stretch already shows wear from lack of maintenance.</td></tr>
+                    </tbody>
+                </table></div>
+                <h2>What is missing on roads</h2>
+                <ul class="infra-list">
+                    <li>Paving and maintaining Route 51: hauliers propose mixed schemes with private contributions and tolls.</li>
+                    <li>Coordinating the northern provinces, which compete to lead the bi-oceanic corridors.</li>
+                    <li>Measuring mining truck traffic by corridor, for which there are no public data today.</li>
+                </ul>
+            </div>
+
+            <div class="infra-pane" data-pane="ferro" hidden>
+                <h2>Railways</h2>
+                <p>Rail moves large volumes with less energy per tonne than trucks and is key for lithium and copper concentrate from the Northwest. Today the only active rail outlet to the Pacific is the Belgrano Cargas C-14 branch.</p>
+                <div class="table-scroll"><table>
+                    <thead><tr><th>Topic</th><th>Situation</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Belgrano Cargas privatisation</strong></td><td>Tender called on 19 August 2026 (Decree 748/2026): the Belgrano, San Martín and Urquiza lines, 7,594 km across 16 provinces, for 50 years and with open access for other operators. Anyone investing at least US$200M in track renewal can apply for the RIGI.</td></tr>
+                        <tr><td><strong>C-14 branch</strong> (General Güemes–Socompa, Salta)</td><td>The only active rail crossing into Chile; it runs with Ferronor to the ports of Antofagasta and Mejillones. It carries soda ash up to the Puna and lithium carbonate down. Current cargo: about 1,500 t a month. Declared capacity: 120,000 t a year. Salta's target: 2 Mt a year.</td></tr>
+                        <tr><td><strong>C-14 and C-15 in the tender</strong></td><td>Listed as optional investments. Salta, farming, industry and mining want them made mandatory (October 2026); the government will convene miners and logistics operators to optimise the C-14.</td></tr>
+                        <tr><td><strong>Taca Taca</strong></td><td>Plans to export its concentrate by rail to Chilean ports, with its own spur and load-out station. This project alone would need about nine times the C-14's current capacity.</td></tr>
+                        <tr><td><strong>Rail corridor through the San Francisco Pass</strong></td><td>Proposal by Tucumán and Catamarca for a bi-oceanic railway.</td></tr>
+                        <tr><td><strong>Bolivia</strong></td><td>The rail link is interrupted.</td></tr>
+                    </tbody>
+                </table></div>
+                <h2>What is missing on railways</h2>
+                <ul class="infra-list">
+                    <li>Making the tender require investment in the C-14, or having miners and operators fund its expansion.</li>
+                    <li>Planning inbound cargo, not just outbound: each tonne of lithium carbonate needs about two tonnes of soda ash, plus lime and fuel.</li>
+                    <li>Coordinating capacity on the Chilean side (Ferronor and FCAB) and at the ports.</li>
+                </ul>
+            </div>
+
+            <p class="table-note">Sources: Ministry of Economy, Belgrano Cargas tender (Decree 748/2026); Shale24, Ámbito and La Nación (2026); Taca Taca technical report (2026); Reporte Minero (Jun. 2026); Panorama Minero (Feb. 2026); Más Energía (2025–2026); SIEMA summary on the Chile–Argentina binational treaty (Jul. 2026).</p>
+            <div class="button-group">
+                <button class="btn" onclick="navigateTo('infra-agua')">View Water</button>
+                <button class="btn btn-secondary" onclick="navigateTo('infra-energia')">View Energy</button>
+            </div>
+            `,
             argentina: `
             <h1>Argentina today — Position against projected demand</h1>
             <p>Where Argentina stands today in copper, lithium and rare earths, and how much its project pipeline would weigh against the global demand anticipated in the Foresight tab. It is a snapshot of the current situation. The projection of Argentine supply against each demand scenario is in <a href="#" onclick="omaOpenArgentinaView(); return false;">Foresight → Argentina vs demanda proyectada</a>.</p>
@@ -2617,6 +3067,7 @@
             inicio: { tabs: ['inicio'] },
             observatorio: { tabs: ['oferta', 'demanda', 'argentina', 'capital-humano', 'brechas'] },
             'pulsometro-grupo': { tabs: ['barometro', 'pulsometro', 'rigi', 'monitor'] },
+            infraestructura: { tabs: ['infra-agua', 'infra-energia', 'infra-transporte'] },
             prospectiva: { tabs: ['prospectiva', 'oro-plata'] },
             'noticias-eventos': { tabs: ['noticias', 'eventos', 'infografias'] },
             acerca: { tabs: ['acerca'] }
@@ -2625,16 +3076,18 @@
             es: {
                 observatorio: ['Observatorio', 'Qué está pasando', 'Recopila y organiza toda la información pública relevante del sector minero argentino.'],
                 'pulsometro-grupo': ['Pulsómetro', 'Cómo está el sector hoy', 'Mide la salud y la evolución de la actividad con indicadores dinámicos, actualizados a medida que llegan los datos.'],
+                infraestructura: ['Infraestructuras habilitantes', 'Qué hace falta para producir', 'Agua, energía y transporte: probablemente el principal cuello de botella para alcanzar la producción esperada.'],
                 prospectiva: ['Prospectiva', 'Hacia dónde va', 'Escenarios de demanda mundial y oferta argentina hasta 2050.'],
                 'noticias-eventos': ['Noticias y eventos', 'Qué se dice y dónde se encuentra el sector', 'Noticias del sector, agenda de conferencias y seminarios, e infografías.'],
-                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', prospectiva: 'Minerales críticos', 'oro-plata': 'Oro y plata', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
+                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', prospectiva: 'Minerales críticos', 'oro-plata': 'Oro y plata', 'infra-agua': 'Agua', 'infra-energia': 'Energía', 'infra-transporte': 'Transporte', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
             },
             en: {
                 observatorio: ['Observatory', 'What is happening', 'Gathers and organises all relevant public information on the Argentine mining sector.'],
                 'pulsometro-grupo': ['Pulsometer', 'How the sector is doing today', 'Measures the health and evolution of the activity with dynamic indicators, updated as data arrives.'],
+                infraestructura: ['Enabling infrastructure', 'What it takes to produce', 'Water, energy and transport: probably the main bottleneck to reaching expected output.'],
                 prospectiva: ['Foresight', 'Where it is heading', 'Global demand scenarios and Argentine supply to 2050.'],
                 'noticias-eventos': ['News and events', 'What is being said and where the sector meets', 'Sector news, the conference and seminar calendar, and infographics.'],
-                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', prospectiva: 'Critical minerals', 'oro-plata': 'Gold and silver', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
+                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', prospectiva: 'Critical minerals', 'oro-plata': 'Gold and silver', 'infra-agua': 'Water', 'infra-energia': 'Energy', 'infra-transporte': 'Transport', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
             }
         };
         const siemaGroupOf = tabId => Object.keys(SIEMA_GROUPS).find(g => SIEMA_GROUPS[g].tabs.includes(tabId));
@@ -2655,8 +3108,8 @@
         }
 
         const NAV_LABELS = {
-            es: { inicio: 'Inicio', observatorio: 'Observatorio', 'pulsometro-grupo': 'Pulsómetro', prospectiva: 'Prospectiva', 'noticias-eventos': 'Noticias y eventos', acerca: 'Acerca de' },
-            en: { inicio: 'Home', observatorio: 'Observatory', 'pulsometro-grupo': 'Pulsometer', prospectiva: 'Foresight', 'noticias-eventos': 'News and events', acerca: 'About' }
+            es: { inicio: 'Inicio', observatorio: 'Observatorio', 'pulsometro-grupo': 'Pulsómetro', infraestructura: 'Infraestructuras habilitantes', prospectiva: 'Prospectiva', 'noticias-eventos': 'Noticias y eventos', acerca: 'Acerca de' },
+            en: { inicio: 'Home', observatorio: 'Observatory', 'pulsometro-grupo': 'Pulsometer', infraestructura: 'Enabling infrastructure', prospectiva: 'Foresight', 'noticias-eventos': 'News and events', acerca: 'About' }
         };
 
         const TICKER_LABEL = { es: '💹 Cotizaciones', en: '💹 Market Prices' };
@@ -4476,6 +4929,14 @@
                 if (f.contentWindow === e.source) f.style.height = Math.ceil(e.data.height) + 'px';
             });
         });
+
+        // Infraestructuras habilitantes: Transporte se abre en Rutas y Ferrocarriles
+        function infraTransp(p) {
+            var root = document.getElementById('infra-transporte');
+            if (!root) return;
+            root.querySelectorAll('.infra-seg button').forEach(function (b) { var on = b.dataset.pane === p; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+            root.querySelectorAll('.infra-pane').forEach(function (d) { d.hidden = d.dataset.pane !== p; });
+        }
 
         // Abre Prospectiva con la vista Argentina del modelo embebido
         function omaOpenArgentinaView() {
