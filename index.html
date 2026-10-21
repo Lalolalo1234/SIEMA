@@ -3272,27 +3272,27 @@
         // Precios de referencia con fecha (no vienen del feed en vivo). La tarea semanal "Datos SIEMA" los actualiza:
         // editar solo REF_PRICES (valor, unidad, fecha y fuente).
         const REF_PRICES = {
-            asOf: '13/10/2026',
+            asOf: '20/10/2026',
             items: [
-                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 16000, unit: 'USD/t', date: '13/10', src: 'GFEX, contrato LC2701: 107.060 CNY/t al cierre del 13/10 (Sina Finanzas), a 6,692 CNY/US$' },
-                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 740, unit: 'CNY/kg', date: '13/10', src: 'Chinatungsten Online (vía Sina): óxido de PrNd ≈740.000 CNY/t, estable el 13/10' }
+                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 15000, unit: 'USD/t', date: '20/10', src: 'GFEX: 100.520 CNY/t el 20/10 (SMM vía KuCoin; spot SMM 102.350), a 6,722 CNY/US$ (paridad central del 16/10)' },
+                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 738, unit: 'CNY/kg', date: '20/10', src: 'Óxido de PrNd ≈740.000 CNY/t el 13/10 (Chinatungsten Online), estable el 16/10 y −2.000 CNY/t el 20/10 (SMM)' }
             ]
         };
         function refPriceItems(lang) {
             const loc = lang === 'es' ? 'es-AR' : 'en-US';
             return REF_PRICES.items.map(r => ({ name: r[lang], price: `${r.value.toLocaleString(loc)} ${r.unit}`, ref: r.date, title: r.src }));
         }
-        // Respaldo si el feed en vivo no responde (valores del 13/10/2026: cobre COMEX vía metalcharts.org; oro y plata, Fortune)
+        // Respaldo si el feed en vivo no responde (valores del 20/10/2026: cobre COMEX vía metalcharts.org; oro y plata, Fortune)
         const FALLBACK_PRICES = {
             es: [
-                { name: 'Cobre', price: '6,68 US$/lb', ref: '13/10' },
-                { name: 'Oro', price: '4.182,00 US$/ozt', ref: '13/10' },
-                { name: 'Plata', price: '60,43 US$/oz', ref: '13/10' }
+                { name: 'Cobre', price: '6,58 US$/lb', ref: '20/10' },
+                { name: 'Oro', price: '4.120,00 US$/ozt', ref: '20/10' },
+                { name: 'Plata', price: '56,88 US$/oz', ref: '20/10' }
             ],
             en: [
-                { name: 'Copper', price: '6.68 US$/lb', ref: '13/10' },
-                { name: 'Gold', price: '4,182.00 US$/ozt', ref: '13/10' },
-                { name: 'Silver', price: '60.43 US$/oz', ref: '13/10' }
+                { name: 'Copper', price: '6.58 US$/lb', ref: '20/10' },
+                { name: 'Gold', price: '4,120.00 US$/ozt', ref: '20/10' },
+                { name: 'Silver', price: '56.88 US$/oz', ref: '20/10' }
             ]
         };
 
@@ -3698,14 +3698,14 @@
         const PRIORITY_BADGE = { es: 'Prioridad #1 del Gobierno', en: "Government's #1 Priority" };
 
         // --- RIGI minero: Régimen de Incentivo para Grandes Inversiones, proyectos mineros de producción ---
-        // Datos al 14/10/2026. Fuente principal: análisis independiente de terceros sobre las resoluciones
+        // Datos al 21/10/2026 (sin aprobaciones mineras nuevas desde MARA, 02/10/2026). Fuente principal: análisis independiente de terceros sobre las resoluciones
         // del Boletín Oficial y el portal RIGI del Ministerio de Economía (uso autorizado, sin atribución).
         // Contraste: Ámbito (14/10/2025), El Cronista (2026), DF (17/06/2026).
         // Etapa 1: solo proyectos mineros de producción. Etapa 2 (pendiente): infraestructura habilitante
         // para la minería (energía, transporte, agua).
         // Para actualizar, editar solo RIGI_DATA. El índice alimenta el 10.º eje del Pulsómetro y el IPM.
         const RIGI_DATA = {
-            asOf: '14/10/2026',
+            asOf: '21/10/2026',
             // Proyectos mineros de producción aprobados y publicados (US$ M).
             // ann = inversión anunciada (padrón); com = activos computables (resolución);
             // disb = desembolso ejecutado a la fecha (null = sin dato publicado); stage = estado según fuente pública
@@ -3950,8 +3950,8 @@
         // --- Demanda: relación de precios cobre/aluminio (indicador de sustitución) ---
         // Para actualizar: editar CUAL_DATA (relación, fecha y estimaciones). La curva es la misma del modelo Convergencias 2050.
         const CUAL_DATA = {
-            asOf: '13/10/2026',
-            now: 4.8,          // relación Cu/Al (US$/t ÷ US$/t), récord: 13/10/2026, cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
+            asOf: '19/10/2026',
+            now: 4.8,          // relación Cu/Al (US$/t ÷ US$/t): 19/10/2026, cash oficial LME (Westmetall) cobre 14.496 ÷ aluminio 3.019 = 4,80 (sigue en el récord). Antes, récord del 13/10/2026: cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
             hist: 3.7,         // promedio histórico de largo plazo
             curve: [[3.5, 0], [4.0, 0.015], [4.2, 0.02], [4.5, 0.035], [5.0, 0.055], [5.5, 0.07]],
             cuDemand2040: 34,  // Mt, demanda total de cobre 2040 (AIE STEPS), para pasar porcentajes a toneladas
@@ -3961,7 +3961,7 @@
             es: {
                 h2: 'Relación de precios cobre/aluminio: el indicador de sustitución',
                 intro: 'Cuando el cobre se encarece mucho frente al aluminio, la industria rediseña cables, equipos de climatización y autos para usar aluminio, y una parte de la demanda de cobre desaparece. La señal que vigila el mercado es la relación entre ambos precios (US$ por tonelada de cobre ÷ US$ por tonelada de aluminio). Este indicador alimenta el modelo de <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Prospectiva</a>.',
-                k1: 'Relación actual', k1s: d => `Récord · ${d} · supera el 4,7 del 8 de octubre y el 4,3 de agosto de 2026`,
+                k1: 'Relación actual', k1s: d => `${d} · Se mantiene en el récord de 4,8 del 13 de octubre (4,7 el 8 de octubre y 4,3 en agosto de 2026)`,
                 k2: 'Promedio histórico', k2s: 'Largo plazo',
                 k3: 'Umbral de sustitución', k3s: 'Desde acá la industria cambia de material (BHP)',
                 k4: 'Demanda de cobre desplazada', k4s: 'Hoy, según ICA (menos de 2 %) y JPMorgan (≈2 % en 2026)',
@@ -3975,18 +3975,18 @@
                 tech: 'Por qué: el aluminio conduce cerca del 61 % de lo que conduce el cobre y necesita 1,6 veces más sección, pero para la misma conducción pesa la mitad. Lo frenan los conectores (se oxida y se deforma bajo presión), las normas eléctricas y el costo de rediseñar.',
                 readH: 'Lectura del SIEMA',
                 read: (t35, ar) => [
-                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un nuevo récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto): si se sostuviera, el desplazamiento de largo plazo subiría a casi el 5 %. Es un efecto real, no un cambio de era.',
+                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un nuevo récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto) y el 19 de octubre seguía en ese nivel: si se sostuviera, el desplazamiento de largo plazo subiría a casi el 5 %. Es un efecto real, no un cambio de era.',
                     `<strong>Para Argentina, el número importa.</strong> Si la relación se sostuviera en 4,5 : 1, el cobre desplazado rondaría ${t35} Mt por año en 2040: tanto como toda la cartera argentina de cobre (~${ar} Mt por año). Es un riesgo a seguir para el precio del cobre y, por esa vía, para el ritmo de las decisiones de inversión de los proyectos.`,
                     '<strong>Tiene un freno natural.</strong> Si sube la demanda de aluminio, sube su precio y la relación baja. Por eso los niveles de 5 : 1 o más son difíciles de sostener.',
                     '<strong>Qué seguir.</strong> La relación mensual, las decisiones de diseño de la industria automotriz y de climatización, y las normas eléctricas de los grandes mercados.'
                 ],
                 btn: 'Mover la relación en el modelo de Prospectiva',
-                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios LME del 13/10/2026 (cobre oficial US$ 14.741/t según KME; aluminio US$ 3.037/t según metalcharts.org; con el aluminio oficial del 12/10, US$ 3.055/t, da 4,83); JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
+                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales cash de la LME del 19/10/2026 según Westmetall (cobre US$ 14.496/t; aluminio US$ 3.019/t: 4,80); récord del 13/10/2026: cobre oficial US$ 14.741/t (KME) y aluminio US$ 3.037/t (metalcharts.org), 4,85; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
             },
             en: {
                 h2: 'Copper/aluminium price ratio: the substitution indicator',
                 intro: 'When copper becomes much more expensive than aluminium, industry redesigns cables, air-conditioning units and cars to use aluminium, and part of copper demand disappears. The signal the market watches is the ratio between both prices (US$ per tonne of copper ÷ US$ per tonne of aluminium). This indicator feeds the <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Foresight</a> model.',
-                k1: 'Current ratio', k1s: d => `Record · ${d} · above 4.7 on 8 October and 4.3 in August 2026`,
+                k1: 'Current ratio', k1s: d => `${d} · Holding at the 4.8 record of 13 October (4.7 on 8 October and 4.3 in August 2026)`,
                 k2: 'Historical average', k2s: 'Long term',
                 k3: 'Substitution threshold', k3s: 'Where industry switches material (BHP)',
                 k4: 'Copper demand displaced', k4s: 'Today, per ICA (below 2 %) and JPMorgan (≈2 % in 2026)',
@@ -4000,13 +4000,13 @@
                 tech: 'Why: aluminium conducts about 61 % as well as copper and needs 1.6 times the cross-section, but weighs half as much for the same conduction. Connectors (it oxidises and creeps under pressure), electrical codes and redesign costs hold it back.',
                 readH: 'SIEMA reading',
                 read: (t35, ar) => [
-                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a new record of 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August): if sustained, long-term displacement would rise to almost 5 %. A real effect, not a change of era.',
+                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a new record of 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August) and was still at that level on 19 October: if sustained, long-term displacement would rise to almost 5 %. A real effect, not a change of era.',
                     `<strong>For Argentina, the number matters.</strong> If the ratio held at 4.5 : 1, displaced copper would be around ${t35} Mt a year in 2040: as much as Argentina's entire copper pipeline (~${ar} Mt a year). It is a risk to watch for the copper price and, through it, for the pace of the projects' investment decisions.`,
                     '<strong>It has a natural brake.</strong> If aluminium demand rises, its price rises and the ratio falls. That is why levels of 5 : 1 or more are hard to sustain.',
                     '<strong>What to watch.</strong> The monthly ratio, design decisions in the automotive and air-conditioning industries, and electrical codes in the big markets.'
                 ],
                 btn: 'Move the ratio in the Foresight model',
-                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME prices on 13/10/2026 (official copper US$ 14,741/t per KME; aluminium US$ 3,037/t per metalcharts.org; with the official 12/10 aluminium price, US$ 3,055/t, it is 4.83); JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
+                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official cash prices on 19/10/2026 per Westmetall (copper US$ 14,496/t; aluminium US$ 3,019/t: 4.80); 13/10/2026 record: official copper US$ 14,741/t (KME) and aluminium US$ 3,037/t (metalcharts.org), 4.85; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
             }
         };
         function cualShareAt(r) {

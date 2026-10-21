@@ -4,8 +4,8 @@ window.SIEMA_EVENTS = {
  "metadata": {
   "title": "Mining Events Database",
   "description": "Upcoming mining conferences, exhibitions, and symposiums",
-  "last_updated": "2026-10-14",
-  "total_events": 78,
+  "last_updated": "2026-10-21",
+  "total_events": 80,
   "source": "CeProMinDB (lalolalo1234/CeProMinDB) + SIEMA"
  },
  "events": [
@@ -1861,6 +1861,55 @@ window.SIEMA_EVENTS = {
    "region": "Latin America",
    "siema": true,
    "notes": "Mantenimiento y gestión de activos en la gran minería chilena; referencia para los proveedores de los proyectos de cobre argentinos."
+  },
+  {
+   "id": 1019,
+   "name": "PACMIN 2026 — III Simposio Internacional de Pasivos Ambientales y Cierre de Minas",
+   "type": "Simposio",
+   "start_date": "2026-11-17",
+   "end_date": "2026-11-19",
+   "city": "Lima",
+   "country": "Peru",
+   "venue": "OPEN PUCP, Plaza San Miguel",
+   "organizer": "Colegio de Ingenieros del Perú, Consejo Departamental de Lima (Capítulo de Ingeniería de Minas)",
+   "website": "https://pacmin.ciplima.org.pe/",
+   "focus": [
+    "pasivos ambientales",
+    "cierre de minas",
+    "remediación"
+   ],
+   "commodities": [
+    "general"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Cierre de minas y pasivos ambientales: tema clave de la licencia social y de la normativa de cierre en las provincias mineras argentinas."
+  },
+  {
+   "id": 1020,
+   "name": "Mining, Critical Minerals & Technology Latin America 2027",
+   "type": "Conference + Exhibition",
+   "start_date": "2027-06-02",
+   "end_date": "2027-06-03",
+   "city": "São Paulo",
+   "country": "Brazil",
+   "venue": "Pullman São Paulo Ibirapuera",
+   "organizer": "Spire Events",
+   "website": "https://www.mininglatinamerica.com/",
+   "focus": [
+    "critical minerals",
+    "technology",
+    "investment"
+   ],
+   "commodities": [
+    "lithium",
+    "copper",
+    "rare earths",
+    "critical minerals"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Minerales críticos y tecnología en América Latina; competencia y complemento regional para el litio, el cobre y las tierras raras argentinas."
   }
  ]
 };
