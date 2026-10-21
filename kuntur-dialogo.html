@@ -45,6 +45,8 @@ button{font:inherit}
 .bird video.on{opacity:1}
 /* subtítulos: solo la traducción (la voz ya dice el texto en su idioma) y más lugar para la pantalla de SIEMA */
 .stage .subs .main{display:none}
+/* Modo diálogo: sin textos en pantalla (ni pregunta, ni respuesta, ni traducción) */
+body.dlg-quiet .stage .subs, body.dlg-quiet .panel .slide.ask, body.dlg-quiet #screenQ{display:none!important}
 .stage .subs{min-height:0;padding:.4vh 6vw 2.6vh}
 .stage .subs .tr{font-size:calc(var(--sub-size)*.78);color:var(--salar);font-style:normal;margin-top:0;max-width:62ch}
 @media (min-width:821px){
@@ -314,6 +316,8 @@ body:hover .dock,.dock:focus-within,body.help-on .dock{opacity:1}
     <input id="sSalaKey" type="password" autocomplete="off">
     <div class="status-line" id="salaStatus"></div>
     <label style="display:flex;gap:.6rem;align-items:center"><input id="sBarge" type="checkbox" style="width:auto"> Permitir interrumpir a Kuntur mientras habla (usalo solo con auricular: con altavoces el micrófono capta su propia voz)</label>
+    <label for="sPat">Paciencia al escuchar en el modo diálogo: <span id="sPatV"></span> s de silencio antes de responder</label>
+    <input id="sPat" type="range" min="0.4" max="4" step="0.1" value="0.8">
     <label for="sVes">Voz en español</label>
     <select id="sVes"></select>
     <label for="sVen">Voz en inglés</label>
@@ -354,10 +358,22 @@ const cfg = {
   rate: +store.get('rate', '1'), pitch: +store.get('pitch', '1'),
   sala: (params.get('sala') || store.get('sala', '') || 'https://kuntur-sala.oma-observatorio.workers.dev').replace(/\/+$/, ''),
   salaKey: store.get('salaKey', ''),
-  barge: store.get('barge', '0') === '1'
+  barge: store.get('barge', '0') === '1',
+  patience: +store.get('patience2', '0.8')
 };
 // Modo diálogo (ensayo): escucha continua por turnos
 var dialogo = false, dlgIdle = null, bargeRec = null;
+// Cuánto esperar en silencio antes de dar por terminada la pregunta (modo diálogo).
+// Base ajustable en Ajustes; más tiempo si la frase quedó abierta (muletilla, conector) o es muy corta.
+const OPEN_END_RX = /(?:^|\s)(eh+|em+|este|esto|bueno|digamos|o sea|y|o|de|del|que|qué|pero|porque|como|cómo|cuál|cuáles|la|el|los|las|un|una|a|al|en|con|para|por|sobre|si|entre|hasta|desde|más|mas|también|the|and|of|to|for|in|with|or|but|um+|uh+)\s*$/i;
+function dlgWait(text, isFinal) {
+  const base = cfg.patience * 1000;
+  const words = text ? text.split(/\s+/).length : 0;
+  let w = isFinal ? base : base + 700;
+  if (OPEN_END_RX.test(text)) w += 1400;
+  if (words < 4) w += 800;
+  return w;
+}
 const END_RX = /\b(gracias,? kuntur|terminamos|eso es todo|fin del ensayo|hasta luego,? kuntur|thank you,? kuntur|that'?s all)\b/i;
 if (params.get('sala')) store.set('sala', cfg.sala);
 if (params.get('api')) store.set('api', cfg.api);
@@ -573,6 +589,11 @@ const VIEWS = {
   externa:     { tab: 'pulsometro', sel: null, es: 'Percepción externa', en: 'External perception', re: /encuesta externa|percepci[oó]n externa|fraser|universidad de toronto|resources for the future|external survey|external perception/i },
   brechas:     { tab: 'brechas', sel: null, es: 'Análisis de brechas', en: 'Gap analysis', re: /an[aá]lisis de brechas|\bbrechas\b|gap analysis/i },
   cual:        { tab: 'demanda', sel: '#cualDyn', es: 'Relación de precios cobre/aluminio', en: 'Copper/aluminium price ratio', re: /alumin|sustituci[oó]n del cobre|relaci[oó]n (de precios )?cobre|copper substitution|copper.aluminium ratio/i },
+  infraAgua:   { tab: 'infra-agua', sel: null, es: 'Infraestructura · Agua', en: 'Infrastructure · Water', re: /\bagua\b|h[ií]dric|desalin|acueducto|glaciar|periglacial|\bwater\b|desalinat|glacier/i },
+  infraEnerg:  { tab: 'infra-energia', sel: null, es: 'Infraestructura · Energía', en: 'Infrastructure · Energy', re: /energ[ií]a el[eé]ctrica|electricidad|l[ií]nea(s)? (de alta tensi[oó]n|el[eé]ctrica|de 500)|500 ?kv|transmisi[oó]n el[eé]ctrica|megavatios|\bcammesa\b|\benre\b|transener|electricity|power line|transmission line|power grid/i },
+  infraTransp: { tab: 'infra-transporte', sel: null, es: 'Infraestructura · Transporte', en: 'Infrastructure · Transport', re: /ferrocarril|belgrano cargas|\btren(es)?\b|ramal c-?14|socompa|ruta (nacional )?(51|52|60|40|150)|rutas mineras|paso (de )?(jama|sico|san francisco)|agua negra|camiones|puertos? (chilenos?|del pac[ií]fico)|log[ií]stica|railway|\brail\b|trucks?|roads?\b|logistics/i },
+  infra:       { tab: 'infra-agua', sel: null, es: 'Infraestructuras habilitantes', en: 'Enabling infrastructure', re: /infraestructura(s)? habilitante|cuello(s)? de botella|enabling infrastructure|bottleneck/i },
+  oroplata:    { tab: 'oro-plata', sel: null, es: 'Prospectiva · Oro y plata 2050', en: 'Foresight · Gold and silver 2050', re: /oro y plata|demanda (mundial |global )?de (oro|plata)|bancos centrales|metales preciosos|futuro del oro|futuro de la plata|plata (en|para) (la )?(energ[ií]a )?solar|gold and silver|demand for (gold|silver)|(gold|silver) demand|central banks|precious metals/i },
   prospectiva: { tab: 'prospectiva', sel: null, es: 'Prospectiva · Convergencias 2050', en: 'Foresight · Convergences 2050', re: /prospectiva|convergencias|macrotendencia|escenario|\b2050\b|foresight|convergences|megatrend|scenario/i },
   argentina:   { tab: 'argentina', sel: null, es: 'Argentina frente a la demanda', en: 'Argentina vs projected demand', re: /tierras raras|rare earths?|demanda (mundial|global|proyectada)|cuarto productor|world demand|projected demand/i },
   demanda:     { tab: 'demanda', sel: null, es: 'Demanda global', en: 'Global demand', re: /demanda de minerales|minerales cr[ií]ticos|critical minerals/i },
@@ -585,7 +606,7 @@ const VIEWS = {
   consola:     { tab: 'inicio', sel: '#omaConsole', es: 'Consola SIEMA', en: 'SIEMA console', re: /consola|performance minera|performance index|\bsiema\b/i },
   inicio:      { tab: 'inicio', sel: null, es: 'SIEMA', en: 'SIEMA', re: /(?!)/ }
 };
-const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
+const VIEW_ORDER = ['eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'infra', 'infraTransp', 'infraEnerg', 'infraAgua', 'oroplata', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
 let curView = null, frameReady = false, pendingView = null, viewLocked = false;
 function pickView(t) { for (const k of VIEW_ORDER) if (VIEWS[k].re.test(t || '')) return k; return null; }
 function sizeScreen() {
@@ -731,7 +752,7 @@ function listen(lang, seed) {
   hush(); if (rec) try { rec.abort(); } catch (e) {}
   listenLang = lang;
   rec = new SR(); rec.lang = lang === 'es' ? 'es-AR' : 'en-US'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
-  let finalTxt = '', interimTxt = seed || '', sent = false;
+  let finalTxt = '', interimTxt = seed || '', sent = false, lastFinal = false;
   const r0 = rec;
   clearTimeout(dlgIdle);
   if (dialogo) dlgIdle = setTimeout(() => { if (state === 'listening' && !(finalTxt + interimTxt).trim()) { stopDialog(lang === 'es' ? 'Pausé la conversación. Tocá «Conversar» o la tecla D para seguir.' : 'Conversation paused. Tap «Conversar» or press D to continue.'); } }, 25000);
@@ -748,11 +769,11 @@ function listen(lang, seed) {
     if (q) { showQuestion(q, lang, false); subTr.textContent = ''; ask(q, lang); } else { setState('idle'); subTr.textContent = ''; }
   };
   endListening = send;
-  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, dialogo ? 1800 : SILENCE_MS); };
+  const arm = () => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if ((finalTxt + interimTxt).trim()) send(); }, dialogo ? dlgWait((finalTxt + ' ' + interimTxt).trim(), lastFinal) : SILENCE_MS); };
   rec.onresult = e => {
     let interim = ''; finalTxt = '';
     for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalTxt += r[0].transcript + ' '; else interim += r[0].transcript; }
-    interimTxt = interim;
+    interimTxt = interim; lastFinal = !interim.trim();
     showQuestion(fixTranscript((finalTxt + ' ' + interim).trim()), lang, true);
     arm();
   };
@@ -858,11 +879,11 @@ setInterval(pollPublic, 4000);
 
 function startDialog(lang) {
   if (!SR) { flash('Este navegador no reconoce voz: el modo diálogo necesita Chrome o Edge.'); return; }
-  dialogo = true; $('bDlg').classList.add('on'); $('dlgtag').classList.add('on'); toggleQr(false);
+  dialogo = true; document.body.classList.add('dlg-quiet'); $('bDlg').classList.add('on'); $('dlgtag').classList.add('on'); toggleQr(false);
   listen(lang || listenLang || 'es');
 }
 function stopDialog(msg) {
-  dialogo = false; clearTimeout(dlgIdle); stopBarge();
+  dialogo = false; document.body.classList.remove('dlg-quiet'); clearTimeout(dlgIdle); stopBarge();
   $('bDlg').classList.remove('on'); $('dlgtag').classList.remove('on');
   endListening = null; clearTimeout(silenceTimer); if (rec) { const r = rec; rec = null; try { r.abort(); } catch (x) {} }
   if (state === 'listening') setState('idle');
@@ -1027,6 +1048,8 @@ $('bType').addEventListener('click', openType);
 $('bNew').addEventListener('click', () => newPerson('es'));
 $('bDlg').addEventListener('click', () => dialogo ? stopDialog('') : startDialog('es'));
 $('sBarge').checked = cfg.barge;
+$('sPat').value = cfg.patience; $('sPatV').textContent = cfg.patience.toFixed(1).replace('.', ',');
+$('sPat').addEventListener('input', e => { cfg.patience = +e.target.value; store.set('patience2', cfg.patience); $('sPatV').textContent = cfg.patience.toFixed(1).replace('.', ','); });
 $('sBarge').addEventListener('change', e => { cfg.barge = e.target.checked; store.set('barge', cfg.barge ? '1' : '0'); if (!cfg.barge) stopBarge(); });
 $('bQr').addEventListener('click', () => toggleQr());
 $('bStop').addEventListener('click', hush);
