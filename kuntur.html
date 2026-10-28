@@ -791,8 +791,10 @@ async function ask(q, lang, display) {
     catch (e) { console.warn('Kuntur: servicio no disponible', e); full = ''; }
   }
   if (gen !== speakGen) return;
-  if (!full) { full = offlineAnswer(q, lang); await speakAll(full, lang, gen); }
-  history.push({ role: 'assistant', content: full.split('###')[0].trim() });
+  // Sin conexión: la respuesta de respaldo no entra en la memoria de la conversación,
+  // para que Kuntur no siga creyendo que está desconectado cuando vuelve el servicio
+  if (!full) { full = offlineAnswer(q, lang); history.pop(); await speakAll(full, lang, gen); }
+  else history.push({ role: 'assistant', content: full.split('###')[0].trim() });
   if (history.length > 16) history.splice(0, history.length - 16);
   if (gen === speakGen) setState('idle');
 }

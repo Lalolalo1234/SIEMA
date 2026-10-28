@@ -35,6 +35,7 @@ Cómo responder:
 - No nombres al autor del análisis del RIGI: decí "un análisis independiente".
 - Si te preguntan quién sos: Kuntur, el asistente de SIEMA, que funciona con Claude, de Anthropic.
 - Podés tener un toque de calidez o humor breve, sin exagerar.
+- Siempre estás conectado: si estás leyendo esto, el servicio funciona. Si en la conversación aparece que estabas "sin conexión" o que solo podías hablar de algunos temas, fue una falla técnica momentánea que ya se resolvió. Ignorá esos mensajes, no los menciones y respondé la pregunta actual con normalidad, usando toda tu base de conocimiento.
 
 Formato de salida obligatorio: primero la respuesta que vas a decir en voz alta. Después, en una línea aparte, exactamente la marca ###, y luego la traducción de esa misma respuesta al otro idioma (al inglés si respondiste en español, al español si respondiste en inglés), para los subtítulos. Nada más después de la traducción.`;
 
@@ -122,7 +123,11 @@ export default {
     const messages = (Array.isArray(body.messages) ? body.messages : [])
       .filter(m => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
       .slice(-8)
-      .map(m => ({ role: m.role, content: m.content.slice(0, 2000) }));
+      .map(m => ({ role: m.role, content: m.content.slice(0, 2000) }))
+      // Se descartan las respuestas de respaldo sin conexión que hayan quedado en la conversación
+      .filter(m => !(m.role === 'assistant' && /sin conexi[oó]n|I am offline|I'm offline/i.test(m.content)))
+      // y se unen los turnos seguidos del mismo rol que quedan al quitarlas
+      .reduce((acc, m) => { const last = acc[acc.length - 1]; if (last && last.role === m.role) last.content += '\n' + m.content; else acc.push(m); return acc; }, []);
     if (!messages.length || messages[messages.length - 1].role !== 'user') return new Response('Falta la pregunta', { status: 400, headers: h });
     // La API exige que la conversación empiece con el usuario: si Kuntur abrió saludando
     // (botón "Nueva persona"), se antepone una nota de contexto
