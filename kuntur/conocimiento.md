@@ -1,5 +1,5 @@
 # Base de conocimiento de Kuntur — SIEMA
-<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 21 de octubre de 2026; RIGI con MARA, aprobado el 2 de octubre (sin aprobaciones mineras nuevas hasta el 21 de octubre). -->
+<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 28 de octubre de 2026; RIGI con MARA, aprobado el 2 de octubre y con su resolución publicada en el Boletín Oficial el 27 de octubre (sin aprobaciones mineras nuevas hasta el 28 de octubre). -->
 
 ## Qué es SIEMA
 - SIEMA es el Sistema de Inteligencia Estratégica Minera Argentina: una plataforma integral de información, análisis y prospectiva que concentra en un único entorno digital la información relevante del sector minero argentino y la convierte en inteligencia para decidir.
@@ -16,7 +16,7 @@
 - Sitio: lalolalo1234.github.io/SIEMA
 
 ## Pulsómetro: clima de inversión (3T 2026 vs 3T 2025)
-- Índice del Pulsómetro: 6,4 sobre 10 (promedio de 10 ejes), una mejora de 1,3 puntos frente a 2025. Escala 0 (muy desfavorable) a 10 (muy favorable).
+- Índice del Pulsómetro: 6,5 sobre 10 (promedio de 10 ejes), una mejora de 1,4 puntos frente a 2025. Escala 0 (muy desfavorable) a 10 (muy favorable).
 - Ejes 2026 (2025 entre paréntesis):
   - Exportaciones mineras 9,0 (6,3) — prioridad número uno del gobierno.
   - Marco normativo 7,2 (5,5).
@@ -27,10 +27,10 @@
   - Infraestructura 5,3 (4,5) — el eje peor puntuado.
   - Estabilidad macro 5,0 (2,7) — calculado con datos externos.
   - Capital humano 5,9 (5,6) — la segunda mejora más chica (+0,3), después de licencia social.
-  - RIGI minero 6,7 (4,9) — calculado con datos externos; incluye MARA, aprobado el 2 de octubre de 2026.
+  - RIGI minero 6,8 (4,9) — calculado con datos externos; incluye MARA, aprobado el 2 de octubre de 2026.
 - Cuatro ejes están por debajo del umbral de alerta de 6: licencia social, infraestructura, estabilidad macro y capital humano.
 - Los ejes que no se calculan con datos externos son un primer corte ilustrativo de la encuesta SIEMA a empresas mineras.
-- Índice de Performance Minera: 80 sobre 100 (78 antes de sumar MARA al RIGI). Combina exportaciones (ritmo frente a la proyección anual), producción de litio frente a capacidad instalada y avance del RIGI minero.
+- Índice de Performance Minera: 81 sobre 100 (78 antes de sumar MARA al RIGI). Combina exportaciones (ritmo frente a la proyección anual), producción de litio frente a capacidad instalada y avance del RIGI minero.
 
 ## Exportaciones y producción
 - Exportaciones mineras 2025: 6.071 millones de dólares, récord. Oro 4.094, litio 911, plata 785, cobre 13 millones.
@@ -47,14 +47,14 @@
 
 ## RIGI minero (Régimen de Incentivo para Grandes Inversiones)
 - El RIGI (Ley 27.742) es la principal herramienta de política minera para atraer inversión de gran escala: Ganancias al 25 %, amortización acelerada, exención de aranceles y, desde el tercer año, de derechos de exportación, y 30 años de estabilidad.
-- SIEMA sigue los 13 proyectos mineros de producción aprobados: 25.230 millones de dólares de inversión anunciada, el 47 % de todo el RIGI. En octubre de 2025 eran 3 proyectos por 5.613 millones: en un año los proyectos pasaron de 3 a 13 y la inversión anunciada se multiplicó por cuatro y medio.
-- El último aprobado es MARA (Agua Rica – Alumbrera), de Glencore en Catamarca, el 2 de octubre de 2026: 4.000 millones de dólares, unas 200 mil toneladas de cobre por año, obras desde noviembre de 2027 y operación desde octubre de 2031. Se compromete a invertir 771 millones en los dos primeros años.
-- Por mineral: cobre 17.300 millones (69 %: Vicuña, MARA, Los Azules, PSJ Cobre Mendocino), litio 6.065 millones (Rincón, ampliación Cauchari-Olaroz, Liex, Sal de Oro II, Fénix 1B, Hombre Muerto Oeste), oro 1.101 millones (Carbonatos Profundos, Veladero), plata y oro 764 millones (Diablillos).
-- Solo 6.069 millones (27 % de lo comprometido) son obligación con fecha cierta en los dos primeros años.
-- Desembolso identificado: al menos 833 millones de dólares (3,8 % de lo comprometido), según reportes de las empresas y estimaciones de SIEMA. Ya están construidos tres proyectos de litio: Fénix 1B, Hombre Muerto Oeste y Sal de Oro II, de POSCO, cuya planta de carbonato de 23 mil toneladas por año se inauguró el 6 de octubre de 2026. El grueso del desembolso llega entre 2027 y 2029; Vicuña prevé obras principales desde 2027, y Los Azules pasó su decisión final de inversión a mediados de 2027.
+- SIEMA sigue los 13 proyectos mineros de producción aprobados: 27.624 millones de dólares de inversión anunciada, el 49 % de todo el RIGI, y 21.420 millones comprometidos en activos computables. En octubre de 2025 eran 3 proyectos por 5.613 millones: en un año los proyectos pasaron de 3 a 13 y la inversión anunciada se multiplicó casi por cinco.
+- El último aprobado es MARA (Agua Rica – Alumbrera), de Glencore en Catamarca, el 2 de octubre de 2026. Su resolución, la 1854 de 2026, salió en el Boletín Oficial el 27 de octubre: inversión total declarada de 6.394 millones de dólares, de los cuales 3.311 millones son activos computables (los 4.000 millones anunciados al aprobarse eran la inversión de capital estimada por Glencore). Unas 200 mil toneladas de cobre por año, con oro, plata y molibdeno; obras desde noviembre de 2027 y operación desde octubre de 2031. Se compromete a invertir 771,5 millones en los dos primeros años.
+- Por mineral: cobre 19.694 millones (71 %: Vicuña, MARA, Los Azules, PSJ Cobre Mendocino), litio 6.065 millones (Rincón, ampliación Cauchari-Olaroz, Liex, Sal de Oro II, Fénix 1B, Hombre Muerto Oeste), oro 1.101 millones (Carbonatos Profundos, Veladero), plata y oro 764 millones (Diablillos).
+- Solo 6.069 millones (28 % de lo comprometido) son obligación con fecha cierta en los dos primeros años.
+- Desembolso identificado: al menos 833 millones de dólares (3,9 % de lo comprometido), según reportes de las empresas y estimaciones de SIEMA. Ya están construidos tres proyectos de litio: Fénix 1B, Hombre Muerto Oeste y Sal de Oro II, de POSCO, cuya planta de carbonato de 23 mil toneladas por año se inauguró el 6 de octubre de 2026. El grueso del desembolso llega entre 2027 y 2029; Vicuña prevé obras principales desde 2027, y Los Azules pasó su decisión final de inversión a mediados de 2027.
 - Para la minería el RIGI sube la TIR de 13,1 % a 16,0 % y el valor presente en un tercio de la inversión (valuación de los 12 proyectos aprobados antes de MARA). En litio el valor presente pasa de negativo a positivo.
 - El régimen puede pagarse solo si alrededor de un tercio de la inversión no hubiera ocurrido sin él. La Nación carga casi tres cuartos del costo fiscal; las provincias productoras conservan las regalías.
-- Índice RIGI minero: 6,7 sobre 10 (4,9 en octubre de 2025). Con MARA, la escala de la cartera llega al máximo (10) y el compromiso con fecha cierta baja a 5,5.
+- Índice RIGI minero: 6,8 sobre 10 (4,9 en octubre de 2025). Con MARA, la escala de la cartera llega al máximo (10) y el compromiso con fecha cierta queda en 5,7 (28 % de lo comprometido).
 - Próxima etapa: incluir la infraestructura habilitante (energía, transporte, agua).
 - Fuente: análisis independiente de terceros sobre el Boletín Oficial y el portal RIGI, más reportes de empresas. No nombrar autores.
 
@@ -69,7 +69,7 @@
 
 ## Cotizaciones (barra superior del sitio)
 - Cobre, oro y plata se muestran en vivo, tomados de Panorama Minero. Carbonato de litio y NdPr son precios de referencia con fecha, porque Panorama Minero no los publica con unidades correctas; la tarea semanal de SIEMA los actualiza.
-- Referencias al 20/10/2026: cobre 6,58 dólares por libra; oro 4.120 dólares la onza; plata 56,9 dólares la onza; carbonato de litio en China (futuros de Guangzhou) unos 15.000 dólares la tonelada (unos 100 mil yuanes, el nivel más bajo en unos diez meses); óxido de NdPr en China unos 738 yuanes por kilo.
+- Referencias al 27/10/2026: cobre 6,63 dólares por libra; oro 4.024 dólares la onza; plata 53,3 dólares la onza; carbonato de litio en China (futuros de Guangzhou) unos 14.700 dólares la tonelada (98.500 yuanes el 27 de octubre); óxido de NdPr en China unos 720 yuanes por kilo (28 de octubre).
 - Si preguntan por un precio, decí el valor de referencia y su fecha, y aclarás que el precio del día está en la barra de cotizaciones del sitio.
 
 ## Estabilidad macro y riesgo país (al 28/09/2026)
@@ -119,9 +119,9 @@
 - Cuatro palancas del sistema: eficiencia material (por defecto −1 por ciento anual, ajustable de 0 a 2,5), sustitución tecnológica (sodio-ion en lugar de litio y motores sin tierras raras; por defecto, 14 por ciento de baterías sin litio en 2050), relación de precios cobre/aluminio (sustitución de cobre por aluminio) y reciclaje (cuota secundaria en 2050).
 - Sustitución del cobre por aluminio en el modelo: depende de la relación de precios cobre/aluminio sostenida, un control propio del modelo de Prospectiva (de 3,0 a 5,5 : 1) que se aplica a toda la demanda de cobre. Por debajo de 3,5 no hay sustitución; a 4,0 se desplaza a largo plazo el 1,5 por ciento de la demanda mundial de cobre; a 4,3 (el récord de agosto de 2026) el 2,5 por ciento; a 4,5 el 3,5 por ciento; a 4,8 (el nuevo récord, de mediados de octubre de 2026) cerca del 4,7 por ciento; a 5,0 el 5,5 por ciento. El efecto llega en dos a cuatro años. El escenario de Referencia supone una relación de 4,0: resta 0,6 por ciento en 2026, 1,4 por ciento en 2030 y 1,5 por ciento desde 2035. Transición acelerada y Carrera tecnológica suponen 4,5; Salto tecnológico, 4,3. No usar la cifra de 12 por ciento: era un parámetro interno de una versión anterior del modelo.
 - En toneladas: a 4,3 sostenido, el cobre desplazado rondaría 0,8 millones de toneladas por año en 2040; a 4,5, unos 1,2 millones, tanto como toda la cartera argentina de cobre (unos 1,05 millones). Es un riesgo a seguir para el precio del cobre y el ritmo de las inversiones.
-- El indicador está en la pestaña Demanda: relación actual 4,8 : 1 (19 de octubre de 2026, con precios oficiales de la LME: cobre 14.496 dólares por tonelada y aluminio 3.019; sigue en el récord de 4,8 marcado el 13 de octubre; el 8 de octubre había marcado 4,7 y en agosto 4,3), promedio histórico 3,7, umbral de sustitución 3,5 a 4 (BHP), y una tabla de cuánto cobre se pierde según la relación.
+- El indicador está en la pestaña Demanda: relación actual 4,8 : 1 (26 de octubre de 2026, con precios oficiales de la LME: cobre 14.500 dólares por tonelada y aluminio 3.047, una relación de 4,76; sigue en el nivel récord de 4,8 marcado el 13 de octubre; el 8 de octubre había marcado 4,7 y en agosto 4,3), promedio histórico 3,7, umbral de sustitución 3,5 a 4 (BHP), y una tabla de cuánto cobre se pierde según la relación.
 - Qué dicen los estudios de mercado sobre la sustitución (insumo del equipo de SIEMA): las estimaciones más confiables ubican la sustitución en 1 a 2 por ciento de la demanda mundial de cobre. JPMorgan estima alrededor de 2 por ciento en 2026, con un máximo posible de 6 por ciento hacia 2030 si la sustitución se acelera; la International Copper Association (ICA) la ubica por debajo de 2 por ciento. El modelo de SIEMA está calibrado con esas referencias.
-- El disparador es la relación de precios cobre/aluminio: la industria (BHP entre otros) considera que la sustitución se acelera cuando la tonelada de cobre cuesta más de 3,5 a 4 veces la de aluminio. El promedio histórico ronda 3,7, en agosto de 2026 llegó a un récord de 4,3 (cobre cerca de 14.400 dólares por tonelada, aluminio cerca de 3.230) y en octubre lo superó: 4,7 el 8 de octubre y 4,8 el 13 de octubre, por la baja del aluminio y la suba del cobre; el 19 de octubre seguía en 4,8. El efecto llega con años de retraso, porque hay que rediseñar y homologar productos, y tiene un freno natural: si sube la demanda de aluminio, sube su precio y la relación baja.
+- El disparador es la relación de precios cobre/aluminio: la industria (BHP entre otros) considera que la sustitución se acelera cuando la tonelada de cobre cuesta más de 3,5 a 4 veces la de aluminio. El promedio histórico ronda 3,7, en agosto de 2026 llegó a un récord de 4,3 (cobre cerca de 14.400 dólares por tonelada, aluminio cerca de 3.230) y en octubre lo superó: 4,7 el 8 de octubre y 4,8 el 13 de octubre, por la baja del aluminio y la suba del cobre; el 26 de octubre seguía en 4,8. El efecto llega con años de retraso, porque hay que rediseñar y homologar productos, y tiene un freno natural: si sube la demanda de aluminio, sube su precio y la relación baja.
 - Dónde se sustituye: líneas aéreas de transmisión (ya mayoritariamente de aluminio desde hace décadas), cables de distribución, climatización (Daikin), cableado automotriz (BMW, Ferrari) y cerca del 10 por ciento de los cables de vehículos eléctricos. Dónde casi no: bobinados de motores eléctricos, electrónica de precisión y conexiones en espacios reducidos. Razones técnicas: el aluminio conduce cerca del 61 por ciento de lo que conduce el cobre, necesita 1,6 veces más sección, pesa la mitad para la misma conducción y exige conectores especiales porque se oxida.
 - El modelo no reconstruye la relación de precios por sí mismo: la relación es un supuesto que el usuario elige. Tampoco modela todavía el freno natural (que la mayor demanda de aluminio suba su precio y baje la relación).
 - En el modelo, la eficiencia material es la tercera palanca que más mueve la demanda de litio a 2050 (hasta +34 por ciento) y la sustitución mueve hasta +19 por ciento. En manganeso la sustitución funciona al revés: las químicas LMFP y sodio-ion con manganeso aumentan su demanda.
@@ -209,5 +209,5 @@
 ### Noticias, eventos e infografías
 - P: ¿De dónde salen las noticias? R: Es una selección de actualidad minera argentina curada a partir de Panorama Minero, con webinars de inversión de Amvest Capital y una columna de opinión.
 - P: ¿Qué columna de opinión hay? R: "IA y Minería", del ingeniero Eduardo Barrera, asesor de la CRM Facility de la Unión Europea, publicada en Panorama Minero en septiembre de 2026. Su idea central: la IA no es solo software, también es materia.
-- P: ¿Qué eventos mineros vienen? R: La agenda tiene 29 eventos próximos en el mundo, de una base de 80. En Argentina: Panorama Minero Oro, Plata y Cobre, el 2 y 3 de diciembre de 2026 en Buenos Aires; el simposio GEOSUR en la UBA, del 9 al 11 de marzo de 2027; el Congreso Geológico Argentino en San Juan, del 19 al 23 de abril de 2027; y Arminera, del 18 al 20 de mayo de 2027 en La Rural. Afuera, PDAC en Toronto, del 7 al 10 de marzo de 2027, con el Día de Argentina.
+- P: ¿Qué eventos mineros vienen? R: La agenda tiene 27 eventos próximos en el mundo, de una base de 81. En Argentina: la Segunda Cumbre Internacional de Minería Sostenible, el 19 y 20 de noviembre de 2026 en Mendoza; Panorama Minero Oro, Plata y Cobre, el 2 y 3 de diciembre de 2026 en Buenos Aires; el simposio GEOSUR en la UBA, del 9 al 11 de marzo de 2027; el Congreso Geológico Argentino en San Juan, del 19 al 23 de abril de 2027; y Arminera, del 18 al 20 de mayo de 2027 en La Rural. Afuera, PDAC en Toronto, del 7 al 10 de marzo de 2027, con el Día de Argentina.
 - P: ¿Qué son las infografías? R: Una galería de 25 infografías sobre los mercados de minerales críticos, con foco en cobre y tierras raras, cada una con el crédito de su fuente.

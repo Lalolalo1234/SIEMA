@@ -3272,27 +3272,27 @@
         // Precios de referencia con fecha (no vienen del feed en vivo). La tarea semanal "Datos SIEMA" los actualiza:
         // editar solo REF_PRICES (valor, unidad, fecha y fuente).
         const REF_PRICES = {
-            asOf: '20/10/2026',
+            asOf: '28/10/2026',
             items: [
-                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 15000, unit: 'USD/t', date: '20/10', src: 'GFEX: 100.520 CNY/t el 20/10 (SMM vía KuCoin; spot SMM 102.350), a 6,722 CNY/US$ (paridad central del 16/10)' },
-                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 738, unit: 'CNY/kg', date: '20/10', src: 'Óxido de PrNd ≈740.000 CNY/t el 13/10 (Chinatungsten Online), estable el 16/10 y −2.000 CNY/t el 20/10 (SMM)' }
+                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 14700, unit: 'USD/t', date: '27/10', src: 'GFEX (LC2701): cierre 98.500 CNY/t el 27/10 (SMM; spot SMM 99.350), a 6,7171 CNY/US$ (paridad central del 27/10, Xinhua)' },
+                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 720, unit: 'CNY/kg', date: '28/10', src: 'Óxido de PrNd: promedio SMM 720.000 CNY/t el 28/10 (732.000–734.000 el 22/10, SMM)' }
             ]
         };
         function refPriceItems(lang) {
             const loc = lang === 'es' ? 'es-AR' : 'en-US';
             return REF_PRICES.items.map(r => ({ name: r[lang], price: `${r.value.toLocaleString(loc)} ${r.unit}`, ref: r.date, title: r.src }));
         }
-        // Respaldo si el feed en vivo no responde (valores del 20/10/2026: cobre COMEX vía metalcharts.org; oro y plata, Fortune)
+        // Respaldo si el feed en vivo no responde (valores del 27/10/2026: cobre COMEX vía metalcharts.org; oro y plata, Fortune)
         const FALLBACK_PRICES = {
             es: [
-                { name: 'Cobre', price: '6,58 US$/lb', ref: '20/10' },
-                { name: 'Oro', price: '4.120,00 US$/ozt', ref: '20/10' },
-                { name: 'Plata', price: '56,88 US$/oz', ref: '20/10' }
+                { name: 'Cobre', price: '6,63 US$/lb', ref: '27/10' },
+                { name: 'Oro', price: '4.024,00 US$/ozt', ref: '27/10' },
+                { name: 'Plata', price: '53,32 US$/oz', ref: '27/10' }
             ],
             en: [
-                { name: 'Copper', price: '6.58 US$/lb', ref: '20/10' },
-                { name: 'Gold', price: '4,120.00 US$/ozt', ref: '20/10' },
-                { name: 'Silver', price: '56.88 US$/oz', ref: '20/10' }
+                { name: 'Copper', price: '6.63 US$/lb', ref: '27/10' },
+                { name: 'Gold', price: '4,024.00 US$/ozt', ref: '27/10' },
+                { name: 'Silver', price: '53.32 US$/oz', ref: '27/10' }
             ]
         };
 
@@ -3698,14 +3698,14 @@
         const PRIORITY_BADGE = { es: 'Prioridad #1 del Gobierno', en: "Government's #1 Priority" };
 
         // --- RIGI minero: Régimen de Incentivo para Grandes Inversiones, proyectos mineros de producción ---
-        // Datos al 21/10/2026 (sin aprobaciones mineras nuevas desde MARA, 02/10/2026). Fuente principal: análisis independiente de terceros sobre las resoluciones
+        // Datos al 28/10/2026 (sin aprobaciones mineras nuevas desde MARA, 02/10/2026; su resolución, la 1854/2026, salió en el Boletín Oficial el 27/10/2026). Fuente principal: análisis independiente de terceros sobre las resoluciones
         // del Boletín Oficial y el portal RIGI del Ministerio de Economía (uso autorizado, sin atribución).
         // Contraste: Ámbito (14/10/2025), El Cronista (2026), DF (17/06/2026).
         // Etapa 1: solo proyectos mineros de producción. Etapa 2 (pendiente): infraestructura habilitante
         // para la minería (energía, transporte, agua).
         // Para actualizar, editar solo RIGI_DATA. El índice alimenta el 10.º eje del Pulsómetro y el IPM.
         const RIGI_DATA = {
-            asOf: '21/10/2026',
+            asOf: '28/10/2026',
             // Proyectos mineros de producción aprobados y publicados (US$ M).
             // ann = inversión anunciada (padrón); com = activos computables (resolución);
             // disb = desembolso ejecutado a la fecha (null = sin dato publicado); stage = estado según fuente pública
@@ -3723,16 +3723,16 @@
                 { n: 'Diablillos', m: 'ag', p: 'Salta', ann: 764, com: 481.7, disb: null, dt: null, stage: { es: 'Obras tempranas desde el 3T 2026; decisión final de inversión en el 2T 2027; producción antes de fin de 2029.', en: 'Early works from Q3 2026; final investment decision Q2 2027; production before end-2029.' }, src: { l: 'Mining Weekly, 25/09/2026', u: 'https://www.miningweekly.com/article/diablillos-silvergold-project-argentina-2026-09-25' } },
                 { n: 'Carbonatos Profundos (DCP)', m: 'au', p: 'San Juan', ann: 665, com: 519.6, disb: 30, dt: 'est', stage: { es: 'Factibilidad, ingeniería y pruebas piloto (plan 2026: US$ 40 M); construcción desde fines de 2027. Estimación: 9 meses del plan anual.', en: 'Feasibility, engineering and pilot tests (2026 plan: US$ 40 M); construction from late 2027. Estimate: 9 months of the annual plan.' }, src: { l: 'Diario de Cuyo, 16/02/2026', u: 'https://www.diariodecuyo.com.ar/cuyominero/gualcamayo-trabaja-en-3-frentes-con-un-plan-de-inversion-de-usd-40-millones-para-2026-1830873.html' } },
                 { n: 'Veladero, fases 8 y 9', m: 'au', p: 'San Juan', ann: 436, com: 380.1, disb: 0, dt: 'est', stage: { es: 'Licitación en 07/2026; la obra de la fase 8 empieza en 10/2026 y termina en 05/2027.', en: 'Tender in 07/2026; phase 8 works start 10/2026 and finish 05/2027.' }, src: { l: 'Tiempo de San Juan, 2026', u: 'https://www.tiempodesanjuan.com/politica-y-economia/veladero-contratara-800-trabajadores-para-una-ampliacion-y-el-gobierno-mira-con-expectativa-el-impacto-del-rigi_1782348185' } },
-                { n: 'MARA (Agua Rica – Alumbrera)', m: 'cu', p: 'Catamarca', ann: 4000, com: 4000, disb: 0, dt: 'est', stage: { es: 'RIGI aprobado el 02/10/2026. Pre-construcción: obras desde 11/2027 y operación desde 10/2031 (~200 kt Cu/año). Obligación de US$ 771 M en los dos primeros años. Comprometida: monto informado en la aprobación, a confirmar con la resolución.', en: 'RIGI approved 02/10/2026. Pre-construction: works from 11/2027 and operation from 10/2031 (~200 kt Cu/yr). US$ 771 M obligation in the first two years. Committed: amount reported at approval, to be confirmed against the resolution.' }, src: { l: 'Infobae, 02/10/2026', u: 'https://www.infobae.com/economia/2026/10/02/se-aprobo-otro-rigi-para-mineria-de-cobre-glencore-invertira-usd-4000-millones/' } }
+                { n: 'MARA (Agua Rica – Alumbrera)', m: 'cu', p: 'Catamarca', ann: 6393.6, com: 3310.6, disb: 0, dt: 'est', stage: { es: 'RIGI aprobado el 02/10/2026; Resolución 1854/2026 en el Boletín Oficial del 27/10/2026 (inversión total declarada US$ 6.394 M; los US$ 4.000 M anunciados eran el capex estimado por Glencore). Pre-construcción: obras desde 11/2027 y operación desde 10/2031 (~200 kt Cu/año). Obligación de US$ 771,5 M en los dos primeros años; mínimo completo antes del 31/12/2028.', en: 'RIGI approved 02/10/2026; Resolution 1854/2026 in the Official Gazette of 27/10/2026 (total declared investment US$ 6.394 bn; the US$ 4 bn announced was Glencore\'s estimated capex). Pre-construction: works from 11/2027 and operation from 10/2031 (~200 kt Cu/yr). US$ 771.5 M obligation in the first two years; full minimum by 31/12/2028.' }, src: { l: 'Ámbito, 27/10/2026', u: 'https://www.ambito.com/energia/rigi-el-gobierno-aprobo-el-proyecto-minero-agua-rica-catamarca-una-inversion-mas-us6390-millones-n6338228' } }
             ],
             minerals: { cu: '#b45309', li: '#0e7490', au: '#ca8a04', ag: '#94a3b8' },
             evo: [
                 { d: 'Oct 2025', n: 3, usd: 5613, src: 'Ámbito, 14/10/2025 (Rincón, Los Azules, Hombre Muerto Oeste)' },
-                { d: 'Oct 2026', n: 13, usd: 25230, src: 'Boletín Oficial / portal RIGI, 01/10/2026; MARA, 02/10/2026' }
+                { d: 'Oct 2026', n: 13, usd: 27624, src: 'Boletín Oficial / portal RIGI, 01/10/2026; MARA: Res. 1854/2026, Boletín Oficial 27/10/2026' }
             ],
-            min2y: 6069,          // 5.298 de los 12 primeros + 771 de MARA; obligación exigible en los dos primeros años (US$ M)
+            min2y: 6069,          // 5.298 de los 12 primeros + 771 de MARA (771,5 según la Res. 1854/2026); obligación exigible en los dos primeros años (US$ M)
             jobs: 65408,          // empleos declarados (sin verificar)
-            sharePortfolio: { mining: 25230, total: 53766 },  // MARA suma 4.000 a ambos
+            sharePortfolio: { mining: 27624, total: 56160 },  // MARA suma 6.394 a ambos (Res. 1854/2026; antes 4.000 anunciados)
             // Rentabilidad (precios normalizados, tasa 9,82 %)
             prof: { npv0: 6797, npv1: 12850, uplift: 6053, upPct: 33.4, irr0: 13.1, irr1: 16.0, wacc: 9.82, spotUpPct: 49.9, spotIrr0: 18.4, spotIrr1: 22.1, shareOfTotalGain: 71 },
             byMineral: [
@@ -3751,8 +3751,8 @@
             govDisb: 1920,        // estimación oficial (abril 2026): desembolsos en dos años de los primeros 12 proyectos, todos los sectores
             // Componentes del índice RIGI minero (0–10). v = oct 2026; v25 = oct 2025.
             comps: [
-                { k: 'scale', v: 10.0, v25: 2.2 }, // US$ minero aprobado / 2.500 M (10 = US$ 25.000 M, tope): 25.230 vs 5.613
-                { k: 'exec', v: 5.5, v25: 5.9 },   // mínimo 2 años / comprometido = 6.069 / 22.109 = 27,4 %; 10 = 50 %
+                { k: 'scale', v: 10.0, v25: 2.2 }, // US$ minero aprobado / 2.500 M (10 = US$ 25.000 M, tope): 27.624 vs 5.613
+                { k: 'exec', v: 5.7, v25: 5.9 },   // mínimo 2 años / comprometido = 6.069 / 21.420 = 28,3 %; 10 = 50 %
                 { k: 'attr', v: 6.2, v25: 6.2 },   // TIR minera con RIGI 16,0 % vs 9,82 %; 10 = 10 p.p. por encima
                 { k: 'fisc', v: 5.1, v25: 5.1 }    // adicionalidad de equilibrio de la cartera total 32,7 %; 0 = dos tercios o más
             ]
@@ -3768,7 +3768,7 @@
                 k3: 'Comprometido con fecha cierta', k3s: p => `Obligación exigible en los dos primeros años · ${p} % de lo comprometido`,
                 k4: 'Desembolso identificado', k4s: (p, n, N) => `Piso: ${p} % de lo comprometido · ${n} de ${N} proyectos con dato o estimación`,
                 dt: { rep: 'Reportado', est: 'Estimación SIEMA' }, totNote: (n, N) => `Piso: suma de ${n} de ${N} proyectos`,
-                evoH: 'Cartera minera aprobada', evoNote: 'Inversión anunciada de los proyectos mineros aprobados, en miles de millones de US$, y cantidad de proyectos. En un año se multiplicó por cuatro y medio.',
+                evoH: 'Cartera minera aprobada', evoNote: 'Inversión anunciada de los proyectos mineros aprobados, en miles de millones de US$, y cantidad de proyectos. En un año se multiplicó casi por cinco.',
                 projects: 'proyectos',
                 minH: 'Por mineral',
                 min: { cu: 'Cobre', li: 'Litio', au: 'Oro', ag: 'Plata y oro', auag: 'Oro y plata' },
@@ -3780,7 +3780,7 @@
                 disb: (m, c, p, g, ds, dp) => [
                     `<strong>Lo que es obligación:</strong> los 13 proyectos se comprometieron a invertir US$ ${m} M en sus dos primeros años, el ${p} % de lo comprometido (US$ ${c} M). Es la única cifra con fecha cierta: cada resolución la vuelve exigible.`,
                     `<strong>Lo que se desembolsó:</strong> no hay dato oficial; el portal del Ministerio de Economía informa montos aprobados, no ejecutados. A partir de los reportes de las empresas, SIEMA identifica al menos US$ ${ds} M, el ${dp} % de lo comprometido: tres proyectos de litio ya construidos (Fénix 1B, Hombre Muerto Oeste y Sal de Oro II, inaugurado el 06/10/2026), las obras tempranas de Vicuña y los estudios de Carbonatos Profundos. Es un piso: Rincón está en obra y no publica cuánto lleva gastado. Como referencia, una estimación oficial de abril de 2026 preveía unos US$ ${g} M en dos años para los primeros 12 proyectos aprobados de todos los sectores.`,
-                    '<strong>Lectura:</strong> el 76 % de la inversión minera comprometida (Vicuña, Los Azules, PSJ Cobre Mendocino, MARA, Diablillos y Veladero) todavía no empezó la construcción principal. El grueso del desembolso del RIGI minero cae en 2027-2029. La tabla se actualiza con cada reporte trimestral; cuando la cobertura alcance a la mayoría de los proyectos, el desembolso pasará a ser un componente del índice.'
+                    '<strong>Lectura:</strong> el 75 % de la inversión minera comprometida (Vicuña, Los Azules, PSJ Cobre Mendocino, MARA, Diablillos y Veladero) todavía no empezó la construcción principal. El grueso del desembolso del RIGI minero cae en 2027-2029. La tabla se actualiza con cada reporte trimestral; cuando la cobertura alcance a la mayoría de los proyectos, el desembolso pasará a ser un componente del índice.'
                 ],
                 profH: 'Cuánto vale el RIGI para la minería',
                 prof: (d, f) => `A precios normalizados y una tasa de descuento de ${f(d.wacc, 2)} %, el VAN de los 12 proyectos mineros valuados (MARA, aprobado el 02/10/2026, todavía no está en la valuación) pasa de US$ ${f(d.npv0)} M con el régimen general a US$ ${f(d.npv1)} M con el RIGI: el régimen agrega US$ ${f(d.uplift)} M, el ${f(d.upPct, 1)} % de su inversión, y la TIR sube de ${f(d.irr0, 1)} % a ${f(d.irr1, 1)} %. La minería se queda con más de dos tercios de la mejora de toda la cartera RIGI. Con los precios spot de agosto de 2026 el efecto es mayor: la mejora llega al ${f(d.spotUpPct, 1)} % de la inversión y la TIR pasa de ${f(d.spotIrr0, 1)} % a ${f(d.spotIrr1, 1)} %.`,
@@ -3805,13 +3805,13 @@
                 idxRow: 'Índice RIGI minero',
                 conH: 'Conclusiones para el SIEMA',
                 con: [
-                    '<strong>El RIGI funciona sobre todo como política minera.</strong> Los 13 proyectos mineros son el 47 % de la inversión anunciada del régimen, y los 12 valuados reciben más de dos tercios de su beneficio: el VAN sube un tercio de su inversión.',
-                    '<strong>El cobre manda en monto; el litio, en dependencia del régimen.</strong> Cuatro proyectos de cobre concentran más de dos tercios de la inversión minera (69 %). En el litio, en cambio, el RIGI decide si el proyecto da VAN positivo.',
-                    '<strong>Aprobado no es desembolsado.</strong> Solo el 27 % de lo comprometido tiene fecha cierta y lo desembolsado que se puede identificar no llega al 4 %. Lo que ya está construido es litio de escala media; los grandes proyectos de cobre arrancan en 2027 (MARA, a fines de 2027).',
+                    '<strong>El RIGI funciona sobre todo como política minera.</strong> Los 13 proyectos mineros son el 49 % de la inversión anunciada del régimen, y los 12 valuados reciben más de dos tercios de su beneficio: el VAN sube un tercio de su inversión.',
+                    '<strong>El cobre manda en monto; el litio, en dependencia del régimen.</strong> Cuatro proyectos de cobre concentran más de dos tercios de la inversión minera (71 %). En el litio, en cambio, el RIGI decide si el proyecto da VAN positivo.',
+                    '<strong>Aprobado no es desembolsado.</strong> Solo el 28 % de lo comprometido tiene fecha cierta y lo desembolsado que se puede identificar no llega al 4 %. Lo que ya está construido es litio de escala media; los grandes proyectos de cobre arrancan en 2027 (MARA, a fines de 2027).',
                     '<strong>Las provincias mineras ganan más que la Nación.</strong> Las regalías quedan enteras en la provincia productora; la Nación paga la mayor parte del costo fiscal. Es una tensión federal a seguir en los ejes Clima Político y Licencia Social.',
                     '<strong>Falta la infraestructura habilitante.</strong> Sin energía, transporte y agua, el ritmo de desembolso de estos proyectos depende de obras que hoy no se miden en esta pestaña.'
                 ],
-                src: 'Fuente principal: análisis independiente de terceros, con autorización de uso, sobre las resoluciones del Boletín Oficial y el <a href="https://www.argentina.gob.ar/economia/rigi" target="_blank" rel="noopener">portal RIGI del Ministerio de Economía</a>; valuación a precios normalizados con tasa de descuento de 9,82 %. Contraste: <a href="https://www.ambito.com/energia/gobierno-aprobo-proyectos-rigi-us15739-millones-quedan-12-pendientes-evaluacion-n6201605" target="_blank" rel="noopener">Ámbito (14/10/2025)</a>, <a href="https://www.cronista.com/economia-politica/rigi-dos-anos-despues-mas-proyectos-y-una-brecha-entre-anuncios-y-dolares-efectivos/" target="_blank" rel="noopener">El Cronista</a> (estimación oficial de desembolsos) y <a href="https://www.df.cl/df-sud/megaproyecto-vicuna-ultima-permisos-y-apunta-a-iniciar-las-primeras-obras" target="_blank" rel="noopener">DF (17/06/2026)</a>. MARA: <a href="https://www.infobae.com/economia/2026/10/02/se-aprobo-otro-rigi-para-mineria-de-cobre-glencore-invertira-usd-4000-millones/" target="_blank" rel="noopener">Infobae (02/10/2026)</a>. Índice RIGI minero: elaboración SIEMA. Datos al '
+                src: 'Fuente principal: análisis independiente de terceros, con autorización de uso, sobre las resoluciones del Boletín Oficial y el <a href="https://www.argentina.gob.ar/economia/rigi" target="_blank" rel="noopener">portal RIGI del Ministerio de Economía</a>; valuación a precios normalizados con tasa de descuento de 9,82 %. Contraste: <a href="https://www.ambito.com/energia/gobierno-aprobo-proyectos-rigi-us15739-millones-quedan-12-pendientes-evaluacion-n6201605" target="_blank" rel="noopener">Ámbito (14/10/2025)</a>, <a href="https://www.cronista.com/economia-politica/rigi-dos-anos-despues-mas-proyectos-y-una-brecha-entre-anuncios-y-dolares-efectivos/" target="_blank" rel="noopener">El Cronista</a> (estimación oficial de desembolsos) y <a href="https://www.df.cl/df-sud/megaproyecto-vicuna-ultima-permisos-y-apunta-a-iniciar-las-primeras-obras" target="_blank" rel="noopener">DF (17/06/2026)</a>. MARA: <a href="https://www.infobae.com/economia/2026/10/02/se-aprobo-otro-rigi-para-mineria-de-cobre-glencore-invertira-usd-4000-millones/" target="_blank" rel="noopener">Infobae (02/10/2026)</a> y Resolución 1854/2026 (<a href="https://www.ambito.com/energia/rigi-el-gobierno-aprobo-el-proyecto-minero-agua-rica-catamarca-una-inversion-mas-us6390-millones-n6338228" target="_blank" rel="noopener">Ámbito, 27/10/2026</a>). Índice RIGI minero: elaboración SIEMA. Datos al '
             },
             en: {
                 h1: 'Mining RIGI — Production projects',
@@ -3821,7 +3821,7 @@
                 k3: 'Committed with firm dates', k3s: p => `Enforceable two-year obligation · ${p} % of committed`,
                 k4: 'Identified disbursement', k4s: (p, n, N) => `Floor: ${p} % of committed · ${n} of ${N} projects with data or estimate`,
                 dt: { rep: 'Reported', est: 'SIEMA estimate' }, totNote: (n, N) => `Floor: sum of ${n} of ${N} projects`,
-                evoH: 'Approved mining portfolio', evoNote: 'Announced investment of approved mining projects, US$ bn, and number of projects. It grew four and a half times in one year.',
+                evoH: 'Approved mining portfolio', evoNote: 'Announced investment of approved mining projects, US$ bn, and number of projects. It grew almost fivefold in one year.',
                 projects: 'projects',
                 minH: 'By mineral',
                 min: { cu: 'Copper', li: 'Lithium', au: 'Gold', ag: 'Silver and gold', auag: 'Gold and silver' },
@@ -3833,7 +3833,7 @@
                 disb: (m, c, p, g, ds, dp) => [
                     `<strong>What is an obligation:</strong> the 13 projects committed to invest US$ ${m} M in their first two years, ${p} % of committed investment (US$ ${c} M). It is the only figure with a firm date: each resolution makes it enforceable.`,
                     `<strong>What has been disbursed:</strong> there is no official figure; the Ministry of Economy portal reports approved amounts, not execution. From company reports, SIEMA identifies at least US$ ${ds} M, ${dp} % of committed investment: three lithium projects already built (Fénix 1B, Hombre Muerto West and Sal de Oro II, inaugurated on 06/10/2026), Vicuña's early works and the Deep Carbonates studies. It is a floor: Rincón is under construction and does not publish how much it has spent. For reference, an official April 2026 estimate expected about US$ ${g} M over two years for the first 12 approved projects across all sectors.`,
-                    '<strong>Reading:</strong> 76 % of committed mining investment (Vicuña, Los Azules, PSJ Cobre Mendocino, MARA, Diablillos and Veladero) has not yet started main construction. The bulk of mining RIGI disbursement falls in 2027–2029. The table is updated with each quarterly report; when coverage reaches most projects, disbursement will become a component of the index.'
+                    '<strong>Reading:</strong> 75 % of committed mining investment (Vicuña, Los Azules, PSJ Cobre Mendocino, MARA, Diablillos and Veladero) has not yet started main construction. The bulk of mining RIGI disbursement falls in 2027–2029. The table is updated with each quarterly report; when coverage reaches most projects, disbursement will become a component of the index.'
                 ],
                 profH: 'What RIGI is worth to mining',
                 prof: (d, f) => `At normalised prices and a ${f(d.wacc, 2)} % discount rate, the NPV of the 12 valued mining projects (MARA, approved on 02/10/2026, is not yet in the valuation) rises from US$ ${f(d.npv0)} M under the general regime to US$ ${f(d.npv1)} M under RIGI: the regime adds US$ ${f(d.uplift)} M, ${f(d.upPct, 1)} % of their investment, and IRR rises from ${f(d.irr0, 1)} % to ${f(d.irr1, 1)} %. Mining captures more than two thirds of the gain of the whole RIGI portfolio. At August 2026 spot prices the effect is larger: the gain reaches ${f(d.spotUpPct, 1)} % of investment and IRR goes from ${f(d.spotIrr0, 1)} % to ${f(d.spotIrr1, 1)} %.`,
@@ -3858,13 +3858,13 @@
                 idxRow: 'Mining RIGI index',
                 conH: 'Conclusions for SIEMA',
                 con: [
-                    '<strong>RIGI works above all as a mining policy.</strong> The 13 mining projects are 47 % of the regime\'s announced investment, and the 12 valued ones receive more than two thirds of its benefit: NPV rises by a third of their investment.',
-                    '<strong>Copper leads in size; lithium in dependence on the regime.</strong> Four copper projects hold more than two thirds of mining investment (69 %). In lithium, by contrast, RIGI decides whether the project has a positive NPV.',
-                    '<strong>Approved is not disbursed.</strong> Only 27 % of committed investment has a firm date and identifiable disbursement is below 4 %. What is already built is mid-sized lithium; the large copper projects start in 2027 (MARA in late 2027).',
+                    '<strong>RIGI works above all as a mining policy.</strong> The 13 mining projects are 49 % of the regime\'s announced investment, and the 12 valued ones receive more than two thirds of its benefit: NPV rises by a third of their investment.',
+                    '<strong>Copper leads in size; lithium in dependence on the regime.</strong> Four copper projects hold more than two thirds of mining investment (71 %). In lithium, by contrast, RIGI decides whether the project has a positive NPV.',
+                    '<strong>Approved is not disbursed.</strong> Only 28 % of committed investment has a firm date and identifiable disbursement is below 4 %. What is already built is mid-sized lithium; the large copper projects start in 2027 (MARA in late 2027).',
                     '<strong>Mining provinces gain more than the nation.</strong> Royalties stay entirely in the producing province; the national government pays most of the fiscal cost. A federal tension to follow in the Political Climate and Social License axes.',
                     '<strong>Enabling infrastructure is missing.</strong> Without energy, transport and water, the pace of disbursement depends on works this tab does not yet measure.'
                 ],
-                src: 'Main source: independent third-party analysis, used with permission, of the Official Gazette resolutions and the <a href="https://www.argentina.gob.ar/economia/rigi" target="_blank" rel="noopener">Ministry of Economy RIGI portal</a>; valuation at normalised prices with a 9.82 % discount rate. Cross-checked with <a href="https://www.ambito.com/energia/gobierno-aprobo-proyectos-rigi-us15739-millones-quedan-12-pendientes-evaluacion-n6201605" target="_blank" rel="noopener">Ámbito (14/10/2025)</a>, <a href="https://www.cronista.com/economia-politica/rigi-dos-anos-despues-mas-proyectos-y-una-brecha-entre-anuncios-y-dolares-efectivos/" target="_blank" rel="noopener">El Cronista</a> (official disbursement estimate) and <a href="https://www.df.cl/df-sud/megaproyecto-vicuna-ultima-permisos-y-apunta-a-iniciar-las-primeras-obras" target="_blank" rel="noopener">DF (17/06/2026)</a>. MARA: <a href="https://www.infobae.com/economia/2026/10/02/se-aprobo-otro-rigi-para-mineria-de-cobre-glencore-invertira-usd-4000-millones/" target="_blank" rel="noopener">Infobae (02/10/2026)</a>. Mining RIGI index: SIEMA. Data as of '
+                src: 'Main source: independent third-party analysis, used with permission, of the Official Gazette resolutions and the <a href="https://www.argentina.gob.ar/economia/rigi" target="_blank" rel="noopener">Ministry of Economy RIGI portal</a>; valuation at normalised prices with a 9.82 % discount rate. Cross-checked with <a href="https://www.ambito.com/energia/gobierno-aprobo-proyectos-rigi-us15739-millones-quedan-12-pendientes-evaluacion-n6201605" target="_blank" rel="noopener">Ámbito (14/10/2025)</a>, <a href="https://www.cronista.com/economia-politica/rigi-dos-anos-despues-mas-proyectos-y-una-brecha-entre-anuncios-y-dolares-efectivos/" target="_blank" rel="noopener">El Cronista</a> (official disbursement estimate) and <a href="https://www.df.cl/df-sud/megaproyecto-vicuna-ultima-permisos-y-apunta-a-iniciar-las-primeras-obras" target="_blank" rel="noopener">DF (17/06/2026)</a>. MARA: <a href="https://www.infobae.com/economia/2026/10/02/se-aprobo-otro-rigi-para-mineria-de-cobre-glencore-invertira-usd-4000-millones/" target="_blank" rel="noopener">Infobae (02/10/2026)</a> and Resolution 1854/2026 (<a href="https://www.ambito.com/energia/rigi-el-gobierno-aprobo-el-proyecto-minero-agua-rica-catamarca-una-inversion-mas-us6390-millones-n6338228" target="_blank" rel="noopener">Ámbito, 27/10/2026</a>). Mining RIGI index: SIEMA. Data as of '
             }
         };
 
@@ -3950,8 +3950,8 @@
         // --- Demanda: relación de precios cobre/aluminio (indicador de sustitución) ---
         // Para actualizar: editar CUAL_DATA (relación, fecha y estimaciones). La curva es la misma del modelo Convergencias 2050.
         const CUAL_DATA = {
-            asOf: '19/10/2026',
-            now: 4.8,          // relación Cu/Al (US$/t ÷ US$/t): 19/10/2026, cash oficial LME (Westmetall) cobre 14.496 ÷ aluminio 3.019 = 4,80 (sigue en el récord). Antes, récord del 13/10/2026: cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
+            asOf: '26/10/2026',
+            now: 4.8,          // relación Cu/Al (US$/t ÷ US$/t): 26/10/2026, cash oficial LME (Westmetall) cobre 14.500 ÷ aluminio 3.047,5 = 4,76 (sigue en 4,8, cerca del récord). Antes, 19/10/2026: 14.496 ÷ 3.019 = 4,80. Antes, récord del 13/10/2026: cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
             hist: 3.7,         // promedio histórico de largo plazo
             curve: [[3.5, 0], [4.0, 0.015], [4.2, 0.02], [4.5, 0.035], [5.0, 0.055], [5.5, 0.07]],
             cuDemand2040: 34,  // Mt, demanda total de cobre 2040 (AIE STEPS), para pasar porcentajes a toneladas
@@ -3975,13 +3975,13 @@
                 tech: 'Por qué: el aluminio conduce cerca del 61 % de lo que conduce el cobre y necesita 1,6 veces más sección, pero para la misma conducción pesa la mitad. Lo frenan los conectores (se oxida y se deforma bajo presión), las normas eléctricas y el costo de rediseñar.',
                 readH: 'Lectura del SIEMA',
                 read: (t35, ar) => [
-                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un nuevo récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto) y el 19 de octubre seguía en ese nivel: si se sostuviera, el desplazamiento de largo plazo subiría a casi el 5 %. Es un efecto real, no un cambio de era.',
+                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un nuevo récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto) y el 26 de octubre seguía en ese nivel (4,76): si se sostuviera, el desplazamiento de largo plazo subiría a casi el 5 %. Es un efecto real, no un cambio de era.',
                     `<strong>Para Argentina, el número importa.</strong> Si la relación se sostuviera en 4,5 : 1, el cobre desplazado rondaría ${t35} Mt por año en 2040: tanto como toda la cartera argentina de cobre (~${ar} Mt por año). Es un riesgo a seguir para el precio del cobre y, por esa vía, para el ritmo de las decisiones de inversión de los proyectos.`,
                     '<strong>Tiene un freno natural.</strong> Si sube la demanda de aluminio, sube su precio y la relación baja. Por eso los niveles de 5 : 1 o más son difíciles de sostener.',
                     '<strong>Qué seguir.</strong> La relación mensual, las decisiones de diseño de la industria automotriz y de climatización, y las normas eléctricas de los grandes mercados.'
                 ],
                 btn: 'Mover la relación en el modelo de Prospectiva',
-                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales cash de la LME del 19/10/2026 según Westmetall (cobre US$ 14.496/t; aluminio US$ 3.019/t: 4,80); récord del 13/10/2026: cobre oficial US$ 14.741/t (KME) y aluminio US$ 3.037/t (metalcharts.org), 4,85; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
+                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales cash de la LME del 26/10/2026 según Westmetall (cobre US$ 14.500/t; aluminio US$ 3.047,5/t: 4,76); récord del 13/10/2026: cobre oficial US$ 14.741/t (KME) y aluminio US$ 3.037/t (metalcharts.org), 4,85; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
             },
             en: {
                 h2: 'Copper/aluminium price ratio: the substitution indicator',
@@ -4000,13 +4000,13 @@
                 tech: 'Why: aluminium conducts about 61 % as well as copper and needs 1.6 times the cross-section, but weighs half as much for the same conduction. Connectors (it oxidises and creeps under pressure), electrical codes and redesign costs hold it back.',
                 readH: 'SIEMA reading',
                 read: (t35, ar) => [
-                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a new record of 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August) and was still at that level on 19 October: if sustained, long-term displacement would rise to almost 5 %. A real effect, not a change of era.',
+                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a new record of 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August) and was still at that level on 26 October (4.76): if sustained, long-term displacement would rise to almost 5 %. A real effect, not a change of era.',
                     `<strong>For Argentina, the number matters.</strong> If the ratio held at 4.5 : 1, displaced copper would be around ${t35} Mt a year in 2040: as much as Argentina's entire copper pipeline (~${ar} Mt a year). It is a risk to watch for the copper price and, through it, for the pace of the projects' investment decisions.`,
                     '<strong>It has a natural brake.</strong> If aluminium demand rises, its price rises and the ratio falls. That is why levels of 5 : 1 or more are hard to sustain.',
                     '<strong>What to watch.</strong> The monthly ratio, design decisions in the automotive and air-conditioning industries, and electrical codes in the big markets.'
                 ],
                 btn: 'Move the ratio in the Foresight model',
-                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official cash prices on 19/10/2026 per Westmetall (copper US$ 14,496/t; aluminium US$ 3,019/t: 4.80); 13/10/2026 record: official copper US$ 14,741/t (KME) and aluminium US$ 3,037/t (metalcharts.org), 4.85; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
+                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official cash prices on 26/10/2026 per Westmetall (copper US$ 14,500/t; aluminium US$ 3,047.5/t: 4.76); 13/10/2026 record: official copper US$ 14,741/t (KME) and aluminium US$ 3,037/t (metalcharts.org), 4.85; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
             }
         };
         function cualShareAt(r) {
@@ -4066,9 +4066,9 @@
             const disbSum = disbKnown.reduce((s, r) => s + r.disb, 0), disbPct = disbSum / com * 100;
 
             // Evolución
-            const maxU = 25000, W = 420, H = 200, bw = 110, gap = (W - 60 - d.evo.length * bw) / d.evo.length;
+            const maxU = 30000, W = 420, H = 200, bw = 110, gap = (W - 60 - d.evo.length * bw) / d.evo.length;
             let evo = `<svg viewBox="0 0 ${W} ${H + 40}" class="rigi-evo" role="img" aria-label="${t.evoH}">`;
-            [0, 5000, 10000, 15000, 20000, 25000].forEach(v => { const y = H - v / maxU * (H - 20); evo += `<line x1="40" x2="${W}" y1="${y}" y2="${y}" stroke="#e5e9ef"/><text x="34" y="${y + 4}" text-anchor="end" font-size="11" fill="#667">${v / 1000}</text>`; });
+            [0, 5000, 10000, 15000, 20000, 25000, 30000].forEach(v => { const y = H - v / maxU * (H - 20); evo += `<line x1="40" x2="${W}" y1="${y}" y2="${y}" stroke="#e5e9ef"/><text x="34" y="${y + 4}" text-anchor="end" font-size="11" fill="#667">${v / 1000}</text>`; });
             d.evo.forEach((p, i) => {
                 const x = 50 + gap / 2 + i * (bw + gap), h = p.usd / maxU * (H - 20), y = H - h;
                 evo += `<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="3" fill="${i === d.evo.length - 1 ? '#1e3c72' : '#94a3b8'}"><title>${p.src}</title></rect>`;

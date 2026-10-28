@@ -4,8 +4,8 @@ window.SIEMA_EVENTS = {
  "metadata": {
   "title": "Mining Events Database",
   "description": "Upcoming mining conferences, exhibitions, and symposiums",
-  "last_updated": "2026-10-21",
-  "total_events": 80,
+  "last_updated": "2026-10-28",
+  "total_events": 81,
   "source": "CeProMinDB (lalolalo1234/CeProMinDB) + SIEMA"
  },
  "events": [
@@ -1910,6 +1910,32 @@ window.SIEMA_EVENTS = {
    "region": "Latin America",
    "siema": true,
    "notes": "Minerales críticos y tecnología en América Latina; competencia y complemento regional para el litio, el cobre y las tierras raras argentinas."
+  },
+  {
+   "id": 1021,
+   "name": "II Cumbre Internacional de Minería Sostenible Mendoza 2026",
+   "type": "Summit / Conference",
+   "start_date": "2026-11-19",
+   "end_date": "2026-11-20",
+   "city": "Mendoza",
+   "country": "Argentina",
+   "venue": "Hotel Hilton Mendoza",
+   "organizer": "Gobierno de Mendoza",
+   "website": "https://cumbredemineriamendoza.com.ar/",
+   "focus": [
+    "sustainability",
+    "governance",
+    "investment",
+    "social license"
+   ],
+   "commodities": [
+    "copper",
+    "potash",
+    "critical minerals"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Segunda edición, anunciada por el gobernador Cornejo (Prensa Mendoza, 26/06/2026); sede según la agenda de CAEM. Ejes: institucionalidad y gobernanza, ambiente y sociedad, economía y finanzas. Clave para PSJ Cobre Mendocino y el Distrito Minero Malargüe Occidental."
   }
  ]
 };
