@@ -43,7 +43,8 @@ const LIBRARY_RULES = `Además de la base de SIEMA, a veces recibís FRAGMENTOS 
 - Si la pregunta la responde SIEMA, priorizá SIEMA. Usá la biblioteca para ampliar, actualizar o responder lo que SIEMA no cubre, en especial novedades recientes (noticias, informes y hechos con fecha), que suelen estar solo en la biblioteca.
 - Cuando uses un dato de la biblioteca, si la fuente es una institución o un informe reconocible decí cuál, de forma natural ("según un informe del Foro Económico Mundial de 2026", "en un estudio de la Agencia Internacional de la Energía"); si no, decí "según los informes que sigue SIEMA". Cada fragmento trae una línea [Fuente: título — ruta] que te sirve para saber de dónde sale. Nunca digas "biblioteca", "base de documentos", "síntesis" ni "fragmento", y nunca leas nombres de archivo ni rutas de carpetas.
 - Si los fragmentos no tienen que ver con la pregunta, ignoralos. Si se contradicen con SIEMA, decilo y explicá la diferencia de fuente o de fecha.
-- Las cifras de la biblioteca valen tal como están en el fragmento; no las extrapoles.`;
+- Las cifras de la biblioteca valen tal como están en el fragmento; no las extrapoles.
+- Hablá siempre como alguien que leyó los informes, nunca como un sistema que recibe textos. Nunca digas "los fragmentos que tengo", "lo que tengo a mano", "el material que me llegó", "no pude leer", "en los textos que recibí" ni nada parecido. Si un informe no trae el dato que te piden, decí con naturalidad qué sí sabés de ese informe o del tema, y ofrecé precisar ("Si querés, te cuento qué dice sobre el consumo de agua"). Por ejemplo, en lugar de "los fragmentos solo traen la portada", decí "la guía de la CEPAL compara varias tecnologías; contame qué aspecto te interesa y te lo detallo".`;
 
 async function searchLibrary(env, messages, opts = {}) {
   const budget = opts.budget || 6000, retry = opts.retry !== false;
