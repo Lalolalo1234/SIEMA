@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuntur por escrito · SIEMA</title>
+<meta name="description" content="Preguntale a Kuntur, el asistente de SIEMA, y recibí la respuesta por escrito.">
+<meta name="robots" content="noindex">
+<style>
+:root {
+  --bg: #0f1628; --panel: #172238; --panel2: #1e2c47; --ink: #eef2f7; --ink2: #b6c2d3; --ink3: #8695ab;
+  --line: #2b3b5a; --accent: #7fd3cf; --accent-ink: #0f1628; --user: #24365a; --err: #f2a29a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 "Helvetica Neue", Arial, sans-serif; display: flex; flex-direction: column; }
+header { padding: 18px 20px 12px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+header h1 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+header h1 span { color: var(--accent); }
+header p { margin: 2px 0 0; color: var(--ink3); font-size: 13.5px; }
+header a { color: var(--ink2); font-size: 13.5px; }
+main { flex: 1; overflow-y: auto; padding: 20px 16px 8px; }
+.wrap { max-width: 820px; margin: 0 auto; display: grid; gap: 14px; }
+.msg { padding: 12px 16px; border-radius: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg.u { background: var(--user); justify-self: end; max-width: 85%; }
+.msg.k { background: var(--panel); border: 1px solid var(--line); }
+.msg.k .who { color: var(--accent); font-size: 12.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px; display: block; white-space: normal; }
+.msg.k .src { color: var(--ink3); font-size: 13.5px; }
+.msg.err { color: var(--err); }
+.msg .tools { margin-top: 8px; white-space: normal; }
+.msg .tools button { font: inherit; font-size: 12.5px; color: var(--ink2); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+.empty { color: var(--ink2); }
+.empty h2 { font-size: 18px; margin: 0 0 6px; color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chips button { font: inherit; font-size: 14px; text-align: left; color: var(--ink); background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+.chips button:hover, .msg .tools button:hover { border-color: var(--accent); }
+form { border-top: 1px solid var(--line); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); }
+form .wrap { grid-template-columns: 1fr auto auto; align-items: end; gap: 8px; }
+textarea { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; resize: none; min-height: 46px; max-height: 180px; }
+textarea:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.send { font: inherit; font-weight: 700; background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 10px; padding: 11px 18px; cursor: pointer; }
+.send[disabled] { opacity: .5; cursor: default; }
+.new { font: inherit; font-size: 14px; color: var(--ink2); background: none; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+.dots::after { content: '…'; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .2; } }
+@media (max-width: 560px) { form .wrap { grid-template-columns: 1fr auto; } .new { display: none; } }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Kuntur <span>por escrito</span></h1>
+    <p>El asistente de SIEMA responde con la base de SIEMA y los informes que sigue el sistema.</p>
+  </div>
+  <a href="../index.html">Volver a SIEMA</a>
+</header>
+<main id="log" aria-live="polite">
+  <div class="wrap" id="wrap">
+    <div class="empty" id="empty">
+      <h2>¿Qué querés saber?</h2>
+      <div>Escribí tu pregunta abajo o elegí una de estas. Podés seguir preguntando sobre la misma respuesta.</div>
+      <div class="chips" id="chips"></div>
+    </div>
+  </div>
+</main>
+<form id="f">
+  <div class="wrap">
+    <textarea id="q" rows="1" placeholder="Escribí tu pregunta y presioná Enter" aria-label="Pregunta"></textarea>
+    <button type="button" class="new" id="new" title="Empezar una conversación nueva">Nueva</button>
+    <button type="submit" class="send" id="send">Preguntar</button>
+  </div>
+</form>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  var API = (params.get('api') || 'https://kuntur.oma-observatorio.workers.dev').replace(/\/+$/, '') + '/ask';
+  var $ = function (id) { return document.getElementById(id); };
+  var history = [], busy = false;
+  var SUG = [
+    '¿En qué estado está Los Azules y cuándo empezaría a producir?',
+    '¿Cuándo pedirá Taca Taca el RIGI y qué falta para su aprobación ambiental?',
+    '¿Qué aprobó el RIGI para MARA y cómo exportará el concentrado?',
+    '¿Qué inversión y qué plazos tiene El Pachón?',
+    'Compará Los Azules, Taca Taca, MARA y El Pachón: inversión, producción y fecha de inicio.'
+  ];
+  SUG.forEach(function (t) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = t;
+    b.addEventListener('click', function () { ask(t); });
+    $('chips').appendChild(b);
+  });
+  function add(cls, text) {
+    var d = document.createElement('div'); d.className = 'msg ' + cls;
+    if (cls === 'k') { var w = document.createElement('span'); w.className = 'who'; w.textContent = 'Kuntur'; d.appendChild(w); }
+    var t = document.createElement('div'); t.textContent = text || ''; d.appendChild(t);
+    $('wrap').appendChild(d); scroll(); return t;
+  }
+  function scroll() { var m = $('log'); m.scrollTop = m.scrollHeight; }
+  function clean(s) { return s.split('###')[0].replace(/\n{3,}/g, '\n\n').trim(); }
+  function render(el, text) {
+    el.textContent = '';
+    var i = text.search(/\n\s*Fuentes?:/i);
+    var body = i >= 0 ? text.slice(0, i) : text, src = i >= 0 ? text.slice(i).trim() : '';
+    el.appendChild(document.createTextNode(body.replace(/\*\*(.+?)\*\*/g, '$1')));
+    if (src) { var p = document.createElement('div'); p.className = 'src'; p.textContent = '\n' + src; el.appendChild(p); }
+  }
+  async function ask(q) {
+    q = (q || '').trim(); if (!q || busy) return;
+    busy = true; $('send').disabled = true; $('empty') && $('empty').remove();
+    add('u', q); history.push({ role: 'user', content: q });
+    var el = add('k', ''); el.className = 'dots';
+    var full = '';
+    try {
+      var r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-8), lang: 'es', modo: 'texto' }) });
+      if (!r.ok || !r.body) throw new Error(await r.text());
+      var rd = r.body.getReader(), dec = new TextDecoder();
+      el.className = '';
+      for (;;) { var x = await rd.read(); if (x.done) break; full += dec.decode(x.value, { stream: true }); render(el, clean(full)); scroll(); }
+      full = clean(full);
+      if (!full) throw new Error('Respuesta vacía');
+      render(el, full);
+      history.push({ role: 'assistant', content: full });
+      var tools = document.createElement('div'); tools.className = 'tools';
+      var c = document.createElement('button'); c.type = 'button'; c.textContent = 'Copiar respuesta';
+      c.addEventListener('click', function () { navigator.clipboard && navigator.clipboard.writeText(full).then(function () { c.textContent = 'Copiada'; }); });
+      tools.appendChild(c); el.parentNode.appendChild(tools);
+    } catch (e) {
+      history.pop();
+      el.className = ''; el.parentNode.classList.add('err');
+      el.textContent = 'No pude responder ahora. Probá de nuevo en un momento.';
+      console.warn('Kuntur:', e);
+    }
+    busy = false; $('send').disabled = false; scroll(); $('q').focus();
+  }
+  $('f').addEventListener('submit', function (e) { e.preventDefault(); var q = $('q').value; $('q').value = ''; $('q').style.height = ''; ask(q); });
+  $('q').addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('f').requestSubmit(); } });
+  $('q').addEventListener('input', function () { this.style.height = ''; this.style.height = Math.min(this.scrollHeight, 180) + 'px'; });
+  $('new').addEventListener('click', function () { history = []; location.reload(); });
+})();
+</script>
+</body>
+</html>

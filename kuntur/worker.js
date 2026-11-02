@@ -81,6 +81,14 @@ const DIALOG_RULES = `MODO DIÁLOGO (ensayo): ahora no hay público. Estás conv
 - Si te pide más detalle, extendete lo necesario.
 - En este modo NO hay subtítulos: escribí solo la respuesta que vas a decir. No agregues la marca ### ni la traducción (esto reemplaza la regla de formato de salida).`;
 
+const TEXT_RULES = `MODO ESCRITO: esta vez la respuesta se lee en pantalla, no se escucha. Estas reglas reemplazan a las de "Cómo responder" sobre largo, números y formato, y a la del formato de salida:
+- Respondé por escrito, claro y completo, en unas 120 a 250 palabras salvo que la pregunta pida más detalle.
+- Usá cifras, unidades y símbolos normales (US$ 6.394 M, 291 kt/año, 25 %).
+- Podés usar párrafos cortos y, si ayuda, una lista breve con guiones. Nada de títulos ni tablas.
+- Si los datos tienen fecha, indicala (por ejemplo, "a octubre de 2026").
+- Al final, en una línea aparte, poné "Fuentes:" y nombrá de dónde salen los datos de forma reconocible (SIEMA, Secretaría de Minería, informe técnico de la empresa, Boletín Oficial, prensa sectorial). Nunca nombres archivos ni rutas.
+- No agregues la marca ### ni la traducción.`;
+
 let knowledgeCache = { text: '', at: 0 };
 
 async function getKnowledge(env) {
@@ -148,6 +156,7 @@ export default {
       { type: 'text', text: 'BASE DE CONOCIMIENTO DE SIEMA:\n\n' + knowledge, cache_control: { type: 'ephemeral' } }
     ];
     if (body.modo === 'dialogo') system.push({ type: 'text', text: DIALOG_RULES });
+    if (body.modo === 'texto') system.push({ type: 'text', text: TEXT_RULES });
     if (hits.length) {
       const docs = hits.map((x, i) => `[Fragmento ${i + 1}]\n${x.text.slice(0, 2500)}`).join('\n\n');
       system.push({ type: 'text', text: LIBRARY_RULES + '\n\nFRAGMENTOS DE LA BIBLIOTECA (relevantes para esta pregunta):\n\n' + docs });
@@ -161,7 +170,7 @@ export default {
       },
       body: JSON.stringify({
         model: env.MODEL || DEFAULTS.MODEL,
-        max_tokens: 900,
+        max_tokens: body.modo === 'texto' ? 1500 : 900,
         stream: true,
         output_config: { effort: 'low' },
         thinking: { type: 'between_tools' },
