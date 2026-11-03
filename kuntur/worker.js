@@ -5,6 +5,7 @@
 //
 // Variables en Cloudflare (Settings → Variables and Secrets):
 //   ANTHROPIC_API_KEY  (Secret, obligatoria)  la clave de console.anthropic.com
+//   ANTHROPIC_WORKSPACE_ID (Text, opcional) solo si la clave es personal (sk-ant-usr…): el ID wrkspc_… del espacio de trabajo
 //   ALLOWED_ORIGIN     (Text, opcional)       por defecto https://lalolalo1234.github.io
 //   KNOWLEDGE_URL      (Text, opcional)       por defecto el conocimiento.md publicado en SIEMA
 //   MODEL              (Text, opcional)       por defecto claude-sonnet-5-5
@@ -163,11 +164,12 @@ export default {
     }
     const upstream = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: {
-        'x-api-key': env.ANTHROPIC_API_KEY,
+      headers: Object.assign({
+        // Authorization: Bearer sirve para todas las claves (las de espacio de trabajo sk-ant-api… y las personales sk-ant-usr…)
+        'authorization': 'Bearer ' + String(env.ANTHROPIC_API_KEY).trim(),
         'anthropic-version': '2023-06-01',
         'content-type': 'application/json'
-      },
+      }, env.ANTHROPIC_WORKSPACE_ID ? { 'anthropic-workspace-id': String(env.ANTHROPIC_WORKSPACE_ID).trim() } : {}),
       body: JSON.stringify({
         model: env.MODEL || DEFAULTS.MODEL,
         max_tokens: body.modo === 'texto' ? 1500 : 900,
