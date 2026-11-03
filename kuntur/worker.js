@@ -121,7 +121,10 @@ export default {
 
     if (request.method === 'OPTIONS') return new Response(null, { headers: h });
     if (request.method === 'GET' && url.pathname === '/health') {
-      return new Response(JSON.stringify({ ok: true, key: !!env.ANTHROPIC_API_KEY, library: !!(env.DOCS || env.AI), model: env.MODEL || DEFAULTS.MODEL }), { headers: { ...h, 'Content-Type': 'application/json' } });
+      const k = String(env.ANTHROPIC_API_KEY || '');
+      // Diagnóstico sin revelar la clave: solo el tipo (prefijo público), el largo y si tiene espacios o comillas
+      const keyInfo = { tipo: (k.match(/^sk-ant-[a-z]+\d*-/) || ['desconocido'])[0], largo: k.length, espacios: /\s/.test(k), comillas: /["']/.test(k) };
+      return new Response(JSON.stringify({ ok: true, key: !!env.ANTHROPIC_API_KEY, keyInfo, workspace: !!env.ANTHROPIC_WORKSPACE_ID, library: !!(env.DOCS || env.AI), model: env.MODEL || DEFAULTS.MODEL }), { headers: { ...h, 'Content-Type': 'application/json' } });
     }
     if (request.method !== 'POST' || url.pathname !== '/ask') return new Response('Not found', { status: 404, headers: h });
     if (h['Access-Control-Allow-Origin'] !== origin) return new Response('Origen no permitido', { status: 403, headers: h });
