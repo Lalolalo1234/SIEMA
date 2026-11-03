@@ -1456,6 +1456,7 @@
                 <li><button class="nav-btn" data-tab="prospectiva">Prospectiva</button></li>
                 <li><button class="nav-btn" data-tab="noticias-eventos">Noticias y eventos</button></li>
                 <li><button class="nav-btn" data-tab="acerca">Acerca de</button></li>
+                <li class="kc-li"><button type="button" class="kc-fab" id="kcFab" aria-controls="kcPanel" aria-expanded="false"><img src="kuntur/avatar.jpg" alt=""><span class="kc-lbl" id="kcFabLbl">Preguntale a Kuntur</span><span class="kc-car" aria-hidden="true">▾</span></button></li>
             </ul>
         </div>
     </nav>
@@ -5406,6 +5407,305 @@
         }
 
         renderOmaConsole(typeof currentLang !== 'undefined' ? currentLang : 'es');
+    })();
+    </script>
+
+    <!-- Kuntur: chat por escrito dentro de SIEMA -->
+    <style>
+        .nav-menu li.kc-li { display: flex; align-items: center; padding-left: 0.6rem; }
+        .nav-menu li.kc-li { position: sticky; right: 0; z-index: 2; background: #fff; padding-right: 2px; box-shadow: -10px 0 10px -6px rgba(255,255,255,.95); }
+        .nav-menu button.kc-fab { width: auto; display: inline-flex; align-items: center; gap: 7px; padding: 3px 12px 3px 3px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: #fff; border: 0; border-radius: 999px;
+            font-weight: 600; font-size: 0.82rem; overflow: visible; }
+        .nav-menu button.kc-fab:hover { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: #fff; filter: brightness(1.1); }
+        .kc-fab img { width: 28px; height: 28px; border-radius: 50%; display: block; border: 1.5px solid rgba(255,255,255,.7); }
+        .kc-fab .kc-car { font-size: 0.75rem; transition: transform .2s; }
+        .kc-fab[aria-expanded="true"] .kc-car { transform: rotate(180deg); }
+        .kc-fab:focus-visible, .kc-panel button:focus-visible, .kc-panel textarea:focus { outline: 2px solid #2a5298; outline-offset: 2px; }
+        .kc-panel { position: fixed; right: 16px; top: 60px; z-index: 901; width: 380px; max-width: calc(100vw - 24px);
+            height: 470px; max-height: calc(100vh - 80px); background: #fff; border: 1px solid #d9e0ea; border-radius: 14px;
+            box-shadow: 0 12px 40px rgba(20,35,70,.25); display: none; flex-direction: column; overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #26303d; }
+        .kc-panel.open { display: flex; }
+        .kc-head { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #fff;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+        .kc-head img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid rgba(255,255,255,.6); }
+        .kc-head .kc-t { flex: 1; min-width: 0; line-height: 1.25; }
+        .kc-head strong { display: block; font-size: 16px; }
+        .kc-head span { font-size: 12.5px; opacity: .85; }
+        .kc-head button { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.3); border-radius: 8px;
+            font: inherit; font-size: 13px; padding: 4px 9px; cursor: pointer; }
+        .kc-head button.kc-x { font-size: 18px; line-height: 1; padding: 3px 9px; }
+        .kc-log { flex: 1; overflow-y: auto; padding: 14px 14px 6px; display: flex; flex-direction: column; gap: 10px; background: #f6f8fb; }
+        .kc-msg { padding: 9px 12px; border-radius: 12px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14.5px; line-height: 1.5; }
+        .kc-msg.u { align-self: flex-end; max-width: 85%; background: #2a5298; color: #fff; border-bottom-right-radius: 4px; }
+        .kc-msg.k { align-self: stretch; background: #fff; border: 1px solid #e1e7ef; border-bottom-left-radius: 4px; }
+        .kc-msg.k .kc-src { color: #6b7789; font-size: 12.5px; margin-top: 6px; }
+        .kc-msg.err { color: #a33a2e; }
+        .kc-msg .kc-copy { margin-top: 6px; font: inherit; font-size: 12px; color: #2a5298; background: none; border: 1px solid #cfd8e6;
+            border-radius: 999px; padding: 2px 9px; cursor: pointer; }
+        .kc-wait::after { content: '…'; animation: kcBlink 1s infinite; }
+        @keyframes kcBlink { 50% { opacity: .2; } }
+        .kc-intro { font-size: 14px; color: #4a5566; }
+        .kc-chips button { padding: 6px 10px; font-size: 13px; }
+        .kc-chips { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+        .kc-chips button { text-align: left; font: inherit; font-size: 13.5px; color: #1e3c72; background: #fff; border: 1px solid #d3dcea;
+            border-radius: 10px; padding: 7px 10px; cursor: pointer; }
+        .kc-chips button:hover, .kc-msg .kc-copy:hover { border-color: #2a5298; background: #eef3fb; }
+        .kc-form { display: flex; gap: 8px; align-items: flex-end; padding: 10px 12px; border-top: 1px solid #e1e7ef; background: #fff; }
+        .kc-form textarea { flex: 1; font: inherit; font-size: 14.5px; color: #26303d; border: 1px solid #cfd8e6; border-radius: 10px;
+            padding: 8px 10px; resize: none; min-height: 40px; max-height: 140px; background: #fff; }
+        .kc-form button { font: inherit; font-weight: 600; font-size: 14px; background: #2a5298; color: #fff; border: 0; border-radius: 10px;
+            padding: 10px 14px; cursor: pointer; }
+        .kc-form button[disabled] { opacity: .5; cursor: default; }
+        .kc-reg { flex: 1; overflow-y: auto; padding: 12px 14px; background: #f6f8fb; display: flex; flex-direction: column; gap: 3px; font-size: 13.5px; }
+        .kc-reg[hidden] { display: none; }
+        .kc-reg-lead { color: #3d4757; margin: 0 0 6px; line-height: 1.45; }
+        .kc-reg label { font-weight: 600; color: #3d4757; font-size: 12.5px; margin-top: 4px; }
+        .kc-reg label small { font-weight: 400; color: #7a8596; }
+        .kc-reg input[type=text], .kc-reg input[type=email] { font: inherit; font-size: 14px; color: #26303d; border: 1px solid #cfd8e6; border-radius: 8px; padding: 6px 9px; background: #fff; width: 100%; }
+        .kc-reg input:focus { outline: 2px solid #2a5298; outline-offset: 1px; }
+        .kc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .kc-row label { display: block; }
+        .kc-check { display: flex; gap: 7px; align-items: flex-start; margin-top: 6px; }
+        .kc-check input { margin-top: 3px; flex: none; }
+        .kc-check label { font-weight: 400; font-size: 12.5px; margin: 0; line-height: 1.4; }
+        .kc-priv { font-size: 12px; color: #4a5566; margin-top: 4px; }
+        .kc-priv summary { cursor: pointer; color: #2a5298; font-weight: 600; }
+        .kc-priv p { margin: 4px 0; }
+        .kc-err { color: #a33a2e; font-size: 12.5px; min-height: 1em; margin: 4px 0 0; }
+        .kc-reg button { font: inherit; font-weight: 600; font-size: 14px; background: #2a5298; color: #fff; border: 0; border-radius: 10px; padding: 9px 14px; cursor: pointer; margin-top: 4px; }
+        .kc-reg button[disabled] { opacity: .5; cursor: default; }
+        .kc-me { font-size: 11.5px; color: #7a8596; padding: 0 12px; background: #fff; }
+        .kc-me button { font: inherit; color: #2a5298; background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+        .kc-foot { font-size: 11.5px; color: #7a8596; padding: 0 12px 8px; background: #fff; }
+        .kc-foot a { color: #2a5298; }
+        @media (max-width: 560px) {
+            .kc-panel { left: 8px; right: 8px; width: auto; max-width: none; }
+            .kc-fab .kc-lbl { display: none; }
+        }
+        html.kuntur-embed .kc-li, html.kuntur-embed .kc-panel { display: none !important; }
+        @media print { .kc-fab, .kc-panel { display: none !important; } }
+    </style>
+    <section class="kc-panel" id="kcPanel" role="dialog" aria-labelledby="kcTitle">
+        <div class="kc-head">
+            <img src="kuntur/avatar.jpg" alt="">
+            <div class="kc-t"><strong id="kcTitle">Kuntur</strong><span id="kcSub">Asistente de SIEMA · respuestas por escrito</span></div>
+            <button type="button" id="kcNew" title="">Nueva</button>
+            <button type="button" class="kc-x" id="kcClose" aria-label="Cerrar">×</button>
+        </div>
+        <form class="kc-reg" id="kcReg" novalidate hidden>
+            <p class="kc-reg-lead" id="kcRegLead"></p>
+            <label for="kcNombre" id="kcLNombre"></label>
+            <input id="kcNombre" type="text" autocomplete="name" maxlength="80" required>
+            <label for="kcEmail" id="kcLEmail"></label>
+            <input id="kcEmail" type="email" autocomplete="email" inputmode="email" maxlength="160" required>
+            <label for="kcOrg" id="kcLOrg"></label>
+            <input id="kcOrg" type="text" autocomplete="organization" maxlength="120">
+            <div class="kc-row">
+                <div><label for="kcCargo" id="kcLCargo"></label><input id="kcCargo" type="text" autocomplete="organization-title" maxlength="80"></div>
+                <div><label for="kcPais" id="kcLPais"></label><input id="kcPais" type="text" autocomplete="country-name" maxlength="60"></div>
+            </div>
+            <div class="kc-check"><input id="kcPriv" type="checkbox"><label for="kcPriv" id="kcLPriv"></label></div>
+            <div class="kc-check"><input id="kcEnc" type="checkbox"><label for="kcEnc" id="kcLEnc"></label></div>
+            <details class="kc-priv"><summary id="kcPrivH"></summary><div id="kcPrivTxt"></div></details>
+            <p class="kc-err" id="kcRegErr" role="alert"></p>
+            <button type="submit" id="kcRegBtn"></button>
+        </form>
+        <div class="kc-log" id="kcLog" aria-live="polite"></div>
+        <form class="kc-form" id="kcForm">
+            <textarea id="kcQ" rows="1" aria-label="Pregunta"></textarea>
+            <button type="submit" id="kcSend">Enviar</button>
+        </form>
+        <div class="kc-me" id="kcMe" hidden></div>
+        <div class="kc-foot" id="kcFoot"></div>
+    </section>
+    <script>
+    (function () {
+        var API = 'https://kuntur.oma-observatorio.workers.dev/ask';
+        // Registro del público: el mismo servicio y la misma base de datos que las preguntas del auditorio (kuntur/sala.html)
+        var SALA = 'https://kuntur-sala.oma-observatorio.workers.dev';
+        var CONTACTO_CAI = 'comisionmineria@cai.org.ar';
+        var store = {
+            get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+            set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+            del: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+        };
+        var token = store.get('ks_token'), nombre = store.get('ks_nombre') || '';
+        var $ = function (id) { return document.getElementById(id); };
+        var T = {
+            es: { fab: 'Preguntale a Kuntur', sub: 'Asistente de SIEMA · respuestas por escrito', nueva: 'Nueva', nuevaT: 'Empezar una conversación nueva',
+                  cerrar: 'Cerrar', enviar: 'Enviar', ph: 'Escribí tu pregunta…', copiar: 'Copiar', copiada: 'Copiada',
+                  intro: 'Hola, soy Kuntur. Preguntame sobre minería argentina, minerales críticos, proyectos o cualquier sección de SIEMA.',
+                  err: 'No pude responder ahora. Probá de nuevo en un momento.',
+                  foot: 'Kuntur puede equivocarse; verificá los datos importantes. <a href="kuntur.html" target="_blank" rel="noopener">Hablar con Kuntur por voz</a>',
+                  regLead: 'Antes de empezar, contanos quién sos. Así podemos responderte mejor e invitarte a las encuestas de SIEMA.',
+                  nombre: 'Nombre y apellido', email: 'Correo electrónico', org: 'Organización <small>(opcional)</small>',
+                  cargo: 'Cargo <small>(opcional)</small>', pais: 'País <small>(opcional)</small>',
+                  priv: 'Leí el aviso de privacidad y acepto que el CAI guarde estos datos y mis preguntas.',
+                  enc: 'Quiero que el CAI me invite a encuestas sobre el sector minero.',
+                  privH: 'Aviso de privacidad',
+                  privTxt: '<p><strong>Responsable:</strong> Centro Argentino de Ingenieros (CAI).</p><p><strong>Para qué:</strong> identificar a quien consulta a Kuntur, conocer los temas que más interesan al sector y, solo si marcás la casilla de encuestas, invitarte a encuestas sobre el sector minero.</p><p><strong>Datos obligatorios:</strong> nombre y correo. El resto es opcional.</p><p><strong>Tus derechos:</strong> podés pedir acceso, corrección o borrado de tus datos, o darte de baja de las encuestas, escribiendo a %C%. La Agencia de Acceso a la Información Pública es la autoridad de control de la Ley 25.326.</p><p>Los datos no se venden ni se ceden a terceros.</p>',
+                  regBtn: 'Empezar a preguntar', hola: function (n) { return 'Hola, ' + n + '. Preguntame sobre minería argentina, minerales críticos, proyectos o cualquier sección de SIEMA.'; },
+                  me: function (n) { return 'Conectado como ' + n + ' · '; }, notme: 'No soy yo',
+                  e_nombre: 'Escribí tu nombre.', e_email: 'Revisá el correo: no parece válido.', e_privacidad: 'Para continuar tenés que aceptar el aviso de privacidad.',
+                  e_red: 'No pude registrarte ahora. Probá de nuevo en unos segundos.',
+                  sug: ['¿En qué estado está Los Azules y cuándo empezaría a producir?', '¿Qué aprobó el RIGI para MARA?', '¿Cuáles son los principales cuellos de botella de infraestructura?', '¿Cómo puede evolucionar la producción de cobre de Argentina hacia 2050?'] },
+            en: { fab: 'Ask Kuntur', sub: 'SIEMA assistant · written answers', nueva: 'New', nuevaT: 'Start a new conversation',
+                  cerrar: 'Close', enviar: 'Send', ph: 'Type your question…', copiar: 'Copy', copiada: 'Copied',
+                  intro: 'Hi, I am Kuntur. Ask me about Argentine mining, critical minerals, projects or any section of SIEMA.',
+                  err: 'I could not answer just now. Please try again in a moment.',
+                  foot: 'Kuntur can make mistakes; check important figures. <a href="kuntur.html" target="_blank" rel="noopener">Talk to Kuntur by voice</a>',
+                  regLead: 'Before you start, tell us who you are. It helps us answer you better and invite you to SIEMA surveys.',
+                  nombre: 'Full name', email: 'Email', org: 'Organisation <small>(optional)</small>',
+                  cargo: 'Position <small>(optional)</small>', pais: 'Country <small>(optional)</small>',
+                  priv: 'I have read the privacy notice and agree that CAI stores this data and my questions.',
+                  enc: 'I would like CAI to invite me to surveys about the mining sector.',
+                  privH: 'Privacy notice',
+                  privTxt: '<p><strong>Controller:</strong> Centro Argentino de Ingenieros (CAI).</p><p><strong>Purpose:</strong> to identify who asks Kuntur, learn which topics matter most to the sector and, only if you tick the survey box, invite you to surveys about the mining sector.</p><p><strong>Required data:</strong> name and email. Everything else is optional.</p><p><strong>Your rights:</strong> you can request access, correction or deletion of your data, or unsubscribe from surveys, by writing to %C%. Argentina’s Agency for Access to Public Information is the supervisory authority under Law 25,326.</p><p>Your data is not sold or shared with third parties.</p>',
+                  regBtn: 'Start asking', hola: function (n) { return 'Hi ' + n + ', I am Kuntur. Ask me about Argentine mining, critical minerals, projects or any section of SIEMA.'; },
+                  me: function (n) { return 'Signed in as ' + n + ' · '; }, notme: 'Not me',
+                  e_nombre: 'Please enter your name.', e_email: 'Please check your email address.', e_privacidad: 'You need to accept the privacy notice to continue.',
+                  e_red: 'I could not register you just now. Please try again in a few seconds.',
+                  sug: ['What is the status of Los Azules and when could it start producing?', 'What did RIGI approve for MARA?', 'What are the main infrastructure bottlenecks?', 'How could Argentina\'s copper output evolve to 2050?'] }
+        };
+        var history = [], busy = false;
+        function L() { return (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'es'; }
+        function labels() {
+            var t = T[L()];
+            $('kcFabLbl').textContent = t.fab; $('kcFab').setAttribute('aria-label', t.fab);
+            $('kcSub').textContent = t.sub; $('kcNew').textContent = t.nueva; $('kcNew').title = t.nuevaT;
+            $('kcClose').setAttribute('aria-label', t.cerrar); $('kcSend').textContent = t.enviar;
+            $('kcQ').placeholder = t.ph; $('kcQ').setAttribute('aria-label', t.ph); $('kcFoot').innerHTML = t.foot;
+            $('kcRegLead').textContent = t.regLead; $('kcLNombre').textContent = t.nombre; $('kcLEmail').textContent = t.email;
+            $('kcLOrg').innerHTML = t.org; $('kcLCargo').innerHTML = t.cargo; $('kcLPais').innerHTML = t.pais;
+            $('kcLPriv').textContent = t.priv; $('kcLEnc').textContent = t.enc; $('kcPrivH').textContent = t.privH;
+            $('kcPrivTxt').innerHTML = t.privTxt.replace('%C%', '<a href="mailto:' + CONTACTO_CAI + '">' + CONTACTO_CAI + '</a>');
+            $('kcRegBtn').textContent = t.regBtn;
+            route();
+            if (!history.length) intro();
+        }
+        function esc(x) { return String(x).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+        function route() {
+            var reg = !token;
+            $('kcReg').hidden = !reg; $('kcLog').style.display = reg ? 'none' : ''; $('kcForm').style.display = reg ? 'none' : '';
+            $('kcMe').hidden = reg;
+            if (!reg) {
+                $('kcMe').innerHTML = esc(T[L()].me(nombre)) + '<button type="button" id="kcNotMe">' + esc(T[L()].notme) + '</button>';
+                $('kcNotMe').addEventListener('click', function () {
+                    store.del('ks_token'); store.del('ks_nombre'); token = null; nombre = ''; history = []; intro(); route(); $('kcNombre').focus();
+                });
+            }
+        }
+        $('kcReg').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var t = T[L()], err = $('kcRegErr'); err.textContent = '';
+            var data = { nombre: $('kcNombre').value, email: $('kcEmail').value, organizacion: $('kcOrg').value, cargo: $('kcCargo').value,
+                pais: $('kcPais').value, acepta_privacidad: $('kcPriv').checked, acepta_encuestas: $('kcEnc').checked, idioma: L(), origen: 'chat' };
+            if (data.nombre.trim().length < 2) { err.textContent = t.e_nombre; $('kcNombre').focus(); return; }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email.trim())) { err.textContent = t.e_email; $('kcEmail').focus(); return; }
+            if (!data.acepta_privacidad) { err.textContent = t.e_privacidad; return; }
+            $('kcRegBtn').disabled = true;
+            fetch(SALA + '/registro', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+                .then(function (r) { return r.json(); })
+                .then(function (r) {
+                    $('kcRegBtn').disabled = false;
+                    if (!r.ok) { err.textContent = t['e_' + r.error] || t.e_red; return; }
+                    token = r.token; nombre = r.nombre; store.set('ks_token', token); store.set('ks_nombre', nombre);
+                    intro(); route(); $('kcQ').focus();
+                })
+                .catch(function () { $('kcRegBtn').disabled = false; err.textContent = t.e_red; });
+        });
+        // Guarda la pregunta en la base del CAI (temas de interés); si falla, el chat sigue igual
+        function logQ(q) {
+            if (!token) return;
+            fetch(SALA + '/consulta', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: token, texto: q, idioma: L() }) })
+                .then(function (r) { return r.json(); })
+                .then(function (r) { if (r && r.error === 'registro') { store.del('ks_token'); token = null; route(); } })
+                .catch(function () {});
+        }
+        function intro() {
+            var t = T[L()], log = $('kcLog'); log.innerHTML = '';
+            var d = document.createElement('div'); d.className = 'kc-msg k kc-intro'; d.textContent = nombre ? t.hola(nombre.split(' ')[0]) : t.intro;
+            var c = document.createElement('div'); c.className = 'kc-chips';
+            t.sug.forEach(function (s) {
+                var b = document.createElement('button'); b.type = 'button'; b.textContent = s;
+                b.addEventListener('click', function () { ask(s); }); c.appendChild(b);
+            });
+            d.appendChild(c); log.appendChild(d);
+        }
+        function scroll() { var l = $('kcLog'); l.scrollTop = l.scrollHeight; }
+        function add(cls, text) {
+            var d = document.createElement('div'); d.className = 'kc-msg ' + cls; d.textContent = text || '';
+            $('kcLog').appendChild(d); scroll(); return d;
+        }
+        function clean(s) { return s.split('###')[0].replace(/\n{3,}/g, '\n\n').trim(); }
+        function render(el, text) {
+            el.textContent = '';
+            var i = text.search(/\n\s*(Fuentes?|Sources?):/i);
+            var body = i >= 0 ? text.slice(0, i) : text, src = i >= 0 ? text.slice(i).trim() : '';
+            el.appendChild(document.createTextNode(body.replace(/\*\*(.+?)\*\*/g, '$1').trim()));
+            if (src) { var p = document.createElement('div'); p.className = 'kc-src'; p.textContent = src; el.appendChild(p); }
+        }
+        async function ask(q) {
+            q = (q || '').trim(); if (!q || busy) return;
+            if (!token) { route(); return; }
+            logQ(q);
+            busy = true; $('kcSend').disabled = true;
+            var ch = document.querySelector('#kcLog .kc-chips'); if (ch) ch.remove();
+            add('u', q); history.push({ role: 'user', content: q });
+            var el = add('k', ''); el.classList.add('kc-wait');
+            var full = '';
+            try {
+                var r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages: history.slice(-8), lang: L(), modo: 'texto' }) });
+                if (!r.ok || !r.body) throw new Error(await r.text());
+                var rd = r.body.getReader(), dec = new TextDecoder();
+                for (;;) {
+                    var x = await rd.read(); if (x.done) break;
+                    full += dec.decode(x.value, { stream: true });
+                    var c = clean(full); if (c) { el.classList.remove('kc-wait'); render(el, c); scroll(); }
+                }
+                full = clean(full); if (!full) throw new Error('empty');
+                el.classList.remove('kc-wait'); render(el, full);
+                history.push({ role: 'assistant', content: full });
+                var b = document.createElement('button'); b.type = 'button'; b.className = 'kc-copy'; b.textContent = T[L()].copiar;
+                b.addEventListener('click', function () { navigator.clipboard && navigator.clipboard.writeText(full).then(function () { b.textContent = T[L()].copiada; }); });
+                el.appendChild(b);
+            } catch (e) {
+                history.pop(); el.classList.remove('kc-wait'); el.classList.add('err'); el.textContent = T[L()].err;
+                console.warn('Kuntur:', e);
+            }
+            busy = false; $('kcSend').disabled = false; scroll(); $('kcQ').focus();
+        }
+        function place() {
+            var nav = document.querySelector('nav'), top = nav ? Math.max(8, nav.getBoundingClientRect().bottom + 6) : 60;
+            var pn = $('kcPanel'); pn.style.top = top + 'px'; pn.style.maxHeight = (window.innerHeight - top - 12) + 'px';
+            if (window.innerWidth > 560) {
+                var b = $('kcFab').getBoundingClientRect();
+                pn.style.right = Math.max(12, Math.min(window.innerWidth - b.right, window.innerWidth - 392)) + 'px';
+            } else pn.style.right = '';
+        }
+        function isOpen() { return $('kcPanel').classList.contains('open'); }
+        function open(v) {
+            if (v) place();
+            if (v && !history.length) { $('kcLog').scrollTop = 0; $('kcReg').scrollTop = 0; }
+            $('kcPanel').classList.toggle('open', v);
+            $('kcFab').setAttribute('aria-expanded', v ? 'true' : 'false');
+            if (v) { (token ? $('kcQ') : $('kcNombre')).focus({ preventScroll: true }); if (history.length) scroll(); } else { $('kcFab').focus({ preventScroll: true }); }
+        }
+        $('kcFab').addEventListener('click', function (e) { e.stopPropagation(); open(!isOpen()); });
+        window.addEventListener('resize', function () { if (isOpen()) place(); });
+        window.addEventListener('scroll', function () { if (isOpen()) place(); }, { passive: true });
+        $('kcClose').addEventListener('click', function () { open(false); });
+        $('kcPanel').addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });
+        $('kcNew').addEventListener('click', function () { if (busy) return; history = []; intro(); $('kcQ').focus(); });
+        $('kcForm').addEventListener('submit', function (e) { e.preventDefault(); var q = $('kcQ').value; $('kcQ').value = ''; $('kcQ').style.height = ''; ask(q); });
+        $('kcQ').addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('kcForm').requestSubmit(); } });
+        $('kcQ').addEventListener('input', function () { this.style.height = ''; this.style.height = Math.min(this.scrollHeight, 140) + 'px'; });
+        new MutationObserver(labels).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+        labels();
+        if (/[?&]kuntur=chat/.test(location.search)) open(true);
     })();
     </script>
 
