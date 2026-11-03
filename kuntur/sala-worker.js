@@ -4,6 +4,8 @@
 // consentimientos) y escribe su pregunta desde el teléfono. Las preguntas
 // entran en una cola que modera Eduardo; las aprobadas las toma la pantalla
 // de Kuntur y las responde en voz alta, llamando a la persona por su nombre.
+// El chat por escrito de Kuntur en SIEMA (index.html) usa el mismo registro
+// (origen = chat) y guarda las preguntas escritas en la tabla consultas.
 // Responsable de los datos: Centro Argentino de Ingenieros (CAI).
 //
 // Configuración en Cloudflare:
@@ -41,12 +43,24 @@ const SCHEMA = [
      creado TEXT NOT NULL,
      actualizado TEXT
    )`,
-  `CREATE TABLE IF NOT EXISTS config (k TEXT PRIMARY KEY, v TEXT)`
+  `CREATE TABLE IF NOT EXISTS config (k TEXT PRIMARY KEY, v TEXT)`,
+  // Preguntas escritas en el chat de Kuntur dentro de SIEMA (no pasan por la cola del moderador)
+  `CREATE TABLE IF NOT EXISTS consultas (
+     id INTEGER PRIMARY KEY AUTOINCREMENT,
+     persona_id INTEGER NOT NULL,
+     texto TEXT NOT NULL,
+     idioma TEXT,
+     creado TEXT NOT NULL
+   )`
 ];
+const MAX_CONSULTAS = 300;    // por persona, chat de SIEMA
+const MAX_CONSULTA = 600;     // caracteres por consulta del chat
 let schemaReady = false;
 async function ensureSchema(db) {
   if (schemaReady) return;
   for (const q of SCHEMA) await db.prepare(q).run();
+  // Columna origen (sala = QR del auditorio, chat = chat de SIEMA); se agrega si falta
+  try { await db.prepare('ALTER TABLE personas ADD COLUMN origen TEXT').run(); } catch (e) { /* ya existe */ }
   schemaReady = true;
 }
 
@@ -107,6 +121,7 @@ export default {
       if (!isEmail(email)) return fail('email');
       if (b.acepta_privacidad !== true) return fail('privacidad');
       const encuestas = b.acepta_encuestas === true ? 1 : 0;
+      const origen = b.origen === 'chat' ? 'chat' : 'sala';
       const evento = await getConfig(db, 'evento', '');
       // Si el mismo correo ya se registró, se actualizan sus datos y se reutiliza su token
       const prev = await db.prepare('SELECT id, token FROM personas WHERE email = ?').bind(email).first();
@@ -116,8 +131,8 @@ export default {
         return json({ ok: true, token: prev.token, nombre });
       }
       const token = crypto.randomUUID();
-      await db.prepare('INSERT INTO personas (token, nombre, organizacion, cargo, email, pais, idioma, acepta_privacidad, acepta_encuestas, evento, creado) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?)')
-        .bind(token, nombre, organizacion, cargo, email, pais, idioma, encuestas, evento, now()).run();
+      await db.prepare('INSERT INTO personas (token, nombre, organizacion, cargo, email, pais, idioma, acepta_privacidad, acepta_encuestas, evento, creado, origen) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)')
+        .bind(token, nombre, organizacion, cargo, email, pais, idioma, encuestas, origen === 'chat' ? '' : evento, now(), origen).run();
       return json({ ok: true, token, nombre });
     }
 
@@ -133,6 +148,20 @@ export default {
       await db.prepare('INSERT INTO preguntas (persona_id, texto, idioma, estado, creado) VALUES (?, ?, ?, ?, ?)')
         .bind(p.id, texto, b.idioma === 'en' ? 'en' : 'es', 'pendiente', now()).run();
       return json({ ok: true, restantes: MAX_PREGUNTAS - n.n - 1 });
+    }
+
+    // Chat de Kuntur en SIEMA: guarda la pregunta escrita para conocer los temas de interés
+    if (path === '/consulta' && request.method === 'POST') {
+      const b = await body();
+      const p = await db.prepare('SELECT id FROM personas WHERE token = ?').bind(clean(b.token, 64)).first();
+      if (!p) return fail('registro', 401);
+      const texto = clean(b.texto, MAX_CONSULTA);
+      if (texto.length < 2) return fail('texto');
+      const n = await db.prepare('SELECT COUNT(*) AS n FROM consultas WHERE persona_id = ?').bind(p.id).first();
+      if (n.n >= MAX_CONSULTAS) return json({ ok: true, guardada: false });
+      await db.prepare('INSERT INTO consultas (persona_id, texto, idioma, creado) VALUES (?, ?, ?, ?)')
+        .bind(p.id, texto, b.idioma === 'en' ? 'en' : 'es', now()).run();
+      return json({ ok: true, guardada: true });
     }
 
     if (path === '/mis-preguntas' && request.method === 'POST') {
@@ -152,7 +181,7 @@ export default {
         WHERE q.estado IN ('pendiente', 'aprobada') OR q.actualizado > ?
         ORDER BY CASE q.estado WHEN 'aprobada' THEN 0 WHEN 'pendiente' THEN 1 ELSE 2 END, COALESCE(q.orden, q.id), q.id`)
         .bind(new Date(Date.now() - 30 * 60 * 1000).toISOString()).all();
-      const stats = await db.prepare(`SELECT (SELECT COUNT(*) FROM personas) AS personas, (SELECT COUNT(*) FROM personas WHERE acepta_encuestas = 1) AS encuestas, (SELECT COUNT(*) FROM preguntas) AS preguntas`).first();
+      const stats = await db.prepare(`SELECT (SELECT COUNT(*) FROM personas) AS personas, (SELECT COUNT(*) FROM personas WHERE acepta_encuestas = 1) AS encuestas, (SELECT COUNT(*) FROM preguntas) AS preguntas, (SELECT COUNT(*) FROM consultas) AS consultas`).first();
       return json({ ok: true, abierta: (await getConfig(db, 'abierta', '0')) === '1', evento: await getConfig(db, 'evento', ''), stats, preguntas: r.results });
     }
 
@@ -189,10 +218,11 @@ export default {
 
     if (path === '/mod/export.csv' && request.method === 'GET') {
       const soloEncuestas = url.searchParams.get('todos') !== '1';
-      const r = await db.prepare(`SELECT p.nombre, p.organizacion, p.cargo, p.email, p.pais, p.idioma, p.acepta_encuestas, p.evento, p.creado,
-          (SELECT COUNT(*) FROM preguntas q WHERE q.persona_id = p.id) AS preguntas
+      const r = await db.prepare(`SELECT p.nombre, p.organizacion, p.cargo, p.email, p.pais, p.idioma, p.acepta_encuestas, p.evento, p.creado, p.origen,
+          (SELECT COUNT(*) FROM preguntas q WHERE q.persona_id = p.id) AS preguntas,
+          (SELECT COUNT(*) FROM consultas c WHERE c.persona_id = p.id) AS consultas_chat
         FROM personas p ${soloEncuestas ? 'WHERE p.acepta_encuestas = 1' : ''} ORDER BY p.id`).all();
-      const cols = ['nombre', 'organizacion', 'cargo', 'email', 'pais', 'idioma', 'acepta_encuestas', 'evento', 'creado', 'preguntas'];
+      const cols = ['nombre', 'organizacion', 'cargo', 'email', 'pais', 'idioma', 'acepta_encuestas', 'origen', 'evento', 'creado', 'preguntas', 'consultas_chat'];
       // Evita que Excel interprete celdas como fórmulas
       const cell = v => { let s = v == null ? '' : String(v); if (/^[=+\-@]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
       const csv = '﻿' + cols.join(';') + '\n' + r.results.map(x => cols.map(c => cell(x[c])).join(';')).join('\n');
@@ -206,6 +236,7 @@ export default {
       const p = await db.prepare('SELECT id FROM personas WHERE email = ?').bind(email).first();
       if (!p) return json({ ok: true, borrados: 0 });
       await db.prepare('DELETE FROM preguntas WHERE persona_id = ?').bind(p.id).run();
+      await db.prepare('DELETE FROM consultas WHERE persona_id = ?').bind(p.id).run();
       await db.prepare('DELETE FROM personas WHERE id = ?').bind(p.id).run();
       return json({ ok: true, borrados: 1 });
     }
