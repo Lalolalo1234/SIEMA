@@ -1456,6 +1456,7 @@
                 <li><button class="nav-btn" data-tab="prospectiva">Prospectiva</button></li>
                 <li><button class="nav-btn" data-tab="noticias-eventos">Noticias y eventos</button></li>
                 <li><button class="nav-btn" data-tab="acerca">Acerca de</button></li>
+                <li class="kc-li"><button type="button" class="kc-fab" id="kcFab" aria-controls="kcPanel" aria-expanded="false"><img src="kuntur/avatar.jpg" alt=""><span class="kc-lbl" id="kcFabLbl">Preguntale a Kuntur</span><span class="kc-car" aria-hidden="true">▾</span></button></li>
             </ul>
         </div>
     </nav>
@@ -5411,15 +5412,18 @@
 
     <!-- Kuntur: chat por escrito dentro de SIEMA -->
     <style>
-        .kc-fab { position: fixed; right: 20px; bottom: 20px; z-index: 900; display: flex; align-items: center; gap: 10px;
+        .nav-menu li.kc-li { display: flex; align-items: center; padding-left: 0.6rem; }
+        .nav-menu li.kc-li { position: sticky; right: 0; z-index: 2; background: #fff; padding-right: 2px; box-shadow: -10px 0 10px -6px rgba(255,255,255,.95); }
+        .nav-menu button.kc-fab { width: auto; display: inline-flex; align-items: center; gap: 7px; padding: 3px 12px 3px 3px;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: #fff; border: 0; border-radius: 999px;
-            padding: 6px 18px 6px 6px; font: 600 15px/1.2 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; cursor: pointer;
-            box-shadow: 0 6px 20px rgba(30,60,114,.35); }
-        .kc-fab img { width: 42px; height: 42px; border-radius: 50%; display: block; border: 2px solid rgba(255,255,255,.7); }
-        .kc-fab:hover { filter: brightness(1.08); }
+            font-weight: 600; font-size: 0.82rem; overflow: visible; }
+        .nav-menu button.kc-fab:hover { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: #fff; filter: brightness(1.1); }
+        .kc-fab img { width: 28px; height: 28px; border-radius: 50%; display: block; border: 1.5px solid rgba(255,255,255,.7); }
+        .kc-fab .kc-car { font-size: 0.75rem; transition: transform .2s; }
+        .kc-fab[aria-expanded="true"] .kc-car { transform: rotate(180deg); }
         .kc-fab:focus-visible, .kc-panel button:focus-visible, .kc-panel textarea:focus { outline: 2px solid #2a5298; outline-offset: 2px; }
-        .kc-panel { position: fixed; right: 20px; bottom: 20px; z-index: 901; width: 400px; max-width: calc(100vw - 32px);
-            height: 600px; max-height: calc(100vh - 40px); background: #fff; border: 1px solid #d9e0ea; border-radius: 14px;
+        .kc-panel { position: fixed; right: 16px; top: 60px; z-index: 901; width: 380px; max-width: calc(100vw - 24px);
+            height: 470px; max-height: calc(100vh - 80px); background: #fff; border: 1px solid #d9e0ea; border-radius: 14px;
             box-shadow: 0 12px 40px rgba(20,35,70,.25); display: none; flex-direction: column; overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #26303d; }
         .kc-panel.open { display: flex; }
@@ -5443,6 +5447,7 @@
         .kc-wait::after { content: '…'; animation: kcBlink 1s infinite; }
         @keyframes kcBlink { 50% { opacity: .2; } }
         .kc-intro { font-size: 14px; color: #4a5566; }
+        .kc-chips button { padding: 6px 10px; font-size: 13px; }
         .kc-chips { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
         .kc-chips button { text-align: left; font: inherit; font-size: 13.5px; color: #1e3c72; background: #fff; border: 1px solid #d3dcea;
             border-radius: 10px; padding: 7px 10px; cursor: pointer; }
@@ -5456,17 +5461,12 @@
         .kc-foot { font-size: 11.5px; color: #7a8596; padding: 0 12px 8px; background: #fff; }
         .kc-foot a { color: #2a5298; }
         @media (max-width: 560px) {
-            .kc-panel { right: 0; bottom: 0; width: 100vw; max-width: 100vw; height: 100%; max-height: 100%; border-radius: 0; border: 0; }
-            .kc-fab { right: 14px; bottom: 14px; }
+            .kc-panel { left: 8px; right: 8px; width: auto; max-width: none; }
             .kc-fab .kc-lbl { display: none; }
-            .kc-fab { padding: 5px; }
         }
-        html.kuntur-embed .kc-fab, html.kuntur-embed .kc-panel { display: none !important; }
+        html.kuntur-embed .kc-li, html.kuntur-embed .kc-panel { display: none !important; }
         @media print { .kc-fab, .kc-panel { display: none !important; } }
     </style>
-    <button type="button" class="kc-fab" id="kcFab" aria-controls="kcPanel" aria-expanded="false">
-        <img src="kuntur/avatar.jpg" alt=""><span class="kc-lbl" id="kcFabLbl">Preguntale a Kuntur</span>
-    </button>
     <section class="kc-panel" id="kcPanel" role="dialog" aria-labelledby="kcTitle">
         <div class="kc-head">
             <img src="kuntur/avatar.jpg" alt="">
@@ -5561,12 +5561,25 @@
             }
             busy = false; $('kcSend').disabled = false; scroll(); $('kcQ').focus();
         }
-        function open(v) {
-            $('kcPanel').classList.toggle('open', v); $('kcFab').style.display = v ? 'none' : '';
-            $('kcFab').setAttribute('aria-expanded', v ? 'true' : 'false');
-            if (v) { $('kcQ').focus(); scroll(); } else { $('kcFab').focus(); }
+        function place() {
+            var nav = document.querySelector('nav'), top = nav ? Math.max(8, nav.getBoundingClientRect().bottom + 6) : 60;
+            var pn = $('kcPanel'); pn.style.top = top + 'px'; pn.style.maxHeight = (window.innerHeight - top - 12) + 'px';
+            if (window.innerWidth > 560) {
+                var b = $('kcFab').getBoundingClientRect();
+                pn.style.right = Math.max(12, Math.min(window.innerWidth - b.right, window.innerWidth - 392)) + 'px';
+            } else pn.style.right = '';
         }
-        $('kcFab').addEventListener('click', function () { open(true); });
+        function isOpen() { return $('kcPanel').classList.contains('open'); }
+        function open(v) {
+            if (v) place();
+            if (v && !history.length) $('kcLog').scrollTop = 0;
+            $('kcPanel').classList.toggle('open', v);
+            $('kcFab').setAttribute('aria-expanded', v ? 'true' : 'false');
+            if (v) { $('kcQ').focus({ preventScroll: true }); if (history.length) scroll(); } else { $('kcFab').focus({ preventScroll: true }); }
+        }
+        $('kcFab').addEventListener('click', function (e) { e.stopPropagation(); open(!isOpen()); });
+        window.addEventListener('resize', function () { if (isOpen()) place(); });
+        window.addEventListener('scroll', function () { if (isOpen()) place(); }, { passive: true });
         $('kcClose').addEventListener('click', function () { open(false); });
         $('kcPanel').addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });
         $('kcNew').addEventListener('click', function () { if (busy) return; history = []; intro(); $('kcQ').focus(); });
