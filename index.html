@@ -1861,6 +1861,10 @@
         </div>
 
         <!-- Argentina hoy: posición actual frente a la demanda proyectada (CeProMin) -->
+        <!-- Observatorio: fuentes oficiales (SIACAM y SIGAM). El contenido lo arma fuentesOficiales() en ES/EN -->
+        <div id="fuentes-oficiales" class="tab-content">
+            <div id="foRoot"></div>
+        </div>
         <div id="argentina" class="tab-content">
             <h1>Argentina hoy — Posición frente a la demanda proyectada</h1>
             <p>Dónde está hoy Argentina en cobre, litio y tierras raras, y qué peso tendría su cartera de proyectos frente a la demanda mundial que anticipa la pestaña Prospectiva. Es una foto de la situación actual. La proyección de la oferta argentina frente a cada escenario de demanda está en <a href="#" onclick="omaOpenArgentinaView(); return false;">Prospectiva → Argentina vs demanda proyectada</a>.</p>
@@ -3067,7 +3071,7 @@
         // ============================================================
         const SIEMA_GROUPS = {
             inicio: { tabs: ['inicio'] },
-            observatorio: { tabs: ['oferta', 'demanda', 'argentina', 'capital-humano', 'brechas'] },
+            observatorio: { tabs: ['oferta', 'demanda', 'argentina', 'capital-humano', 'brechas', 'fuentes-oficiales'] },
             'pulsometro-grupo': { tabs: ['barometro', 'pulsometro', 'rigi', 'monitor'] },
             infraestructura: { tabs: ['infra-agua', 'infra-energia', 'infra-transporte'] },
             prospectiva: { tabs: ['prospectiva', 'oro-plata'] },
@@ -3081,7 +3085,7 @@
                 infraestructura: ['Infraestructuras habilitantes', 'Qué hace falta para producir', 'Agua, energía y transporte: probablemente el principal cuello de botella para alcanzar la producción esperada.'],
                 prospectiva: ['Prospectiva', 'Hacia dónde va', 'Escenarios de demanda mundial y oferta argentina hasta 2050.'],
                 'noticias-eventos': ['Noticias y eventos', 'Qué se dice y dónde se encuentra el sector', 'Noticias del sector, agenda de conferencias y seminarios, e infografías.'],
-                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', prospectiva: 'Minerales críticos', 'oro-plata': 'Oro y plata', 'infra-agua': 'Agua', 'infra-energia': 'Energía', 'infra-transporte': 'Transporte', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
+                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', 'fuentes-oficiales': 'Fuentes oficiales', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', prospectiva: 'Minerales críticos', 'oro-plata': 'Oro y plata', 'infra-agua': 'Agua', 'infra-energia': 'Energía', 'infra-transporte': 'Transporte', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
             },
             en: {
                 observatorio: ['Observatory', 'What is happening', 'Gathers and organises all relevant public information on the Argentine mining sector.'],
@@ -3089,7 +3093,7 @@
                 infraestructura: ['Enabling infrastructure', 'What it takes to produce', 'Water, energy and transport: probably the main bottleneck to reaching expected output.'],
                 prospectiva: ['Foresight', 'Where it is heading', 'Global demand scenarios and Argentine supply to 2050.'],
                 'noticias-eventos': ['News and events', 'What is being said and where the sector meets', 'Sector news, the conference and seminar calendar, and infographics.'],
-                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', prospectiva: 'Critical minerals', 'oro-plata': 'Gold and silver', 'infra-agua': 'Water', 'infra-energia': 'Energy', 'infra-transporte': 'Transport', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
+                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', 'fuentes-oficiales': 'Official sources', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', prospectiva: 'Critical minerals', 'oro-plata': 'Gold and silver', 'infra-agua': 'Water', 'infra-energia': 'Energy', 'infra-transporte': 'Transport', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
             }
         };
         const siemaGroupOf = tabId => Object.keys(SIEMA_GROUPS).find(g => SIEMA_GROUPS[g].tabs.includes(tabId));
@@ -5410,6 +5414,197 @@
     })();
     </script>
 
+    <!-- Fuentes oficiales: tableros SIACAM (Secretaría de Minería) y mapas SIGAM (SEGEMAR) -->
+    <style>
+        .fo-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 1rem 0 1.5rem; }
+        .fo-card { background: #fff; border: 1px solid #dde3ec; border-top: 4px solid #2a5298; border-radius: 10px; padding: 14px 16px; }
+        .fo-card.geo { border-top-color: #8a5a2b; }
+        .fo-card h3 { margin: 0 0 4px; font-size: 1.05rem; color: #1e3c72; }
+        .fo-card .fo-org { font-size: .8rem; color: #6b7789; margin-bottom: 8px; }
+        .fo-card p { margin: 0 0 8px; font-size: .92rem; }
+        .fo-card .fo-links { display: flex; flex-wrap: wrap; gap: 6px; }
+        .fo-card .fo-links a { font-size: .82rem; color: #1e3c72; border: 1px solid #cfd8e6; border-radius: 999px; padding: 2px 10px; text-decoration: none; }
+        .fo-card .fo-links a:hover { background: #eef3fb; }
+        .fo-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: .6rem 0 .8rem; }
+        .fo-bar label { font-weight: 600; font-size: .9rem; color: #3d4757; }
+        .fo-bar select { font: inherit; font-size: .92rem; padding: 6px 10px; border: 1px solid #cfd8e6; border-radius: 8px; background: #fff; min-width: 260px; max-width: 100%; }
+        .fo-bar a { font-size: .85rem; color: #2a5298; }
+        .fo-frame { width: 100%; height: 820px; border: 1px solid #dde3ec; border-radius: 10px; background: #fff; display: block; }
+        .fo-map-wrap { display: grid; grid-template-columns: 260px 1fr; gap: 12px; align-items: start; }
+        .fo-layers { background: #fff; border: 1px solid #dde3ec; border-radius: 10px; padding: 10px 12px; font-size: .88rem; max-height: 620px; overflow-y: auto; }
+        .fo-layers h4 { margin: 8px 0 4px; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: #6b7789; }
+        .fo-layers h4:first-child { margin-top: 0; }
+        .fo-layers label { display: flex; gap: 7px; align-items: flex-start; padding: 3px 0; cursor: pointer; line-height: 1.35; }
+        .fo-layers input { margin-top: 3px; flex: none; }
+        .fo-legend { margin: 2px 0 6px 22px; }
+        .fo-legend img { max-width: 100%; display: block; }
+        #foMap { height: 620px; border: 1px solid #dde3ec; border-radius: 10px; background: #eef2f6; }
+        .fo-note { font-size: .8rem; color: #6b7789; margin-top: 6px; }
+        @media (max-width: 760px) {
+            .fo-map-wrap { grid-template-columns: 1fr; }
+            .fo-layers { max-height: none; }
+            #foMap { height: 460px; }
+            .fo-frame { height: 640px; }
+        }
+    </style>
+    <script>
+    (function () {
+        var SIACAM = [
+            { g: 0, p: 'ProduccinNacional_/Dashboard1', es: 'Producción nacional', en: 'National production' },
+            { g: 0, p: 'IPIMinero_/SeriesDash', es: 'Índice de Producción Industrial Minero', en: 'Mining Industrial Production Index' },
+            { g: 0, p: 'ProduccinMineraMundial_/Dashboard1', es: 'Producción minera mundial', en: 'World mining production' },
+            { g: 0, p: 'ndicedePreciodelosMetales_/DashIndice', es: 'Precios internacionales', en: 'International prices' },
+            { g: 0, p: 'TableroGlobaldeCobre_/TabOferta', es: 'Tablero global de cobre', en: 'Global copper dashboard' },
+            { g: 0, p: 'TableroGlobaldeLitio_/Oferta', es: 'Tablero global de litio', en: 'Global lithium dashboard' },
+            { g: 1, p: 'EmpleoMinero_/EmpleoRubro', es: 'Empleo (rubros, provincias, salarios y género)', en: 'Employment (segments, provinces, wages and gender)' },
+            { g: 1, p: 'EmpresasMineras_/Dashboard1', es: 'Cantidad de empresas', en: 'Number of companies' },
+            { g: 1, p: 'ComprasRealizadasporEmpresasMineras-2019_/claecomprador', es: 'Compras a proveedores mineros', en: 'Purchases from mining suppliers' },
+            { g: 1, p: 'MineraComparada_/DashPobreza', es: 'La minería comparada', en: 'Mining compared' },
+            { g: 2, p: 'ComercioExteriordeArgentina/DashRubro', es: 'Comercio exterior de Argentina', en: 'Argentina’s foreign trade' },
+            { g: 2, p: 'ComercioMundialdeMinerales_/DashExpo', es: 'Comercio mundial de minerales', en: 'World mineral trade' },
+            { g: 2, p: 'ResultadoCambiario_/Dashboard1', es: 'Resultado cambiario', en: 'Foreign-exchange balance' },
+            { g: 2, p: 'Impuestos_/Principal', es: 'Impuestos', en: 'Taxes' },
+            { g: 3, p: 'ProyectosMineros_/Dashproyectos', es: 'Cartera de proyectos', en: 'Project portfolio' },
+            { g: 3, p: 'PresupuestosExploratorios_/Dashboard1', es: 'Presupuestos exploratorios', en: 'Exploration budgets' },
+            { g: 3, p: 'RegulacinMineraProvincial_/Dashboard1', es: 'Regulación minera provincial', en: 'Provincial mining regulation' }
+        ];
+        var GROUPS = { es: ['Producción y mercados', 'Empleo y empresas', 'Comercio y finanzas', 'Inversión y regulación'],
+                       en: ['Production and markets', 'Employment and companies', 'Trade and finance', 'Investment and regulation'] };
+        var WMS = 'https://sigam.segemar.gov.ar/geoserver217/ows';
+        var SIGAM = [
+            { g: 0, l: 'sigam:e2.5M.FajaMetal', es: 'Fajas metalogenéticas (1:2.500.000)', en: 'Metallogenic belts (1:2,500,000)', on: true },
+            { g: 0, l: 'sigam:e250K.DepositMetalif', es: 'Depósitos minerales metalíferos (1:250.000)', en: 'Metallic mineral deposits (1:250,000)', on: true },
+            { g: 0, l: 'sigam:e250K.DepositMinIndust', es: 'Depósitos de minerales industriales (1:250.000)', en: 'Industrial mineral deposits (1:250,000)' },
+            { g: 0, l: 'sigam:e250K.AlteraHidroterm', es: 'Alteraciones hidrotermales (1:250.000)', en: 'Hydrothermal alteration (1:250,000)' },
+            { g: 1, l: 'sigam:e2.5M.UnidadesGeologicas', es: 'Unidades geológicas (1:2.500.000)', en: 'Geological units (1:2,500,000)' },
+            { g: 1, l: 'sigam:e2.5M.Estructuras', es: 'Estructuras (1:2.500.000)', en: 'Structures (1:2,500,000)' },
+            { g: 2, l: 'sigam:e250K_Unidadhidro', es: 'Unidades hidrogeológicas (1:250.000)', en: 'Hydrogeological units (1:250,000)' },
+            { g: 2, l: 'sigam:e250K.PozosAgua', es: 'Pozos de agua (1:250.000)', en: 'Water wells (1:250,000)' },
+            { g: 3, l: 'sigam:PeligroSismos', es: 'Peligrosidad sísmica', en: 'Seismic hazard' },
+            { g: 3, l: 'sigam:e2.5M.VolcanesEvaluacionPeligrosidad', es: 'Peligrosidad volcánica', en: 'Volcanic hazard' }
+        ];
+        var LGROUPS = { es: ['Recursos minerales', 'Geología', 'Agua', 'Amenazas naturales'], en: ['Mineral resources', 'Geology', 'Water', 'Natural hazards'] };
+        var T = {
+            es: {
+                h1: 'Fuentes oficiales: SIACAM y SIGAM',
+                lead: 'SIEMA integra dos sistemas públicos de información minera: los indicadores de la Secretaría de Minería de la Nación (SIACAM) y la información geológica y ambiental del Servicio Geológico Minero Argentino (SIGAM). Los tableros y mapas se cargan directamente desde esas fuentes, así que muestran siempre su última actualización.',
+                c1t: 'SIACAM · Minería en datos', c1o: 'Secretaría de Minería de la Nación, Ministerio de Economía',
+                c1p: 'Sistema de Información Abierta a la Comunidad sobre la Actividad Minera. Indicadores de producción, empleo (con salarios y género), empresas, proveedores, comercio exterior, impuestos, precios, cartera de proyectos y regulación provincial, más datos abiertos descargables.',
+                c2t: 'SIGAM · Geología en mapas', c2o: 'SEGEMAR, Servicio Geológico Minero Argentino',
+                c2p: 'Sistema de Información Geológica Ambiental Minera. Cartografía geológica, fajas metalogenéticas, depósitos minerales, hidrogeología, amenazas naturales (sismos, volcanes, inundaciones) y otras capas, publicadas con licencia abierta CC BY 4.0.',
+                l_home: 'Sitio oficial', l_ind: 'Indicadores', l_data: 'Datos abiertos', l_cat: 'Catastro minero', l_inf: 'Informes',
+                l_visor: 'Visor completo', l_desc: 'Descargas', l_geo: 'Servicios WMS/WFS',
+                h2a: 'Indicadores de la Secretaría de Minería (SIACAM)', pick: 'Tablero:', open: 'Abrir en una pestaña nueva',
+                noteA: 'Fuente: Secretaría de Minería de la Nación, SIACAM, en Tableau Public. Cada tablero tiene sus propias pestañas y filtros. Si no se ve bien en el celular, abrilo en una pestaña nueva.',
+                h2b: 'Geología y ambiente (SIGAM)', layers: 'Capas',
+                noteB: 'Fuente: SEGEMAR, SIGAM (licencia CC BY 4.0), servicio WMS. Para consultar los atributos de cada punto o descargar las capas, usá el visor completo o el catálogo de descargas de SIGAM. Mapa base: © colaboradores de OpenStreetMap.',
+                mapErr: 'No se pudo cargar el mapa. Probá de nuevo o abrí el visor completo de SIGAM.'
+            },
+            en: {
+                h1: 'Official sources: SIACAM and SIGAM',
+                lead: 'SIEMA brings together two public mining information systems: the indicators of Argentina’s Mining Secretariat (SIACAM) and the geological and environmental information of the Argentine Geological Mining Survey (SIGAM). Dashboards and maps load directly from those sources, so they always show their latest update.',
+                c1t: 'SIACAM · Mining in data', c1o: 'National Mining Secretariat, Ministry of Economy',
+                c1p: 'Open Community Information System on Mining Activity. Indicators on production, employment (including wages and gender), companies, suppliers, foreign trade, taxes, prices, the project portfolio and provincial regulation, plus downloadable open data.',
+                c2t: 'SIGAM · Geology in maps', c2o: 'SEGEMAR, Argentine Geological Mining Survey',
+                c2p: 'Geological, Environmental and Mining Information System. Geological maps, metallogenic belts, mineral deposits, hydrogeology, natural hazards (earthquakes, volcanoes, floods) and other layers, published under an open CC BY 4.0 licence.',
+                l_home: 'Official site', l_ind: 'Indicators', l_data: 'Open data', l_cat: 'Mining cadastre', l_inf: 'Reports',
+                l_visor: 'Full viewer', l_desc: 'Downloads', l_geo: 'WMS/WFS services',
+                h2a: 'Mining Secretariat indicators (SIACAM)', pick: 'Dashboard:', open: 'Open in a new tab',
+                noteA: 'Source: Argentina’s National Mining Secretariat, SIACAM, on Tableau Public (in Spanish). Each dashboard has its own tabs and filters. If it does not display well on a phone, open it in a new tab.',
+                h2b: 'Geology and environment (SIGAM)', layers: 'Layers',
+                noteB: 'Source: SEGEMAR, SIGAM (CC BY 4.0 licence), WMS service. To query the attributes of each point or download the layers, use SIGAM’s full viewer or download catalogue. Base map: © OpenStreetMap contributors.',
+                mapErr: 'The map could not be loaded. Try again or open SIGAM’s full viewer.'
+            }
+        };
+        var L = function () { return (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'es'; };
+        var state = { dash: 6, on: {} };
+        SIGAM.forEach(function (x, i) { if (x.on) state.on[i] = true; });
+        var map = null, wmsLayers = {}, rendered = null;
+        function vizUrl(p, embed) {
+            return 'https://public.tableau.com/views/' + p + '?:language=' + (L() === 'en' ? 'en-US' : 'es-ES') + '&:display_count=n' + (embed ? '&:showVizHome=no&:embed=y&:tabs=yes&:toolbar=yes' : '');
+        }
+        function a(href, txt) { return '<a href="' + href + '" target="_blank" rel="noopener">' + txt + '</a>'; }
+        function render() {
+            var t = T[L()], lg = L(), root = document.getElementById('foRoot'); if (!root) return;
+            var opts = GROUPS[lg].map(function (g, gi) {
+                return '<optgroup label="' + g + '">' + SIACAM.map(function (d, i) { return d.g === gi ? '<option value="' + i + '"' + (i === state.dash ? ' selected' : '') + '>' + d[lg] + '</option>' : ''; }).join('') + '</optgroup>';
+            }).join('');
+            var lay = LGROUPS[lg].map(function (g, gi) {
+                return '<h4>' + g + '</h4>' + SIGAM.map(function (x, i) {
+                    if (x.g !== gi) return '';
+                    return '<label><input type="checkbox" data-i="' + i + '"' + (state.on[i] ? ' checked' : '') + '> ' + x[lg] + '</label>' +
+                        '<div class="fo-legend" id="foLeg' + i + '"' + (state.on[i] ? '' : ' hidden') + '><img loading="lazy" alt="" src="' + WMS + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=' + encodeURIComponent(x.l) + '&LEGEND_OPTIONS=fontSize:10;forceLabels:on"></div>';
+                }).join('');
+            }).join('');
+            root.innerHTML =
+                '<h1>' + t.h1 + '</h1><p>' + t.lead + '</p>' +
+                '<div class="fo-cards">' +
+                  '<div class="fo-card"><h3>' + t.c1t + '</h3><div class="fo-org">' + t.c1o + '</div><p>' + t.c1p + '</p><div class="fo-links">' +
+                    a('https://www.argentina.gob.ar/economia/mineria/siacam', t.l_home) + a('https://www.argentina.gob.ar/economia/mineria/siacam/indicadores', t.l_ind) +
+                    a('https://datos.gob.ar/dataset/?organization=secretaria-de-mineria', t.l_data) + a('https://www.argentina.gob.ar/economia/mineria/siacam/otros-recursos/catastros-mineros', t.l_cat) +
+                    a('https://www.argentina.gob.ar/economia/mineria/informes-y-estudios-sobre-mineria', t.l_inf) + '</div></div>' +
+                  '<div class="fo-card geo"><h3>' + t.c2t + '</h3><div class="fo-org">' + t.c2o + '</div><p>' + t.c2p + '</p><div class="fo-links">' +
+                    a('https://sigam.segemar.gov.ar/', t.l_home) + a('https://sigam.segemar.gov.ar/mapstore/#/viewer/222', t.l_visor) +
+                    a('https://sigam.segemar.gov.ar/geonetwork39/srv/spa/catalog.search#/home', t.l_desc) + a('https://sigam.segemar.gov.ar/sigam/geoservicios/', t.l_geo) + '</div></div>' +
+                '</div>' +
+                '<h2>' + t.h2a + '</h2>' +
+                '<div class="fo-bar"><label for="foDash">' + t.pick + '</label><select id="foDash">' + opts + '</select>' +
+                  '<a id="foDashOpen" href="' + vizUrl(SIACAM[state.dash].p) + '" target="_blank" rel="noopener">' + t.open + ' ↗</a></div>' +
+                '<iframe class="fo-frame" id="foFrame" title="SIACAM" loading="lazy" allowfullscreen src="' + vizUrl(SIACAM[state.dash].p, true) + '"></iframe>' +
+                '<p class="fo-note">' + t.noteA + '</p>' +
+                '<h2>' + t.h2b + '</h2>' +
+                '<div class="fo-map-wrap"><div class="fo-layers" id="foLayers"><h4 style="margin-top:0">' + t.layers + '</h4>' + lay + '</div><div id="foMap"></div></div>' +
+                '<p class="fo-note">' + t.noteB + ' ' + a('https://sigam.segemar.gov.ar/mapstore/#/viewer/222', t.l_visor + ' ↗') + '</p>';
+            document.getElementById('foDash').addEventListener('change', function () {
+                state.dash = +this.value;
+                document.getElementById('foFrame').src = vizUrl(SIACAM[state.dash].p, true);
+                document.getElementById('foDashOpen').href = vizUrl(SIACAM[state.dash].p);
+            });
+            document.getElementById('foLayers').addEventListener('change', function (e) {
+                var i = e.target.getAttribute('data-i'); if (i == null) return;
+                state.on[i] = e.target.checked; document.getElementById('foLeg' + i).hidden = !e.target.checked; syncLayers();
+            });
+            rendered = lg;
+            if (map) { map.remove(); map = null; wmsLayers = {}; }
+            initMap();
+        }
+        function loadLeaflet(cb) {
+            if (window.L && window.L.map) return cb();
+            var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
+            var s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+            s.onload = cb; s.onerror = function () { var m = document.getElementById('foMap'); if (m) m.textContent = T[L()].mapErr; };
+            document.head.appendChild(s);
+        }
+        function syncLayers() {
+            if (!map) return;
+            SIGAM.forEach(function (x, i) {
+                var want = !!state.on[i];
+                if (want && !wmsLayers[i]) {
+                    wmsLayers[i] = window.L.tileLayer.wms(WMS, { layers: x.l, format: 'image/png', transparent: true, version: '1.1.1', opacity: x.g === 1 ? 0.6 : 0.85, attribution: 'SEGEMAR · SIGAM (CC BY 4.0)' }).addTo(map);
+                } else if (!want && wmsLayers[i]) { map.removeLayer(wmsLayers[i]); delete wmsLayers[i]; }
+            });
+        }
+        function initMap() {
+            var el = document.getElementById('fuentes-oficiales');
+            if (!el || !el.classList.contains('active')) return;
+            loadLeaflet(function () {
+                var box = document.getElementById('foMap'); if (!box || map) return;
+                map = window.L.map(box, { scrollWheelZoom: false }).setView([-31.5, -66.5], 5);
+                window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: '© OpenStreetMap' }).addTo(map);
+                syncLayers();
+                setTimeout(function () { map.invalidateSize(); }, 200);
+            });
+        }
+        var tab = document.getElementById('fuentes-oficiales');
+        new MutationObserver(function () {
+            if (!tab.classList.contains('active')) return;
+            if (rendered !== L()) render(); else if (!map) initMap(); else map.invalidateSize();
+        }).observe(tab, { attributes: true, attributeFilter: ['class'] });
+        new MutationObserver(function () { if (rendered && rendered !== L()) render(); })
+            .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+        render();
+    })();
+    </script>
     <!-- Kuntur: chat por escrito dentro de SIEMA -->
     <style>
         .nav-menu li.kc-li { display: flex; align-items: center; padding-left: 0.6rem; }
