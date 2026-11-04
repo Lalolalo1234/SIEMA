@@ -1525,7 +1525,7 @@
                 <div class="flow-step">
                     <span class="flow-tag">OBSERVATORIO</span>
                     <h4>Qué está pasando</h4>
-                    <p>Recopila y organiza toda la información pública relevante del sector: oferta y proyectos, demanda global, la situación actual de Argentina, capital humano y brechas.</p>
+                    <p>Recopila y organiza toda la información pública relevante del sector: oferta y proyectos, demanda global, la situación actual de Argentina, capital humano y brechas. Integra las fuentes oficiales del Estado: los indicadores de la Secretaría de Minería (SIACAM) y la información geológica y ambiental del SEGEMAR (SIGAM).</p>
                     <button class="btn" style="margin-top:0.8rem" onclick="navigateTo('observatorio')">Ir al Observatorio</button>
                 </div>
                 <div class="flow-step">
@@ -1630,7 +1630,7 @@
         <!-- Prospectiva: oro y plata -->
         <div id="oro-plata" class="tab-content">
             <h1>Prospectiva — Oro y plata 2050</h1>
-            <p>El oro es el primer rubro de exportación minera de Argentina: en 2025 aportó US$ 4.094 millones, el 67 % de los US$ 6.071 millones que exportó el sector, y la plata otros US$ 785 millones. A diferencia del cobre o el litio, su demanda la mueven sobre todo la inversión, los bancos centrales y el consumo, y en la plata también la energía solar y la electrónica. Elegí un escenario o mové los controles para ver cómo cambia la demanda mundial hasta 2050.</p>
+            <p>El oro es el primer rubro de exportación minera de Argentina: en 2025 aportó US$ 4.094 millones, el 67 % de los US$ 6.074 millones que exportó el sector, y la plata otros US$ 785 millones. A diferencia del cobre o el litio, su demanda la mueven sobre todo la inversión, los bancos centrales y el consumo, y en la plata también la energía solar y la electrónica. Elegí un escenario o mové los controles para ver cómo cambia la demanda mundial hasta 2050.</p>
             <p>El botón <strong>Argentina: producción y exportaciones</strong> proyecta la producción de las minas actuales, que se agotan en pocos años, y la de los proyectos nuevos: Vicuña, Gualcamayo, Diablillos, Taca Taca y otros. También calcula el valor exportado con el precio que elijas.</p>
             <div class="oma-conv-frame">
                 <iframe src="oro-plata-2050.html?embed=1" title="Modelo Oro y plata 2050" loading="lazy"></iframe>
@@ -1861,6 +1861,10 @@
         </div>
 
         <!-- Argentina hoy: posición actual frente a la demanda proyectada (CeProMin) -->
+        <!-- Observatorio: fuentes oficiales (SIACAM y SIGAM). El contenido lo arma fuentesOficiales() en ES/EN -->
+        <div id="fuentes-oficiales" class="tab-content">
+            <div id="foRoot"></div>
+        </div>
         <div id="argentina" class="tab-content">
             <h1>Argentina hoy — Posición frente a la demanda proyectada</h1>
             <p>Dónde está hoy Argentina en cobre, litio y tierras raras, y qué peso tendría su cartera de proyectos frente a la demanda mundial que anticipa la pestaña Prospectiva. Es una foto de la situación actual. La proyección de la oferta argentina frente a cada escenario de demanda está en <a href="#" onclick="omaOpenArgentinaView(); return false;">Prospectiva → Argentina vs demanda proyectada</a>.</p>
@@ -1881,7 +1885,7 @@
                     </tr>
                     <tr>
                         <td><strong>Litio</strong></td>
-                        <td>~200 kt/año LCE de capacidad instalada (7 operaciones; Secretaría de Minería, Portfolio 2026); 116,6 kt producidas en 2025. 4.º productor mundial, 11,9 % de las reservas.</td>
+                        <td>~215 kt/año LCE de capacidad instalada (7 operaciones), que subiría a 269 kt en 2026; 120 kt producidas en 2025, 62 % más que en 2024 (Secretaría de Minería, Mercado de Litio, octubre de 2026). 4.º productor mundial, 11,9 % de las reservas.</td>
                         <td>Meta oficial: más de 600 kt/año hacia 2036 (Secretaría de Minería). Cartera de 56 proyectos, con 216 Mt LCE de recursos identificados.</td>
                         <td>la capacidad instalada equivale a ~11–15 % de la demanda actual; la meta 2036 equivale a ~5–11 % de la demanda 2040, según el escenario.</td>
                     </tr>
@@ -2285,6 +2289,11 @@
             </div>
 
             <div class="subsection">
+                <h3>Fuentes oficiales</h3>
+                <p>El Observatorio integra los sistemas públicos de información minera del Estado nacional: el <strong>SIACAM</strong> (Sistema de Información Abierta a la Comunidad sobre la Actividad Minera en Argentina) de la Secretaría de Minería, con sus indicadores de producción, empleo, comercio exterior, impuestos y cartera de proyectos, y el <strong>SIGAM</strong> (Sistema de Información Geológica Ambiental Minera) del SEGEMAR, con la cartografía geológica, metalogenética, hidrogeológica y de amenazas naturales. Las cifras de SIEMA se contrastan con esas fuentes y se actualizan cuando publican datos nuevos. <a href="#" onclick="navigateTo('fuentes-oficiales'); return false;">Ver Fuentes oficiales</a>.</p>
+            </div>
+
+            <div class="subsection">
                 <h3>Promotores</h3>
                 <p>SIEMA es una iniciativa del Centro Argentino de Ingenieros (CAI), Panorama Minero (PM) y la Universidad de Buenos Aires (UBA). El Monitor de Ingeniería de Minas (MIMA), dentro del Pulsómetro, se desarrolla en alianza con el CAI.</p>
             </div>
@@ -2381,7 +2390,7 @@
                 <div class="flow-step">
                     <span class="flow-tag">OBSERVATORY</span>
                     <h4>What is happening</h4>
-                    <p>Gathers and organises all relevant public information on the sector: supply and projects, global demand, Argentina's current situation, human capital and gaps.</p>
+                    <p>Gathers and organises all relevant public information on the sector: supply and projects, global demand, Argentina's current situation, human capital and gaps. It brings in the State's official sources: the Mining Secretariat's indicators (SIACAM) and SEGEMAR's geological and environmental information (SIGAM).</p>
                     <button class="btn" style="margin-top:0.8rem" onclick="navigateTo('observatorio')">Go to the Observatory</button>
                 </div>
                 <div class="flow-step">
@@ -2453,7 +2462,7 @@
 
             'oro-plata': `
             <h1>Foresight — Gold and silver 2050</h1>
-            <p>Gold is Argentina's leading mining export: in 2025 it brought in US$4,094 million, 67% of the sector's US$6,071 million, and silver another US$785 million. Unlike copper or lithium, their demand is driven mainly by investment, central banks and consumption, and in silver's case also by solar power and electronics. Pick a scenario or move the controls to see how global demand changes to 2050. The model is currently available in Spanish only.</p>
+            <p>Gold is Argentina's leading mining export: in 2025 it brought in US$4,094 million, 67% of the sector's US$6,074 million, and silver another US$785 million. Unlike copper or lithium, their demand is driven mainly by investment, central banks and consumption, and in silver's case also by solar power and electronics. Pick a scenario or move the controls to see how global demand changes to 2050. The model is currently available in Spanish only.</p>
             <p>The <strong>Argentina: producción y exportaciones</strong> button projects output from current mines, which run out within a few years, and from new projects: Vicuña, Gualcamayo, Diablillos, Taca Taca and others. It also calculates export value at the price you choose.</p>
             <div class="oma-conv-frame">
                 <iframe src="oro-plata-2050.html?embed=1" title="Gold and silver 2050 model" loading="lazy"></iframe>
@@ -2699,7 +2708,7 @@
                     </tr>
                     <tr>
                         <td><strong>Lithium</strong></td>
-                        <td>~200 kt/yr LCE of installed capacity (7 operations; Mining Secretariat, Portfolio 2026); 116.6 kt produced in 2025. 4th global producer, 11.9% of reserves.</td>
+                        <td>~215 kt/yr LCE of installed capacity (7 operations), rising to 269 kt in 2026; 120 kt produced in 2025, up 62% on 2024 (Mining Secretariat, Lithium Market report, October 2026). 4th global producer, 11.9% of reserves.</td>
                         <td>Official target: over 600 kt/yr by 2036 (Mining Secretariat). Pipeline of 56 projects, with 216 Mt LCE of identified resources.</td>
                         <td>installed capacity equals ~11–15% of current demand; the 2036 target equals ~5–11% of 2040 demand, depending on the scenario.</td>
                     </tr>
@@ -3041,6 +3050,11 @@
             </div>
 
             <div class="subsection">
+                <h3>Official sources</h3>
+                <p>The Observatory brings in the national State's public mining information systems: <strong>SIACAM</strong> (Open Community Information System on Mining Activity in Argentina) of the Mining Secretariat, with its indicators on production, employment, foreign trade, taxes and the project portfolio, and <strong>SIGAM</strong> (Geological, Environmental and Mining Information System) of SEGEMAR, with geological, metallogenic, hydrogeological and natural-hazard maps. SIEMA's figures are checked against those sources and updated when they publish new data. <a href="#" onclick="navigateTo('fuentes-oficiales'); return false;">See Official sources</a>.</p>
+            </div>
+
+            <div class="subsection">
                 <h3>Promoters</h3>
                 <p>SIEMA is an initiative of the Argentine Center of Engineers (CAI), Panorama Minero (PM) and the University of Buenos Aires (UBA). The Mining Engineering Monitor (MIMA), within the Pulsometer, is developed in partnership with CAI.</p>
             </div>
@@ -3067,7 +3081,7 @@
         // ============================================================
         const SIEMA_GROUPS = {
             inicio: { tabs: ['inicio'] },
-            observatorio: { tabs: ['oferta', 'demanda', 'argentina', 'capital-humano', 'brechas'] },
+            observatorio: { tabs: ['oferta', 'demanda', 'argentina', 'capital-humano', 'brechas', 'fuentes-oficiales'] },
             'pulsometro-grupo': { tabs: ['barometro', 'pulsometro', 'rigi', 'monitor'] },
             infraestructura: { tabs: ['infra-agua', 'infra-energia', 'infra-transporte'] },
             prospectiva: { tabs: ['prospectiva', 'oro-plata'] },
@@ -3076,20 +3090,20 @@
         };
         const SIEMA_GROUP_I18N = {
             es: {
-                observatorio: ['Observatorio', 'Qué está pasando', 'Recopila y organiza toda la información pública relevante del sector minero argentino.'],
+                observatorio: ['Observatorio', 'Qué está pasando', 'Recopila y organiza toda la información pública relevante del sector minero argentino, con las fuentes oficiales integradas: los indicadores de la Secretaría de Minería (SIACAM) y la geología y el ambiente del SEGEMAR (SIGAM).'],
                 'pulsometro-grupo': ['Pulsómetro', 'Cómo está el sector hoy', 'Mide la salud y la evolución de la actividad con indicadores dinámicos, actualizados a medida que llegan los datos.'],
                 infraestructura: ['Infraestructuras habilitantes', 'Qué hace falta para producir', 'Agua, energía y transporte: probablemente el principal cuello de botella para alcanzar la producción esperada.'],
                 prospectiva: ['Prospectiva', 'Hacia dónde va', 'Escenarios de demanda mundial y oferta argentina hasta 2050.'],
                 'noticias-eventos': ['Noticias y eventos', 'Qué se dice y dónde se encuentra el sector', 'Noticias del sector, agenda de conferencias y seminarios, e infografías.'],
-                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', prospectiva: 'Minerales críticos', 'oro-plata': 'Oro y plata', 'infra-agua': 'Agua', 'infra-energia': 'Energía', 'infra-transporte': 'Transporte', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
+                sub: { oferta: 'Oferta', demanda: 'Demanda', argentina: 'Argentina hoy', 'capital-humano': 'Capital Humano', brechas: 'Brechas', 'fuentes-oficiales': 'Fuentes oficiales', barometro: 'Clima de inversión', pulsometro: 'Percepción externa', rigi: 'RIGI minero', monitor: 'Monitor MIMA', prospectiva: 'Minerales críticos', 'oro-plata': 'Oro y plata', 'infra-agua': 'Agua', 'infra-energia': 'Energía', 'infra-transporte': 'Transporte', noticias: 'Noticias', eventos: 'Eventos', infografias: 'Infografías' }
             },
             en: {
-                observatorio: ['Observatory', 'What is happening', 'Gathers and organises all relevant public information on the Argentine mining sector.'],
+                observatorio: ['Observatory', 'What is happening', 'Gathers and organises all relevant public information on the Argentine mining sector, with the official sources built in: the Mining Secretariat\'s indicators (SIACAM) and SEGEMAR\'s geology and environment (SIGAM).'],
                 'pulsometro-grupo': ['Pulsometer', 'How the sector is doing today', 'Measures the health and evolution of the activity with dynamic indicators, updated as data arrives.'],
                 infraestructura: ['Enabling infrastructure', 'What it takes to produce', 'Water, energy and transport: probably the main bottleneck to reaching expected output.'],
                 prospectiva: ['Foresight', 'Where it is heading', 'Global demand scenarios and Argentine supply to 2050.'],
                 'noticias-eventos': ['News and events', 'What is being said and where the sector meets', 'Sector news, the conference and seminar calendar, and infographics.'],
-                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', prospectiva: 'Critical minerals', 'oro-plata': 'Gold and silver', 'infra-agua': 'Water', 'infra-energia': 'Energy', 'infra-transporte': 'Transport', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
+                sub: { oferta: 'Supply', demanda: 'Demand', argentina: 'Argentina today', 'capital-humano': 'Human Capital', brechas: 'Gaps', 'fuentes-oficiales': 'Official sources', barometro: 'Investment climate', pulsometro: 'External perception', rigi: 'Mining RIGI', monitor: 'MIMA Monitor', prospectiva: 'Critical minerals', 'oro-plata': 'Gold and silver', 'infra-agua': 'Water', 'infra-energia': 'Energy', 'infra-transporte': 'Transport', noticias: 'News', eventos: 'Events', infografias: 'Infographics' }
             }
         };
         const siemaGroupOf = tabId => Object.keys(SIEMA_GROUPS).find(g => SIEMA_GROUPS[g].tabs.includes(tabId));
@@ -4604,11 +4618,11 @@
                 au: { prod: 14, cons: 1, feas: 1, pfs: 1, pea: 1, advx: 15 },
                 ag: { prod: 3, cons: 0, feas: 0, pfs: 1, pea: 2, advx: 3 }
             },
-            prod2025: { au: 1184, ag: 22.1, li: 116.6, liCap: 200.8, cu: 2.1, jobs: 39311 },
+            prod2025: { au: 1184, ag: 22.1, li: 120, liCap: 215, cu: 2.1, jobs: 40141 },
             exp: {
-                y2025: { total: 6071, au: 4094, li: 911, ag: 785, cu: 13 },
-                ytd2026: { total: 6059, au: 3623, li: 1467, ag: 726, chg: 65.7, li_chg: 190.5 },
-                path: [ { y: 2025, v: 6071, real: true }, { y: 2030, v: 15411 }, { y: 2035, v: 36250 } ],
+                y2025: { total: 6074, au: 4094, li: 911, ag: 785, cu: 13 },
+                ytd2026: { total: 6723, au: 4019, li: 1624, ag: 799, chg: 59.3, li_chg: 173.0 },
+                path: [ { y: 2025, v: 6074, real: true }, { y: 2030, v: 15411 }, { y: 2035, v: 36250 } ],
                 y2035: { total: 36250, cu: 18712, li: 11493, au: 3448, ag: 2597 },
                 rigiOnly2035: 28000,
                 capex: { total: 57000, cu: 41190, li: 14000, ag: 544, au: 231 },
@@ -4690,7 +4704,7 @@
                 min: { cu: 'Cobre', li: 'Litio', au: 'Oro', ag: 'Plata', pb: 'Plomo-zinc', u: 'Uranio', other: 'Otros' },
                 all: 'Todos',
                 k1: 'Exportaciones mineras 2025', k1s: e => `Récord. Oro ${pct(e.au, e.total)}, litio ${pct(e.li, e.total)}, plata ${pct(e.ag, e.total)}, cobre ${pct(e.cu, e.total)}`,
-                k2: 'Enero–agosto 2026', k2s: e => `+${fmtEs(e.chg)} % interanual. El litio crece ${fmtEs(e.li_chg)} %`,
+                k2: 'Enero–septiembre 2026', k2s: e => `+${fmtEs(e.chg)} % interanual. El litio crece ${fmtEs(e.li_chg)} %`,
                 k3: 'Producción 2025', k3s: p => `Litio ${fmtEs(p.li)} kt LCE (capacidad ${fmtEs(p.liCap)} kt) · plata ${fmtEs(p.ag)} Moz · cobre ≈${fmtEs(p.cu)} kt`,
                 k3v: p => `${fmtEs(p.au / 1000, 2)} Moz de oro`,
                 k4: 'Cartera de proyectos', k4s: d => `${d.stages[0].n} en producción · ${d.stages[1].n} en construcción · ${d.stages[2].n + d.stages[3].n + d.stages[4].n} en estudios económicos · ${d.stages[5].n} en exploración avanzada`,
@@ -4701,7 +4715,7 @@
                 mix: 'Composición por mineral (US$ M)',
                 goldNote: 'El oro retrocede porque las operaciones actuales entran en fase de declinación y hay pocos proyectos nuevos; la plata crece como subproducto de los proyectos de cobre.',
                 opsT: 'Operaciones en producción',
-                opsP: 'Las 26 operaciones que la Secretaría de Minería registra en producción. En litio se indica la capacidad nominal anunciada por cada empresa; entre todas suman unos 200 kt LCE, en línea con los 200,8 kt de capacidad instalada que informa el sector.',
+                opsP: 'Las 26 operaciones que la Secretaría de Minería registra en producción. En litio se indica la capacidad nominal anunciada por cada empresa; entre todas suman unos 200 kt LCE, algo menos que los 215 kt de capacidad instalada que informa la Secretaría de Minería (octubre de 2026).',
                 colN: 'Operación', colP: 'Provincia', colO: 'Operador', colC: 'Capacidad', colX: 'Notas',
                 opsGold: 'Oro: Santa Cruz aporta la mitad de la producción, San Juan el 43 % y Salta el 7 %. La plata sale en partes casi iguales de Jujuy y Santa Cruz, sobre todo como subproducto del oro.',
                 pipeT: 'Proyectos por estado',
@@ -4718,7 +4732,7 @@
                     '<strong>Lo que conviene seguir.</strong> El avance físico de los proyectos en construcción, las decisiones de inversión de los proyectos con RIGI aprobado y la aprobación de los que siguen en evaluación.'
                 ],
                 links: 'La comparación de esta oferta con la demanda mundial proyectada está en <a href="#" onclick="omaOpenArgentinaView(); return false;">Prospectiva → Argentina vs demanda proyectada</a>; la posición actual, en <a href="#" onclick="navigateTo(\'argentina\'); return false;">Argentina hoy</a>.',
-                src: 'Fuentes: Secretaría de Minería de la Nación, "Portfolio of Mining Projects 2026" (estados y cartera), exportaciones mineras 2025 y enero–agosto 2026, y proyección de exportaciones a 2035; CAEM, Informe productivo de la minería argentina (datos 2025); comunicados de las empresas y trámites del RIGI para capacidades, inversiones y fechas. La Secretaría aclara que parte de los datos de la cartera son estimaciones de terceros. Datos al '
+                src: 'Fuentes: Secretaría de Minería de la Nación, "Portfolio of Mining Projects 2026" (estados y cartera), exportaciones mineras 2025 y enero–septiembre 2026 (informe mensual de octubre de 2026), mercado de litio (octubre de 2026), y proyección de exportaciones a 2035; CAEM, Informe productivo de la minería argentina (datos 2025); comunicados de las empresas y trámites del RIGI para capacidades, inversiones y fechas. La Secretaría aclara que parte de los datos de la cartera son estimaciones de terceros. Datos al '
             },
             en: {
                 stages: { prod: 'Production', cons: 'Construction', feas: 'Feasibility', pfs: 'Pre-feasibility', pea: 'Preliminary economic assessment (PEA)', advx: 'Advanced exploration', initx: 'Initial exploration', prosp: 'Prospecting' },
@@ -4726,7 +4740,7 @@
                 min: { cu: 'Copper', li: 'Lithium', au: 'Gold', ag: 'Silver', pb: 'Lead-zinc', u: 'Uranium', other: 'Others' },
                 all: 'All',
                 k1: 'Mining exports 2025', k1s: e => `A record. Gold ${pct(e.au, e.total)}, lithium ${pct(e.li, e.total)}, silver ${pct(e.ag, e.total)}, copper ${pct(e.cu, e.total)}`,
-                k2: 'January–August 2026', k2s: e => `+${e.chg}% year on year. Lithium up ${e.li_chg}%`,
+                k2: 'January–September 2026', k2s: e => `+${e.chg}% year on year. Lithium up ${e.li_chg}%`,
                 k3: '2025 production', k3s: p => `Lithium ${p.li} kt LCE (capacity ${p.liCap} kt) · silver ${p.ag} Moz · copper ≈${p.cu} kt`,
                 k3v: p => `${(p.au / 1000).toFixed(2)} Moz of gold`,
                 k4: 'Project pipeline', k4s: d => `${d.stages[0].n} producing · ${d.stages[1].n} under construction · ${d.stages[2].n + d.stages[3].n + d.stages[4].n} in economic studies · ${d.stages[5].n} in advanced exploration`,
@@ -4737,7 +4751,7 @@
                 mix: 'Mix by mineral (US$ M)',
                 goldNote: 'Gold declines because current operations are entering their decline phase and there are few new projects; silver grows as a by-product of copper projects.',
                 opsT: 'Producing operations',
-                opsP: 'The 26 operations the Mining Secretariat lists as producing. For lithium, the nominal capacity announced by each company is shown; together they add up to about 200 kt LCE, in line with the 200.8 kt of installed capacity reported by the industry.',
+                opsP: 'The 26 operations the Mining Secretariat lists as producing. For lithium, the nominal capacity announced by each company is shown; together they add up to about 200 kt LCE, slightly below the 215 kt of installed capacity reported by the Mining Secretariat (October 2026).',
                 colN: 'Operation', colP: 'Province', colO: 'Operator', colC: 'Capacity', colX: 'Notes',
                 opsGold: 'Gold: Santa Cruz accounts for half of output, San Juan 43% and Salta 7%. Silver comes in almost equal parts from Jujuy and Santa Cruz, mostly as a by-product of gold.',
                 pipeT: 'Projects by stage',
@@ -4754,7 +4768,7 @@
                     '<strong>What to watch.</strong> Physical progress of projects under construction, investment decisions on projects with approved RIGI status and approval of those still under review.'
                 ],
                 links: 'The comparison of this supply with projected global demand is in <a href="#" onclick="omaOpenArgentinaView(); return false;">Foresight → Argentina vs demanda proyectada</a>; the current position is in <a href="#" onclick="navigateTo(\'argentina\'); return false;">Argentina today</a>.',
-                src: 'Sources: Argentina\'s Mining Secretariat, "Portfolio of Mining Projects 2026" (stages and pipeline), mining exports 2025 and January–August 2026, and export projection to 2035; CAEM, Argentine mining production report (2025 data); company announcements and RIGI filings for capacities, investments and dates. The Secretariat notes that some pipeline data are third-party estimates. Data as of '
+                src: 'Sources: Argentina\'s Mining Secretariat, "Portfolio of Mining Projects 2026" (stages and pipeline), mining exports 2025 and January–September 2026 (October 2026 monthly report), lithium market (October 2026), and export projection to 2035; CAEM, Argentine mining production report (2025 data); company announcements and RIGI filings for capacities, investments and dates. The Secretariat notes that some pipeline data are third-party estimates. Data as of '
             }
         };
         function trCap(s) {
@@ -5177,16 +5191,16 @@
                 real: 'DATO REAL', ill: 'ILUSTRATIVO', noSignal: 'SIN SEÑAL',
                 ipm: ['ÍNDICE DE PERFORMANCE MINERA', '0,40 × Exportaciones + 0,35 × Producción + 0,25 × Inversión', (e, p, i) => `E ${e} · P ${p} · I ${i}`,
                     ['Exportaciones: ritmo vs. proyección anual', 'Producción: litio producido / capacidad instalada', 'Inversión: avance del RIGI minero (escala de la cartera aprobada y compromiso con fecha cierta, pestaña RIGI)']],
-                exp: ['EXPORTACIONES MINERAS 2026', '1S acumulado vs. proyección anual US$ 9.000 M', '▲ +74,4 % interanual', 'mil M US$'],
+                exp: ['EXPORTACIONES MINERAS 2026', 'Ene–sep acumulado vs. proyección anual US$ 9.000 M', '▲ +59,3 % interanual', 'mil M US$'],
                 bar: ['ÍNDICE PULSÓMETRO', 'Promedio 10 ejes · percepción interna', d => `▲ +${d} vs 2025`],
                 pul: ['PERCEPCIÓN EXTERNA', 'Percepción externa · 1.ª edición en preparación'],
-                li: ['CAPACIDAD INSTALADA', 'Meta oficial 2036: más de 600 kt/año', '33 % de la meta · 4.º productor mundial', 'kt LCE'],
+                li: ['CAPACIDAD INSTALADA', 'Meta oficial 2036: más de 600 kt/año', '36 % de la meta · 4.º productor mundial', 'kt LCE'],
                 cu: ['CUOTA DE LA DEMANDA 2040', '~1,05 Mt/año de cartera (Vicuña, El Pachón, Taca Taca, Los Azules)', 'Hoy: escala artesanal'],
                 hr: ['EJE CAPITAL HUMANO', 'La segunda mejora más chica de los 10 ejes', d => `▲ +${d} vs 2025`],
                 sys: [['Pulsómetro', 'EN LÍNEA'], ['Prospectiva (Convergencias 2050)', 'EN LÍNEA'], ['Análisis de Brechas', 'FASE 1'], ['Monitor MIMA (CAI)', 'EN DISEÑO'], ['Percepción externa', 'CALIBRANDO'], ['RIGI minero', 'EN LÍNEA']],
                 short: ['Exportaciones', 'Marco normativo', 'Licencia social', 'Clima político', 'Mining-friendly', 'Financiamiento', 'Infraestructura', 'Estab. macro', 'Capital humano', 'RIGI minero'],
                 tipGo: 'Clic → ', tabs: { barometro: 'Pulsómetro', brechas: 'Brechas', monitor: 'Monitor MIMA', prospectiva: 'Prospectiva', argentina: 'Argentina hoy', pulsometro: 'Percepción externa', oferta: 'Oferta', rigi: 'RIGI minero' },
-                foot: 'Datos reales: exportaciones mineras 1S 2026 (INDEC / Secretaría de Minería) y proyección anual; capacidad de litio (Secretaría de Minería, pestaña Oferta) y cartera de cobre (CeProMin, pestaña Argentina hoy). Índice de Performance Minera: exportaciones 1S 2026 vs. proyección anual US$ 9.000 M, producción de litio 2025 (116,6 kt) / capacidad (200,8 kt), avance del RIGI minero: promedio de los componentes Escala y Compromiso con fecha cierta del índice RIGI minero (pestaña RIGI, 02/10/2026). Licencia Social, Estabilidad Macro y RIGI se calculan con datos externos (RIGI minero: proyectos mineros de producción, pestaña RIGI); el resto del Pulsómetro es un primer corte ilustrativo de la encuesta SIEMA.',
+                foot: 'Datos reales: exportaciones mineras enero–septiembre 2026 (Secretaría de Minería con base en Aduana) y proyección anual; capacidad de litio (Secretaría de Minería, pestaña Oferta) y cartera de cobre (CeProMin, pestaña Argentina hoy). Índice de Performance Minera: exportaciones enero–septiembre 2026 vs. proyección anual US$ 9.000 M, producción de litio 2025 (120 kt) / capacidad (215 kt), avance del RIGI minero: promedio de los componentes Escala y Compromiso con fecha cierta del índice RIGI minero (pestaña RIGI, 02/10/2026). Licencia Social, Estabilidad Macro y RIGI se calculan con datos externos (RIGI minero: proyectos mineros de producción, pestaña RIGI); el resto del Pulsómetro es un primer corte ilustrativo de la encuesta SIEMA.',
                 locale: 'es-AR'
             },
             en: {
@@ -5200,16 +5214,16 @@
                 real: 'REAL DATA', ill: 'ILLUSTRATIVE', noSignal: 'NO SIGNAL',
                 ipm: ['MINING PERFORMANCE INDEX', '0.40 × Exports + 0.35 × Production + 0.25 × Investment', (e, p, i) => `E ${e} · P ${p} · I ${i}`,
                     ['Exports: pace vs. annual projection', 'Production: lithium output / installed capacity', 'Investment: mining RIGI progress (approved portfolio scale and commitment with firm dates, RIGI tab)']],
-                exp: ['MINING EXPORTS 2026', 'H1 cumulative vs. US$ 9.0 bn annual projection', '▲ +74.4 % year-on-year', 'US$ bn'],
+                exp: ['MINING EXPORTS 2026', 'Jan–Sep cumulative vs. US$ 9.0 bn annual projection', '▲ +59.3 % year-on-year', 'US$ bn'],
                 bar: ['PULSOMETER INDEX', '10-axis average · internal perception', d => `▲ +${d} vs 2025`],
                 pul: ['EXTERNAL PERCEPTION', 'External perception · 1st edition in preparation'],
-                li: ['INSTALLED CAPACITY', 'Official 2036 target: over 600 kt/yr', '33 % of target · world #4 producer', 'kt LCE'],
+                li: ['INSTALLED CAPACITY', 'Official 2036 target: over 600 kt/yr', '36 % of target · world #4 producer', 'kt LCE'],
                 cu: ['SHARE OF 2040 DEMAND', '~1.05 Mt/yr pipeline (Vicuña, El Pachón, Taca Taca, Los Azules)', 'Today: artisanal scale'],
                 hr: ['HUMAN CAPITAL AXIS', 'Second-smallest improvement of the 10 axes', d => `▲ +${d} vs 2025`],
                 sys: [['Pulsometer', 'ONLINE'], ['Foresight (Convergences 2050)', 'ONLINE'], ['Gap Analysis', 'PHASE 1'], ['MIMA Monitor (CAI)', 'IN DESIGN'], ['External perception', 'CALIBRATING'], ['Mining RIGI', 'ONLINE']],
                 short: ['Exports', 'Regulatory', 'Social license', 'Political climate', 'Mining-friendly', 'Funding', 'Infrastructure', 'Macro stability', 'Human capital', 'Mining RIGI'],
                 tipGo: 'Click → ', tabs: { barometro: 'Pulsometer', brechas: 'Gap Analysis', monitor: 'MIMA Monitor', prospectiva: 'Foresight', argentina: 'Argentina today', pulsometro: 'External perception', oferta: 'Supply', rigi: 'Mining RIGI' },
-                foot: 'Real data: H1 2026 mining exports (INDEC / Mining Secretariat) and annual projection; lithium capacity (Mining Secretariat, Supply tab) and copper pipeline (CeProMin, Argentina today tab). Mining Performance Index: H1 2026 exports vs. US$ 9.0 bn annual projection, 2025 lithium output (116.6 kt) / capacity (200.8 kt), mining RIGI progress: average of the Scale and Firm-date commitment components of the mining RIGI index (RIGI tab, 02/10/2026). Social Licence, Macro Stability and RIGI are calculated from external data (mining RIGI: mining production projects, RIGI tab); the rest of the Pulsometer is an illustrative first cut of the SIEMA survey.',
+                foot: 'Real data: January–September 2026 mining exports (Mining Secretariat, based on Customs) and annual projection; lithium capacity (Mining Secretariat, Supply tab) and copper pipeline (CeProMin, Argentina today tab). Mining Performance Index: January–September 2026 exports vs. US$ 9.0 bn annual projection, 2025 lithium output (120 kt) / capacity (215 kt), mining RIGI progress: average of the Scale and Firm-date commitment components of the mining RIGI index (RIGI tab, 02/10/2026). Social Licence, Macro Stability and RIGI are calculated from external data (mining RIGI: mining production projects, RIGI tab); the rest of the Pulsometer is an illustrative first cut of the SIEMA survey.',
                 locale: 'en-GB'
             }
         };
@@ -5217,11 +5231,11 @@
         // Índice de Performance Minera (IPM) = 0,40·E + 0,35·P + 0,25·I  (cada componente 0–100)
         // Actualizar estos insumos cuando haya datos nuevos (INDEC mensual, RIGI, producción de litio).
         const IPM_DATA = {
-            exportYTD: 4742,        // US$ M exportados en el año (1S 2026, INDEC)
+            exportYTD: 6723,        // US$ M exportados en el año (enero–septiembre 2026, Secretaría de Minería con base en Aduana)
             exportTarget: 9000,     // US$ M proyección anual 2026 (sector)
-            yearFraction: 0.5,      // parte del año cubierta por exportYTD
-            lithiumOutput: 116.6,   // kt LCE producidas (2025, Secretaría de Minería)
-            lithiumCapacity: 200.8, // kt LCE capacidad instalada (Portfolio 2026)
+            yearFraction: 0.75,     // parte del año cubierta por exportYTD
+            lithiumOutput: 120,     // kt LCE producidas (2025, Secretaría de Minería, Mercado de Litio, oct. 2026)
+            lithiumCapacity: 215,   // kt LCE capacidad instalada (2025, mismo informe)
             // Inversión: se lee de RIGI_DATA (pestaña RIGI), única fuente del RIGI en SIEMA
             rigiProgressComps: ['scale', 'exec'],
             weights: { E: 0.40, P: 0.35, I: 0.25 }
@@ -5343,10 +5357,10 @@
             const I = {
                 ipm: { min: 0, max: 100, val: ipm.total, txt: String(ipm.total), unit: '/100', zones: [[0, 40, C.crit], [40, 65, C.warn], [65, 100, C.good]], lbl: t.ipm[0], sub: t.ipm[1], delta: t.ipm[2](ipm.E, ipm.P, ipm.I), real: true, go: 'oferta',
                        tip: `<b>${t.ipm[0]}</b><br>E ${ipm.E} — ${t.ipm[3][0]}<br>P ${ipm.P} — ${t.ipm[3][1]}<br>I ${ipm.I} — ${t.ipm[3][2]}` },
-                exp: { min: 0, max: 9000, val: 4742, target: 4500, txt: nf(4.742, 2, lang), unit: t.exp[3], zones: [[0, 3000, C.crit], [3000, 4500, C.warn], [4500, 9000, C.good]], lbl: t.exp[0], sub: t.exp[1], delta: t.exp[2], real: true, go: 'barometro' },
+                exp: { min: 0, max: 9000, val: 6723, target: 6750, txt: nf(6.723, 2, lang), unit: t.exp[3], zones: [[0, 4500, C.crit], [4500, 6750, C.warn], [6750, 9000, C.good]], lbl: t.exp[0], sub: t.exp[1], delta: t.exp[2], real: true, go: 'barometro' },
                 bar: { min: 0, max: 10, val: avg26, txt: nf(avg26, 1, lang), unit: '/10', zones: RYG10, lbl: t.bar[0], sub: t.bar[1], delta: t.bar[2](nf(avg26 - avg25, 1, lang)), real: false, go: 'barometro' },
                 pul: { min: 0, max: 10, val: null, standby: t.noSignal, zones: RYG10, lbl: t.pul[0], sub: t.pul[1], real: false, go: 'pulsometro' },
-                li: { min: 0, max: 600, val: 200.8, txt: '201', unit: t.li[3], zones: [[0, 650, C.cyan]], lbl: t.li[0], sub: t.li[1], delta: t.li[2], real: true, go: 'argentina' },
+                li: { min: 0, max: 600, val: 215, txt: '215', unit: t.li[3], zones: [[0, 650, C.cyan]], lbl: t.li[0], sub: t.li[1], delta: t.li[2], real: true, go: 'argentina' },
                 cu: { min: 0, max: 5, val: 3, txt: '~' + nf(3, 0, lang), unit: '%', zones: [[0, 5, C.cyan]], lbl: t.cu[0], sub: t.cu[1], delta: t.cu[2], real: true, go: 'argentina' },
                 hr: { min: 0, max: 10, val: hr.v2026, txt: nf(hr.v2026, 1, lang), unit: '/10', zones: RYG10, lbl: t.hr[0], sub: t.hr[1], delta: t.hr[2](nf(hr.v2026 - hr.v2025, 1, lang)), real: false, go: 'monitor' }
             };
@@ -5410,6 +5424,230 @@
     })();
     </script>
 
+    <!-- Fuentes oficiales: tableros SIACAM (Secretaría de Minería) y mapas SIGAM (SEGEMAR) -->
+    <style>
+        .fo-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 1rem 0 1.5rem; }
+        .fo-card { background: #fff; border: 1px solid #dde3ec; border-top: 4px solid #2a5298; border-radius: 10px; padding: 14px 16px; }
+        .fo-card.geo { border-top-color: #8a5a2b; }
+        .fo-card h3 { margin: 0 0 4px; font-size: 1.05rem; color: #1e3c72; }
+        .fo-card .fo-org { font-size: .8rem; color: #6b7789; margin-bottom: 8px; }
+        .fo-card p { margin: 0 0 8px; font-size: .92rem; }
+        .fo-card .fo-links { display: flex; flex-wrap: wrap; gap: 6px; }
+        .fo-card .fo-links a { font-size: .82rem; color: #1e3c72; border: 1px solid #cfd8e6; border-radius: 999px; padding: 2px 10px; text-decoration: none; }
+        .fo-card .fo-links a:hover { background: #eef3fb; }
+        .fo-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: .6rem 0 .8rem; }
+        .fo-bar label { font-weight: 600; font-size: .9rem; color: #3d4757; }
+        .fo-bar select { font: inherit; font-size: .92rem; padding: 6px 10px; border: 1px solid #cfd8e6; border-radius: 8px; background: #fff; min-width: 260px; max-width: 100%; }
+        .fo-bar a { font-size: .85rem; color: #2a5298; }
+        .fo-frame { width: 100%; height: 820px; border: 1px solid #dde3ec; border-radius: 10px; background: #fff; display: block; }
+        .fo-map-wrap { display: grid; grid-template-columns: 260px 1fr; gap: 12px; align-items: start; }
+        .fo-layers { background: #fff; border: 1px solid #dde3ec; border-radius: 10px; padding: 10px 12px; font-size: .88rem; max-height: 620px; overflow-y: auto; }
+        .fo-layers h4 { margin: 8px 0 4px; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: #6b7789; }
+        .fo-layers h4:first-child { margin-top: 0; }
+        .fo-layers label { display: flex; gap: 7px; align-items: flex-start; padding: 3px 0; cursor: pointer; line-height: 1.35; }
+        .fo-layers input { margin-top: 3px; flex: none; }
+        .fo-legend { margin: 0 0 6px 22px; font-size: .8rem; }
+        .fo-legend summary { cursor: pointer; color: #2a5298; }
+        .fo-legend img { margin-top: 4px; }
+        .fo-legend img { max-width: 100%; display: block; }
+        #foMap { height: 620px; border: 1px solid #dde3ec; border-radius: 10px; background: #eef2f6; }
+        .fo-note { font-size: .8rem; color: #6b7789; margin-top: 6px; }
+        @media (max-width: 760px) {
+            .fo-map-wrap { grid-template-columns: 1fr; }
+            .fo-layers { max-height: none; }
+            #foMap { height: 460px; }
+            .fo-frame { height: 640px; }
+        }
+    </style>
+    <script>
+    (function () {
+        var SIACAM = [
+            { g: 0, p: 'ProduccinNacional_/Dashboard1', es: 'Producción nacional', en: 'National production' },
+            { g: 0, p: 'IPIMinero_/SeriesDash', es: 'Índice de Producción Industrial Minero', en: 'Mining Industrial Production Index' },
+            { g: 0, p: 'ProduccinMineraMundial_/Dashboard1', es: 'Producción minera mundial', en: 'World mining production' },
+            { g: 0, p: 'ndicedePreciodelosMetales_/DashIndice', es: 'Precios internacionales', en: 'International prices' },
+            { g: 0, p: 'TableroGlobaldeCobre_/TabOferta', es: 'Tablero global de cobre', en: 'Global copper dashboard' },
+            { g: 0, p: 'TableroGlobaldeLitio_/Oferta', es: 'Tablero global de litio', en: 'Global lithium dashboard' },
+            { g: 1, p: 'EmpleoMinero_/EmpleoRubro', es: 'Empleo (rubros, provincias, salarios y género)', en: 'Employment (segments, provinces, wages and gender)' },
+            { g: 1, p: 'EmpresasMineras_/Dashboard1', es: 'Cantidad de empresas', en: 'Number of companies' },
+            { g: 1, p: 'ComprasRealizadasporEmpresasMineras-2019_/claecomprador', es: 'Compras a proveedores mineros', en: 'Purchases from mining suppliers' },
+            { g: 1, p: 'MineraComparada_/DashPobreza', es: 'La minería comparada', en: 'Mining compared' },
+            { g: 2, p: 'ComercioExteriordeArgentina/DashRubro', es: 'Comercio exterior de Argentina', en: 'Argentina’s foreign trade' },
+            { g: 2, p: 'ComercioMundialdeMinerales_/DashExpo', es: 'Comercio mundial de minerales', en: 'World mineral trade' },
+            { g: 2, p: 'ResultadoCambiario_/Dashboard1', es: 'Resultado cambiario', en: 'Foreign-exchange balance' },
+            { g: 2, p: 'Impuestos_/Principal', es: 'Impuestos', en: 'Taxes' },
+            { g: 3, p: 'ProyectosMineros_/Dashproyectos', es: 'Cartera de proyectos', en: 'Project portfolio' },
+            { g: 3, p: 'PresupuestosExploratorios_/Dashboard1', es: 'Presupuestos exploratorios', en: 'Exploration budgets' },
+            { g: 3, p: 'RegulacinMineraProvincial_/Dashboard1', es: 'Regulación minera provincial', en: 'Provincial mining regulation' }
+        ];
+        var GROUPS = { es: ['Producción y mercados', 'Empleo y empresas', 'Comercio y finanzas', 'Inversión y regulación'],
+                       en: ['Production and markets', 'Employment and companies', 'Trade and finance', 'Investment and regulation'] };
+        var WMS = 'https://sigam.segemar.gov.ar/geoserver217/ows';
+        var SIGAM = [
+            { g: 0, l: 'sigam:e2.5M.FajaMetal', es: 'Fajas metalogenéticas (1:2.500.000)', en: 'Metallogenic belts (1:2,500,000)' },
+            { g: 0, l: 'sigam:e250K.DepositMetalif', es: 'Depósitos minerales metalíferos (1:250.000)', en: 'Metallic mineral deposits (1:250,000)', on: true },
+            { g: 0, l: 'sigam:e250K.DepositMinIndust', es: 'Depósitos de minerales industriales (1:250.000)', en: 'Industrial mineral deposits (1:250,000)' },
+            { g: 0, l: 'sigam:e250K.AlteraHidroterm', es: 'Alteraciones hidrotermales (1:250.000)', en: 'Hydrothermal alteration (1:250,000)' },
+            { g: 1, l: 'sigam:e2.5M.UnidadesGeologicas', es: 'Unidades geológicas (1:2.500.000)', en: 'Geological units (1:2,500,000)' },
+            { g: 1, l: 'sigam:e2.5M.Estructuras', es: 'Estructuras (1:2.500.000)', en: 'Structures (1:2,500,000)' },
+            { g: 2, l: 'sigam:e250K_Unidadhidro', es: 'Unidades hidrogeológicas (1:250.000)', en: 'Hydrogeological units (1:250,000)' },
+            { g: 2, l: 'sigam:e250K.PozosAgua', es: 'Pozos de agua (1:250.000)', en: 'Water wells (1:250,000)' },
+            { g: 3, l: 'sigam:PeligroSismos', es: 'Peligrosidad sísmica', en: 'Seismic hazard' },
+            { g: 3, l: 'sigam:e2.5M.VolcanesEvaluacionPeligrosidad', es: 'Peligrosidad volcánica', en: 'Volcanic hazard' }
+        ];
+        var CHECK = [
+            { es: ['Exportaciones mineras 2025', 'US$ 6.071 M', 'US$ 6.074 M (cifra revisada)', 'Ajustado: diferencia de 0,05 %'],
+              en: ['Mining exports 2025', 'US$6,071 M', 'US$6,074 M (revised figure)', 'Adjusted: 0.05% difference'], src: 0 },
+            { es: ['Exportaciones mineras 2026 acumuladas', 'Portada: 1.er semestre, US$ 4.742 M (+74,4 %). Oferta: enero–agosto, US$ 6.059 M', 'Enero–septiembre: US$ 6.723 M (+59,3 % interanual; 11 % más que todo 2025)', 'Actualizado y unificado en todo SIEMA'],
+              en: ['Cumulative 2026 mining exports', 'Home: H1, US$4,742 M (+74.4%). Supply: Jan–Aug, US$6,059 M', 'Jan–Sep: US$6,723 M (+59.3% y/y; 11% above all of 2025)', 'Updated and aligned across SIEMA'], src: 0 },
+            { es: ['Oro, plata y litio exportados en 2026', 'Enero–agosto: oro 3.623, plata 726, litio 1.467 (US$ M)', 'Enero–septiembre: oro 4.019, plata 799, litio 1.624 (US$ M)', 'Actualizado'],
+              en: ['Gold, silver and lithium exported in 2026', 'Jan–Aug: gold 3,623, silver 726, lithium 1,467 (US$ M)', 'Jan–Sep: gold 4,019, silver 799, lithium 1,624 (US$ M)', 'Updated'], src: 0 },
+            { es: ['Producción de litio 2025', '116,6 kt LCE', '120 kt LCE (+62 % interanual), siete operaciones', 'Actualizado'],
+              en: ['Lithium output 2025', '116.6 kt LCE', '120 kt LCE (+62% y/y), seven operations', 'Updated'], src: 1 },
+            { es: ['Capacidad instalada de litio', '200,8 kt LCE', '215 kt LCE; 269 kt previstas en 2026', 'Actualizado (portada, Oferta, Argentina hoy y modelo)'],
+              en: ['Installed lithium capacity', '200.8 kt LCE', '215 kt LCE; 269 kt expected in 2026', 'Updated (home, Supply, Argentina today and model)'], src: 1 },
+            { es: ['Empleo minero directo', '39.311 puestos', '40.141 puestos formales (marzo de 2026), 13,2 % mujeres; 993 empresas', 'Actualizado (serie con ajuste metodológico)'],
+              en: ['Direct mining employment', '39,311 jobs', '40,141 formal jobs (March 2026), 13.2% women; 993 companies', 'Updated (series with methodological revision)'], src: 2 },
+            { es: ['Reservas mundiales de litio en Argentina', '11,9 %', 'Cerca del 12 % (21 % de los recursos)', 'Coherente'],
+              en: ['Argentina\u2019s share of world lithium reserves', '11.9%', 'About 12% (21% of resources)', 'Consistent'], src: 1 },
+            { es: ['Horizonte del litio', 'Meta oficial: más de 600 kt hacia 2036', 'Proyección oficial: más de 400 kt en 2030 y 573 kt en 2035', 'Coherente: distinto año de referencia'],
+              en: ['Lithium outlook', 'Official target: over 600 kt by 2036', 'Official projection: over 400 kt in 2030 and 573 kt in 2035', 'Consistent: different reference year'], src: 1 }
+        ];
+        var CSRC = [
+            { u: 'https://www.argentina.gob.ar/sites/default/files/2026.10_exportaciones_mineras_en_argentina.pdf', es: 'Exportaciones mineras, informe mensual de octubre de 2026', en: 'Mining exports, October 2026 monthly report' },
+            { u: 'https://www.argentina.gob.ar/sites/default/files/mercado_de_litio_2026-1.pdf', es: 'Mercado de litio, octubre de 2026', en: 'Lithium market, October 2026' },
+            { u: 'https://www.argentina.gob.ar/sites/default/files/2026.06_empleo_minero_en_argentina_1.pdf', es: 'Empleo minero en Argentina, informe de junio de 2026', en: 'Mining employment in Argentina, June 2026 report' }
+        ];
+        var LGROUPS = { es: ['Recursos minerales', 'Geología', 'Agua', 'Amenazas naturales'], en: ['Mineral resources', 'Geology', 'Water', 'Natural hazards'] };
+        var T = {
+            es: {
+                h1: 'Fuentes oficiales: SIACAM y SIGAM',
+                lead: 'SIEMA integra dos sistemas públicos de información minera: los indicadores de la Secretaría de Minería de la Nación (SIACAM) y la información geológica y ambiental del Servicio Geológico Minero Argentino (SIGAM). Los tableros y mapas se cargan directamente desde esas fuentes, así que muestran siempre su última actualización.',
+                c1t: 'SIACAM · Minería en datos', c1o: 'Secretaría de Minería de la Nación, Ministerio de Economía',
+                c1p: 'Sistema de Información Abierta a la Comunidad sobre la Actividad Minera. Indicadores de producción, empleo (con salarios y género), empresas, proveedores, comercio exterior, impuestos, precios, cartera de proyectos y regulación provincial, más datos abiertos descargables.',
+                c2t: 'SIGAM · Geología en mapas', c2o: 'SEGEMAR, Servicio Geológico Minero Argentino',
+                c2p: 'Sistema de Información Geológica Ambiental Minera. Cartografía geológica, fajas metalogenéticas, depósitos minerales, hidrogeología, amenazas naturales (sismos, volcanes, inundaciones) y otras capas, publicadas con licencia abierta CC BY 4.0.',
+                l_home: 'Sitio oficial', l_ind: 'Indicadores', l_data: 'Datos abiertos', l_cat: 'Catastro minero', l_inf: 'Informes',
+                l_visor: 'Visor completo', l_desc: 'Descargas', l_geo: 'Servicios WMS/WFS',
+                h2a: 'Indicadores de la Secretaría de Minería (SIACAM)', pick: 'Tablero:', open: 'Abrir en una pestaña nueva',
+                noteA: 'Fuente: Secretaría de Minería de la Nación, SIACAM, en Tableau Public. Cada tablero tiene sus propias pestañas y filtros. Si no se ve bien en el celular, abrilo en una pestaña nueva.',
+                h2b: 'Geología y ambiente (SIGAM)', layers: 'Capas', legend: 'Ver leyenda',
+                noteB: 'Fuente: SEGEMAR, SIGAM (licencia CC BY 4.0), servicio WMS. Para consultar los atributos de cada punto o descargar las capas, usá el visor completo o el catálogo de descargas de SIGAM. Mapa base: © colaboradores de OpenStreetMap.',
+                mapErr: 'No se pudo cargar el mapa. Probá de nuevo o abrí el visor completo de SIGAM.',
+                h2c: 'Chequeo de coherencia con las fuentes oficiales', leadC: 'Revisión del 4 de noviembre de 2026: se compararon las cifras de SIEMA con los últimos informes de la Secretaría de Minería. Las cifras corregidas ya están actualizadas en todas las pestañas y en Kuntur.',
+                cols: ['Indicador', 'SIEMA antes', 'Dato oficial más reciente', 'Resultado', 'Fuente']
+            },
+            en: {
+                h1: 'Official sources: SIACAM and SIGAM',
+                lead: 'SIEMA brings together two public mining information systems: the indicators of Argentina’s Mining Secretariat (SIACAM) and the geological and environmental information of the Argentine Geological Mining Survey (SIGAM). Dashboards and maps load directly from those sources, so they always show their latest update.',
+                c1t: 'SIACAM · Mining in data', c1o: 'National Mining Secretariat, Ministry of Economy',
+                c1p: 'Open Community Information System on Mining Activity. Indicators on production, employment (including wages and gender), companies, suppliers, foreign trade, taxes, prices, the project portfolio and provincial regulation, plus downloadable open data.',
+                c2t: 'SIGAM · Geology in maps', c2o: 'SEGEMAR, Argentine Geological Mining Survey',
+                c2p: 'Geological, Environmental and Mining Information System. Geological maps, metallogenic belts, mineral deposits, hydrogeology, natural hazards (earthquakes, volcanoes, floods) and other layers, published under an open CC BY 4.0 licence.',
+                l_home: 'Official site', l_ind: 'Indicators', l_data: 'Open data', l_cat: 'Mining cadastre', l_inf: 'Reports',
+                l_visor: 'Full viewer', l_desc: 'Downloads', l_geo: 'WMS/WFS services',
+                h2a: 'Mining Secretariat indicators (SIACAM)', pick: 'Dashboard:', open: 'Open in a new tab',
+                noteA: 'Source: Argentina’s National Mining Secretariat, SIACAM, on Tableau Public (in Spanish). Each dashboard has its own tabs and filters. If it does not display well on a phone, open it in a new tab.',
+                h2b: 'Geology and environment (SIGAM)', layers: 'Layers', legend: 'Show legend',
+                noteB: 'Source: SEGEMAR, SIGAM (CC BY 4.0 licence), WMS service. To query the attributes of each point or download the layers, use SIGAM’s full viewer or download catalogue. Base map: © OpenStreetMap contributors.',
+                mapErr: 'The map could not be loaded. Try again or open SIGAM’s full viewer.',
+                h2c: 'Consistency check against the official sources', leadC: 'Review of 4 November 2026: SIEMA\u2019s figures were compared with the Mining Secretariat\u2019s latest reports. The corrected figures are already updated in every tab and in Kuntur.',
+                cols: ['Indicator', 'SIEMA before', 'Latest official figure', 'Result', 'Source']
+            }
+        };
+        var L = function () { return (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'es'; };
+        var state = { dash: 6, on: {} };
+        SIGAM.forEach(function (x, i) { if (x.on) state.on[i] = true; });
+        var map = null, wmsLayers = {}, rendered = null;
+        function vizUrl(p, embed) {
+            return 'https://public.tableau.com/views/' + p + '?:language=' + (L() === 'en' ? 'en-US' : 'es-ES') + '&:display_count=n' + (embed ? '&:showVizHome=no&:embed=y&:tabs=yes&:toolbar=yes' : '');
+        }
+        function a(href, txt) { return '<a href="' + href + '" target="_blank" rel="noopener">' + txt + '</a>'; }
+        function render() {
+            var t = T[L()], lg = L(), root = document.getElementById('foRoot'); if (!root) return;
+            var opts = GROUPS[lg].map(function (g, gi) {
+                return '<optgroup label="' + g + '">' + SIACAM.map(function (d, i) { return d.g === gi ? '<option value="' + i + '"' + (i === state.dash ? ' selected' : '') + '>' + d[lg] + '</option>' : ''; }).join('') + '</optgroup>';
+            }).join('');
+            var lay = LGROUPS[lg].map(function (g, gi) {
+                return '<h4>' + g + '</h4>' + SIGAM.map(function (x, i) {
+                    if (x.g !== gi) return '';
+                    return '<label><input type="checkbox" data-i="' + i + '"' + (state.on[i] ? ' checked' : '') + '> ' + x[lg] + '</label>' +
+                        '<details class="fo-legend" id="foLeg' + i + '"' + (state.on[i] ? '' : ' hidden') + '><summary>' + T[lg].legend + '</summary><img loading="lazy" alt="" src="' + WMS + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=' + encodeURIComponent(x.l) + '&LEGEND_OPTIONS=fontSize:10;forceLabels:on"></details>';
+                }).join('');
+            }).join('');
+            root.innerHTML =
+                '<h1>' + t.h1 + '</h1><p>' + t.lead + '</p>' +
+                '<div class="fo-cards">' +
+                  '<div class="fo-card"><h3>' + t.c1t + '</h3><div class="fo-org">' + t.c1o + '</div><p>' + t.c1p + '</p><div class="fo-links">' +
+                    a('https://www.argentina.gob.ar/economia/mineria/siacam', t.l_home) + a('https://www.argentina.gob.ar/economia/mineria/siacam/indicadores', t.l_ind) +
+                    a('https://datos.gob.ar/dataset/?organization=secretaria-de-mineria', t.l_data) + a('https://www.argentina.gob.ar/economia/mineria/siacam/otros-recursos/catastros-mineros', t.l_cat) +
+                    a('https://www.argentina.gob.ar/economia/mineria/informes-y-estudios-sobre-mineria', t.l_inf) + '</div></div>' +
+                  '<div class="fo-card geo"><h3>' + t.c2t + '</h3><div class="fo-org">' + t.c2o + '</div><p>' + t.c2p + '</p><div class="fo-links">' +
+                    a('https://sigam.segemar.gov.ar/', t.l_home) + a('https://sigam.segemar.gov.ar/mapstore/#/viewer/222', t.l_visor) +
+                    a('https://sigam.segemar.gov.ar/geonetwork39/srv/spa/catalog.search#/home', t.l_desc) + a('https://sigam.segemar.gov.ar/sigam/geoservicios/', t.l_geo) + '</div></div>' +
+                '</div>' +
+                '<h2>' + t.h2a + '</h2>' +
+                '<div class="fo-bar"><label for="foDash">' + t.pick + '</label><select id="foDash">' + opts + '</select>' +
+                  '<a id="foDashOpen" href="' + vizUrl(SIACAM[state.dash].p) + '" target="_blank" rel="noopener">' + t.open + ' ↗</a></div>' +
+                '<iframe class="fo-frame" id="foFrame" title="SIACAM" loading="lazy" allowfullscreen src="' + vizUrl(SIACAM[state.dash].p, true) + '"></iframe>' +
+                '<p class="fo-note">' + t.noteA + '</p>' +
+                '<h2>' + t.h2c + '</h2><p>' + t.leadC + '</p>' +
+                '<div class="table-scroll"><table><thead><tr>' + t.cols.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>' +
+                  CHECK.map(function (c) { var v = c[lg]; return '<tr><td><strong>' + v[0] + '</strong></td><td>' + v[1] + '</td><td>' + v[2] + '</td><td>' + v[3] + '</td><td>' + a(CSRC[c.src].u, CSRC[c.src][lg]) + '</td></tr>'; }).join('') +
+                '</tbody></table></div>' +
+                '<h2>' + t.h2b + '</h2>' +
+                '<div class="fo-map-wrap"><div class="fo-layers" id="foLayers"><h4 style="margin-top:0">' + t.layers + '</h4>' + lay + '</div><div id="foMap"></div></div>' +
+                '<p class="fo-note">' + t.noteB + ' ' + a('https://sigam.segemar.gov.ar/mapstore/#/viewer/222', t.l_visor + ' ↗') + '</p>';
+            document.getElementById('foDash').addEventListener('change', function () {
+                state.dash = +this.value;
+                document.getElementById('foFrame').src = vizUrl(SIACAM[state.dash].p, true);
+                document.getElementById('foDashOpen').href = vizUrl(SIACAM[state.dash].p);
+            });
+            document.getElementById('foLayers').addEventListener('change', function (e) {
+                var i = e.target.getAttribute('data-i'); if (i == null) return;
+                state.on[i] = e.target.checked; document.getElementById('foLeg' + i).hidden = !e.target.checked; syncLayers();
+            });
+            rendered = lg;
+            if (map) { map.remove(); map = null; wmsLayers = {}; }
+            initMap();
+        }
+        function loadLeaflet(cb) {
+            if (window.L && window.L.map) return cb();
+            var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
+            var s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+            s.onload = cb; s.onerror = function () { var m = document.getElementById('foMap'); if (m) m.textContent = T[L()].mapErr; };
+            document.head.appendChild(s);
+        }
+        function syncLayers() {
+            if (!map) return;
+            SIGAM.forEach(function (x, i) {
+                var want = !!state.on[i];
+                if (want && !wmsLayers[i]) {
+                    wmsLayers[i] = window.L.tileLayer.wms(WMS, { layers: x.l, format: 'image/png', transparent: true, version: '1.1.1', opacity: x.g === 1 ? 0.6 : 0.85, attribution: 'SEGEMAR · SIGAM (CC BY 4.0)' }).addTo(map);
+                } else if (!want && wmsLayers[i]) { map.removeLayer(wmsLayers[i]); delete wmsLayers[i]; }
+            });
+        }
+        function initMap() {
+            var el = document.getElementById('fuentes-oficiales');
+            if (!el || !el.classList.contains('active')) return;
+            loadLeaflet(function () {
+                var box = document.getElementById('foMap'); if (!box || map) return;
+                map = window.L.map(box, { scrollWheelZoom: false }).setView([-31.5, -66.5], 5);
+                window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 12, attribution: '© OpenStreetMap' }).addTo(map);
+                syncLayers();
+                setTimeout(function () { map.invalidateSize(); }, 200);
+            });
+        }
+        var tab = document.getElementById('fuentes-oficiales');
+        new MutationObserver(function () {
+            if (!tab.classList.contains('active')) return;
+            if (rendered !== L()) render(); else if (!map) initMap(); else map.invalidateSize();
+        }).observe(tab, { attributes: true, attributeFilter: ['class'] });
+        new MutationObserver(function () { if (rendered && rendered !== L()) render(); })
+            .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+        render();
+    })();
+    </script>
     <!-- Kuntur: chat por escrito dentro de SIEMA -->
     <style>
         .nav-menu li.kc-li { display: flex; align-items: center; padding-left: 0.6rem; }
