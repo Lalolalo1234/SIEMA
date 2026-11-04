@@ -5436,7 +5436,9 @@
         .fo-layers h4:first-child { margin-top: 0; }
         .fo-layers label { display: flex; gap: 7px; align-items: flex-start; padding: 3px 0; cursor: pointer; line-height: 1.35; }
         .fo-layers input { margin-top: 3px; flex: none; }
-        .fo-legend { margin: 2px 0 6px 22px; }
+        .fo-legend { margin: 0 0 6px 22px; font-size: .8rem; }
+        .fo-legend summary { cursor: pointer; color: #2a5298; }
+        .fo-legend img { margin-top: 4px; }
         .fo-legend img { max-width: 100%; display: block; }
         #foMap { height: 620px; border: 1px solid #dde3ec; border-radius: 10px; background: #eef2f6; }
         .fo-note { font-size: .8rem; color: #6b7789; margin-top: 6px; }
@@ -5472,7 +5474,7 @@
                        en: ['Production and markets', 'Employment and companies', 'Trade and finance', 'Investment and regulation'] };
         var WMS = 'https://sigam.segemar.gov.ar/geoserver217/ows';
         var SIGAM = [
-            { g: 0, l: 'sigam:e2.5M.FajaMetal', es: 'Fajas metalogenéticas (1:2.500.000)', en: 'Metallogenic belts (1:2,500,000)', on: true },
+            { g: 0, l: 'sigam:e2.5M.FajaMetal', es: 'Fajas metalogenéticas (1:2.500.000)', en: 'Metallogenic belts (1:2,500,000)' },
             { g: 0, l: 'sigam:e250K.DepositMetalif', es: 'Depósitos minerales metalíferos (1:250.000)', en: 'Metallic mineral deposits (1:250,000)', on: true },
             { g: 0, l: 'sigam:e250K.DepositMinIndust', es: 'Depósitos de minerales industriales (1:250.000)', en: 'Industrial mineral deposits (1:250,000)' },
             { g: 0, l: 'sigam:e250K.AlteraHidroterm', es: 'Alteraciones hidrotermales (1:250.000)', en: 'Hydrothermal alteration (1:250,000)' },
@@ -5496,7 +5498,7 @@
                 l_visor: 'Visor completo', l_desc: 'Descargas', l_geo: 'Servicios WMS/WFS',
                 h2a: 'Indicadores de la Secretaría de Minería (SIACAM)', pick: 'Tablero:', open: 'Abrir en una pestaña nueva',
                 noteA: 'Fuente: Secretaría de Minería de la Nación, SIACAM, en Tableau Public. Cada tablero tiene sus propias pestañas y filtros. Si no se ve bien en el celular, abrilo en una pestaña nueva.',
-                h2b: 'Geología y ambiente (SIGAM)', layers: 'Capas',
+                h2b: 'Geología y ambiente (SIGAM)', layers: 'Capas', legend: 'Ver leyenda',
                 noteB: 'Fuente: SEGEMAR, SIGAM (licencia CC BY 4.0), servicio WMS. Para consultar los atributos de cada punto o descargar las capas, usá el visor completo o el catálogo de descargas de SIGAM. Mapa base: © colaboradores de OpenStreetMap.',
                 mapErr: 'No se pudo cargar el mapa. Probá de nuevo o abrí el visor completo de SIGAM.'
             },
@@ -5511,7 +5513,7 @@
                 l_visor: 'Full viewer', l_desc: 'Downloads', l_geo: 'WMS/WFS services',
                 h2a: 'Mining Secretariat indicators (SIACAM)', pick: 'Dashboard:', open: 'Open in a new tab',
                 noteA: 'Source: Argentina’s National Mining Secretariat, SIACAM, on Tableau Public (in Spanish). Each dashboard has its own tabs and filters. If it does not display well on a phone, open it in a new tab.',
-                h2b: 'Geology and environment (SIGAM)', layers: 'Layers',
+                h2b: 'Geology and environment (SIGAM)', layers: 'Layers', legend: 'Show legend',
                 noteB: 'Source: SEGEMAR, SIGAM (CC BY 4.0 licence), WMS service. To query the attributes of each point or download the layers, use SIGAM’s full viewer or download catalogue. Base map: © OpenStreetMap contributors.',
                 mapErr: 'The map could not be loaded. Try again or open SIGAM’s full viewer.'
             }
@@ -5533,7 +5535,7 @@
                 return '<h4>' + g + '</h4>' + SIGAM.map(function (x, i) {
                     if (x.g !== gi) return '';
                     return '<label><input type="checkbox" data-i="' + i + '"' + (state.on[i] ? ' checked' : '') + '> ' + x[lg] + '</label>' +
-                        '<div class="fo-legend" id="foLeg' + i + '"' + (state.on[i] ? '' : ' hidden') + '><img loading="lazy" alt="" src="' + WMS + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=' + encodeURIComponent(x.l) + '&LEGEND_OPTIONS=fontSize:10;forceLabels:on"></div>';
+                        '<details class="fo-legend" id="foLeg' + i + '"' + (state.on[i] ? '' : ' hidden') + '><summary>' + T[lg].legend + '</summary><img loading="lazy" alt="" src="' + WMS + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=' + encodeURIComponent(x.l) + '&LEGEND_OPTIONS=fontSize:10;forceLabels:on"></details>';
                 }).join('');
             }).join('');
             root.innerHTML =
