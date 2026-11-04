@@ -744,7 +744,7 @@ const priceCtls = document.getElementById('priceCtls');
 ['au', 'ag'].forEach(mid => {
   const P = AR_MET[mid].price; const w = document.createElement('div'); w.className = 'ctl';
   w.innerHTML = `<div class="ctl-head"><label for="pr_${mid}">Precio ${AR_MET[mid].del} desde 2026</label><span class="ctl-val" id="tp_${mid}"></span></div>
-    <input type="range" id="pr_${mid}" min="${P.lo}" max="${P.hi}" step="${P.step}"><div class="ctl-desc">Referencia del 09/10/2026: ${mid === 'au' ? '4.195' : '60,9'} US$ la onza. Supuesto constante, en dólares de hoy.</div>`;
+    <input type="range" id="pr_${mid}" min="${P.lo}" max="${P.hi}" step="${P.step}"><div class="ctl-desc">Referencia del 09/10/2026: ${mid === 'au' ? '4.195' : '60,9'} US$ la onza. Banco Mundial (octubre de 2026): ${mid === 'au' ? '4.600 en 2026, 4.250 en 2027 y 4.000 en 2028' : '70 en 2026, 62 en 2027 y 58 en 2028'}. Supuesto constante, en dólares de hoy.</div>`;
   priceCtls.appendChild(w);
   w.querySelector('input').addEventListener('input', e => { state.price[mid] = +e.target.value; schedule(); });
 });

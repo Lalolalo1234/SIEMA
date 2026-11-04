@@ -1600,12 +1600,14 @@
 
             <div id="cualDyn"></div>
 
+            <div id="wbDyn"></div>
+
             <h2>El vacío de información que el SIEMA cierra</h2>
             <p>Hoy existen múltiples fuentes de proyección de demanda (IEA, S&amp;P, Wood Mackenzie, CRU, Fastmarkets, SMM, USGS, entre otras) que no siempre coinciden entre sí. El Observatorio centraliza y armoniza estas fuentes —sumando datos directos de empresas mineras que operan en Argentina— para producir una proyección de referencia única, aplicada a la realidad del país.</p>
 
             <div class="subsection">
                 <h3>Fuentes de datos</h3>
-                <p>IEA · S&amp;P Global · Wood Mackenzie · CRU · Fastmarkets · SMM · USGS · Adamas Intelligence · Secretaría de Minería de la Nación · reportes directos de empresas mineras que operan en Argentina.</p>
+                <p>IEA · Banco Mundial (Commodity Markets Outlook) · S&amp;P Global · Wood Mackenzie · CRU · Fastmarkets · SMM · USGS · Adamas Intelligence · Secretaría de Minería de la Nación · reportes directos de empresas mineras que operan en Argentina.</p>
             </div>
         </div>
 
@@ -2757,12 +2759,14 @@
 
             <div id="cualDyn"></div>
 
+            <div id="wbDyn"></div>
+
             <h2>The information gap SIEMA closes</h2>
             <p>Today there are multiple demand-projection sources (IEA, S&amp;P, Wood Mackenzie, CRU, Fastmarkets, SMM, USGS, among others) that don't always agree with each other. The Observatory centralizes and reconciles these sources —adding direct data from mining companies operating in Argentina— to produce a single reference projection, applied to the country's reality.</p>
 
             <div class="subsection">
                 <h3>Data sources</h3>
-                <p>IEA · S&amp;P Global · Wood Mackenzie · CRU · Fastmarkets · SMM · USGS · Adamas Intelligence · National Mining Secretariat · direct reports from mining companies operating in Argentina.</p>
+                <p>IEA · World Bank (Commodity Markets Outlook) · S&amp;P Global · Wood Mackenzie · CRU · Fastmarkets · SMM · USGS · Adamas Intelligence · National Mining Secretariat · direct reports from mining companies operating in Argentina.</p>
             </div>`,
 
             oferta: `
@@ -5424,6 +5428,73 @@
     })();
     </script>
 
+    <!-- Demanda: pronósticos de precios del Banco Mundial (Commodity Markets Outlook). Actualizar WB_CMO en cada edición (abril y octubre) -->
+    <script>
+    (function () {
+        var WB_CMO = {
+            edition: { es: 'octubre de 2026', en: 'October 2026' }, published: '28/10/2026', next: { es: 'abril de 2027', en: 'April 2027' },
+            years: ['2025', '2026p', '2027p', '2028p'],
+            rows: [
+                { k: 'cu', v: [9947, 13200, 13000, 12500], d: 0,
+                  es: ['Cobre', 'US$/t', 'Spot de agosto de 2026: unos 14.400 (pestaña Demanda, relación Cu/Al)', 'Coherente: el Banco Mundial espera precios cerca del récord; el spot está unos 9 % por encima del promedio que prevé para 2026.'],
+                  en: ['Copper', 'US$/t', 'August 2026 spot: about 14,400 (Demand tab, Cu/Al ratio)', 'Consistent: the World Bank expects prices near the record; spot is about 9% above its 2026 average.'] },
+                { k: 'al', v: [2632, 3250, 3100, 3000], d: 0,
+                  es: ['Aluminio', 'US$/t', 'Spot de agosto de 2026: unos 3.230', 'Coherente.'],
+                  en: ['Aluminium', 'US$/t', 'August 2026 spot: about 3,230', 'Consistent.'] },
+                { k: 'ratio', v: [3.78, 4.06, 4.19, 4.17], d: 2,
+                  es: ['Relación cobre/aluminio', 'veces', '4,3 : 1 (récord, agosto de 2026)', 'Coherente: se mantiene por encima de 4, así que la sustitución sigue; con 4,1–4,2 sostenido, desplaza en torno al 2 % de la demanda de cobre, algo menos que a 4,3.'],
+                  en: ['Copper/aluminium ratio', 'times', '4.3 : 1 (record, August 2026)', 'Consistent: it stays above 4, so substitution continues; sustained at 4.1–4.2 it displaces about 2% of copper demand, slightly less than at 4.3.'] },
+                { k: 'au', v: [3442, 4600, 4250, 4000], d: 0,
+                  es: ['Oro', 'US$/oz', '3.460 en 2025 y 4.200 constante desde 2026 (Prospectiva → Oro y plata)', 'Coherente: el supuesto de SIEMA queda entre los pronósticos de 2027 y 2028.'],
+                  en: ['Gold', 'US$/oz', '3,460 in 2025 and a constant 4,200 from 2026 (Foresight → Gold and silver)', 'Consistent: SIEMA’s assumption sits between the 2027 and 2028 forecasts.'] },
+                { k: 'ag', v: [39.8, 70.0, 62.0, 58.0], d: 1,
+                  es: ['Plata', 'US$/oz', '40 en 2025 y 60 constante desde 2026', 'Coherente con 2027–2028; por debajo del promedio de 2026.'],
+                  en: ['Silver', 'US$/oz', '40 in 2025 and a constant 60 from 2026', 'Consistent with 2027–28; below the 2026 average.'] },
+                { k: 'ni', v: [15162, 17200, 17250, 17500], d: 0,
+                  es: ['Níquel', 'US$/t', 'SIEMA no usa un precio', 'Referencia.'], en: ['Nickel', 'US$/t', 'SIEMA uses no price', 'Reference.'] },
+                { k: 'zn', v: [2868, 3500, 3100, 2800], d: 0,
+                  es: ['Zinc', 'US$/t', 'SIEMA no usa un precio', 'Referencia.'], en: ['Zinc', 'US$/t', 'SIEMA uses no price', 'Reference.'] }
+            ]
+        };
+        var T = {
+            es: { h2: 'Precios: pronósticos del Banco Mundial',
+                  lead: function (w) { return 'El <em>Commodity Markets Outlook</em> del Banco Mundial (edición de ' + w.edition.es + ', publicada el ' + w.published + ') prevé que los precios de los metales lleguen en 2026 a su máximo histórico, con récords en aluminio, cobre y estaño, y que bajen levemente en 2027 y 2028 sin alejarse de esos niveles. SIEMA compara esos pronósticos con sus propios supuestos.'; },
+                  cols: ['Metal', 'Unidad', '2025', '2026 (pronóstico)', '2027 (pronóstico)', '2028 (pronóstico)', 'Supuesto o dato de SIEMA', 'Lectura'],
+                  li: '<strong>Litio:</strong> el Banco Mundial no publica pronóstico de precio; registra una caída del 13 % en el tercer trimestre de 2026 por la reapertura de minas en Australia y ventas de autos eléctricos más lentas. SIEMA usa el caso base de S&amp;P que adopta la Secretaría de Minería: US$ 20.000 por tonelada de carbonato equivalente hacia 2035.',
+                  dem: '<strong>Demanda:</strong> los pronósticos del Banco Mundial llegan a 2028, así que no reemplazan a las proyecciones de SIEMA a 2050, basadas en la AIE. En el corto plazo coinciden: la demanda de cobre bajó levemente en el primer semestre de 2026 y se afirmaría en 2027–2028 por redes eléctricas, centros de datos y autos eléctricos; en minerales críticos, la demanda crece con fuerza y los proyectos nuevos tardan años.',
+                  risk: '<strong>Riesgos que señala:</strong> al alza, la oferta de cobre (leyes en baja en Chile, problemas en Indonesia, restricciones de exportación en el Congo) y los aranceles de Estados Unidos al cobre refinado, todavía pendientes para enero de 2027; a la baja, un crecimiento mundial más débil o una corrección financiera.',
+                  note: function (w) { return 'Fuente: Banco Mundial, Commodity Markets Outlook, ' + w.edition.es + ', tabla 1 (precios en dólares corrientes). Se actualiza dos veces por año; próxima edición: ' + w.next.es + '.'; },
+                  l1: 'Informe y datos', l2: 'Tabla de pronósticos (PDF)', l3: 'Informe completo (PDF)' },
+            en: { h2: 'Prices: World Bank forecasts',
+                  lead: function (w) { return 'The World Bank’s <em>Commodity Markets Outlook</em> (' + w.edition.en + ' edition, published on ' + w.published + ') expects metal prices to reach an all-time high in 2026, with records for aluminium, copper and tin, and to ease slightly in 2027 and 2028 while staying close to those levels. SIEMA compares those forecasts with its own assumptions.'; },
+                  cols: ['Metal', 'Unit', '2025', '2026 (forecast)', '2027 (forecast)', '2028 (forecast)', 'SIEMA assumption or figure', 'Reading'],
+                  li: '<strong>Lithium:</strong> the World Bank publishes no price forecast; it reports a 13% drop in 2026Q3 as Australian mines restarted and EV sales slowed. SIEMA uses the S&amp;P base case adopted by the Mining Secretariat: US$20,000 per tonne of carbonate equivalent towards 2035.',
+                  dem: '<strong>Demand:</strong> the World Bank’s forecasts run to 2028, so they do not replace SIEMA’s projections to 2050, which are based on the IEA. In the short term they agree: copper demand dipped slightly in the first half of 2026 and should firm in 2027–28 on power grids, data centres and electric vehicles; for critical minerals, demand grows strongly while new projects take years.',
+                  risk: '<strong>Risks it flags:</strong> on the upside, copper supply (falling grades in Chile, problems in Indonesia, export restrictions in Congo) and US tariffs on refined copper, still pending for January 2027; on the downside, weaker global growth or a financial correction.',
+                  note: function (w) { return 'Source: World Bank, Commodity Markets Outlook, ' + w.edition.en + ', table 1 (nominal US dollars). Updated twice a year; next edition: ' + w.next.en + '.'; },
+                  l1: 'Report and data', l2: 'Forecast table (PDF)', l3: 'Full report (PDF)' }
+        };
+        var L = function () { return (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'es'; };
+        function fmt(v, d, lg) { return v.toLocaleString(lg === 'en' ? 'en-GB' : 'es-AR', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+        function a(u, t) { return '<a href="' + u + '" target="_blank" rel="noopener">' + t + '</a>'; }
+        function render() {
+            var el = document.getElementById('wbDyn'); if (!el) return;
+            var lg = L(), t = T[lg], w = WB_CMO;
+            el.innerHTML = '<h2>' + t.h2 + '</h2><p>' + t.lead(w) + '</p>' +
+                '<div class="table-scroll"><table><thead><tr>' + t.cols.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>' +
+                w.rows.map(function (r) { var x = r[lg]; return '<tr><td><strong>' + x[0] + '</strong></td><td>' + x[1] + '</td>' + r.v.map(function (v) { return '<td>' + fmt(v, r.d, lg) + '</td>'; }).join('') + '<td>' + x[2] + '</td><td>' + x[3] + '</td></tr>'; }).join('') +
+                '</tbody></table></div>' +
+                '<p>' + t.li + '</p><p>' + t.dem + '</p><p>' + t.risk + '</p>' +
+                '<p class="table-note">' + t.note(w) + ' ' + a('https://www.worldbank.org/en/research/commodity-markets', t.l1) + ' · ' +
+                a('https://thedocs.worldbank.org/en/doc/2ac43f46629cf90c2ea5b8929a343593-0050012026/related/CMO-October-2026-Forecasts.pdf', t.l2) + ' · ' +
+                a('https://openknowledge.worldbank.org/bitstreams/b89c473c-d071-4aa4-9f4d-174281aaf0be/download', t.l3) + '</p>';
+        }
+        new MutationObserver(function () { setTimeout(render, 0); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+        var tab = document.getElementById('demanda');
+        if (tab) new MutationObserver(function () { if (tab.classList.contains('active') && !document.querySelector('#wbDyn table')) render(); }).observe(tab, { attributes: true, attributeFilter: ['class'] });
+        render();
+    })();
+    </script>
     <!-- Fuentes oficiales: tableros SIACAM (Secretaría de Minería) y mapas SIGAM (SEGEMAR) -->
     <style>
         .fo-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 1rem 0 1.5rem; }
