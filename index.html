@@ -2244,7 +2244,7 @@
         <!-- Noticias & Opinión -->
         <div id="noticias" class="tab-content">
             <h1 id="noticiasH1">Noticias &amp; Opinión</h1>
-            <p id="noticiasP">Selección de actualidad minera argentina — curada a partir de <strong>Panorama Minero</strong> — con webinars de inversión de <strong>Amvest Capital</strong>, junto con la columna de opinión del Observatorio.</p>
+            <p id="noticiasP">Selección de actualidad minera argentina — curada a partir de <strong>Panorama Minero</strong> — con webinars de inversión de <strong>Amvest Capital</strong>, el mercado australiano vía <strong>HotCopper</strong> y la columna de opinión del Observatorio.</p>
 
             <div class="news-opinion-grid">
                 <div class="news-list" id="newsList">
@@ -2276,6 +2276,8 @@
                     </div>
                     <h3 id="amvestSidebarTitle">Webinars de inversión — Amvest Capital</h3>
                     <div class="opinion-card amvest-card" id="amvestSidebarCard"></div>
+                    <h3 id="hcSidebarTitle">Mercado australiano (ASX) — HotCopper</h3>
+                    <div class="opinion-card amvest-card" id="hcSidebarCard"></div>
                 </aside>
             </div>
         </div>
@@ -3167,8 +3169,8 @@
         };
 
         const NOTICIAS_INTRO = {
-            es: { h1: 'Noticias &amp; Opinión', p: 'Selección de actualidad minera argentina — curada a partir de <strong>Panorama Minero</strong> — con webinars de inversión de <strong>Amvest Capital</strong>, junto con la columna de opinión del Observatorio.', asideH3: 'Columna de Opinión' },
-            en: { h1: 'News &amp; Opinion', p: 'A selection of Argentine mining news — curated from <strong>Panorama Minero</strong> — with investment webinars from <strong>Amvest Capital</strong>, together with the Observatory\'s opinion column.', asideH3: 'Opinion Column' }
+            es: { h1: 'Noticias &amp; Opinión', p: 'Selección de actualidad minera argentina — curada a partir de <strong>Panorama Minero</strong> — con webinars de inversión de <strong>Amvest Capital</strong>, el mercado australiano vía <strong>HotCopper</strong> y la columna de opinión del Observatorio.', asideH3: 'Columna de Opinión' },
+            en: { h1: 'News &amp; Opinion', p: 'A selection of Argentine mining news — curated from <strong>Panorama Minero</strong> — with investment webinars from <strong>Amvest Capital</strong>, the Australian market via <strong>HotCopper</strong> and the Observatory\'s opinion column.', asideH3: 'Opinion Column' }
         };
 
         const OPINION_I18N = {
@@ -3266,6 +3268,7 @@
             renderEventos();
             renderSubnav();
             renderAmvestSidebar();
+            renderHotCopperSidebar();
             initHomeAnimations();
             if (window.renderOmaConsole) renderOmaConsole(lang);
             renderInfografias();
@@ -3448,6 +3451,41 @@
                 ${rows}
                 <p class="amvest-links"><a href="https://www.amvestcapital.com/webinars-events" target="_blank" rel="noopener">${a.all} →</a><br><a href="https://www.amvestcapital.com/subscribe" target="_blank" rel="noopener">${a.subscribe} →</a></p>
                 <p class="amvest-note">${a.note}</p>`;
+        }
+
+        // --- HotCopper: foro y noticias del mercado australiano (ASX) para empresas con proyectos en Argentina.
+        // HotCopper no tiene API pública y bloquea accesos automáticos: se enlaza, no se descarga. Revisar la lista de empresas cuando cambie la cartera.
+        const HC_COMPANIES = [
+            { t: 'RIO', n: 'Rio Tinto', es: 'Litio: Fénix, Olaroz, Cauchari, Sal de Vida y Salar del Rincón', en: 'Lithium: Fénix, Olaroz, Cauchari, Sal de Vida and Salar del Rincón' },
+            { t: 'GLN', n: 'Galan Lithium', es: 'Hombre Muerto Oeste (Catamarca), en construcción', en: 'Hombre Muerto West (Catamarca), under construction' },
+            { t: 'LKE', n: 'Lake Resources', es: 'Kachi (Catamarca), factibilidad', en: 'Kachi (Catamarca), feasibility' },
+            { t: 'AGY', n: 'Argosy Minerals', es: 'Rincón (Salta)', en: 'Rincón (Salta)' },
+            { t: 'LEL', n: 'Lithium Energy', es: 'Solaroz (Jujuy)', en: 'Solaroz (Jujuy)' },
+            { t: 'PNN', n: 'Power Minerals', es: 'Salta Lithium (Salta), PEA', en: 'Salta Lithium (Salta), PEA' },
+            { t: 'PUR', n: 'Pursuit Minerals', es: 'Río Grande Sur (Salta), prefactibilidad', en: 'Río Grande Sur (Salta), pre-feasibility' },
+            { t: 'PL3', n: 'Patagonia Lithium', es: 'Exploración de salmueras de litio', en: 'Lithium brine exploration' }
+        ];
+        const HC_I18N = {
+            es: { title: 'Mercado australiano (ASX) — HotCopper',
+                  intro: '<a href="https://hotcopper.com.au/" target="_blank" rel="noopener">HotCopper</a> es el principal foro de inversores de la bolsa australiana (ASX), con noticias del mercado y los anuncios oficiales de cada empresa. Varias empresas del ASX tienen proyectos en Argentina, sobre todo de litio:',
+                  news: 'Noticias de HotCopper', note: 'Los mensajes del foro son opiniones de inversores, no información verificada. Para datos oficiales, usar los anuncios de cada empresa al ASX.' },
+            en: { title: 'Australian market (ASX) — HotCopper',
+                  intro: '<a href="https://hotcopper.com.au/" target="_blank" rel="noopener">HotCopper</a> is the main investor forum of the Australian Securities Exchange (ASX), with market news and each company\'s official announcements. Several ASX companies have projects in Argentina, mostly lithium:',
+                  news: 'HotCopper news', note: 'Forum posts are investor opinions, not verified information. For official data, use each company\'s ASX announcements.' }
+        };
+        function renderHotCopperSidebar() {
+            const h = HC_I18N[currentLang] || HC_I18N.es;
+            document.getElementById('hcSidebarTitle').textContent = h.title;
+            const rows = HC_COMPANIES.map(c => `
+                <div class="amvest-item">
+                    <div class="amvest-meta">ASX: ${c.t} · ${c[currentLang] || c.es}</div>
+                    <a href="https://hotcopper.com.au/asx/${c.t.toLowerCase()}/" target="_blank" rel="noopener">${c.n}</a>
+                </div>`).join('');
+            document.getElementById('hcSidebarCard').innerHTML = `
+                <p class="amvest-intro">${h.intro}</p>
+                ${rows}
+                <p class="amvest-links"><a href="https://hotcopper.com.au/news/" target="_blank" rel="noopener">${h.news} →</a></p>
+                <p class="amvest-note">${h.note}</p>`;
         }
 
         function renderNews(items, note, sourceLabel) {
