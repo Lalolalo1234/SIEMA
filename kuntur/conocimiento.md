@@ -1,5 +1,5 @@
 # Base de conocimiento de Kuntur — SIEMA
-<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 4 de noviembre de 2026; RIGI con MARA, oficializado el 27 de octubre; exportaciones, empleo y litio contrastados con la Secretaría de Minería (SIACAM). -->
+<!-- Kuntur lee este archivo en cada sesión. Para actualizar lo que sabe, editar este archivo y publicarlo. Datos al 5 de noviembre de 2026 (riesgo país al 5 de noviembre); RIGI con MARA, oficializado el 27 de octubre; exportaciones, empleo y litio contrastados con la Secretaría de Minería (SIACAM). -->
 
 ## Qué es SIEMA
 - SIEMA es el Sistema de Inteligencia Estratégica Minera Argentina: una plataforma integral de información, análisis y prospectiva que concentra en un único entorno digital la información relevante del sector minero argentino y la convierte en inteligencia para decidir.
@@ -16,7 +16,7 @@
 - Sitio: lalolalo1234.github.io/SIEMA
 
 ## Pulsómetro: clima de inversión (3T 2026 vs 3T 2025)
-- Índice del Pulsómetro: 6,5 sobre 10 (promedio de 10 ejes), una mejora de 1,4 puntos frente a 2025. Escala 0 (muy desfavorable) a 10 (muy favorable).
+- Índice del Pulsómetro: 6,4 sobre 10 (promedio de 10 ejes), una mejora de 1,3 puntos frente a 2025 (bajó de 6,5 el 5 de noviembre de 2026 por la suba del riesgo país). Escala 0 (muy desfavorable) a 10 (muy favorable).
 - Ejes 2026 (2025 entre paréntesis):
   - Exportaciones mineras 9,0 (6,3) — prioridad número uno del gobierno.
   - Marco normativo 7,2 (5,5).
@@ -24,8 +24,8 @@
   - Clima político 6,5 (5,2).
   - Actitud "mining friendly" del Estado 7,0 (5,8).
   - Financiamiento 6,1 (4,8).
-  - Infraestructura 5,3 (4,5) — el eje peor puntuado.
-  - Estabilidad macro 5,0 (2,7) — calculado con datos externos.
+  - Infraestructura 5,3 (4,5) — el segundo eje peor puntuado.
+  - Estabilidad macro 4,2 (2,7) — calculado con datos externos; el eje peor puntuado desde que el riesgo país pasó los 900 puntos (era 5,0 con 628).
   - Capital humano 5,9 (5,6) — la segunda mejora más chica (+0,3), después de licencia social.
   - RIGI minero 6,8 (4,9) — calculado con datos externos; incluye MARA, aprobado el 2 de octubre de 2026.
 - Cuatro ejes están por debajo del umbral de alerta de 6: licencia social, infraestructura, estabilidad macro y capital humano.
@@ -74,11 +74,13 @@
 - Referencias al 27/10/2026: cobre 6,63 dólares por libra; oro 4.024 dólares la onza; plata 53,3 dólares la onza; carbonato de litio en China (futuros de Guangzhou) unos 14.700 dólares la tonelada (98.500 yuanes el 27 de octubre); óxido de NdPr en China unos 720 yuanes por kilo (28 de octubre).
 - Si preguntan por un precio, decí el valor de referencia y su fecha, y aclarás que el precio del día está en la barra de cotizaciones del sitio.
 
-## Estabilidad macro y riesgo país (al 28/09/2026)
-- Riesgo país: 628 puntos básicos (mínimo del año 403 en julio). Un país con grado de inversión ronda los 200.
-- Calificaciones: Fitch B- y S&P B- (estable), Moody's B3 (positiva); todas salieron de la zona CCC en 2026.
-- Inflación: 1,7 % mensual, 33,5 % interanual; 21,3 % en lo que va del año.
-- Superávit primario 1,1 % del PIB. Vencimientos de deuda en 2027: unos 21.000 millones de dólares; es el punto crítico.
+## Estabilidad macro y riesgo país (al 05/11/2026)
+- Riesgo país: 927 puntos básicos el 5 de noviembre de 2026, el máximo del año y el nivel más alto en más de un año. Más que se duplicó desde el mínimo de 402 del 10 de julio. Un país con grado de inversión ronda los 200.
+- Por qué subió: una parte es externa (fuerte caída de Wall Street a comienzos de noviembre, con el Nasdaq 5 % abajo, e incertidumbre por las elecciones de Estados Unidos y Brasil), pero según los analistas la mayor parte es local: dudas sobre la sostenibilidad del programa económico, las elecciones presidenciales de 2027 y datos de actividad más débiles. El deterioro empezó a mediados de julio.
+- Índice de Estabilidad Macro de SIEMA: 4,2 sobre 10 (era 5,0 con el riesgo país en 628; 2,7 en el tercer trimestre de 2025).
+- Calificaciones: Fitch B- y S&P B- (estable), Moody's B3 (positiva); todas salieron de la zona CCC en 2026 y no cambiaron desde julio.
+- Inflación: 1,9 % mensual en septiembre (1,7 % en agosto), 33,4 % interanual; 23,6 % en lo que va del año. Las consultoras esperan cerrar 2026 en torno al 30 %; el Presupuesto 2027 proyecta 29 %.
+- Superávit primario 1,2 % del PIB y financiero 0,3 % entre enero y septiembre; la meta con el FMI es 1,4 %. Vencimientos de deuda en 2027: unos 21.000 millones de dólares; es el punto crítico.
 
 ## Licencia social
 - Índice nacional 5,7 sobre 10, con siete componentes externos: aceptación 6,3; confianza en los controles del Estado 3,9 (el más bajo); ambiente y agua 5,0; beneficios locales 5,8; conversación pública 7,0; EITI 7,0; percepción de inversores (Fraser) 4,9.
@@ -107,7 +109,7 @@
 - Vista "Argentina vs demanda proyectada": proyecta la oferta argentina de cobre, litio y tierras raras; hasta 2030 se apoya en proyectos con RIGI aprobado; después depende de las condiciones internas.
 
 ## Infraestructuras habilitantes (agua, energía y transporte)
-- Pestaña propia en el menú principal, con tres subpestañas: Agua, Energía y Transporte (Rutas y Ferrocarriles). Es probablemente el principal cuello de botella para alcanzar la producción esperada. En el Pulsómetro la infraestructura es el eje peor puntuado: 5,3 sobre 10.
+- Pestaña propia en el menú principal, con tres subpestañas: Agua, Energía y Transporte (Rutas y Ferrocarriles). Es probablemente el principal cuello de botella para alcanzar la producción esperada. En el Pulsómetro la infraestructura es, después de la estabilidad macro, el eje peor puntuado: 5,3 sobre 10.
 - Lectura de SIEMA: agua, restricción alta; energía y transporte, restricción crítica.
 - Agua: el distrito Vicuña necesitaría 2.000 a 2.500 litros por segundo a largo plazo; equivale a entre 6 y 13 % del escurrimiento del río San Juan en un año medio o seco, aunque Vicuña prevé usar pozos y agua desalinizada. Los Azules usa 158 litros por segundo, 73 % menos que una concentradora, porque produce cátodos. En Chile ya funciona un acueducto con agua de mar construido por Techint para Codelco (1.000 millones de dólares, 160 km, hasta 1.956 litros por segundo); la ley chilena 21.823 y la Comisión Binacional reactivada en julio de 2026 abren la posibilidad de comprar agua desalinizada para San Juan. La reforma de la Ley de Glaciares se promulgó el 24 de abril de 2026.
 - Energía: el consumo eléctrico de la minería pasaría de 1.256 GWh en 2024 a 6.630 GWh en 2034, cinco veces más (OLACDE). Los cuatro grandes proyectos de cobre de San Juan necesitarían unos 1,5 GW. Vicuña necesita 220 MW en su primera etapa y hasta 620 MW a pleno. La red de transmisión creció 8 % en una década contra 20 % de la demanda; el plan oficial suma 5.610 km de líneas de 500 kV por 6.600 millones de dólares, pero la primera licitación (AMBA I) no es minera. El primer conflicto entre mineras fue por la línea de 500 kV Nueva San Juan–Rodeo: el ENRE dio a Vicuña prioridad sobre el 90 % de la capacidad por 25 años y objetaron el EPRE, Los Azules y otras mineras.
@@ -204,7 +206,7 @@
 - P: ¿Por qué San Juan y Catamarca son tan distintas? R: La mayor diferencia está en la confianza en los controles del Estado (5,2 frente a 2,6) y en los beneficios percibidos (7,3 frente a 5,3). En San Juan la minería opera en alta cordillera, con pocas comunidades cerca, y la sociedad ya vio su derrame. En Catamarca conviven el litio de la Puna, con comunidades involucradas, y una historia de conflictos en torno al cobre. Aunque en Catamarca la minería pesa más en el empleo privado y tres de cada cuatro puestos son locales, la gente percibe menos beneficios.
 - P: ¿Qué falta medir en licencia social? R: Salta y Jujuy, las provincias del litio con más comunidades, no tienen encuestas públicas. Tampoco hay datos públicos de monitoreo hídrico independiente en ninguna provincia.
 - P: ¿Cómo se mejora la licencia social? R: Con transparencia: publicar contratos y estudios de impacto ambiental, como pide el EITI, y datos de agua públicos y verificables por terceros, como pide el IGF, el Foro Intergubernamental sobre Minería. Es la forma más directa de subir la confianza en los controles.
-- P: ¿Qué significa el riesgo país para un proyecto minero? R: Es el piso de su costo de capital en dólares. Hoy ronda el 11,3 por ciento: el bono del Tesoro de Estados Unidos, cerca del 5 por ciento, más el riesgo país.
+- P: ¿Qué significa el riesgo país para un proyecto minero? R: Es el piso de su costo de capital en dólares. Hoy ronda el 14,2 por ciento: el bono del Tesoro de Estados Unidos, cerca del 5 por ciento, más el riesgo país de unos 9,3 puntos (927 puntos básicos el 5 de noviembre de 2026). En septiembre rondaba el 11,3.
 - P: ¿El RIGI protege contra el riesgo país? R: No del todo. Protege frente a cambios fiscales, cambiarios y aduaneros, pero no baja el techo soberano. Por eso los grandes proyectos buscan financiamiento multilateral o de agencias de crédito a la exportación, como Rincón con IFC, BID Invest, Export Finance Australia y JBIC.
 - P: ¿Qué señales marcarían una mejora macro? R: Que dos agencias suban la calificación a B y que el riesgo país se mantenga por debajo de 500 puntos. Argentina está a seis escalones del grado de inversión.
 - P: ¿Qué nota tiene Argentina en el EITI? R: 80 sobre 100 en la validación 2026, calificación "Muy bueno". Argentina adhiere desde 2019 y hay siete provincias adheridas. El EITI fijó 21 acciones correctivas con plazo hasta abril de 2030.
