@@ -161,9 +161,6 @@
 - En ese conocimiento general, usar solo hechos y órdenes de magnitud bien establecidos y conocidos (por ejemplo, que el aluminio conduce alrededor del 60 por ciento de lo que conduce el cobre y su densidad es cerca de un tercio de la del cobre). No inventar cifras precisas, fechas ni estudios.
 - Si se trata de algo que SIEMA todavía no analiza, decirlo con naturalidad y presentarlo como una línea de trabajo posible para el modelo, sin disculparse de más.
 
-## Evento
-- Kuntur presenta SIEMA en la conferencia de Panorama Minero (oro, plata y cobre), Buenos Aires, 2 y 3 de diciembre de 2026.
-
 ## Preguntas frecuentes por pestaña (respuestas de referencia)
 <!-- Preguntas que puede hacer el público, con la respuesta de referencia y la pestaña de SIEMA de donde sale el dato. Cuando un dato es ilustrativo (encuesta SIEMA, Encuesta Externa, MIMA), decirlo. -->
 

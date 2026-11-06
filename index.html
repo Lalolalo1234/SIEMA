@@ -1904,10 +1904,10 @@
             <div class="subsection">
                 <h3>Economía circular: cuánto baja la minería primaria</h3>
                 <p>La nota de confiabilidad de CeProMin (marzo 2026) acota la cifra de reducción del 25–40 % de la minería primaria hacia 2050 gracias al reciclaje: vale como techo en el escenario APS de la IEA, fuerte para cobre y cobalto (~40 %), menor para níquel y litio (~25 %) y apenas un 5–15 % para tierras raras. En el escenario STEPS, la reducción para el cobre cae a 10–15 %.</p>
-                <p><a href="https://lalolalo1234.github.io/CeProMin/static/CRM_CircularEconomy_ReliabilityNote.pdf" target="_blank" rel="noopener">Leer la nota completa de CeProMin (PDF, en inglés) ↗</a></p>
+                <p><a href="docs/CRM_CircularEconomy_ReliabilityNote.pdf" target="_blank" rel="noopener">Leer la nota completa (PDF, en inglés) ↗</a></p>
             </div>
 
-            <p class="table-note">Fuente: <a href="https://lalolalo1234.github.io/CeProMin/" target="_blank" rel="noopener">CeProMin</a>, sobre IEA Global Critical Minerals Outlook 2025/2026, S&amp;P Global, Wood Mackenzie, ICSG, USGS MCS 2026, Adamas Intelligence, BNEF, Secretaría de Minería de la Nación, Segemar, Panorama Minero y reportes de empresas. Última revisión: 23/09/2026.</p>
+            <p class="table-note">Fuente: CeProMin, sobre IEA Global Critical Minerals Outlook 2025/2026, S&amp;P Global, Wood Mackenzie, ICSG, USGS MCS 2026, Adamas Intelligence, BNEF, Secretaría de Minería de la Nación, Segemar, Panorama Minero y reportes de empresas. Última revisión: 23/09/2026.</p>
 
             <div class="button-group">
                 <button class="btn" onclick="navigateTo('prospectiva')">Ver Prospectiva</button>
@@ -2314,7 +2314,6 @@
                 <a href="#" data-tab-link="prospectiva" onclick="navigateTo('prospectiva'); return false;">Prospectiva</a>
                 <a href="#" data-tab-link="acerca" onclick="navigateTo('acerca'); return false;">Acerca de</a>
             </div>
-            <p id="footerNote" style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Sitio independiente del de CeProMin — contenido en desarrollo</p>
         </div>
     </footer>
 
@@ -2729,10 +2728,10 @@
             <div class="subsection">
                 <h3>Circular economy: how much primary mining falls</h3>
                 <p>CeProMin's reliability note (March 2026) qualifies the claim that recycling cuts primary mining by 25–40% by 2050: it holds as an upper bound under the IEA's APS scenario, strongly for copper and cobalt (~40%), less for nickel and lithium (~25%) and only 5–15% for rare earths. Under STEPS, the reduction for copper falls to 10–15%.</p>
-                <p><a href="https://lalolalo1234.github.io/CeProMin/static/CRM_CircularEconomy_ReliabilityNote.pdf" target="_blank" rel="noopener">Read CeProMin's full note (PDF) ↗</a></p>
+                <p><a href="docs/CRM_CircularEconomy_ReliabilityNote.pdf" target="_blank" rel="noopener">Read the full note (PDF) ↗</a></p>
             </div>
 
-            <p class="table-note">Source: <a href="https://lalolalo1234.github.io/CeProMin/" target="_blank" rel="noopener">CeProMin</a>, based on IEA Global Critical Minerals Outlook 2025/2026, S&amp;P Global, Wood Mackenzie, ICSG, USGS MCS 2026, Adamas Intelligence, BNEF, Argentina's Mining Secretariat, Segemar, Panorama Minero and company filings. Last reviewed: 23/09/2026.</p>
+            <p class="table-note">Source: CeProMin, based on IEA Global Critical Minerals Outlook 2025/2026, S&amp;P Global, Wood Mackenzie, ICSG, USGS MCS 2026, Adamas Intelligence, BNEF, Argentina's Mining Secretariat, Segemar, Panorama Minero and company filings. Last reviewed: 23/09/2026.</p>
 
             <div class="button-group">
                 <button class="btn" onclick="navigateTo('prospectiva')">View Foresight</button>
@@ -3139,11 +3138,11 @@
         const FOOTER_I18N = {
             es: {
                 copyright: '&copy; 2026 SIEMA - Sistema de Inteligencia Estratégica Minera Argentina',
-                note: 'Sitio independiente del de CeProMin — contenido en desarrollo'
+                note: ''
             },
             en: {
                 copyright: '&copy; 2026 SIEMA - Argentine Mining Strategic Intelligence System',
-                note: 'Site independent from CeProMin — content under development'
+                note: ''
             }
         };
 
@@ -3229,7 +3228,7 @@
             document.querySelectorAll('.footer-links a').forEach(a => {
                 a.textContent = NAV_LABELS[lang][a.getAttribute('data-tab-link')];
             });
-            document.getElementById('footerNote').textContent = FOOTER_I18N[lang].note;
+            const footerNote = document.getElementById('footerNote'); if (footerNote) footerNote.textContent = FOOTER_I18N[lang].note;
 
             STATIC_TAB_IDS.forEach(id => {
                 document.getElementById(id).innerHTML = lang === 'es' ? TAB_HTML_ES[id] : TAB_HTML_EN[id];
