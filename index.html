@@ -3294,27 +3294,27 @@
         // Precios de referencia con fecha (no vienen del feed en vivo). La tarea semanal "Datos SIEMA" los actualiza:
         // editar solo REF_PRICES (valor, unidad, fecha y fuente).
         const REF_PRICES = {
-            asOf: '28/10/2026',
+            asOf: '10/11/2026',
             items: [
-                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 14700, unit: 'USD/t', date: '27/10', src: 'GFEX (LC2701): cierre 98.500 CNY/t el 27/10 (SMM; spot SMM 99.350), a 6,7171 CNY/US$ (paridad central del 27/10, Xinhua)' },
-                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 720, unit: 'CNY/kg', date: '28/10', src: 'Óxido de PrNd: promedio SMM 720.000 CNY/t el 28/10 (732.000–734.000 el 22/10, SMM)' }
+                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 12960, unit: 'USD/t', date: '10/11', src: 'GFEX (contrato principal): cierre 87.100 CNY/t el 10/11 (21jingji; LC2701 cerró 87.480 el 09/11, Huatai/SMM; 98.500 el 27/10), a 6,7188 CNY/US$ (paridad central del 09/11, Xinhua)' },
+                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 718, unit: 'CNY/kg', date: '10/11', src: 'Óxido de PrNd: 715.000–720.000 CNY/t el 10/11 (Mysteel, promedio 717.500; SMM 720.000 el 28/10)' }
             ]
         };
         function refPriceItems(lang) {
             const loc = lang === 'es' ? 'es-AR' : 'en-US';
             return REF_PRICES.items.map(r => ({ name: r[lang], price: `${r.value.toLocaleString(loc)} ${r.unit}`, ref: r.date, title: r.src }));
         }
-        // Respaldo si el feed en vivo no responde (valores del 27/10/2026: cobre COMEX vía metalcharts.org; oro y plata, Fortune)
+        // Respaldo si el feed en vivo no responde (cobre: cash oficial LME del 10/11/2026, 13.992 US$/t según Westmetall, pasado a US$/lb; oro y plata: cierre OTC del 09/11/2026, ISA Bullion)
         const FALLBACK_PRICES = {
             es: [
-                { name: 'Cobre', price: '6,63 US$/lb', ref: '27/10' },
-                { name: 'Oro', price: '4.024,00 US$/ozt', ref: '27/10' },
-                { name: 'Plata', price: '53,32 US$/oz', ref: '27/10' }
+                { name: 'Cobre', price: '6,35 US$/lb', ref: '10/11' },
+                { name: 'Oro', price: '4.066,00 US$/ozt', ref: '09/11' },
+                { name: 'Plata', price: '51,91 US$/oz', ref: '09/11' }
             ],
             en: [
-                { name: 'Copper', price: '6.63 US$/lb', ref: '27/10' },
-                { name: 'Gold', price: '4,024.00 US$/ozt', ref: '27/10' },
-                { name: 'Silver', price: '53.32 US$/oz', ref: '27/10' }
+                { name: 'Copper', price: '6.35 US$/lb', ref: '10/11' },
+                { name: 'Gold', price: '4,066.00 US$/ozt', ref: '09/11' },
+                { name: 'Silver', price: '51.91 US$/oz', ref: '09/11' }
             ]
         };
 
@@ -3755,20 +3755,20 @@
         const PRIORITY_BADGE = { es: 'Prioridad #1 del Gobierno', en: "Government's #1 Priority" };
 
         // --- RIGI minero: Régimen de Incentivo para Grandes Inversiones, proyectos mineros de producción ---
-        // Datos al 28/10/2026 (sin aprobaciones mineras nuevas desde MARA, 02/10/2026; su resolución, la 1854/2026, salió en el Boletín Oficial el 27/10/2026). Fuente principal: análisis independiente de terceros sobre las resoluciones
+        // Datos al 10/11/2026 (sin aprobaciones mineras nuevas desde MARA, 02/10/2026; Vicuña: capex a septiembre, Lundin 3T 2026; su resolución, la 1854/2026, salió en el Boletín Oficial el 27/10/2026). Fuente principal: análisis independiente de terceros sobre las resoluciones
         // del Boletín Oficial y el portal RIGI del Ministerio de Economía (uso autorizado, sin atribución).
         // Contraste: Ámbito (14/10/2025), El Cronista (2026), DF (17/06/2026).
         // Etapa 1: solo proyectos mineros de producción. Etapa 2 (pendiente): infraestructura habilitante
         // para la minería (energía, transporte, agua).
         // Para actualizar, editar solo RIGI_DATA. El índice alimenta el 10.º eje del Pulsómetro y el IPM.
         const RIGI_DATA = {
-            asOf: '28/10/2026',
+            asOf: '10/11/2026',
             // Proyectos mineros de producción aprobados y publicados (US$ M).
             // ann = inversión anunciada (padrón); com = activos computables (resolución);
             // disb = desembolso ejecutado a la fecha (null = sin dato publicado); stage = estado según fuente pública
             // disb = desembolso a la fecha (US$ M); dt: 'rep' = reportado por la empresa, 'est' = estimación SIEMA, null = sin dato
             projects: [
-                { n: 'Vicuña', m: 'cu', p: 'San Juan', ann: 9737, com: 9024.7, disb: 126.6, dt: 'rep', stage: { es: 'Obras tempranas (movimiento de suelos). Decisión de construcción de la Etapa 1 posible a fin de 2026; obras principales desde 2027. Dato: capex del 1S 2026, 100 % del JV.', en: 'Early works (earthmoving). Stage 1 construction decision possibly at end-2026; main works from 2027. Figure: H1 2026 capex, 100 % of the JV.' }, src: { l: 'Lundin Mining, 2T 2026', u: 'https://thelundingroup.com/lundin-group-of-companies/lundin-mining-corporation/news-releases/lundin-mining-reports-second-quarter-2026-results-123258/' } },
+                { n: 'Vicuña', m: 'cu', p: 'San Juan', ann: 9737, com: 9024.7, disb: 207.6, dt: 'rep', stage: { es: 'Obras tempranas (movimiento de suelos, afectadas por tormentas en julio y agosto); en el 3T, ingeniería de detalle y planificación de la ejecución. Decisión de construcción de la Etapa 1 posible a fin de 2026; obras principales desde 2027. Dato: capex de enero–septiembre de 2026 informado por Lundin (81,0 en el 3T).', en: 'Early works (earthmoving, hit by storms in July and August); in Q3, detailed engineering and execution planning. Stage 1 construction decision possibly at end-2026; main works from 2027. Figure: January–September 2026 capex reported by Lundin (81.0 in Q3).' }, src: { l: 'Lundin Mining, 3T 2026 (04/11/2026)', u: 'https://mb.cision.com/Public/18388/4420257/91715501b19fbf1e.pdf' } },
                 { n: 'Los Azules', m: 'cu', p: 'San Juan', ann: 2672, com: 2353.6, disb: 0, dt: 'est', stage: { es: 'Pre-construcción: crédito puente de US$ 240 M (08/2026) para ingeniería y obras tempranas desde inicios de 2027; decisión final de inversión prevista para mediados de 2027 y cátodos desde 2030.', en: 'Pre-construction: US$240 M bridge loan (08/2026) for engineering and early works from early 2027; final investment decision expected mid-2027 and cathodes from 2030.' }, src: { l: 'Bloomberg Línea, 28/08/2026', u: 'https://www.bloomberglinea.com/latinoamerica/argentina/mcewen-consigue-us240-millones-para-acelerar-el-mega-proyecto-de-cobre-argentino-los-azules/' } },
                 { n: 'PSJ Cobre Mendocino', m: 'cu', p: 'Mendoza', ann: 891, com: 613.4, disb: null, dt: null, stage: { es: 'Ingeniería y preparación tras la aprobación ambiental (12/2025); construcción de 18 a 24 meses, operación prevista para 2028.', en: 'Engineering and preparation after environmental approval (12/2025); 18–24-month build, operation planned for 2028.' }, src: { l: 'Sitio Andino, 12/2025', u: 'https://www.sitioandino.com.ar/hebe-casado-psj-cobre-mendocino-nueva-etapa-mineria-mendoza' } },
                 { n: 'Rincón', m: 'li', p: 'Salta', ann: 2744, com: 2299.0, disb: null, dt: null, stage: { es: 'En construcción, etapa temprana: campamento, infraestructura y obras habilitantes. Primera producción en 2028. Probablemente el mayor desembolso sin dato.', en: 'Under construction, early stage: camp, infrastructure and enabling works. First production in 2028. Probably the largest undisclosed disbursement.' }, src: { l: 'Rio Tinto, 15/07/2026', u: 'https://www.sec.gov/Archives/edgar/data/0000863064/000086306426000035/ex991results.htm' } },
@@ -3864,7 +3864,7 @@
                 con: [
                     '<strong>El RIGI funciona sobre todo como política minera.</strong> Los 13 proyectos mineros son el 49 % de la inversión anunciada del régimen, y los 12 valuados reciben más de dos tercios de su beneficio: el VAN sube un tercio de su inversión.',
                     '<strong>El cobre manda en monto; el litio, en dependencia del régimen.</strong> Cuatro proyectos de cobre concentran más de dos tercios de la inversión minera (71 %). En el litio, en cambio, el RIGI decide si el proyecto da VAN positivo.',
-                    '<strong>Aprobado no es desembolsado.</strong> Solo el 28 % de lo comprometido tiene fecha cierta y lo desembolsado que se puede identificar no llega al 4 %. Lo que ya está construido es litio de escala media; los grandes proyectos de cobre arrancan en 2027 (MARA, a fines de 2027).',
+                    '<strong>Aprobado no es desembolsado.</strong> Solo el 28 % de lo comprometido tiene fecha cierta y lo desembolsado que se puede identificar ronda el 4 %. Lo que ya está construido es litio de escala media; los grandes proyectos de cobre arrancan en 2027 (MARA, a fines de 2027).',
                     '<strong>Las provincias mineras ganan más que la Nación.</strong> Las regalías quedan enteras en la provincia productora; la Nación paga la mayor parte del costo fiscal. Es una tensión federal a seguir en los ejes Clima Político y Licencia Social.',
                     '<strong>Falta la infraestructura habilitante.</strong> Sin energía, transporte y agua, el ritmo de desembolso de estos proyectos depende de obras que hoy no se miden en esta pestaña.'
                 ],
@@ -3917,7 +3917,7 @@
                 con: [
                     '<strong>RIGI works above all as a mining policy.</strong> The 13 mining projects are 49 % of the regime\'s announced investment, and the 12 valued ones receive more than two thirds of its benefit: NPV rises by a third of their investment.',
                     '<strong>Copper leads in size; lithium in dependence on the regime.</strong> Four copper projects hold more than two thirds of mining investment (71 %). In lithium, by contrast, RIGI decides whether the project has a positive NPV.',
-                    '<strong>Approved is not disbursed.</strong> Only 28 % of committed investment has a firm date and identifiable disbursement is below 4 %. What is already built is mid-sized lithium; the large copper projects start in 2027 (MARA in late 2027).',
+                    '<strong>Approved is not disbursed.</strong> Only 28 % of committed investment has a firm date and identifiable disbursement is about 4 %. What is already built is mid-sized lithium; the large copper projects start in 2027 (MARA in late 2027).',
                     '<strong>Mining provinces gain more than the nation.</strong> Royalties stay entirely in the producing province; the national government pays most of the fiscal cost. A federal tension to follow in the Political Climate and Social License axes.',
                     '<strong>Enabling infrastructure is missing.</strong> Without energy, transport and water, the pace of disbursement depends on works this tab does not yet measure.'
                 ],
@@ -4007,8 +4007,8 @@
         // --- Demanda: relación de precios cobre/aluminio (indicador de sustitución) ---
         // Para actualizar: editar CUAL_DATA (relación, fecha y estimaciones). La curva es la misma del modelo Convergencias 2050.
         const CUAL_DATA = {
-            asOf: '26/10/2026',
-            now: 4.8,          // relación Cu/Al (US$/t ÷ US$/t): 26/10/2026, cash oficial LME (Westmetall) cobre 14.500 ÷ aluminio 3.047,5 = 4,76 (sigue en 4,8, cerca del récord). Antes, 19/10/2026: 14.496 ÷ 3.019 = 4,80. Antes, récord del 13/10/2026: cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
+            asOf: '10/11/2026',
+            now: 4.5,          // relación Cu/Al (US$/t ÷ US$/t): 10/11/2026, cash oficial LME (Westmetall) cobre 13.992 ÷ aluminio 3.137 = 4,46 (baja desde el récord de octubre; contraste Reuters 06/11, 3 meses LME: 13.775 ÷ 3.049 = 4,52). Antes, 26/10/2026: cash oficial LME (Westmetall) cobre 14.500 ÷ aluminio 3.047,5 = 4,76 (sigue en 4,8, cerca del récord). Antes, 19/10/2026: 14.496 ÷ 3.019 = 4,80. Antes, récord del 13/10/2026: cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
             hist: 3.7,         // promedio histórico de largo plazo
             curve: [[3.5, 0], [4.0, 0.015], [4.2, 0.02], [4.5, 0.035], [5.0, 0.055], [5.5, 0.07]],
             cuDemand2040: 34,  // Mt, demanda total de cobre 2040 (AIE STEPS), para pasar porcentajes a toneladas
@@ -4018,52 +4018,52 @@
             es: {
                 h2: 'Relación de precios cobre/aluminio: el indicador de sustitución',
                 intro: 'Cuando el cobre se encarece mucho frente al aluminio, la industria rediseña cables, equipos de climatización y autos para usar aluminio, y una parte de la demanda de cobre desaparece. La señal que vigila el mercado es la relación entre ambos precios (US$ por tonelada de cobre ÷ US$ por tonelada de aluminio). Este indicador alimenta el modelo de <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Prospectiva</a>.',
-                k1: 'Relación actual', k1s: d => `${d} · Se mantiene en el récord de 4,8 del 13 de octubre (4,7 el 8 de octubre y 4,3 en agosto de 2026)`,
+                k1: 'Relación actual', k1s: d => `${d} · Bajó desde el récord de 4,8 del 13 de octubre (4,7 el 8 de octubre y 4,3 en agosto de 2026)`,
                 k2: 'Promedio histórico', k2s: 'Largo plazo',
                 k3: 'Umbral de sustitución', k3s: 'Desde acá la industria cambia de material (BHP)',
                 k4: 'Demanda de cobre desplazada', k4s: 'Hoy, según ICA (menos de 2 %) y JPMorgan (≈2 % en 2026)',
                 zones: ['Cobre competitivo', 'Empieza la sustitución', 'Sustitución material', 'Presión fuerte', 'Sustitución muy intensa'],
                 hist: 'Promedio', now: 'Hoy',
                 tabH: 'Cuánto cobre se pierde según la relación', cols: ['Relación sostenida', 'Lectura', 'Demanda mundial de cobre desplazada (largo plazo)', 'En 2040'],
-                reads: ['Por debajo del promedio histórico', 'Promedio histórico', 'Inicio de la sustitución material', 'Récord de agosto de 2026', 'Presión fuerte (hoy, algo por encima)', 'Destrucción estructural de demanda'],
+                reads: ['Por debajo del promedio histórico', 'Promedio histórico', 'Inicio de la sustitución material', 'Récord de agosto de 2026', 'Presión fuerte (hoy)', 'Destrucción estructural de demanda'],
                 tabNote: 'Modelo SIEMA, calibrado con JPMorgan (≈2 % en 2026 y hasta 6 % hacia 2030 si se acelera), International Copper Association (menos de 2 %) y el umbral industrial de 3,5–4 : 1. El efecto llega en dos a cuatro años: es el tiempo de rediseñar y homologar productos. Toneladas sobre una demanda total de 34 Mt en 2040 (AIE, escenario STEPS).',
                 whereH: 'Dónde ya se sustituye', where: ['Líneas aéreas de transmisión: aluminio desde hace décadas', 'Cables de potencia y distribución', 'Climatización (Daikin)', 'Cableado automotriz (BMW, Ferrari)', 'Cerca del 10 % de los cables de los vehículos eléctricos'],
                 notH: 'Dónde casi no', not: ['Bobinados de motores eléctricos', 'Electrónica de precisión', 'Conexiones en espacios reducidos', 'Instalaciones con normas de seguridad estrictas'],
                 tech: 'Por qué: el aluminio conduce cerca del 61 % de lo que conduce el cobre y necesita 1,6 veces más sección, pero para la misma conducción pesa la mitad. Lo frenan los conectores (se oxida y se deforma bajo presión), las normas eléctricas y el costo de rediseñar.',
                 readH: 'Lectura del SIEMA',
                 read: (t35, ar) => [
-                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un nuevo récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto) y el 26 de octubre seguía en ese nivel (4,76): si se sostuviera, el desplazamiento de largo plazo subiría a casi el 5 %. Es un efecto real, no un cambio de era.',
+                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto) y a comienzos de noviembre bajó a 4,5 (4,46 el 10 de noviembre), con el cobre por debajo de US$ 14.000/t y el aluminio por encima de US$ 3.100/t: si se sostuviera en 4,5, el desplazamiento de largo plazo rondaría el 3,5 % (casi el 5 % con el récord). Es un efecto real, no un cambio de era.',
                     `<strong>Para Argentina, el número importa.</strong> Si la relación se sostuviera en 4,5 : 1, el cobre desplazado rondaría ${t35} Mt por año en 2040: tanto como toda la cartera argentina de cobre (~${ar} Mt por año). Es un riesgo a seguir para el precio del cobre y, por esa vía, para el ritmo de las decisiones de inversión de los proyectos.`,
                     '<strong>Tiene un freno natural.</strong> Si sube la demanda de aluminio, sube su precio y la relación baja. Por eso los niveles de 5 : 1 o más son difíciles de sostener.',
                     '<strong>Qué seguir.</strong> La relación mensual, las decisiones de diseño de la industria automotriz y de climatización, y las normas eléctricas de los grandes mercados.'
                 ],
                 btn: 'Mover la relación en el modelo de Prospectiva',
-                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales cash de la LME del 26/10/2026 según Westmetall (cobre US$ 14.500/t; aluminio US$ 3.047,5/t: 4,76); récord del 13/10/2026: cobre oficial US$ 14.741/t (KME) y aluminio US$ 3.037/t (metalcharts.org), 4,85; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
+                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales cash de la LME del 10/11/2026 según Westmetall (cobre US$ 13.992/t; aluminio US$ 3.137/t: 4,46); récord del 13/10/2026: cobre oficial US$ 14.741/t (KME) y aluminio US$ 3.037/t (metalcharts.org), 4,85; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
             },
             en: {
                 h2: 'Copper/aluminium price ratio: the substitution indicator',
                 intro: 'When copper becomes much more expensive than aluminium, industry redesigns cables, air-conditioning units and cars to use aluminium, and part of copper demand disappears. The signal the market watches is the ratio between both prices (US$ per tonne of copper ÷ US$ per tonne of aluminium). This indicator feeds the <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Foresight</a> model.',
-                k1: 'Current ratio', k1s: d => `${d} · Holding at the 4.8 record of 13 October (4.7 on 8 October and 4.3 in August 2026)`,
+                k1: 'Current ratio', k1s: d => `${d} · Down from the 4.8 record of 13 October (4.7 on 8 October and 4.3 in August 2026)`,
                 k2: 'Historical average', k2s: 'Long term',
                 k3: 'Substitution threshold', k3s: 'Where industry switches material (BHP)',
                 k4: 'Copper demand displaced', k4s: 'Today, per ICA (below 2 %) and JPMorgan (≈2 % in 2026)',
                 zones: ['Copper competitive', 'Substitution starts', 'Material substitution', 'Strong pressure', 'Very intense substitution'],
                 hist: 'Average', now: 'Today',
                 tabH: 'How much copper is lost depending on the ratio', cols: ['Sustained ratio', 'Reading', 'World copper demand displaced (long term)', 'In 2040'],
-                reads: ['Below historical average', 'Historical average', 'Material substitution begins', 'August 2026 record', 'Strong pressure (today, slightly above)', 'Structural demand destruction'],
+                reads: ['Below historical average', 'Historical average', 'Material substitution begins', 'August 2026 record', 'Strong pressure (today)', 'Structural demand destruction'],
                 tabNote: 'SIEMA model, calibrated with JPMorgan (≈2 % in 2026 and up to 6 % by 2030 if it accelerates), the International Copper Association (below 2 %) and the 3.5–4 : 1 industry threshold. The effect arrives in two to four years, the time needed to redesign and certify products. Tonnes on total demand of 34 Mt in 2040 (IEA STEPS).',
                 whereH: 'Where it already happens', where: ['Overhead transmission lines: aluminium for decades', 'Power and distribution cables', 'Air conditioning (Daikin)', 'Automotive wiring (BMW, Ferrari)', 'About 10 % of electric-vehicle cables'],
                 notH: 'Where it hardly happens', not: ['Electric motor windings', 'Precision electronics', 'Space-constrained connections', 'Installations with strict safety codes'],
                 tech: 'Why: aluminium conducts about 61 % as well as copper and needs 1.6 times the cross-section, but weighs half as much for the same conduction. Connectors (it oxidises and creeps under pressure), electrical codes and redesign costs hold it back.',
                 readH: 'SIEMA reading',
                 read: (t35, ar) => [
-                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a new record of 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August) and was still at that level on 26 October (4.76): if sustained, long-term displacement would rise to almost 5 %. A real effect, not a change of era.',
+                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a record 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August) and eased to 4.5 in early November (4.46 on 10 November), with copper below US$ 14,000/t and aluminium above US$ 3,100/t: if it held at 4.5, long-term displacement would be around 3.5 % (almost 5 % at the record). A real effect, not a change of era.',
                     `<strong>For Argentina, the number matters.</strong> If the ratio held at 4.5 : 1, displaced copper would be around ${t35} Mt a year in 2040: as much as Argentina's entire copper pipeline (~${ar} Mt a year). It is a risk to watch for the copper price and, through it, for the pace of the projects' investment decisions.`,
                     '<strong>It has a natural brake.</strong> If aluminium demand rises, its price rises and the ratio falls. That is why levels of 5 : 1 or more are hard to sustain.',
                     '<strong>What to watch.</strong> The monthly ratio, design decisions in the automotive and air-conditioning industries, and electrical codes in the big markets.'
                 ],
                 btn: 'Move the ratio in the Foresight model',
-                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official cash prices on 26/10/2026 per Westmetall (copper US$ 14,500/t; aluminium US$ 3,047.5/t: 4.76); 13/10/2026 record: official copper US$ 14,741/t (KME) and aluminium US$ 3,037/t (metalcharts.org), 4.85; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
+                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official cash prices on 10/11/2026 per Westmetall (copper US$ 13,992/t; aluminium US$ 3,137/t: 4.46); 13/10/2026 record: official copper US$ 14,741/t (KME) and aluminium US$ 3,037/t (metalcharts.org), 4.85; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
             }
         };
         function cualShareAt(r) {
@@ -5479,8 +5479,8 @@
                   es: ['Aluminio', 'US$/t', 'LME oficial del 26/10/2026: 3.047,5', 'Coherente: el aluminio bajó en el tercer trimestre y está algo por debajo del promedio previsto para 2026.'],
                   en: ['Aluminium', 'US$/t', 'LME official price, 26/10/2026: 3,047.5', 'Consistent: aluminium fell in the third quarter and sits slightly below the 2026 average forecast.'] },
                 { k: 'ratio', v: [3.78, 4.06, 4.19, 4.17], d: 2,
-                  es: ['Relación cobre/aluminio', 'veces', '4,8 : 1 (26/10/2026, cerca del récord de mediados de octubre)', 'Diferencia de nivel: el Banco Mundial supone que la relación baja a 4,1–4,2. Sigue por encima del umbral de 4, así que la sustitución continúa, pero desplazaría cerca del 2 % de la demanda de cobre, frente a cerca del 4,5 % si se sostuviera el 4,8 actual.'],
-                  en: ['Copper/aluminium ratio', 'times', '4.8 : 1 (26/10/2026, near the mid-October record)', 'Difference in level: the World Bank assumes the ratio eases to 4.1–4.2. It stays above the threshold of 4, so substitution continues, but it would displace about 2% of copper demand, against about 4.5% if today\u2019s 4.8 were sustained.'] },
+                  es: ['Relación cobre/aluminio', 'veces', '4,5 : 1 (10/11/2026; récord de 4,8 a mediados de octubre)', 'Diferencia de nivel: el Banco Mundial supone que la relación baja a 4,1–4,2. Sigue por encima del umbral de 4, así que la sustitución continúa, pero desplazaría cerca del 2 % de la demanda de cobre, frente a cerca del 3,5 % si se sostuviera el 4,5 actual (4,5 % con el récord de 4,8).'],
+                  en: ['Copper/aluminium ratio', 'times', '4.5 : 1 (10/11/2026; 4.8 record in mid-October)', 'Difference in level: the World Bank assumes the ratio eases to 4.1–4.2. It stays above the threshold of 4, so substitution continues, but it would displace about 2% of copper demand, against about 3.5% if today\u2019s 4.5 were sustained (4.5% at the 4.8 record).'] },
                 { k: 'au', v: [3442, 4600, 4250, 4000], d: 0,
                   es: ['Oro', 'US$/oz', '3.460 en 2025 y 4.200 constante desde 2026 (Prospectiva → Oro y plata)', 'Coherente: el supuesto de SIEMA queda entre los pronósticos de 2027 y 2028.'],
                   en: ['Gold', 'US$/oz', '3,460 in 2025 and a constant 4,200 from 2026 (Foresight → Gold and silver)', 'Consistent: SIEMA’s assumption sits between the 2027 and 2028 forecasts.'] },
