@@ -1997,6 +1997,8 @@
             <div id="pulsoConsole" class="oc" data-console="pulso" aria-label="Consola del Pulsómetro SIEMA"></div>
             <p id="barometerCaption" class="pulso-caption">Comparación 3T 2025 vs. 3T 2026 · Licencia Social, Estabilidad Macro y RIGI: índices con datos externos · Resto de los ejes: encuesta SIEMA a empresas mineras (ilustrativo, primer corte)</p>
 
+            <div class="alert" id="barometroEstructural"></div>
+
             <h2 id="barometerAxesH2" class="pulso-axes-h">Los 10 ejes, uno por uno</h2>
             <div class="barometer-legend pulso-axes" id="barometerLegend"></div>
 
@@ -3151,6 +3153,7 @@
                 h1: 'Pulsómetro SIEMA — Clima de inversión minera',
                 p: 'El Pulsómetro mide cómo está hoy el sector, con indicadores que se actualizan a medida que llegan los datos. La consola resume, en un radar de 10 ejes y un conjunto de relojes, las variables que más pesan en la decisión de un inversor minero: exportaciones, marco normativo, licencia social, clima político, actitud "mining friendly" del Estado, financiamiento, infraestructura, estabilidad macroeconómica, capital humano y el RIGI minero. Cada eje se puntúa de 0 (muy desfavorable) a 10 (muy favorable), con datos externos donde existen y una encuesta a empresas mineras que operan en el país. Se completa con la percepción externa, el seguimiento del RIGI minero y el Monitor MIMA de talento.',
                 caption: 'Comparación 3T 2025 vs. 3T 2026 · Licencia Social, Estabilidad Macro y RIGI: índices con datos externos · Resto de los ejes: encuesta SIEMA a empresas mineras (ilustrativo, primer corte)',
+                estructural: '<strong>Lectura cualitativa &mdash; riesgo estructural:</strong> el radar y el índice miden riesgo coyuntural, variables que se mueven con el ciclo y admiten cobertura financiera, como el riesgo país, la inflación o los precios. Junto a ellas opera un riesgo de otra naturaleza, estructural, que no baja porque mejore la macro: depende de actos bilaterales entre Estados, de competencias constitucionales y de capacidades institucionales. El caso más claro hoy es el marco binacional con Chile en el Distrito Vicuña, donde los protocolos vigentes corresponden a la etapa de exploración, la evaluación ambiental se realiza por separado en cada país y la provincia titular del recurso no tiene voto en la Comisión Administradora del tratado. No integra el índice de 10 ejes: se lee junto al radar.',
                 monitor: '<strong>Se complementa con el Monitor de Ingeniería de Minas (MIMA):</strong> el clima de inversión dice si conviene invertir; el Monitor mide si el país cuenta con la formación y el talento para ejecutarla.',
                 monitorLink: 'Ver el Monitor',
                 pulsometro: '<strong>Se confronta con la Encuesta Externa:</strong> mientras la Encuesta Externa (Universidad de Toronto y Resources for the Future) no tenga datos propios, el Análisis de Brechas usa lo que el propio Pulsómetro revela sobre sus ejes más débiles.',
@@ -3160,6 +3163,7 @@
                 h1: 'SIEMA Pulsometer — Mining investment climate',
                 p: 'The Pulsometer measures how the sector is doing today, with indicators updated as data arrives. The console sums up, in a 10-axis radar and a set of gauges, the variables that weigh most on a mining investor\'s decision: exports, regulatory framework, social license, political climate, the State\'s "mining-friendly" attitude, funding, infrastructure, macroeconomic stability, human capital and the mining RIGI. Each axis is scored from 0 (very unfavorable) to 10 (very favorable), using external data where it exists and a survey of mining companies operating in the country. It is complemented by external perception, mining RIGI tracking and the MIMA talent Monitor.',
                 caption: 'Q3 2025 vs. Q3 2026 comparison · Social Licence, Macro Stability and RIGI: indices built from external data · Other axes: SIEMA survey of mining companies (illustrative, first cut)',
+                estructural: '<strong>Qualitative reading &mdash; structural risk:</strong> the radar and the index measure cyclical risk, variables that move with the cycle and can be financially hedged, such as country risk, inflation or prices. Alongside them runs a different kind of risk, structural, which does not fall because the macro improves: it depends on bilateral acts between States, on constitutional competences and on institutional capacity. The clearest case today is the binational framework with Chile in the Vicuña District, where the protocols in force correspond to the exploration stage, environmental assessment is carried out separately in each country, and the province that owns the resource has no vote on the treaty&rsquo;s Administering Commission. It is not part of the 10-axis index: it is read alongside the radar.',
                 monitor: '<strong>Complemented by the Mining Engineering Monitor (MIMA):</strong> the investment climate says whether to invest; the Monitor measures whether the country has the training and talent to deliver on it.',
                 monitorLink: 'View the Monitor',
                 pulsometro: '<strong>Checked against the External Survey:</strong> until the External Survey (University of Toronto and Resources for the Future) has its own data, the Gap Analysis uses what the Pulsometer itself reveals about its weakest axes.',
@@ -3238,6 +3242,7 @@
             document.getElementById('barometroP').innerHTML = PULSOMETER_INTRO[lang].p;
             document.getElementById('barometerCaption').textContent = PULSOMETER_INTRO[lang].caption;
             document.getElementById('barometerAxesH2').textContent = lang === 'es' ? 'Los 10 ejes, uno por uno' : 'The 10 axes, one by one';
+            document.getElementById('barometroEstructural').innerHTML = PULSOMETER_INTRO[lang].estructural;
             document.getElementById('barometroMonitor').innerHTML = PULSOMETER_INTRO[lang].monitor +
                 ' <a href="#" onclick="navigateTo(\'monitor\'); return false;">' + PULSOMETER_INTRO[lang].monitorLink + ' →</a>';
             document.getElementById('barometroPulsometro').innerHTML = PULSOMETER_INTRO[lang].pulsometro +
