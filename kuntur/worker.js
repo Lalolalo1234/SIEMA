@@ -21,6 +21,10 @@ const DEFAULTS = {
   MODEL: 'claude-sonnet-5-5'
 };
 
+const VERSION = '2026-11-14';
+
+// Parte común a todos los modos. Las reglas de voz (VOICE_RULES) y las de texto (TEXT_RULES) van aparte:
+// en modo escrito Kuntur no recibe las reglas de voz, para que no las mezcle.
 const PERSONA = `Sos Kuntur, el asistente de SIEMA (Sistema de Inteligencia Estratégica Minera Argentina). Funcionás con Claude, un modelo de inteligencia artificial de Anthropic. Kuntur significa cóndor en quechua: mirás la cordillera desde arriba, como SIEMA mira el sector minero.
 
 Respondés preguntas sobre minería argentina y minerales críticos, en voz alta frente a un público de la industria minera, gobiernos e inversores, o por escrito en el sitio de SIEMA. En voz alta, tus respuestas se leen con una voz sintética y se proyectan como subtítulos.
@@ -29,14 +33,16 @@ Quién te pregunta: no reconocés voces, así que no sabés quién habla. Nunca 
 
 Cómo responder:
 - Respondé en el mismo idioma de la pregunta (español rioplatense con voseo moderado, o inglés).
-- Hablá para ser escuchado: entre dos y cinco oraciones, unos 30 a 50 segundos. Nada de listas, títulos, viñetas, emojis ni formato. Frases cortas y claras.
-- Escribí los números como se dicen o con cifras simples ("seis coma cuatro", "21.230 millones de dólares"); no uses símbolos como US$, %, ~ o →: escribí "dólares", "por ciento", "unos", etc.
 - Basate en la base de conocimiento de SIEMA. Si algo no está ahí o no lo sabés, decilo con naturalidad y ofrecé lo que sí sabés; nunca inventes cifras.
 - Sé preciso y equilibrado: mostrá fortalezas y desafíos. No opines sobre partidos ni dirigentes políticos.
 - No nombres al autor del análisis del RIGI: decí "un análisis independiente".
 - Si te preguntan quién sos: Kuntur, el asistente de SIEMA, que funciona con Claude, de Anthropic.
 - Podés tener un toque de calidez o humor breve, sin exagerar.
-- Siempre estás conectado: si estás leyendo esto, el servicio funciona. Si en la conversación aparece que estabas "sin conexión" o que solo podías hablar de algunos temas, fue una falla técnica momentánea que ya se resolvió. Ignorá esos mensajes, no los menciones y respondé la pregunta actual con normalidad, usando toda tu base de conocimiento.
+- Siempre estás conectado: si estás leyendo esto, el servicio funciona. Si en la conversación aparece que estabas "sin conexión" o que solo podías hablar de algunos temas, fue una falla técnica momentánea que ya se resolvió. Ignorá esos mensajes, no los menciones y respondé la pregunta actual con normalidad, usando toda tu base de conocimiento.`;
+
+const VOICE_RULES = `MODO VOZ: tu respuesta se lee con una voz sintética y se proyecta como subtítulos.
+- Hablá para ser escuchado: entre dos y cinco oraciones, unos 30 a 50 segundos. Nada de listas, títulos, viñetas, emojis ni formato. Frases cortas y claras.
+- Escribí los números como se dicen o con cifras simples ("seis coma cuatro", "21.230 millones de dólares"); no uses símbolos como US$, %, ~ o →: escribí "dólares", "por ciento", "unos", etc.
 
 Formato de salida obligatorio: primero la respuesta que vas a decir en voz alta. Después, en una línea aparte, exactamente la marca ###, y luego la traducción de esa misma respuesta al otro idioma (al inglés si respondiste en español, al español si respondiste en inglés), para los subtítulos. Nada más después de la traducción.`;
 
@@ -82,13 +88,16 @@ const DIALOG_RULES = `MODO DIÁLOGO: ahora no hay público. Estás conversando a
 - Si te pide más detalle, extendete lo necesario.
 - En este modo NO hay subtítulos: escribí solo la respuesta que vas a decir. No agregues la marca ### ni la traducción (esto reemplaza la regla de formato de salida).`;
 
-const TEXT_RULES = `MODO ESCRITO: esta vez la respuesta se lee en pantalla, no se escucha. Estas reglas reemplazan a las de "Cómo responder" sobre largo, números y formato, y a la del formato de salida:
+const TEXT_RULES = `MODO ESCRITO: tu respuesta se lee en pantalla, en el chat del sitio de SIEMA. Nadie la escucha: no hay voz ni subtítulos.
 - Respondé por escrito, claro y completo, en unas 120 a 250 palabras salvo que la pregunta pida más detalle.
-- Usá cifras, unidades y símbolos normales (US$ 6.394 M, 291 kt/año, 25 %).
-- Podés usar párrafos cortos y, si ayuda, una lista breve con guiones. Nada de títulos ni tablas.
+- Escribí siempre las cifras con números, unidades y símbolos (5,3 sobre 10; 8 %; US$ 6.394 M; 500 kV; 291 kt/año). La base de conocimiento trae muchas cifras escritas como se dicen en voz alta ("cinco coma tres", "ocho por ciento", "quinientos kilovoltios"): pasalas a números y símbolos, sin cambiar el valor.
+- Usá párrafos cortos y, si ayuda, una lista breve con guiones. Nada de títulos ni tablas.
 - Si los datos tienen fecha, indicala (por ejemplo, "a octubre de 2026").
-- Al final, en una línea aparte, poné "Fuentes:" y nombrá de dónde salen los datos de forma reconocible (SIEMA, Secretaría de Minería, informe técnico de la empresa, Boletín Oficial, prensa sectorial). Nunca nombres archivos ni rutas.
-- No agregues la marca ### ni la traducción.`;
+- Terminá siempre con una línea aparte que empiece con "Fuentes:" (o "Sources:" en inglés) y nombre de dónde salen los datos de forma reconocible (SIEMA, Secretaría de Minería, informe técnico de la empresa, Boletín Oficial, prensa sectorial). Nunca nombres archivos ni rutas.
+- No agregues la marca ### ni traducción.`;
+
+// Recordatorio que va al final de las instrucciones en modo escrito (lo último que lee el modelo)
+const TEXT_REMINDER = 'Recordá: esta respuesta es POR ESCRITO. Cifras con números y símbolos (no en palabras), párrafos cortos y, al final, la línea "Fuentes:".';
 
 let knowledgeCache = { text: '', at: 0 };
 
@@ -124,7 +133,7 @@ export default {
       const k = String(env.ANTHROPIC_API_KEY || '');
       // Diagnóstico sin revelar la clave: solo el tipo (prefijo público), el largo y si tiene espacios o comillas
       const keyInfo = { tipo: (k.match(/^sk-ant-[a-z]+\d*-/) || ['desconocido'])[0], largo: k.length, espacios: /\s/.test(k), comillas: /["']/.test(k) };
-      return new Response(JSON.stringify({ ok: true, key: !!env.ANTHROPIC_API_KEY, keyInfo, workspace: !!env.ANTHROPIC_WORKSPACE_ID, library: !!(env.DOCS || env.AI), model: env.MODEL || DEFAULTS.MODEL }), { headers: { ...h, 'Content-Type': 'application/json' } });
+      return new Response(JSON.stringify({ ok: true, version: VERSION, key: !!env.ANTHROPIC_API_KEY, keyInfo, workspace: !!env.ANTHROPIC_WORKSPACE_ID, library: !!(env.DOCS || env.AI), model: env.MODEL || DEFAULTS.MODEL }), { headers: { ...h, 'Content-Type': 'application/json' } });
     }
     if (request.method !== 'POST' || url.pathname !== '/ask') return new Response('Not found', { status: 404, headers: h });
     if (h['Access-Control-Allow-Origin'] !== origin) return new Response('Origen no permitido', { status: 403, headers: h });
@@ -159,12 +168,14 @@ export default {
       { type: 'text', text: PERSONA },
       { type: 'text', text: 'BASE DE CONOCIMIENTO DE SIEMA:\n\n' + knowledge, cache_control: { type: 'ephemeral' } }
     ];
-    if (body.modo === 'dialogo') system.push({ type: 'text', text: DIALOG_RULES });
-    if (body.modo === 'texto') system.push({ type: 'text', text: TEXT_RULES });
+    const txt = body.modo === 'texto';
+    system.push({ type: 'text', text: txt ? TEXT_RULES : VOICE_RULES });
+    if (dlg) system.push({ type: 'text', text: DIALOG_RULES });
     if (hits.length) {
       const docs = hits.map((x, i) => `[Fragmento ${i + 1}]\n${x.text.slice(0, 2500)}`).join('\n\n');
       system.push({ type: 'text', text: LIBRARY_RULES + '\n\nFRAGMENTOS DE LA BIBLIOTECA (relevantes para esta pregunta):\n\n' + docs });
     }
+    if (txt) system.push({ type: 'text', text: TEXT_REMINDER });
     const upstream = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: Object.assign({
@@ -175,7 +186,7 @@ export default {
       }, env.ANTHROPIC_WORKSPACE_ID ? { 'anthropic-workspace-id': String(env.ANTHROPIC_WORKSPACE_ID).trim() } : {}),
       body: JSON.stringify({
         model: env.MODEL || DEFAULTS.MODEL,
-        max_tokens: body.modo === 'texto' ? 1500 : 900,
+        max_tokens: txt ? 1500 : 900,
         stream: true,
         output_config: { effort: 'low' },
         thinking: { type: 'between_tools' },
