@@ -583,6 +583,7 @@ const VIEWS = {
   eiti:        { tab: 'barometro', sel: '#gobernanzaEiti', es: 'Gobernanza · EITI', en: 'Governance · EITI', re: /\beiti\b|transparencia de las industrias|extractive industries transparency/i },
   macro:       { tab: 'barometro', sel: '#riesgoPais', es: 'Riesgo país y estabilidad macro', en: 'Country risk and macro stability', re: /riesgo pa[ií]s|estabilidad macro|\bmacro\b|calificador|calificaci[oó]n soberana|inflaci[oó]n|deuda de 2027|vencimientos|country risk|macro stability|rating agenc|inflation/i },
   licencia:    { tab: 'barometro', sel: '#licenciaSocial', es: 'Licencia social', en: 'Social licence', re: /licencia social|social licen[cs]e|comunidades|confianza en los controles|trust in (state )?oversight/i },
+  financ:      { tab: 'financiamiento', sel: null, es: 'Financiamiento · BEI, EFSD+, garantías', en: 'Financing · EIB, EFSD+, guarantees', re: /financiamiento|financiaci[oó]n|\bbei\b|banco europeo de inversiones|\beib\b|efsd|global gateway|\bmiga\b|seguro de riesgo pol[ií]tico|cr[eé]dito a la exportaci[oó]n|agencias? de cr[eé]dito|garant[ií]as? de materias primas|\bufk\b|finnvera|\bekn\b|export credit|political risk insurance|\bfinancing\b/i },
   rigi:        { tab: 'rigi', sel: '#rigiDyn', es: 'RIGI minero', en: 'Mining RIGI', re: /\brigi\b|r[eé]gimen de incentivo|desembols|disburse/i },
   mima:        { tab: 'monitor', sel: null, es: 'Monitor de Ingeniería de Minas (MIMA)', en: 'Mining Engineering Monitor (MIMA)', re: /\bmima\b|monitor de (la )?ingenier|ingenier[ií]a de minas|mining engineering monitor/i },
   capital:     { tab: 'capital-humano', sel: null, es: 'Capital humano', en: 'Human capital', re: /capital humano|talento|human capital|talent/i },
@@ -607,7 +608,7 @@ const VIEWS = {
   consola:     { tab: 'inicio', sel: '#omaConsole', es: 'Consola SIEMA', en: 'SIEMA console', re: /consola|performance minera|performance index|\bsiema\b/i },
   inicio:      { tab: 'inicio', sel: null, es: 'SIEMA', en: 'SIEMA', re: /(?!)/ }
 };
-const VIEW_ORDER = ['fuentes', 'eiti', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'infra', 'infraTransp', 'infraEnerg', 'infraAgua', 'oroplata', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
+const VIEW_ORDER = ['fuentes', 'eiti', 'financ', 'macro', 'licencia', 'rigi', 'mima', 'capital', 'externa', 'brechas', 'cual', 'infra', 'infraTransp', 'infraEnerg', 'infraAgua', 'oroplata', 'prospectiva', 'argentina', 'demanda', 'eventos', 'noticias', 'infografias', 'pulsometro', 'oferta', 'acerca', 'consola'];
 let curView = null, frameReady = false, pendingView = null, viewLocked = false;
 function pickView(t) { for (const k of VIEW_ORDER) if (VIEWS[k].re.test(t || '')) return k; return null; }
 function sizeScreen() {
