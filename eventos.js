@@ -4,8 +4,8 @@ window.SIEMA_EVENTS = {
  "metadata": {
   "title": "Mining Events Database",
   "description": "Upcoming mining conferences, exhibitions, and symposiums",
-  "last_updated": "2026-10-28",
-  "total_events": 81,
+  "last_updated": "2026-11-23",
+  "total_events": 83,
   "source": "CeProMinDB (lalolalo1234/CeProMinDB) + SIEMA"
  },
  "events": [
@@ -1936,6 +1936,54 @@ window.SIEMA_EVENTS = {
    "region": "Latin America",
    "siema": true,
    "notes": "Segunda edición, anunciada por el gobernador Cornejo (Prensa Mendoza, 26/06/2026); sede según la agenda de CAEM. Ejes: institucionalidad y gobernanza, ambiente y sociedad, economía y finanzas. Clave para PSJ Cobre Mendocino y el Distrito Minero Malargüe Occidental."
+  },
+  {
+   "id": 1022,
+   "name": "Future Minerals Forum 2027 (6.ª edición)",
+   "type": "Foro ministerial y de inversión",
+   "start_date": "2027-01-12",
+   "end_date": "2027-01-14",
+   "city": "Riyadh",
+   "country": "Saudi Arabia",
+   "venue": "",
+   "organizer": "Ministerio de Industria y Recursos Minerales de Arabia Saudita",
+   "website": "https://www.futuremineralsforum.com",
+   "focus": [
+    "minerales críticos",
+    "inversión",
+    "política minera"
+   ],
+   "commodities": [
+    "copper",
+    "lithium",
+    "critical minerals"
+   ],
+   "region": "Asia",
+   "siema": true,
+   "notes": "Sexta edición confirmada para el 12–14/01/2027 (Global Mining Review, 06/10/2026). Reúne a ministros de minería de África, Asia Central y América Latina."
+  },
+  {
+   "id": 1023,
+   "name": "CESCO Week Santiago 2027",
+   "type": "Semana del cobre",
+   "start_date": "2027-04-12",
+   "end_date": "2027-04-16",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "",
+   "organizer": "Centro de Estudios del Cobre y la Minería (CESCO)",
+   "website": "https://www.cesco.cl/",
+   "focus": [
+    "mercado del cobre",
+    "inversión",
+    "política minera"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Fecha anunciada por CESCO (Minería Chilena, 17/11/2026). Incluye la CRU World Copper Conference."
   }
  ]
 };
