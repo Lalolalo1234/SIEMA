@@ -28,7 +28,7 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 UA = {'User-Agent': 'Mozilla/5.0 (compatible; SIEMA-siacam-sync/1.1; +https://lalolalo1234.github.io/SIEMA/)', 'Accept': 'text/csv,*/*'}
 
 
-def get(url, tries=2, timeout=30):
+def get(url, tries=1, timeout=15):
     for i in range(tries):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
@@ -108,6 +108,7 @@ def main():
     now = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     manifest = {'generated': now, 'source': 'datos.gob.ar (Secretaría de Minería, SIACAM)', 'datasets': []}
     files = []
+    fails = 0
     for p in packages():
         freq = next((e.get('value') for e in p.get('extras', []) if 'accrual' in e.get('key', '').lower()), None)
         ds = {'title': p['title'], 'id': p['name'], 'modified': p.get('metadata_modified'), 'frequency': freq, 'resources': []}
@@ -120,14 +121,17 @@ def main():
             os.makedirs(d, exist_ok=True)
             path = os.path.join(d, slug(r.get('name') or r['id']) + '.csv')
             body, err = None, None
-            for u in dict.fromkeys([url, url.replace('http://', 'https://'), url.replace('https://', 'http://')]):
+            for u in dict.fromkeys([url, url.replace('http://', 'https://')]):
                 try:
                     body = get(u)
                     break
                 except Exception as e:  # noqa: BLE001
                     err = f'{type(e).__name__}: {e}'
             if body is None:
-                print(f'  sin descargar: {url} -> {err}'[:300])
+                fails += 1
+                print(f'  sin descargar: {url} -> {err}'[:300], flush=True)
+                if fails >= 5 and not files:
+                    sys.exit('ATENCIÓN: los primeros 5 CSV del SIACAM no responden desde este servidor; se corta la corrida.')
                 ds['resources'].append({'name': r.get('name'), 'url': url, 'error': (err or '')[:200]})
                 continue
             open(path, 'wb').write(body)

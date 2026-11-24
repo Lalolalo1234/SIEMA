@@ -4,8 +4,9 @@ name: SIACAM semanal
 # antes de la tarea «Datos SIEMA semanal» del miércoles. También se puede correr a mano
 # desde la pestaña Actions del repositorio (botón «Run workflow»).
 on:
-  schedule:
-    - cron: '37 10 * * 2'   # martes 10:37 UTC
+  # Programación pausada: los servidores del Ministerio de Economía no responden desde GitHub (24/11/2026).
+  # schedule:
+  #   - cron: '37 10 * * 2'   # martes 10:37 UTC
   workflow_dispatch:
 
 permissions:
@@ -14,7 +15,7 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
