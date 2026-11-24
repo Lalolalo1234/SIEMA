@@ -1032,6 +1032,7 @@
         .rp-ind-head { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
         .rp-pill { font-size: 0.75rem; font-weight: 600; padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
         .rp-pill-ok { background: #dcfce7; color: #14532d; }
+        .rp-pill-na { background: #e5e7eb; color: #374151; }
         .rp-pill-warn { background: #fef3c7; color: #78350f; }
         .rp-pill-bad { background: #fee2e2; color: #7f1d1d; }
         .rp-range { position: relative; height: 40px; margin: 1.6rem 0 0.2rem; }
@@ -2019,6 +2020,7 @@
             <div class="barometer-legend pulso-axes" id="barometerLegend"></div>
 
             <section class="rp" id="licenciaSocial" aria-labelledby="licenciaSocialH2"></section>
+            <section class="rp" id="transparencia" aria-labelledby="transparenciaH2"></section>
             <section class="rp" id="riesgoPais" aria-labelledby="riesgoPaisH2"></section>
             <section class="rp" id="gobernanzaEiti" aria-labelledby="gobernanzaEitiH2"></section>
 
@@ -3533,6 +3535,7 @@
             renderLicencia();
             renderRiesgoPais();
             renderEiti();
+            renderTransparencia();
             renderOferta();
             renderRigi();
             renderCual();
@@ -4855,6 +4858,128 @@
                 src: 'Sources: EITI Database (eiti-database.eiti.org); EITI Board decision on Argentina\'s 2026 Validation (eiti.org/board-decision/2026-09); EITI Argentina country profile. Data as of '
             }
         };
+
+        // --- Transparencia, pagos y conflictividad por proyecto (complementa Licencia social y EITI) ---
+        // Datos al 24/11/2026. No entra al índice del Pulsómetro (los 10 ejes no se tocan): es contexto verificable por proyecto.
+        // ITMA: Asociación Civil Inteligencia Colaborativa para el Desarrollo (ICD), Informe N.º 1 (2T 2026, publicado en septiembre de 2026),
+        //   puntajes según la prensa que cubrió el informe (Noticias Ambientales, Economía Sustentable, Tercer Tiempo, Examedia). s = null: puntaje no publicado en esas notas.
+        //   Para actualizar: cuando salga el informe trimestral siguiente, reemplazar itma.rows y itma.edition.
+        // RIGI: Observatorio del RIGI (FARN, CELS, TNI, EPyG-UNSAM, ETFE y otros), Boletín N.º 2 (agosto de 2026); respuesta oficial a su pedido de acceso a la información.
+        // OCMAL: base de proyectos del Observatorio de Conflictos Mineros de América Latina (mapa.conflictosmineros.net), consultada el 24/11/2026.
+        // GRI: indicadores de sustentabilidad del SIACAM (datos.gob.ar); se cargan de data/siacam/sustentabilidad.json si existe (lo genera la automatización de series).
+        const TRANSP_DATA = {
+            asOf: '24/11/2026',
+            itma: {
+                edition: '2T 2026', avg: 50.7, min: 25, max: 72, n: 13, scored: 12, high: 4, mid: 5, low: 3,
+                rows: [
+                    { p: 'Salar del Rincón', pr: 'Salta', m: 'li', s: 72, lv: 'high' },
+                    { p: 'Salar de Olaroz', pr: 'Jujuy', m: 'li', s: 67, lv: 'high' },
+                    { p: 'Salar del Hombre Muerto – Fénix', pr: 'Catamarca', m: 'li', s: 67, lv: 'high' },
+                    { p: 'Sal de Vida', pr: 'Catamarca', m: 'li', s: 57, lv: 'mid' },
+                    { p: 'Vicuña', pr: 'San Juan', m: 'cu', s: 52, lv: 'mid' },
+                    { p: 'MARA', pr: 'Catamarca', m: 'cu', s: 52, lv: 'mid' },
+                    { p: 'Veladero', pr: 'San Juan', m: 'au', s: 42, lv: 'mid' },
+                    { p: 'Cerro Vanguardia', pr: 'Santa Cruz', m: 'au', s: 42, lv: 'mid' },
+                    { p: 'Cauchari-Olaroz', pr: 'Jujuy', m: 'li', s: null, lv: null },
+                    { p: 'Los Azules', pr: 'San Juan', m: 'cu', s: null, lv: 'low' },
+                    { p: 'Gualcamayo', pr: 'San Juan', m: 'au', s: null, lv: 'low' },
+                    { p: 'Casposo', pr: 'San Juan', m: 'au', s: null, lv: 'low' },
+                    { p: 'Manantial Espejo', pr: 'Santa Cruz', m: 'au', s: null, lv: 'excl' }
+                ]
+            },
+            rigi: { presented: 40, amount: 138087, mining: 21, first12Disb: 1920, siemaDisb: 914, siemaPct: 4.3, fiscalPct: 0.25 },
+            eiti4: { period: '2022–2023', companies: 17, participation: 100, provinces: 6, cov22: 102.9, cov23: 94.7 },
+            ocmal: ['MARA (Agua Rica – Alumbrera)', 'El Pachón', 'Los Azules', 'Filo del Sol (Vicuña)', 'San Jorge (PSJ Cobre Mendocino)', 'Manantial Espejo'],
+            gri: null
+        };
+        const TRANSP_I18N = {
+            es: {
+                h2: 'Transparencia, pagos y conflictividad por proyecto',
+                intro: 'Cuatro miradas externas que completan la Licencia social, proyecto por proyecto: cuánta información ambiental publican las empresas (ITMA), qué dice la sociedad civil del RIGI, qué informa el EITI sobre pagos y qué proyectos figuran en el registro de conflictos de OCMAL. No suman al índice del Pulsómetro: son contexto verificable, con su fuente, y SIEMA no las juzga.',
+                itmaT: 'Transparencia ambiental de las empresas (ITMA)',
+                itmaIntro: (d) => `El Índice de Transparencia de la Minería Argentina, de la asociación civil ICD, evaluó ${d.n} operaciones y proyectos (${d.edition}). Mide la información ambiental que las empresas hacen pública, de 0 a 100; no mide el desempeño ambiental ni si hay contaminación. Promedio: ${String(d.avg).replace('.', ',')}; rango: ${d.min} a ${d.max}. ${d.high} quedaron en nivel alto, ${d.mid} en medio y ${d.low} en bajo: dos de cada tres con un nivel insatisfactorio. Ninguna entregó su Informe de Impacto Ambiental cuando se lo pidieron.`,
+                itmaHead: ['Proyecto u operación', 'Provincia', 'Mineral', 'Puntaje', 'Nivel'],
+                lv: { high: 'Alto', mid: 'Medio', low: 'Bajo', excl: 'Excluida (en cierre)' },
+                noScore: 'sin dato', noScoreNote: '«sin dato»: el puntaje no figura en las publicaciones consultadas; el informe completo lo tiene.',
+                mineral: { li: 'Litio', cu: 'Cobre', au: 'Oro y plata' },
+                rigiT: 'El RIGI visto por la sociedad civil',
+                rigi: (r, f) => [
+                    `<strong>Escala.</strong> A dos años del régimen, el Observatorio del RIGI identificó ${r.presented} proyectos presentados por US$ ${f(r.amount)} millones; ${r.mining} son mineros (boletín de agosto de 2026).`,
+                    `<strong>Desembolsos.</strong> Ante un pedido de acceso a la información, el Gobierno respondió que los primeros 12 proyectos aprobados prevén desembolsar US$ ${f(r.first12Disb)} millones en sus dos primeros años. SIEMA identifica al menos US$ ${r.siemaDisb} millones ya desembolsados en los proyectos mineros (${String(r.siemaPct).replace('.', ',')} % de lo comprometido): las dos cifras van en el mismo sentido.`,
+                    `<strong>Costo fiscal.</strong> En la presentación del boletín se citó una estimación: 12 proyectos en plena operación costarían alrededor del ${String(r.fiscalPct).replace('.', ',')} % del PBI en beneficios tributarios. Es una estimación de terceros; el Ministerio de Economía no publica una cifra oficial.`
+                ],
+                eitiT: 'Pagos al Estado: el cuarto informe EITI',
+                eiti: (e) => `El cuarto informe EITI cubre ${e.period}: participaron las ${e.companies} empresas mineras convocadas (${e.participation} %) y seis provincias (Salta, Santa Cruz, San Juan, Catamarca, Río Negro y Mendoza). Los pagos de las empresas que reportan equivalen al ${String(e.cov22).replace('.', ',')} % (2022) y al ${String(e.cov23).replace('.', ',')} % (2023) de lo que el Estado nacional registra como ingreso minero, según la validación del EITI. Los pagos por empresa de 2018 a 2021 están en la sección EITI, más abajo.`,
+                ocmalT: 'Proyectos de la cartera en el registro de conflictos de OCMAL',
+                ocmalIntro: 'El Observatorio de Conflictos Mineros de América Latina, una red de organizaciones sociales, registra proyectos con conflictos o reclamos. Estos proyectos de la cartera que sigue SIEMA figuran en su base:',
+                ocmalNote: 'Figurar en el registro indica que hubo reclamos documentados por esa red; no mide su intensidad, su vigencia ni su resultado. En San Jorge (Mendoza) hubo movilizaciones en Uspallata en febrero de 2026.',
+                griT: 'Agua, energía y emisiones declaradas por las empresas (SIACAM, reportes GRI)',
+                griHead: ['Proyecto', 'Agua (m³/año)', 'Energía (GJ/año)', 'Emisiones (t CO₂e/año)', 'Año del reporte'],
+                src: 'Fuentes: ICD, Índice de Transparencia de la Minería Argentina, Informe N.º 1 (2T 2026); Observatorio del RIGI, Boletín N.º 2 (agosto de 2026); EITI, Validación de Argentina 2025 y Cuarto Informe EITI Argentina (2022–2023); OCMAL, base de proyectos (consultada el 24/11/2026). Datos al '
+            },
+            en: {
+                h2: 'Transparency, payments and conflict by project',
+                intro: 'Four external views that complete the Social Licence, project by project: how much environmental information companies publish (ITMA), what civil society says about the RIGI, what the EITI reports on payments and which projects appear in OCMAL\'s conflict register. They do not feed the Pulsometer index: they are verifiable context, with their source, and SIEMA does not judge them.',
+                itmaT: 'Companies\' environmental transparency (ITMA)',
+                itmaIntro: (d) => `The Argentine Mining Transparency Index, by the civil association ICD, assessed ${d.n} operations and projects (${d.edition}). It scores, from 0 to 100, the environmental information companies make public; it does not measure environmental performance or whether there is pollution. Average: ${d.avg}; range: ${d.min} to ${d.max}. ${d.high} scored high, ${d.mid} medium and ${d.low} low: two in three at an unsatisfactory level. None handed over its Environmental Impact Report when asked.`,
+                itmaHead: ['Project or operation', 'Province', 'Mineral', 'Score', 'Level'],
+                lv: { high: 'High', mid: 'Medium', low: 'Low', excl: 'Excluded (closing)' },
+                noScore: 'n/a', noScoreNote: '"n/a": the score does not appear in the publications consulted; the full report has it.',
+                mineral: { li: 'Lithium', cu: 'Copper', au: 'Gold and silver' },
+                rigiT: 'The RIGI as seen by civil society',
+                rigi: (r, f) => [
+                    `<strong>Scale.</strong> Two years into the regime, the RIGI Observatory identified ${r.presented} projects submitted for US$ ${f(r.amount)} million; ${r.mining} are mining projects (August 2026 bulletin).`,
+                    `<strong>Disbursements.</strong> In reply to a freedom-of-information request, the Government said the first 12 approved projects plan to disburse US$ ${f(r.first12Disb)} million in their first two years. SIEMA identifies at least US$ ${r.siemaDisb} million already disbursed in mining projects (${r.siemaPct}% of commitments): both figures point the same way.`,
+                    `<strong>Fiscal cost.</strong> An estimate was cited at the bulletin's launch: 12 projects in full operation would cost about ${r.fiscalPct}% of GDP in tax benefits. It is a third-party estimate; the Ministry of Economy publishes no official figure.`
+                ],
+                eitiT: 'Payments to the State: the fourth EITI report',
+                eiti: (e) => `The fourth EITI report covers ${e.period}: all ${e.companies} mining companies invited took part (${e.participation}%), along with six provinces (Salta, Santa Cruz, San Juan, Catamarca, Río Negro and Mendoza). Payments by reporting companies equal ${e.cov22}% (2022) and ${e.cov23}% (2023) of what the national State records as mining revenue, according to the EITI validation. Payments by company for 2018–2021 are in the EITI section below.`,
+                ocmalT: 'Portfolio projects in OCMAL\'s conflict register',
+                ocmalIntro: 'The Latin American Mining Conflicts Observatory, a network of social organisations, records projects with conflicts or claims. These projects in SIEMA\'s portfolio appear in its database:',
+                ocmalNote: 'Appearing in the register means that network documented claims; it does not measure their intensity, whether they are ongoing or how they ended. At San Jorge (Mendoza) there were protests in Uspallata in February 2026.',
+                griT: 'Water, energy and emissions reported by companies (SIACAM, GRI reports)',
+                griHead: ['Project', 'Water (m³/yr)', 'Energy (GJ/yr)', 'Emissions (t CO₂e/yr)', 'Report year'],
+                src: 'Sources: ICD, Argentine Mining Transparency Index, Report No. 1 (Q2 2026); RIGI Observatory, Bulletin No. 2 (August 2026); EITI, Argentina 2025 Validation and Fourth EITI Argentina Report (2022–2023); OCMAL project database (consulted 24/11/2026). Data as of '
+            }
+        };
+        function renderTransparencia() {
+            const el = document.getElementById('transparencia');
+            if (!el) return;
+            const lang = currentLang, t = TRANSP_I18N[lang], d = TRANSP_DATA;
+            const fmt = n => n.toLocaleString(lang === 'es' ? 'es-AR' : 'en-US');
+            const pill = lv => lv ? `<span class="rp-pill rp-pill-${lv === 'high' ? 'ok' : lv === 'mid' ? 'warn' : lv === 'low' ? 'bad' : 'na'}">${t.lv[lv]}</span>` : '—';
+            const itmaRows = d.itma.rows.map(r => `<tr><td><strong>${r.p}</strong></td><td>${r.pr}</td><td>${t.mineral[r.m]}</td><td class="n">${r.s === null ? `<span class="ls-na">${t.noScore}</span>` : `<span class="ls-score">${r.s}</span>`}</td><td>${pill(r.lv)}</td></tr>`).join('');
+            const g = d.gri;
+            const griBlock = g && g.rows && g.rows.length ? `<h3 class="rp-h3">${t.griT}</h3><div class="table-scroll"><table class="eiti-table"><thead><tr>${t.griHead.map((h, i) => `<th${i ? ' class="n"' : ''}>${h}</th>`).join('')}</tr></thead><tbody>${g.rows.map(r => `<tr><td><strong>${r.p}</strong></td><td class="n">${r.agua != null ? fmt(r.agua) : '—'}</td><td class="n">${r.energia != null ? fmt(r.energia) : '—'}</td><td class="n">${r.gei != null ? fmt(r.gei) : '—'}</td><td class="n">${r.anio || '—'}</td></tr>`).join('')}</tbody></table></div><p class="rp-note">${g.src || ''}</p>` : '';
+            el.innerHTML = `
+                <h2 id="transparenciaH2">${t.h2}</h2>
+                <p>${t.intro}</p>
+                <h3 class="rp-h3">${t.itmaT}</h3>
+                <p>${t.itmaIntro(d.itma)}</p>
+                <div class="table-scroll"><table class="eiti-table">
+                    <thead><tr>${t.itmaHead.map((h, i) => `<th${i === 3 ? ' class="n"' : ''}>${h}</th>`).join('')}</tr></thead>
+                    <tbody>${itmaRows}</tbody>
+                </table></div>
+                <p class="rp-note">${t.noScoreNote}</p>
+                <div class="rp-market">
+                    <div class="rp-card">
+                        <h4>${t.rigiT}</h4>
+                        ${t.rigi(d.rigi, fmt).map(x => `<p class="rp-note">${x}</p>`).join('')}
+                    </div>
+                    <div class="rp-card">
+                        <h4>${t.eitiT}</h4>
+                        <p class="rp-note">${t.eiti(d.eiti4)}</p>
+                    </div>
+                </div>
+                <h3 class="rp-h3">${t.ocmalT}</h3>
+                <p>${t.ocmalIntro}</p>
+                <ul class="rp-agencies">${d.ocmal.map(x => `<li>${x}</li>`).join('')}</ul>
+                <p class="rp-note">${t.ocmalNote}</p>
+                ${griBlock}
+                <p class="table-note">${t.src}${d.asOf}.</p>`;
+        }
+        // Indicadores GRI del SIACAM: los deja la automatización en data/siacam/sustentabilidad.json
+        fetch('data/siacam/sustentabilidad.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => { if (j && j.rows) { TRANSP_DATA.gri = j; renderTransparencia(); } }).catch(() => {});
 
         function renderEiti() {
             const el = document.getElementById('gobernanzaEiti');
