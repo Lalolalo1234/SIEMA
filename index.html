@@ -1927,6 +1927,8 @@
 
             <p class="table-note">Fuente: CeProMin, sobre IEA Global Critical Minerals Outlook 2025/2026, S&amp;P Global, Wood Mackenzie, ICSG, USGS MCS 2026, Adamas Intelligence, BNEF, Secretaría de Minería de la Nación, Segemar, Panorama Minero y reportes de empresas. Última revisión: 23/09/2026.</p>
 
+            <div id="analisisDyn"></div>
+
             <div class="button-group">
                 <button class="btn" onclick="navigateTo('prospectiva')">Ver Prospectiva</button>
                 <button class="btn btn-secondary" onclick="navigateTo('oferta')">Ver Oferta</button>
@@ -2871,6 +2873,8 @@
 
             <p class="table-note">Source: CeProMin, based on IEA Global Critical Minerals Outlook 2025/2026, S&amp;P Global, Wood Mackenzie, ICSG, USGS MCS 2026, Adamas Intelligence, BNEF, Argentina's Mining Secretariat, Segemar, Panorama Minero and company filings. Last reviewed: 23/09/2026.</p>
 
+            <div id="analisisDyn"></div>
+
             <div class="button-group">
                 <button class="btn" onclick="navigateTo('prospectiva')">View Foresight</button>
                 <button class="btn btn-secondary" onclick="navigateTo('oferta')">View Supply</button>
@@ -3541,6 +3545,7 @@
             renderOferta();
             renderRigi();
             renderCual();
+            renderAnalisis();
             renderEventos();
             renderSubnav();
             renderAmvestSidebar();
@@ -4348,6 +4353,170 @@
             for (let i = 1; i < c.length; i++) { if (r <= c[i][0]) return c[i - 1][1] + (c[i][1] - c[i - 1][1]) * (r - c[i - 1][0]) / (c[i][0] - c[i - 1][0]); }
             return c[c.length - 1][1];
         }
+        // --- Análisis SIEMA (Observatorio > Argentina hoy): semáforo de viabilidad, monitor de ejecución y exposición geoeconómica ---
+        // Datos al 24/11/2026. Versión 1: litio en el semáforo; proyectos del RIGI en el monitor; operaciones de litio y cartera de cobre en la exposición.
+        // Reglas del semáforo (criterio de SIEMA, publicado en metodologia.html): umbrales de precio de SC Insights (webinar, 11/2026)
+        //   y costo operativo ponderado de Argentina de la Secretaría de Minería (Mercado de Litio, 10/2026: US$ 7.339/t LCE en 2025).
+        // Capacidades: OF_DATA (Portfolio 2026 y empresas). LiOH y LiCl convertidos a LCE (× 0,880 y × 0,872).
+        // Controlante: empresa que opera o tiene la mayor participación; país = sede de la empresa. Para actualizar, editar ANALISIS_DATA.
+        const ANALISIS_DATA = {
+            asOf: '24/11/2026',
+            cashCost: 7339,
+            li: [
+                { n: 'Cauchari-Olaroz', s: 'op', kt: 40, c: 'cn' },
+                { n: 'Olaroz', s: 'op', kt: 42.5, c: 'uk' },
+                { n: 'Fénix', s: 'op', kt: 30, c: 'uk' },
+                { n: 'Sal de Oro', s: 'op', kt: 22, c: 'kr' },
+                { n: 'Centenario-Ratones', s: 'op', kt: 24, c: 'fr' },
+                { n: 'Tres Quebradas', s: 'op', kt: 20, c: 'cn' },
+                { n: 'Mariana', s: 'op', kt: 17.4, c: 'cn' },
+                { n: 'Salar del Rincón', s: 'cons', kt: 60, c: 'uk' },
+                { n: 'Sal de Vida (fase 1)', s: 'cons', kt: 15, c: 'uk' },
+                { n: 'Hombre Muerto Oeste (fase 1)', s: 'cons', kt: 5.4, c: 'au' },
+                { n: 'Ampliación Cauchari-Olaroz', s: 'pre', kt: 45, c: 'cn' },
+                { n: 'Ampliación Tres Quebradas', s: 'pre', kt: 40, c: 'cn' },
+                { n: 'Pozuelos – Pastos Grandes', s: 'pre', kt: 150, c: 'cn' },
+                { n: 'Kachi', s: 'pre', kt: 25, c: 'au' }
+            ],
+            cu: [
+                { n: 'Vicuña – Josemaría', kt: 395, c: ['au', 'ca'] },
+                { n: 'Taca Taca', kt: 291, c: ['ca'] },
+                { n: 'El Pachón', kt: 280, c: ['ch'] },
+                { n: 'Los Azules', kt: 205, c: ['ca'] },
+                { n: 'MARA', kt: 150, c: ['ch'] },
+                { n: 'San Jorge (PSJ Cobre Mendocino)', kt: 40, c: ['nd'] }
+            ],
+            liExportChina: 81.1,
+            // Monitor: estado según SIEMA y próximo hito; prev = cambio de calendario registrado por SIEMA
+            mon: [
+                { n: 'Sal de Oro II', st: 'built', next: { es: 'Planta inaugurada el 06/10/2026', en: 'Plant inaugurated on 06/10/2026' } },
+                { n: 'Fénix, expansión Fase 1B', st: 'built', next: { es: 'Primera producción en el 2T 2026; puesta en marcha', en: 'First output in Q2 2026; ramp-up' } },
+                { n: 'Hombre Muerto Oeste (HMW)', st: 'built', next: { es: '4 kt/año en el 1S 2027', en: '4 kt/yr in H1 2027' } },
+                { n: 'Rincón', st: 'works', next: { es: 'Primera producción en 2028', en: 'First output in 2028' } },
+                { n: 'Vicuña', st: 'works', next: { es: 'Decisión de construcción de la Etapa 1, posible a fin de 2026', en: 'Stage 1 construction decision, possible by end-2026' } },
+                { n: 'Veladero, fases 8 y 9', st: 'works', next: { es: 'Fin de la obra de la fase 8 en 05/2027', en: 'Phase 8 works finish in 05/2027' } },
+                { n: 'Diablillos', st: 'works', next: { es: 'Decisión final de inversión en el 2T 2027', en: 'Final investment decision in Q2 2027' } },
+                { n: 'Los Azules', st: 'pre', next: { es: 'Decisión final de inversión a mediados de 2027', en: 'Final investment decision in mid-2027' }, prev: { es: 'antes, fin de 2026', en: 'previously end-2026' } },
+                { n: 'PSJ Cobre Mendocino', st: 'pre', next: { es: 'Decisión de inversión pendiente; operación prevista para enero de 2029', en: 'Investment decision pending; operation planned for January 2029' }, prev: { es: 'antes, operación en 2028', en: 'previously operation in 2028' } },
+                { n: 'MARA (Agua Rica – Alumbrera)', st: 'pre', next: { es: 'Obras desde 11/2027', en: 'Works from 11/2027' } },
+                { n: 'Carbonatos Profundos (DCP)', st: 'pre', next: { es: 'Construcción desde fines de 2027', en: 'Construction from late 2027' } },
+                { n: 'Ampliación Cauchari-Olaroz', st: 'pre', next: { es: 'Operación prevista para 12/2028; sin datos públicos de avance', en: 'Operation planned for 12/2028; no public progress data' } },
+                { n: 'Liex S.A. (Tres Quebradas)', st: 'pre', next: { es: 'Sin cronograma público', en: 'No public schedule' } }
+            ]
+        };
+        const ANALISIS_I18N = {
+            es: {
+                h2: 'Análisis SIEMA: del dato a la decisión',
+                intro: 'Tres preguntas que hoy nadie responde en un solo lugar, armadas con fuentes públicas y criterios publicados en la <a href="metodologia.html">nota metodológica</a>. Versión 1, con datos al ',
+                semT: '1. Semáforo de viabilidad del litio según el precio',
+                semIntro: 'Mové el precio del carbonato de litio y mirá qué capacidad sigue siendo viable. Las operaciones se comparan con el costo operativo ponderado de Argentina (US$ 7.339/t en 2025, Secretaría de Minería); los proyectos en obra, con el precio por debajo del cual se frenan las inversiones (US$ 10.000/t); y los que aún no decidieron invertir, con el precio de incentivo (US$ 15.000 a 20.000/t), según SC Insights.',
+                price: 'Precio del carbonato (US$/t)', today: 'hoy, GFEX',
+                stage: { op: 'En operación', cons: 'En construcción', pre: 'Antes de la decisión de inversión' },
+                col: { g: 'Viable', y: 'En duda', r: 'No viable' },
+                semHead: ['Proyecto', 'Etapa', 'Capacidad (kt LCE/año)', 'A este precio'],
+                semSum: (g, y, r) => `A este precio: <strong>${g} kt</strong> viables, <strong>${y} kt</strong> en duda y <strong>${r} kt</strong> no viables.`,
+                semNote: 'Es un criterio de SIEMA, no una evaluación de cada proyecto: los costos de cada operación y el efecto del RIGI cambian el resultado caso por caso. Cobre, en la próxima versión.',
+                monT: '2. Monitor de ejecución: lo comprometido frente a lo que pasa',
+                monIntro: 'Proyectos mineros con RIGI aprobado: cuánto comprometieron, cuánto se sabe que desembolsaron y cuál es su próximo hito. Los cambios de calendario son los que SIEMA registró desde octubre de 2026.',
+                monHead: ['Proyecto', 'Estado', 'Comprometido (US$ M)', 'Desembolsado (US$ M)', 'Próximo hito'],
+                st: { built: 'Construido', works: 'En obra', pre: 'Antes de la obra principal' },
+                nd: 'sin dato', est: 'estimación SIEMA',
+                monSum: (b, w, p, tot) => `De US$ ${tot} M comprometidos: ${b} % en proyectos ya construidos, ${w} % en obra y ${p} % antes de la obra principal.`,
+                slip: 'Cambio de calendario',
+                expT: '3. Exposición geoeconómica: quién controla y a dónde va',
+                expIntro: 'Quién controla la capacidad argentina, según el país de la empresa que opera o tiene la mayor participación, y a dónde se vende. Es la pregunta que hoy hacen gobiernos y financiadores.',
+                liCap: 'Litio en operación y en construcción (kt LCE/año)', cuCap: 'Cartera de cobre (kt Cu/año a plena capacidad)',
+                cty: { cn: 'China', uk: 'Reino Unido y Australia (Rio Tinto)', kr: 'Corea del Sur', fr: 'Francia (UE)', au: 'Australia', ca: 'Canadá', ch: 'Suiza', nd: 'sin dato' },
+                expRead: (cn, eu, chn) => `El ${cn} % de la capacidad de litio en operación y en obra está controlada por empresas chinas y el ${eu} % por empresas de la UE; el ${chn} % de las exportaciones de litio de 2025 fue a China. En cobre no hay control chino en la cartera grande: la dominan empresas de Canadá, Suiza y Australia. Argentina firmó un memorando con la UE sobre materias primas (2023) y un instrumento marco de minerales críticos con Estados Unidos (2026).`,
+                expNote: 'Vicuña se reparte en partes iguales entre BHP (Australia) y Lundin Mining (Canadá). En Cauchari-Olaroz el socio principal es Ganfeng (China), con Lithium Argentina (Canadá) y la empresa provincial JEMSE.',
+                src: 'Fuentes: Secretaría de Minería (Portfolio of Mining Projects 2026; Mercado de Litio, octubre de 2026); SC Insights, webinar de noviembre de 2026; Boletín Oficial y portal RIGI; informes de las empresas; Cancillería (minerales críticos, 2026). Datos al '
+            },
+            en: {
+                h2: 'SIEMA analysis: from data to decision',
+                intro: 'Three questions nobody answers in one place today, built from public sources and criteria published in the <a href="metodologia.html">methodology note</a>. Version 1, data as of ',
+                semT: '1. Lithium viability traffic light by price',
+                semIntro: 'Move the lithium carbonate price and see which capacity remains viable. Operations are compared with Argentina\'s weighted operating cost (US$7,339/t in 2025, Mining Secretariat); projects under construction with the price below which investment stalls (US$10,000/t); and those yet to decide on investment with the incentive price (US$15,000–20,000/t), according to SC Insights.',
+                price: 'Carbonate price (US$/t)', today: 'today, GFEX',
+                stage: { op: 'Operating', cons: 'Under construction', pre: 'Before the investment decision' },
+                col: { g: 'Viable', y: 'In doubt', r: 'Not viable' },
+                semHead: ['Project', 'Stage', 'Capacity (kt LCE/yr)', 'At this price'],
+                semSum: (g, y, r) => `At this price: <strong>${g} kt</strong> viable, <strong>${y} kt</strong> in doubt and <strong>${r} kt</strong> not viable.`,
+                semNote: 'This is a SIEMA criterion, not an assessment of each project: each operation\'s costs and the effect of the RIGI change the result case by case. Copper comes in the next version.',
+                monT: '2. Execution monitor: commitments versus what happens',
+                monIntro: 'Mining projects with an approved RIGI: how much they committed, how much is known to be disbursed and their next milestone. Schedule changes are those SIEMA has recorded since October 2026.',
+                monHead: ['Project', 'Status', 'Committed (US$ M)', 'Disbursed (US$ M)', 'Next milestone'],
+                st: { built: 'Built', works: 'Under way', pre: 'Before main works' },
+                nd: 'no data', est: 'SIEMA estimate',
+                monSum: (b, w, p, tot) => `Of US$ ${tot} M committed: ${b}% in projects already built, ${w}% under way and ${p}% before main works.`,
+                slip: 'Schedule change',
+                expT: '3. Geo-economic exposure: who controls and where it goes',
+                expIntro: 'Who controls Argentine capacity, by the home country of the company that operates it or holds the largest stake, and where it is sold. It is the question governments and financiers are asking today.',
+                liCap: 'Lithium operating and under construction (kt LCE/yr)', cuCap: 'Copper pipeline (kt Cu/yr at full capacity)',
+                cty: { cn: 'China', uk: 'UK and Australia (Rio Tinto)', kr: 'South Korea', fr: 'France (EU)', au: 'Australia', ca: 'Canada', ch: 'Switzerland', nd: 'no data' },
+                expRead: (cn, eu, chn) => `${cn}% of lithium capacity operating and under construction is controlled by Chinese companies and ${eu}% by EU companies; ${chn}% of 2025 lithium exports went to China. In copper there is no Chinese control of the large pipeline: it is led by Canadian, Swiss and Australian companies. Argentina signed a memorandum with the EU on raw materials (2023) and a critical-minerals framework with the United States (2026).`,
+                expNote: 'Vicuña is split equally between BHP (Australia) and Lundin Mining (Canada). At Cauchari-Olaroz the main partner is Ganfeng (China), with Lithium Argentina (Canada) and the provincial company JEMSE.',
+                src: 'Sources: Mining Secretariat (Portfolio of Mining Projects 2026; Mercado de Litio, October 2026); SC Insights, November 2026 webinar; Official Gazette and RIGI portal; company reports; Foreign Ministry (critical minerals, 2026). Data as of '
+            }
+        };
+        let ANALISIS_PRICE = null;
+        function anColor(s, price) {
+            if (s === 'op') return price >= ANALISIS_DATA.cashCost ? 'g' : 'r';
+            if (s === 'cons') return price >= 10000 ? 'g' : 'y';
+            return price >= 20000 ? 'g' : price >= 15000 ? 'y' : 'r';
+        }
+        function renderAnalisisSem() {
+            const box = document.getElementById('anSem'); if (!box) return;
+            const lang = currentLang, t = ANALISIS_I18N[lang], d = ANALISIS_DATA, price = ANALISIS_PRICE;
+            const f1 = x => lang === 'es' ? String(Math.round(x * 10) / 10).replace('.', ',') : String(Math.round(x * 10) / 10);
+            const tot = { g: 0, y: 0, r: 0 };
+            const pill = { g: 'ok', y: 'warn', r: 'bad' };
+            const rows = d.li.map(p => { const c = anColor(p.s, price); tot[c] += p.kt; return `<tr><td><strong>${p.n}</strong></td><td>${t.stage[p.s]}</td><td class="n">${f1(p.kt)}</td><td><span class="rp-pill rp-pill-${pill[c]}">${t.col[c]}</span></td></tr>`; }).join('');
+            box.innerHTML = `<p>${t.semSum(f1(tot.g), f1(tot.y), f1(tot.r))}</p><div class="table-scroll"><table class="eiti-table"><thead><tr>${t.semHead.map((h, i) => `<th${i === 2 ? ' class="n"' : ''}>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+        }
+        function renderAnalisis() {
+            const el = document.getElementById('analisisDyn'); if (!el) return;
+            const lang = currentLang, t = ANALISIS_I18N[lang], d = ANALISIS_DATA;
+            const liRef = REF_PRICES.items.find(i => /litio|lithium/i.test(i.es)) || { value: 13880 };
+            if (ANALISIS_PRICE === null) ANALISIS_PRICE = liRef.value;
+            const fmt = n => Math.round(n).toLocaleString(lang === 'es' ? 'es-AR' : 'en-US');
+            // Monitor
+            const byN = {}; RIGI_DATA.projects.forEach(p => { byN[p.n] = p; });
+            const agg = { built: 0, works: 0, pre: 0 }; let tot = 0;
+            const monRows = d.mon.map(m => { const p = byN[m.n] || {}; const com = p.com || 0; agg[m.st] += com; tot += com; const disb = p.disb === null || p.disb === undefined ? `<span class="ls-na">${t.nd}</span>` : `${fmt(p.disb)}${p.dt === 'est' ? ` <span class="rp-note">(${t.est})</span>` : ''}`; const pl = m.st === 'built' ? 'ok' : m.st === 'works' ? 'warn' : 'na'; return `<tr><td><strong>${m.n}</strong></td><td><span class="rp-pill rp-pill-${pl}">${t.st[m.st]}</span></td><td class="n">${fmt(com)}</td><td class="n">${disb}</td><td>${m.next[lang]}${m.prev ? `<div class="rp-note">${t.slip}: ${m.prev[lang]}</div>` : ''}</td></tr>`; }).join('');
+            const pc = k => Math.round(agg[k] / tot * 100);
+            // Exposición
+            const liOn = d.li.filter(p => p.s !== 'pre'), liTot = liOn.reduce((a, p) => a + p.kt, 0);
+            const liBy = {}; liOn.forEach(p => { liBy[p.c] = (liBy[p.c] || 0) + p.kt; });
+            const cuTot = d.cu.reduce((a, p) => a + p.kt, 0), cuBy = {};
+            d.cu.forEach(p => p.c.forEach(c => { cuBy[c] = (cuBy[c] || 0) + p.kt / p.c.length; }));
+            const bars = (by, total) => Object.keys(by).sort((a, b) => by[b] - by[a]).map(c => `<div class="eiti-comp"><div class="eiti-comp-h"><span>${t.cty[c]}</span><strong>${Math.round(by[c] / total * 100)} %</strong></div><div class="eiti-bar"><span class="eiti-bar-${c === 'cn' ? 'bad' : c === 'fr' ? 'ok' : 'warn'}" style="width:${by[c] / total * 100}%"></span></div></div>`).join('');
+            const cnPct = Math.round((liBy.cn || 0) / liTot * 100), euPct = Math.round((liBy.fr || 0) / liTot * 100);
+            el.innerHTML = `
+                <h2 id="analisisH2">${t.h2}</h2>
+                <p>${t.intro}${d.asOf}.</p>
+                <h3 class="rp-h3">${t.semT}</h3>
+                <p>${t.semIntro}</p>
+                <label style="display:block;margin:.5rem 0"><strong>${t.price}:</strong> <span id="anPriceVal">${fmt(ANALISIS_PRICE)}</span> <span class="rp-note">(${t.today}: ${fmt(liRef.value)})</span><br><input type="range" id="anPrice" min="5000" max="30000" step="500" value="${ANALISIS_PRICE}" style="width:100%;max-width:520px"></label>
+                <div id="anSem"></div>
+                <p class="rp-note">${t.semNote}</p>
+                <h3 class="rp-h3">${t.monT}</h3>
+                <p>${t.monIntro}</p>
+                <p>${t.monSum(pc('built'), pc('works'), pc('pre'), fmt(tot))}</p>
+                <div class="table-scroll"><table class="eiti-table"><thead><tr>${t.monHead.map((h, i) => `<th${i === 2 || i === 3 ? ' class="n"' : ''}>${h}</th>`).join('')}</tr></thead><tbody>${monRows}</tbody></table></div>
+                <h3 class="rp-h3">${t.expT}</h3>
+                <p>${t.expIntro}</p>
+                <div class="rp-market">
+                    <div class="rp-card"><h4>${t.liCap}: ${fmt(liTot)}</h4>${bars(liBy, liTot)}</div>
+                    <div class="rp-card"><h4>${t.cuCap}: ${fmt(cuTot)}</h4>${bars(cuBy, cuTot)}</div>
+                </div>
+                <p>${t.expRead(cnPct, euPct, String(d.liExportChina).replace('.', lang === 'es' ? ',' : '.'))}</p>
+                <p class="rp-note">${t.expNote}</p>
+                <p class="table-note">${t.src}${d.asOf}.</p>`;
+            const r = document.getElementById('anPrice');
+            if (r) r.addEventListener('input', () => { ANALISIS_PRICE = +r.value; document.getElementById('anPriceVal').textContent = fmt(ANALISIS_PRICE); renderAnalisisSem(); });
+            renderAnalisisSem();
+        }
+
         function renderCual() {
             const el = document.getElementById('cualDyn'); if (!el) return;
             const lang = currentLang, t = CUAL_I18N[lang], d = CUAL_DATA;
