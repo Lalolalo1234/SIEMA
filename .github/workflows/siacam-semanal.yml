@@ -1,0 +1,32 @@
+name: SIACAM semanal
+
+# Descarga las series abiertas del SIACAM (datos.gob.ar) a data/siacam/ cada martes,
+# antes de la tarea «Datos SIEMA semanal» del miércoles. También se puede correr a mano
+# desde la pestaña Actions del repositorio (botón «Run workflow»).
+on:
+  schedule:
+    - cron: '37 10 * * 2'   # martes 10:37 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Descargar series del SIACAM
+        run: python3 scripts/siacam_sync.py
+      - name: Publicar si hubo cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/siacam
+          if git diff --cached --quiet; then echo "Sin cambios"; exit 0; fi
+          git commit -m "SIACAM: series abiertas al $(date -u +%d/%m/%Y) (descarga automática)"
+          git pull --rebase origin main
+          git push origin HEAD:main
