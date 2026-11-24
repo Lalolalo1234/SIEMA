@@ -25,18 +25,18 @@ from datetime import datetime, timezone
 API = 'https://datos.gob.ar/api/3/action/package_search'
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'siacam')
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-UA = {'User-Agent': 'SIEMA-siacam-sync/1.0 (+https://lalolalo1234.github.io/SIEMA/)'}
+UA = {'User-Agent': 'Mozilla/5.0 (compatible; SIEMA-siacam-sync/1.1; +https://lalolalo1234.github.io/SIEMA/)', 'Accept': 'text/csv,*/*'}
 
 
-def get(url, tries=3):
+def get(url, tries=2, timeout=30):
     for i in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=timeout) as r:
                 return r.read()
         except Exception:  # noqa: BLE001
             if i == tries - 1:
                 raise
-            time.sleep(5 * (i + 1))
+            time.sleep(3)
 
 
 def slug(s):
@@ -119,10 +119,16 @@ def main():
                 continue
             os.makedirs(d, exist_ok=True)
             path = os.path.join(d, slug(r.get('name') or r['id']) + '.csv')
-            try:
-                body = get(url)
-            except Exception as e:  # noqa: BLE001
-                ds['resources'].append({'name': r.get('name'), 'url': url, 'error': str(e)[:200]})
+            body, err = None, None
+            for u in dict.fromkeys([url, url.replace('http://', 'https://'), url.replace('https://', 'http://')]):
+                try:
+                    body = get(u)
+                    break
+                except Exception as e:  # noqa: BLE001
+                    err = f'{type(e).__name__}: {e}'
+            if body is None:
+                print(f'  sin descargar: {url} -> {err}'[:300])
+                ds['resources'].append({'name': r.get('name'), 'url': url, 'error': (err or '')[:200]})
                 continue
             open(path, 'wb').write(body)
             item = {
