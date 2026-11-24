@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIEMA · Nota metodológica</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f8fafc; color: #1f2937; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 1.5rem 1.5rem 1.25rem; }
+  header a { color: #dbeafe; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+  h1 { margin: 0 0 .25rem; font-size: 1.6rem; }
+  h2 { color: #1e3c72; margin-top: 2.2rem; border-bottom: 2px solid #dbeafe; padding-bottom: .3rem; }
+  h3 { color: #1e3c72; margin-bottom: .3rem; }
+  table { width: 100%; border-collapse: collapse; background: white; margin: 1rem 0; font-size: .93rem; }
+  th { background: #1e3c72; color: white; text-align: left; padding: .5rem .6rem; }
+  td { border-bottom: 1px solid #e5e7eb; padding: .5rem .6rem; vertical-align: top; }
+  .note { font-size: .88rem; color: #4b5563; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  button { background: white; color: #1e3c72; border: 0; border-radius: 6px; padding: .35rem .8rem; font-weight: 600; cursor: pointer; }
+  [data-lang] { display: none; }
+  [data-lang].on { display: block; }
+  code { background: #eef2ff; padding: 0 .3rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap top" style="padding-bottom:0">
+    <div>
+      <h1 id="ttl">SIEMA · Nota metodológica</h1>
+      <div><a href="index.html">← SIEMA</a> · <span id="ver">Versión del 24/11/2026</span></div>
+    </div>
+    <button id="lang" onclick="setLang(cur === 'es' ? 'en' : 'es')">EN</button>
+  </div>
+</header>
+
+<div class="wrap">
+<article data-lang="es">
+  <h2>1. Principios</h2>
+  <ul>
+    <li><strong>Solo fuentes verificables.</strong> Cada cifra lleva su fuente y su fecha. Si un dato no existe, SIEMA lo dice («vacío de datos») en lugar de estimarlo sin avisar.</li>
+    <li><strong>No se promedian fuentes que discrepan.</strong> Si dos fuentes reconocidas difieren en más de 15 a 20 %, se muestran las dos como rango.</li>
+    <li><strong>Datos objetivos, criterio a la vista.</strong> Los datos vienen de terceros; los pesos y los umbrales de los índices son decisiones de SIEMA, se publican aquí y se pueden revisar.</li>
+    <li><strong>Pesos iguales</strong>, salvo una razón explícita para cambiarlos (hoy, una sola excepción: el Índice de Performance Minera).</li>
+    <li><strong>Nunca se reemplaza un dato por otro más viejo.</strong> Antes de actualizar, se compara la fecha de la fuente con la que ya figura.</li>
+    <li><strong>Miradas de terceros, sin juicio propio.</strong> Lo que publican cámaras, consultoras u organizaciones sociales se muestra con su fuente y su alcance; SIEMA no lo califica.</li>
+  </ul>
+
+  <h2>2. Índices propios</h2>
+  <h3>Pulsómetro (clima de inversión)</h3>
+  <p>Promedio simple de 10 ejes, en una escala de 0 (muy desfavorable) a 10 (muy favorable): exportaciones mineras, marco normativo, licencia social, clima político, actitud del Estado hacia la minería, financiamiento, infraestructura, estabilidad macro, capital humano y RIGI minero. Por debajo de 6 un eje está en alerta. Licencia social, estabilidad macro y RIGI se calculan con datos externos; los demás son un primer corte ilustrativo de la encuesta de SIEMA a empresas mineras. La serie compara el tercer trimestre de 2025 con el de 2026, y los 10 ejes no se cambian para que siga siendo comparable.</p>
+  <h3>Licencia social</h3>
+  <p>Promedio simple de siete componentes externos: aceptación, confianza en los controles, ambiente y agua, beneficios locales, conversación pública, EITI y la encuesta Fraser. Las encuestas provinciales se promedian sin ponderar por provincia. Se probaron 96 variantes razonables del cálculo para ver cuánto cambia el resultado. Junto al índice, y sin sumar a él, SIEMA muestra la transparencia ambiental de las empresas (ITMA), los pagos informados al EITI, la lectura de la sociedad civil sobre el RIGI y el registro de conflictos de OCMAL.</p>
+  <h3>Estabilidad macro</h3>
+  <p>Combina lo que dice el mercado (calificaciones soberanas de Fitch, S&amp;P y Moody's, y riesgo país) con cuatro fundamentos: resultado fiscal, inflación, tasa real y servicio de la deuda externa. Se actualiza cada semana.</p>
+  <h3>RIGI minero</h3>
+  <p>Promedio simple de cuatro componentes, cada uno con un umbral explícito: escala de la cartera (10 = 25.000 millones de dólares aprobados), compromiso con fecha cierta (10 = la mitad de lo comprometido), atractivo para el inversor (10 = una TIR 10 puntos por encima del costo de capital) y sostenibilidad fiscal (0 = adicionalidad de dos tercios o más).</p>
+  <h3>Índice de Performance Minera (0 a 100)</h3>
+  <p>40 % exportaciones (ritmo frente a la proyección anual), 35 % producción (litio producido frente a capacidad instalada) y 25 % inversión (avance del RIGI minero). Es la única excepción a los pesos iguales, porque las exportaciones son el objetivo central de la política actual.</p>
+
+  <h2>3. Prospectiva: Convergencias 2050</h2>
+  <p>Estructura: macrotendencias → adopción tecnológica → intensidad material → demanda bruta − reciclaje = demanda primaria, la que tiene que cubrir la minería. Para cada uso industrial, demanda = actividad × intensidad material; la actividad sigue una curva S hacia el múltiplo de 2050 que fija cada control. Cuatro palancas: eficiencia material, sustitución tecnológica, relación de precios cobre/aluminio y reciclaje.</p>
+  <p>El escenario de Referencia reproduce el STEPS de la Agencia Internacional de Energía con un margen de 5 a 10 %. El rango p10–p90 sale de 200 simulaciones Monte Carlo que perturban cada control y la intensidad material de cada uso (±15 %): no es una predicción. Hasta 2030, la oferta argentina se apoya en los proyectos con RIGI aprobado y en los datos de la Secretaría de Minería. Todavía no incluye la elasticidad de la demanda a los demás precios, las restricciones de oferta ni algunos minerales (níquel, cobalto, grafito, germanio, antimonio, platinoides).</p>
+
+  <h2>4. Fuentes y frecuencia de actualización</h2>
+  <table>
+    <thead><tr><th>Bloque</th><th>Fuente principal</th><th>Frecuencia</th></tr></thead>
+    <tbody>
+      <tr><td>Riesgo país y fundamentos macro</td><td>EMBI (J.P. Morgan, vía prensa financiera), Fitch, S&amp;P, Moody's, Ministerio de Economía, INDEC, BCRA (REM)</td><td>Semanal (lunes)</td></tr>
+      <tr><td>RIGI, exportaciones, empleo, precios de referencia, relación cobre/aluminio, agenda</td><td>Boletín Oficial, Secretaría de Minería, LME, GFEX, SMM</td><td>Semanal (miércoles)</td></tr>
+      <tr><td>Series abiertas del SIACAM</td><td>datos.gob.ar (Secretaría de Minería), descarga automática a <code>data/siacam/</code></td><td>Semanal (martes)</td></tr>
+      <tr><td>Informes que llegan al equipo</td><td>Bandeja de entrada de SIEMA; solo se publica lo público y con revisión</td><td>Semanal (jueves)</td></tr>
+      <tr><td>Pronósticos de precios</td><td>Banco Mundial, Commodity Markets Outlook</td><td>Semestral (mayo y noviembre)</td></tr>
+      <tr><td>Licencia social, EITI, Fraser, ITMA</td><td>Encuestas provinciales, EITI, Fraser Institute, ICD, Observatorio del RIGI, OCMAL</td><td>Cuando hay una edición nueva</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5. Datos abiertos</h2>
+  <p>En la pestaña <a href="index.html#fuentes-oficiales">Observatorio → Fuentes oficiales</a> se pueden descargar en CSV las series propias de SIEMA (ejes del Pulsómetro, proyectos del RIGI, licencia social por provincia y precios de referencia) y las series del SIACAM que SIEMA descarga cada semana. Las del SIACAM se publican con licencia Creative Commons Atribución 4.0; al usarlas, citar a la Secretaría de Minería.</p>
+
+  <h2>6. Límites</h2>
+  <ul>
+    <li>Los ejes del Pulsómetro sin datos externos son ilustrativos hasta que se complete la encuesta de SIEMA.</li>
+    <li>Varias cifras de proyectos (desembolsos, costos) vienen de las empresas o son estimaciones de SIEMA; cada una indica su origen.</li>
+    <li>Kuntur, el asistente de SIEMA, responde con esta base y su biblioteca; cuando usa conocimiento general lo aclara, y no recomienda inversiones.</li>
+  </ul>
+  <p class="note">Si encuentra un error o quiere proponer otra ponderación, escriba a comisionmineria@cai.org.ar. El índice se recalcula y se muestra el efecto del cambio.</p>
+</article>
+
+<article data-lang="en">
+  <h2>1. Principles</h2>
+  <ul>
+    <li><strong>Verifiable sources only.</strong> Every figure carries its source and date. When data does not exist, SIEMA says so ("data gap") instead of estimating it silently.</li>
+    <li><strong>Diverging sources are not averaged.</strong> When two recognised sources differ by more than 15–20%, both are shown as a range.</li>
+    <li><strong>Objective data, visible judgement.</strong> Data comes from third parties; index weights and thresholds are SIEMA's choices, published here and open to review.</li>
+    <li><strong>Equal weights</strong> unless there is an explicit reason to change them (today a single exception: the Mining Performance Index).</li>
+    <li><strong>A figure is never replaced by an older one.</strong> Before updating, the source date is compared with the one already shown.</li>
+    <li><strong>Third-party views, without SIEMA's own verdict.</strong> What chambers, consultancies or civil-society organisations publish is shown with its source and scope; SIEMA does not rate it.</li>
+  </ul>
+
+  <h2>2. SIEMA's own indices</h2>
+  <h3>Pulsometer (investment climate)</h3>
+  <p>Simple average of 10 axes, on a 0 (very unfavourable) to 10 (very favourable) scale: mining exports, regulatory framework, social licence, political climate, the State's attitude to mining, funding, infrastructure, macro stability, human capital and the mining RIGI. Below 6 an axis is on alert. Social licence, macro stability and RIGI are calculated from external data; the others are a first illustrative cut of SIEMA's survey of mining companies. The series compares Q3 2025 with Q3 2026, and the 10 axes are kept unchanged so it remains comparable.</p>
+  <h3>Social licence</h3>
+  <p>Simple average of seven external components: acceptance, trust in oversight, environment and water, local benefits, public conversation, EITI and the Fraser survey. Provincial surveys are averaged without weighting by province. 96 reasonable variants of the calculation were tested to see how much the result moves. Next to the index, without adding to it, SIEMA shows companies' environmental transparency (ITMA), payments reported to the EITI, civil society's view of the RIGI and OCMAL's conflict register.</p>
+  <h3>Macro stability</h3>
+  <p>Combines what the market says (Fitch, S&amp;P and Moody's sovereign ratings and country risk) with four fundamentals: fiscal balance, inflation, real interest rate and external debt service. Updated weekly.</p>
+  <h3>Mining RIGI</h3>
+  <p>Simple average of four components, each with an explicit threshold: portfolio scale (10 = US$25 billion approved), committed spending with a firm date (10 = half of commitments), investor attractiveness (10 = an IRR 10 points above the cost of capital) and fiscal sustainability (0 = additionality of two thirds or more).</p>
+  <h3>Mining Performance Index (0 to 100)</h3>
+  <p>40% exports (pace against the annual projection), 35% output (lithium produced against installed capacity) and 25% investment (progress of the mining RIGI). It is the only exception to equal weights, because exports are the central goal of current policy.</p>
+
+  <h2>3. Foresight: Convergences 2050</h2>
+  <p>Structure: megatrends → technology adoption → material intensity → gross demand − recycling = primary demand, which mining has to meet. For each industrial use, demand = activity × material intensity; activity follows an S-curve towards the 2050 multiple set by each control. Four levers: material efficiency, technology substitution, the copper/aluminium price ratio and recycling.</p>
+  <p>The Reference scenario reproduces the International Energy Agency's STEPS within 5–10%. The p10–p90 range comes from 200 Monte Carlo runs that perturb each control and the material intensity of each use (±15%): it is not a forecast. Up to 2030, Argentine supply rests on projects with an approved RIGI and on Mining Secretariat data. It does not yet include demand elasticity to other prices, supply constraints or some minerals (nickel, cobalt, graphite, germanium, antimony, platinum-group metals).</p>
+
+  <h2>4. Sources and update frequency</h2>
+  <table>
+    <thead><tr><th>Block</th><th>Main source</th><th>Frequency</th></tr></thead>
+    <tbody>
+      <tr><td>Country risk and macro fundamentals</td><td>EMBI (J.P. Morgan, via financial press), Fitch, S&amp;P, Moody's, Ministry of Economy, INDEC, BCRA (REM)</td><td>Weekly (Monday)</td></tr>
+      <tr><td>RIGI, exports, employment, reference prices, copper/aluminium ratio, events</td><td>Official Gazette, Mining Secretariat, LME, GFEX, SMM</td><td>Weekly (Wednesday)</td></tr>
+      <tr><td>SIACAM open series</td><td>datos.gob.ar (Mining Secretariat), automatic download to <code>data/siacam/</code></td><td>Weekly (Tuesday)</td></tr>
+      <tr><td>Reports reaching the team</td><td>SIEMA's inbox; only public material is published, after review</td><td>Weekly (Thursday)</td></tr>
+      <tr><td>Price forecasts</td><td>World Bank, Commodity Markets Outlook</td><td>Twice a year (May and November)</td></tr>
+      <tr><td>Social licence, EITI, Fraser, ITMA</td><td>Provincial surveys, EITI, Fraser Institute, ICD, RIGI Observatory, OCMAL</td><td>When a new edition is out</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5. Open data</h2>
+  <p>In <a href="index.html#fuentes-oficiales">Observatory → Official sources</a> you can download SIEMA's own series as CSV (Pulsometer axes, RIGI projects, social licence by province and reference prices) and the SIACAM series SIEMA downloads every week. SIACAM data is published under a Creative Commons Attribution 4.0 licence; when using it, cite the Mining Secretariat.</p>
+
+  <h2>6. Limits</h2>
+  <ul>
+    <li>Pulsometer axes without external data are illustrative until SIEMA's survey is complete.</li>
+    <li>Several project figures (disbursements, costs) come from companies or are SIEMA estimates; each one states its origin.</li>
+    <li>Kuntur, SIEMA's assistant, answers from this base and its library; when it uses general knowledge it says so, and it does not recommend investments.</li>
+  </ul>
+  <p class="note">If you find an error or want to propose a different weighting, write to comisionmineria@cai.org.ar. The index is recalculated and the effect of the change is shown.</p>
+</article>
+</div>
+<script>
+  var cur = 'es';
+  function setLang(l) {
+    cur = l;
+    try { localStorage.setItem('siemaLang', l); } catch (e) {}
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-lang]').forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-lang') === l); });
+    document.getElementById('lang').textContent = l === 'es' ? 'EN' : 'ES';
+    document.getElementById('ttl').textContent = l === 'es' ? 'SIEMA · Nota metodológica' : 'SIEMA · Methodology note';
+    document.getElementById('ver').textContent = l === 'es' ? 'Versión del 24/11/2026' : 'Version of 24/11/2026';
+  }
+  var saved = null; try { saved = localStorage.getItem('siemaLang'); } catch (e) {}
+  setLang(saved === 'en' ? 'en' : 'es');
+</script>
+</body>
+</html>

@@ -1883,6 +1883,7 @@
         <!-- Observatorio: fuentes oficiales (SIACAM y SIGAM). El contenido lo arma fuentesOficiales() en ES/EN -->
         <div id="fuentes-oficiales" class="tab-content">
             <div id="foRoot"></div>
+            <section class="rp" id="datosAbiertos" aria-labelledby="datosAbiertosH2"></section>
         </div>
         <div id="argentina" class="tab-content">
             <h1>Argentina hoy — Posición frente a la demanda proyectada</h1>
@@ -3536,6 +3537,7 @@
             renderRiesgoPais();
             renderEiti();
             renderTransparencia();
+            renderDatosAbiertos();
             renderOferta();
             renderRigi();
             renderCual();
@@ -4980,6 +4982,36 @@
         }
         // Indicadores GRI del SIACAM: los deja la automatización en data/siacam/sustentabilidad.json
         fetch('data/siacam/sustentabilidad.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => { if (j && j.rows) { TRANSP_DATA.gri = j; renderTransparencia(); } }).catch(() => {});
+        // --- Datos abiertos: descargas CSV de las series de SIEMA y de las series del SIACAM (data/siacam/, acción «SIACAM semanal») ---
+        const DA_I18N = {
+            es: { h2: 'Datos abiertos y método', intro: 'Descargá en CSV las series propias de SIEMA, tal como se ven hoy en el sitio, y las series oficiales del SIACAM que SIEMA descarga cada semana de datos.gob.ar. Cómo se calcula cada índice, qué fuentes se usan y cada cuánto se actualizan está en la <a href="metodologia.html">nota metodológica</a>.', own: 'Series de SIEMA', siacam: 'Series del SIACAM (descarga semanal)', none: 'La primera descarga automática del SIACAM todavía no se ejecutó.', upd: 'actualizado', rows: 'filas', files: { pulso: 'Pulsómetro: 10 ejes, 2025 y 2026', rigi: 'RIGI minero: proyectos aprobados', ls: 'Licencia social por provincia', precios: 'Precios de referencia (litio y NdPr)' }, lic: 'Las series del SIACAM tienen licencia Creative Commons Atribución 4.0: al usarlas, citar a la Secretaría de Minería.' },
+            en: { h2: 'Open data and method', intro: 'Download SIEMA\'s own series as CSV, as they appear on the site today, and the official SIACAM series SIEMA downloads every week from datos.gob.ar. How each index is calculated, which sources are used and how often they are updated is in the <a href="metodologia.html">methodology note</a>.', own: 'SIEMA series', siacam: 'SIACAM series (weekly download)', none: 'The first automatic SIACAM download has not run yet.', upd: 'updated', rows: 'rows', files: { pulso: 'Pulsometer: 10 axes, 2025 and 2026', rigi: 'Mining RIGI: approved projects', ls: 'Social licence by province', precios: 'Reference prices (lithium and NdPr)' }, lic: 'SIACAM series are licensed under Creative Commons Attribution 4.0: when using them, cite the Mining Secretariat.' }
+        };
+        let DA_MANIFEST = null;
+        function daCSV(kind) {
+            const lang = currentLang;
+            const q = v => v === null || v === undefined ? '' : (/[",;\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v));
+            let head = [], rows = [];
+            if (kind === 'pulso') { head = ['eje', 'v2025', 'v2026', 'datos_externos']; rows = barometerAxes.map(a => [a[lang].label, typeof a.v2025 === 'number' ? a.v2025.toFixed(1) : a.v2025, typeof a.v2026 === 'number' ? a.v2026.toFixed(1) : a.v2026, a.external ? 'si' : 'no']); }
+            if (kind === 'rigi') { head = ['proyecto', 'mineral', 'provincia', 'inversion_anunciada_musd', 'activos_computables_musd', 'desembolso_musd', 'tipo_dato_desembolso']; rows = RIGI_DATA.projects.map(r => [r.n, r.m, r.p, r.ann, r.com, r.disb, r.dt]); }
+            if (kind === 'ls') { head = ['provincia', 'aceptacion', 'confianza', 'ambiente_agua', 'beneficios', 'fraser', 'empleo_minero', 'salario_minero']; rows = LS_DATA.prov.map(r => [r.p, r.accept, r.trust, r.water, r.benefit, r.fraser, r.emp, r.wage]); }
+            if (kind === 'precios') { head = ['producto', 'valor', 'unidad', 'fecha', 'fuente']; rows = REF_PRICES.items.map(r => [r[lang], r.value, r.unit, r.date, r.src]); }
+            const txt = '﻿' + [head].concat(rows).map(r => r.map(q).join(',')).join('\n');
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+            a.download = `siema_${kind}_${new Date().toISOString().slice(0, 10)}.csv`;
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+        function renderDatosAbiertos() {
+            const el = document.getElementById('datosAbiertos');
+            if (!el) return;
+            const t = DA_I18N[currentLang];
+            const own = Object.keys(t.files).map(k => `<li><a href="#" onclick="daCSV('${k}');return false;">${t.files[k]}</a> (CSV)</li>`).join('');
+            const m = DA_MANIFEST;
+            const sia = m && m.datasets ? m.datasets.filter(d => d.resources.some(r => r.file)).map(d => `<li><strong>${d.title}</strong>: ${d.resources.filter(r => r.file).map(r => `<a href="${r.file}" download>${r.name}</a> (${r.rows} ${t.rows})`).join(' · ')}${d.modified ? ` <span class="rp-note">· ${t.upd} ${String(d.modified).slice(0, 10)}</span>` : ''}</li>`).join('') : '';
+            el.innerHTML = `<h2 id="datosAbiertosH2">${t.h2}</h2><p>${t.intro}</p><h3 class="rp-h3">${t.own}</h3><ul class="rp-agencies">${own}</ul><h3 class="rp-h3">${t.siacam}</h3>${sia ? `<ul class="rp-agencies">${sia}</ul>` : `<p class="rp-note">${t.none}</p>`}<p class="rp-note">${t.lic}</p>`;
+        }
+        fetch('data/siacam/manifest.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => { if (j) { DA_MANIFEST = j; renderDatosAbiertos(); } }).catch(() => {});
 
         function renderEiti() {
             const el = document.getElementById('gobernanzaEiti');
