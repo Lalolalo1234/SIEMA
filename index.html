@@ -1608,7 +1608,7 @@
             <div class="table-scroll"><table>
                 <thead><tr><th>Tema</th><th>Qué dice SC Insights</th><th>Lectura para Argentina</th></tr></thead>
                 <tbody>
-                    <tr><td><strong>Precio</strong></td><td>Carbonato de grado batería en la bolsa de Guangzhou (GFEX): unos US$ 13.900/t; futuros a seis meses, unos US$ 12.900/t. En mayo de 2026 el precio doméstico chino había superado los US$ 27.000/t.</td><td>Coincide con el precio de referencia de SIEMA (US$ 13.880/t el 17/11/2026).</td></tr>
+                    <tr><td><strong>Precio</strong></td><td>Carbonato de grado batería en la bolsa de Guangzhou (GFEX): unos US$ 13.900/t; futuros a seis meses, unos US$ 12.900/t. En mayo de 2026 el precio doméstico chino había superado los US$ 27.000/t.</td><td>Coincide con el precio de referencia de SIEMA de ese momento (US$ 13.880/t el 17/11/2026; US$ 13.250/t el 24/11/2026).</td></tr>
                     <tr><td><strong>Precio de incentivo</strong></td><td>Con menos de US$ 10.000/t se caen las decisiones de inversión; entre 15.000 y 20.000 solo hay expansiones limitadas; muchos proyectos necesitan más de US$ 20.000/t para una rentabilidad razonable.</td><td>Al precio actual avanzan sobre todo los proyectos de menor costo y los que ya tienen el RIGI.</td></tr>
                     <tr><td><strong>Costos de referencia (C1)</strong></td><td>Salar argentino de nivel 2 con extracción directa (DLE): unos US$ 6.700/t; espodumena integrada de nivel 1: unos US$ 7.550/t; lepidolita china (Yichun): unos US$ 14.200/t.</td><td>Los salares argentinos están en la parte baja de la curva de costos.</td></tr>
                     <tr><td><strong>China</strong></td><td>Producción de baterías +63,4 % en 2026 (1.833 GWh hasta septiembre) contra una demanda final +33,4 %: las existencias frenan los pedidos de litio durante 3 a 6 meses. El almacenamiento de energía ya es cerca del 30 % de la demanda y creció 83 % interanual.</td><td>La debilidad del precio es de existencias, no de demanda de fondo.</td></tr>
@@ -2909,7 +2909,7 @@
             <div class="table-scroll"><table>
                 <thead><tr><th>Topic</th><th>What SC Insights says</th><th>Reading for Argentina</th></tr></thead>
                 <tbody>
-                    <tr><td><strong>Price</strong></td><td>Battery-grade carbonate on the Guangzhou exchange (GFEX): about US$ 13,900/t; six-month futures about US$ 12,900/t. In May 2026 the Chinese domestic price had topped US$ 27,000/t.</td><td>Consistent with SIEMA's reference price (US$ 13,880/t on 17/11/2026).</td></tr>
+                    <tr><td><strong>Price</strong></td><td>Battery-grade carbonate on the Guangzhou exchange (GFEX): about US$ 13,900/t; six-month futures about US$ 12,900/t. In May 2026 the Chinese domestic price had topped US$ 27,000/t.</td><td>Consistent with SIEMA's reference price at the time (US$ 13,880/t on 17/11/2026; US$ 13,250/t on 24/11/2026).</td></tr>
                     <tr><td><strong>Incentive price</strong></td><td>Below US$ 10,000/t investment decisions collapse; between 15,000 and 20,000 there are only limited expansions; many projects need more than US$ 20,000/t for a reasonable return.</td><td>At today's price, mainly the lowest-cost projects and those already under the RIGI move forward.</td></tr>
                     <tr><td><strong>Reference costs (C1)</strong></td><td>Argentine tier-2 salar with direct lithium extraction (DLE): about US$ 6,700/t; integrated tier-1 spodumene: about US$ 7,550/t; Chinese lepidolite (Yichun): about US$ 14,200/t.</td><td>Argentine salars sit at the low end of the cost curve.</td></tr>
                     <tr><td><strong>China</strong></td><td>Battery output +63.4% in 2026 (1,833 GWh through September) against end-use demand +33.4%: inventories hold back lithium orders for 3 to 6 months. Energy storage is already about 30% of demand and grew 83% year on year.</td><td>Price weakness comes from inventories, not from underlying demand.</td></tr>
@@ -3576,27 +3576,27 @@
         // Precios de referencia con fecha (no vienen del feed en vivo). La tarea semanal "Datos SIEMA" los actualiza:
         // editar solo REF_PRICES (valor, unidad, fecha y fuente).
         const REF_PRICES = {
-            asOf: '17/11/2026',
+            asOf: '24/11/2026',
             items: [
-                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 13880, unit: 'USD/t', date: '17/11', src: 'GFEX (contrato principal): cierre 93.180 CNY/t el 17/11, +5,19 % (referencia previa 88.580; Jinrongjie/JRJ y Xinhua/21jingji), a 6,7141 CNY/US$ (paridad central del 16/11, Xinhua). Antes: cierre 90.900 CNY/t el 12/11, +2,76 % (liquidación previa 88.460; Jinrongjie/JRJ), a 6,7188 CNY/US$ (paridad central del 09/11, Xinhua); 87.100 el 10/11 (21jingji; LC2701 cerró 87.480 el 09/11, Huatai/SMM; 98.500 el 27/10), a 6,7188 CNY/US$ (paridad central del 09/11, Xinhua)' },
-                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 716, unit: 'CNY/kg', date: '16/11', src: 'Óxido de PrNd: 716.000 CNY/t el 16/11 (Mysteel, −3.000; 718.000–720.000 el 13/11). Antes: 715.000–720.000 CNY/t el 10/11 (Mysteel, promedio 717.500; SMM 720.000 el 28/10)' }
+                { es: 'Carbonato de litio (China)', en: 'Lithium carbonate (China)', value: 13250, unit: 'USD/t', date: '24/11', src: 'GFEX (contrato principal): 88.920 CNY/t el 24/11, −0,71 % (Quhe Qihuo; 88.940 según el resumen de SMM/KuCoin), a 6,7128 CNY/US$ (paridad central del 19/11, Xinhua). El 25/11 siguió cayendo: hasta −8 % en el día, por debajo de 83.000 CNY/t (Caiwen, 25/11, intradía). Antes: cierre 93.180 CNY/t el 17/11, +5,19 % (referencia previa 88.580; Jinrongjie/JRJ y Xinhua/21jingji), a 6,7141 CNY/US$ (paridad central del 16/11, Xinhua); cierre 90.900 CNY/t el 12/11, +2,76 % (liquidación previa 88.460; Jinrongjie/JRJ), a 6,7188 CNY/US$ (paridad central del 09/11, Xinhua); 87.100 el 10/11 (21jingji; LC2701 cerró 87.480 el 09/11, Huatai/SMM; 98.500 el 27/10), a 6,7188 CNY/US$ (paridad central del 09/11, Xinhua)' },
+                { es: 'Tierras raras (NdPr, China)', en: 'Rare earths (NdPr, China)', value: 732, unit: 'CNY/kg', date: '24/11', src: 'Óxido de PrNd: 732.500 CNY/t el 24/11 (Mysteel, índice diario; rango 730.000–733.000 a las 16:34). Antes: 716.000 CNY/t el 16/11 (Mysteel, −3.000; 718.000–720.000 el 13/11); 715.000–720.000 CNY/t el 10/11 (Mysteel, promedio 717.500; SMM 720.000 el 28/10)' }
             ]
         };
         function refPriceItems(lang) {
             const loc = lang === 'es' ? 'es-AR' : 'en-US';
             return REF_PRICES.items.map(r => ({ name: r[lang], price: `${r.value.toLocaleString(loc)} ${r.unit}`, ref: r.date, title: r.src }));
         }
-        // Respaldo si el feed en vivo no responde (cobre: cash oficial LME del 17/11/2026, 13.225,5 US$/t según Westmetall, pasado a US$/lb; oro: 3.849,02 US$/oz el 17/11/2026 a las 14:47 ET, GoldPrice.com; plata: ≈47,35 US$/oz al cierre del 17/11/2026, Trading Economics: 45,84 el 18/11, −3,18 %)
+        // Respaldo si el feed en vivo no responde (cobre: cash oficial LME del 23/11/2026, 12.165 US$/t según Westmetall, pasado a US$/lb; oro: London fixing del 24/11/2026, 3.622,55 US$/oz, Westmetall; plata: 42,84 US$/oz el 24/11/2026, −2,5 %, USAGOLD. Antes, 17/11: cobre 13.225,5 US$/t, oro 3.849,02 y plata ≈47,35)
         const FALLBACK_PRICES = {
             es: [
-                { name: 'Cobre', price: '6,00 US$/lb', ref: '17/11' },
-                { name: 'Oro', price: '3.849,02 US$/ozt', ref: '17/11' },
-                { name: 'Plata', price: '47,35 US$/oz', ref: '17/11' }
+                { name: 'Cobre', price: '5,52 US$/lb', ref: '23/11' },
+                { name: 'Oro', price: '3.622,55 US$/ozt', ref: '24/11' },
+                { name: 'Plata', price: '42,84 US$/oz', ref: '24/11' }
             ],
             en: [
-                { name: 'Copper', price: '6.00 US$/lb', ref: '17/11' },
-                { name: 'Gold', price: '3,849.02 US$/ozt', ref: '17/11' },
-                { name: 'Silver', price: '47.35 US$/oz', ref: '17/11' }
+                { name: 'Copper', price: '5.52 US$/lb', ref: '23/11' },
+                { name: 'Gold', price: '3,622.55 US$/ozt', ref: '24/11' },
+                { name: 'Silver', price: '42.84 US$/oz', ref: '24/11' }
             ]
         };
 
@@ -4289,8 +4289,8 @@
         // --- Demanda: relación de precios cobre/aluminio (indicador de sustitución) ---
         // Para actualizar: editar CUAL_DATA (relación, fecha y estimaciones). La curva es la misma del modelo Convergencias 2050.
         const CUAL_DATA = {
-            asOf: '17/11/2026',
-            now: 4.3,          // relación Cu/Al (US$/t ÷ US$/t): 17/11/2026, cash oficial LME (Westmetall) cobre 13.225,5 ÷ aluminio 3.060,5 = 4,32 (bajan los dos; 3 meses: 13.211 ÷ 2.940 = 4,49). Antes, 11/11/2026, cash oficial LME (Westmetall) cobre 13.875,5 ÷ aluminio 3.223,5 = 4,30 (el aluminio sube y el cobre baja; 3 meses: 13.795 ÷ 3.064 = 4,50). Antes, 10/11/2026, cash oficial LME (Westmetall) cobre 13.992 ÷ aluminio 3.137 = 4,46 (baja desde el récord de octubre; contraste Reuters 06/11, 3 meses LME: 13.775 ÷ 3.049 = 4,52). Antes, 26/10/2026: cash oficial LME (Westmetall) cobre 14.500 ÷ aluminio 3.047,5 = 4,76 (sigue en 4,8, cerca del récord). Antes, 19/10/2026: 14.496 ÷ 3.019 = 4,80. Antes, récord del 13/10/2026: cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
+            asOf: '23/11/2026',
+            now: 3.8,          // relación Cu/Al (US$/t ÷ US$/t): 23/11/2026, cash oficial LME (Westmetall) cobre 12.165 ÷ aluminio 3.201,5 = 3,80 (el cobre cae 8 % en una semana y el aluminio sube; 3 meses: 12.170 ÷ 2.834 = 4,29). Serie cash Westmetall: 18/11 12.750 ÷ 3.095 = 4,12; 19/11 12.570 ÷ 3.105 = 4,05; 20/11 12.230,5 ÷ 3.184,5 = 3,84. Antes, 17/11/2026, cash oficial LME (Westmetall) cobre 13.225,5 ÷ aluminio 3.060,5 = 4,32 (bajan los dos; 3 meses: 13.211 ÷ 2.940 = 4,49). Antes, 11/11/2026, cash oficial LME (Westmetall) cobre 13.875,5 ÷ aluminio 3.223,5 = 4,30 (el aluminio sube y el cobre baja; 3 meses: 13.795 ÷ 3.064 = 4,50). Antes, 10/11/2026, cash oficial LME (Westmetall) cobre 13.992 ÷ aluminio 3.137 = 4,46 (baja desde el récord de octubre; contraste Reuters 06/11, 3 meses LME: 13.775 ÷ 3.049 = 4,52). Antes, 26/10/2026: cash oficial LME (Westmetall) cobre 14.500 ÷ aluminio 3.047,5 = 4,76 (sigue en 4,8, cerca del récord). Antes, 19/10/2026: 14.496 ÷ 3.019 = 4,80. Antes, récord del 13/10/2026: cobre oficial LME 14.741 (KME) ÷ aluminio 3.037 (metalcharts) = 4,85; con aluminio oficial LME del 12/10 (3.055, ftmercati) = 4,83
             hist: 3.7,         // promedio histórico de largo plazo
             curve: [[3.5, 0], [4.0, 0.015], [4.2, 0.02], [4.5, 0.035], [5.0, 0.055], [5.5, 0.07]],
             cuDemand2040: 34,  // Mt, demanda total de cobre 2040 (AIE STEPS), para pasar porcentajes a toneladas
@@ -4300,52 +4300,52 @@
             es: {
                 h2: 'Relación de precios cobre/aluminio: el indicador de sustitución',
                 intro: 'Cuando el cobre se encarece mucho frente al aluminio, la industria rediseña cables, equipos de climatización y autos para usar aluminio, y una parte de la demanda de cobre desaparece. La señal que vigila el mercado es la relación entre ambos precios (US$ por tonelada de cobre ÷ US$ por tonelada de aluminio). Este indicador alimenta el modelo de <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Prospectiva</a>.',
-                k1: 'Relación actual', k1s: d => `${d} · Bajó desde el récord de 4,8 del 13 de octubre (4,7 el 8 de octubre y 4,3 en agosto de 2026)`,
+                k1: 'Relación actual', k1s: d => `${d} · Por debajo del umbral de 4 por primera vez desde agosto; récord de 4,8 el 13 de octubre de 2026`,
                 k2: 'Promedio histórico', k2s: 'Largo plazo',
                 k3: 'Umbral de sustitución', k3s: 'Desde acá la industria cambia de material (BHP)',
                 k4: 'Demanda de cobre desplazada', k4s: 'Hoy, según ICA (menos de 2 %) y JPMorgan (≈2 % en 2026)',
                 zones: ['Cobre competitivo', 'Empieza la sustitución', 'Sustitución material', 'Presión fuerte', 'Sustitución muy intensa'],
                 hist: 'Promedio', now: 'Hoy',
                 tabH: 'Cuánto cobre se pierde según la relación', cols: ['Relación sostenida', 'Lectura', 'Demanda mundial de cobre desplazada (largo plazo)', 'En 2040'],
-                reads: ['Por debajo del promedio histórico', 'Promedio histórico', 'Inicio de la sustitución material', 'Hoy (también el récord de agosto de 2026)', 'Presión fuerte (nivel del 10/11/2026)', 'Destrucción estructural de demanda'],
+                reads: ['Por debajo del promedio histórico', 'Promedio histórico (hoy, 3,8, apenas por encima)', 'Inicio de la sustitución material', 'Récord de agosto de 2026 y nivel del 11 al 17/11/2026', 'Presión fuerte (nivel del 10/11/2026)', 'Destrucción estructural de demanda'],
                 tabNote: 'Modelo SIEMA, calibrado con JPMorgan (≈2 % en 2026 y hasta 6 % hacia 2030 si se acelera), International Copper Association (menos de 2 %) y el umbral industrial de 3,5–4 : 1. El efecto llega en dos a cuatro años: es el tiempo de rediseñar y homologar productos. Toneladas sobre una demanda total de 34 Mt en 2040 (AIE, escenario STEPS).',
                 whereH: 'Dónde ya se sustituye', where: ['Líneas aéreas de transmisión: aluminio desde hace décadas', 'Cables de potencia y distribución', 'Climatización (Daikin)', 'Cableado automotriz (BMW, Ferrari)', 'Cerca del 10 % de los cables de los vehículos eléctricos'],
                 notH: 'Dónde casi no', not: ['Bobinados de motores eléctricos', 'Electrónica de precisión', 'Conexiones en espacios reducidos', 'Instalaciones con normas de seguridad estrictas'],
                 tech: 'Por qué: el aluminio conduce cerca del 61 % de lo que conduce el cobre y necesita 1,6 veces más sección, pero para la misma conducción pesa la mitad. Lo frenan los conectores (se oxida y se deforma bajo presión), las normas eléctricas y el costo de rediseñar.',
                 readH: 'Lectura del SIEMA',
                 read: (t35, ar) => [
-                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto) y en noviembre bajó a 4,5 (4,46 el 10 de noviembre) y a 4,3 el 11 de noviembre (4,30); el 17 de noviembre seguía en 4,3 (4,32), con el cobre en US$ 13.225/t y el aluminio en US$ 3.060/t: si se sostuviera en 4,3, el desplazamiento de largo plazo rondaría el 2,5 % (3,5 % con 4,5 y casi el 5 % con el récord). Es un efecto real, no un cambio de era.',
+                    '<strong>La sustitución ya está en marcha, pero es acotada.</strong> Hoy el aluminio desplaza alrededor del 2 % de la demanda mundial de cobre. La relación marcó un récord de 4,8 : 1 a mediados de octubre de 2026 (4,7 el 8 de octubre y 4,3 en agosto) y en noviembre bajó a 4,5 (4,46 el 10 de noviembre) y a 4,3 el 11 de noviembre (4,30) y el 17 de noviembre (4,32). La semana siguiente el cobre cayó cerca de 8 % y el aluminio subió: el 23 de noviembre la relación fue 3,8 (3,80; cobre US$ 12.165/t y aluminio US$ 3.201,5/t), por debajo del umbral de 4 y cerca del promedio histórico. Si se sostuviera en 3,8, el desplazamiento de largo plazo sería menor al 1 % (2,5 % con 4,3, 3,5 % con 4,5 y casi el 5 % con el récord). Es un efecto real, no un cambio de era, y la relación se mueve rápido.',
                     `<strong>Para Argentina, el número importa.</strong> Si la relación volviera a 4,5 : 1 y se sostuviera, el cobre desplazado rondaría ${t35} Mt por año en 2040: tanto como toda la cartera argentina de cobre (~${ar} Mt por año). Es un riesgo a seguir para el precio del cobre y, por esa vía, para el ritmo de las decisiones de inversión de los proyectos.`,
                     '<strong>Tiene un freno natural.</strong> Si sube la demanda de aluminio, sube su precio y la relación baja. Por eso los niveles de 5 : 1 o más son difíciles de sostener.',
                     '<strong>Qué seguir.</strong> La relación mensual, las decisiones de diseño de la industria automotriz y de climatización, y las normas eléctricas de los grandes mercados.'
                 ],
                 btn: 'Mover la relación en el modelo de Prospectiva',
-                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales cash de la LME del 17/11/2026 según Westmetall (cobre US$ 13.225,5/t; aluminio US$ 3.060,5/t: 4,32; el 11/11, 13.875,5 ÷ 3.223,5 = 4,30; el 10/11, 13.992 ÷ 3.137 = 4,46); récord del 13/10/2026: cobre oficial US$ 14.741/t (KME) y aluminio US$ 3.037/t (metalcharts.org), 4,85; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
+                src: 'Fuentes: AL Circle (relación 4:1), Forbes (enero y julio de 2026), LME Insight, metalcharts.org; relación actual con precios oficiales cash de la LME del 23/11/2026 según Westmetall (cobre US$ 12.165/t; aluminio US$ 3.201,5/t: 3,80; el 17/11, 13.225,5 ÷ 3.060,5 = 4,32; el 11/11, 13.875,5 ÷ 3.223,5 = 4,30; el 10/11, 13.992 ÷ 3.137 = 4,46); récord del 13/10/2026: cobre oficial US$ 14.741/t (KME) y aluminio US$ 3.037/t (metalcharts.org), 4,85; JPMorgan e International Copper Association, según el informe del Observatorio Latinoamericano de la Minería (31/08/2026). Relación al '
             },
             en: {
                 h2: 'Copper/aluminium price ratio: the substitution indicator',
                 intro: 'When copper becomes much more expensive than aluminium, industry redesigns cables, air-conditioning units and cars to use aluminium, and part of copper demand disappears. The signal the market watches is the ratio between both prices (US$ per tonne of copper ÷ US$ per tonne of aluminium). This indicator feeds the <a href="#" onclick="navigateTo(\'prospectiva\'); return false;">Foresight</a> model.',
-                k1: 'Current ratio', k1s: d => `${d} · Down from the 4.8 record of 13 October (4.7 on 8 October and 4.3 in August 2026)`,
+                k1: 'Current ratio', k1s: d => `${d} · Below the threshold of 4 for the first time since August; 4.8 record on 13 October 2026`,
                 k2: 'Historical average', k2s: 'Long term',
                 k3: 'Substitution threshold', k3s: 'Where industry switches material (BHP)',
                 k4: 'Copper demand displaced', k4s: 'Today, per ICA (below 2 %) and JPMorgan (≈2 % in 2026)',
                 zones: ['Copper competitive', 'Substitution starts', 'Material substitution', 'Strong pressure', 'Very intense substitution'],
                 hist: 'Average', now: 'Today',
                 tabH: 'How much copper is lost depending on the ratio', cols: ['Sustained ratio', 'Reading', 'World copper demand displaced (long term)', 'In 2040'],
-                reads: ['Below historical average', 'Historical average', 'Material substitution begins', 'Today (also the August 2026 record)', 'Strong pressure (level on 10/11/2026)', 'Structural demand destruction'],
+                reads: ['Below historical average', 'Historical average (today, 3.8, just above)', 'Material substitution begins', 'August 2026 record and level of 11–17/11/2026', 'Strong pressure (level on 10/11/2026)', 'Structural demand destruction'],
                 tabNote: 'SIEMA model, calibrated with JPMorgan (≈2 % in 2026 and up to 6 % by 2030 if it accelerates), the International Copper Association (below 2 %) and the 3.5–4 : 1 industry threshold. The effect arrives in two to four years, the time needed to redesign and certify products. Tonnes on total demand of 34 Mt in 2040 (IEA STEPS).',
                 whereH: 'Where it already happens', where: ['Overhead transmission lines: aluminium for decades', 'Power and distribution cables', 'Air conditioning (Daikin)', 'Automotive wiring (BMW, Ferrari)', 'About 10 % of electric-vehicle cables'],
                 notH: 'Where it hardly happens', not: ['Electric motor windings', 'Precision electronics', 'Space-constrained connections', 'Installations with strict safety codes'],
                 tech: 'Why: aluminium conducts about 61 % as well as copper and needs 1.6 times the cross-section, but weighs half as much for the same conduction. Connectors (it oxidises and creeps under pressure), electrical codes and redesign costs hold it back.',
                 readH: 'SIEMA reading',
                 read: (t35, ar) => [
-                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a record 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August) and eased in November to 4.5 (4.46 on 10 November) and 4.3 on 11 November (4.30); on 17 November it was still 4.3 (4.32), with copper at US$ 13,225/t and aluminium at US$ 3,060/t: if it held at 4.3, long-term displacement would be around 2.5 % (3.5 % at 4.5 and almost 5 % at the record). A real effect, not a change of era.',
+                    '<strong>Substitution is under way, but limited.</strong> Today aluminium displaces about 2 % of world copper demand. The ratio hit a record 4.8 : 1 in mid-October 2026 (4.7 on 8 October and 4.3 in August) and eased in November to 4.5 (4.46 on 10 November) and 4.3 on 11 November (4.30) and 17 November (4.32). The following week copper fell about 8 % and aluminium rose: on 23 November the ratio was 3.8 (3.80; copper US$ 12,165/t and aluminium US$ 3,201.5/t), below the threshold of 4 and close to the historical average. If it held at 3.8, long-term displacement would be below 1 % (2.5 % at 4.3, 3.5 % at 4.5 and almost 5 % at the record). A real effect, not a change of era, and the ratio moves fast.',
                     `<strong>For Argentina, the number matters.</strong> If the ratio returned to 4.5 : 1 and held there, displaced copper would be around ${t35} Mt a year in 2040: as much as Argentina's entire copper pipeline (~${ar} Mt a year). It is a risk to watch for the copper price and, through it, for the pace of the projects' investment decisions.`,
                     '<strong>It has a natural brake.</strong> If aluminium demand rises, its price rises and the ratio falls. That is why levels of 5 : 1 or more are hard to sustain.',
                     '<strong>What to watch.</strong> The monthly ratio, design decisions in the automotive and air-conditioning industries, and electrical codes in the big markets.'
                 ],
                 btn: 'Move the ratio in the Foresight model',
-                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official cash prices on 17/11/2026 per Westmetall (copper US$ 13,225.5/t; aluminium US$ 3,060.5/t: 4.32; on 11/11, 13,875.5 ÷ 3,223.5 = 4.30; on 10/11, 13,992 ÷ 3,137 = 4.46); 13/10/2026 record: official copper US$ 14,741/t (KME) and aluminium US$ 3,037/t (metalcharts.org), 4.85; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
+                src: 'Sources: AL Circle (4:1 ratio), Forbes (January and July 2026), LME Insight, metalcharts.org; current ratio from LME official cash prices on 23/11/2026 per Westmetall (copper US$ 12,165/t; aluminium US$ 3,201.5/t: 3.80; on 17/11, 13,225.5 ÷ 3,060.5 = 4.32; on 11/11, 13,875.5 ÷ 3,223.5 = 4.30; on 10/11, 13,992 ÷ 3,137 = 4.46); 13/10/2026 record: official copper US$ 14,741/t (KME) and aluminium US$ 3,037/t (metalcharts.org), 4.85; JPMorgan and International Copper Association, per the Latin American Mining Observatory report (31/08/2026). Ratio as of '
             }
         };
         function cualShareAt(r) {
@@ -5260,7 +5260,7 @@
             prod2025: { au: 1184, ag: 22.1, li: 120, liCap: 215, cu: 2.1, jobs: 40141 },
             exp: {
                 y2025: { total: 6074, au: 4094, li: 911, ag: 785, cu: 13 },
-                ytd2026: { total: 6723, au: 4019, li: 1624, ag: 799, chg: 59.3, li_chg: 173.0 },
+                ytd2026: { total: 7455, au: 4407, li: 1858, ag: 869, chg: 52.5, li_chg: 162.2 },
                 path: [ { y: 2025, v: 6074, real: true }, { y: 2030, v: 15411 }, { y: 2035, v: 36250 } ],
                 y2035: { total: 36250, cu: 18712, li: 11493, au: 3448, ag: 2597 },
                 rigiOnly2035: 28000,
@@ -5343,7 +5343,7 @@
                 min: { cu: 'Cobre', li: 'Litio', au: 'Oro', ag: 'Plata', pb: 'Plomo-zinc', u: 'Uranio', other: 'Otros' },
                 all: 'Todos',
                 k1: 'Exportaciones mineras 2025', k1s: e => `Récord. Oro ${pct(e.au, e.total)}, litio ${pct(e.li, e.total)}, plata ${pct(e.ag, e.total)}, cobre ${pct(e.cu, e.total)}`,
-                k2: 'Enero–septiembre 2026', k2s: e => `+${fmtEs(e.chg)} % interanual. El litio crece ${fmtEs(e.li_chg)} %`,
+                k2: 'Enero–octubre 2026', k2s: e => `+${fmtEs(e.chg)} % interanual. El litio crece ${fmtEs(e.li_chg)} %`,
                 k3: 'Producción 2025', k3s: p => `Litio ${fmtEs(p.li)} kt LCE (capacidad ${fmtEs(p.liCap)} kt) · plata ${fmtEs(p.ag)} Moz · cobre ≈${fmtEs(p.cu)} kt`,
                 k3v: p => `${fmtEs(p.au / 1000, 2)} Moz de oro`,
                 k4: 'Cartera de proyectos', k4s: d => `${d.stages[0].n} en producción · ${d.stages[1].n} en construcción · ${d.stages[2].n + d.stages[3].n + d.stages[4].n} en estudios económicos · ${d.stages[5].n} en exploración avanzada`,
@@ -5371,7 +5371,7 @@
                     '<strong>Lo que conviene seguir.</strong> El avance físico de los proyectos en construcción, las decisiones de inversión de los proyectos con RIGI aprobado y la aprobación de los que siguen en evaluación.'
                 ],
                 links: 'La comparación de esta oferta con la demanda mundial proyectada está en <a href="#" onclick="omaOpenArgentinaView(); return false;">Prospectiva → Argentina vs demanda proyectada</a>; la posición actual, en <a href="#" onclick="navigateTo(\'argentina\'); return false;">Argentina hoy</a>.',
-                src: 'Fuentes: Secretaría de Minería de la Nación, "Portfolio of Mining Projects 2026" (estados y cartera), exportaciones mineras 2025 y enero–septiembre 2026 (informe mensual de octubre de 2026), mercado de litio (octubre de 2026), y proyección de exportaciones a 2035; CAEM, Informe productivo de la minería argentina (datos 2025); comunicados de las empresas y trámites del RIGI para capacidades, inversiones y fechas. La Secretaría aclara que parte de los datos de la cartera son estimaciones de terceros. Datos al '
+                src: 'Fuentes: Secretaría de Minería de la Nación, "Portfolio of Mining Projects 2026" (estados y cartera), exportaciones mineras 2025 y enero–octubre 2026 (informe mensual de noviembre de 2026), mercado de litio (octubre de 2026), y proyección de exportaciones a 2035; CAEM, Informe productivo de la minería argentina (datos 2025); comunicados de las empresas y trámites del RIGI para capacidades, inversiones y fechas. La Secretaría aclara que parte de los datos de la cartera son estimaciones de terceros. Datos al '
             },
             en: {
                 stages: { prod: 'Production', cons: 'Construction', feas: 'Feasibility', pfs: 'Pre-feasibility', pea: 'Preliminary economic assessment (PEA)', advx: 'Advanced exploration', initx: 'Initial exploration', prosp: 'Prospecting' },
@@ -5379,7 +5379,7 @@
                 min: { cu: 'Copper', li: 'Lithium', au: 'Gold', ag: 'Silver', pb: 'Lead-zinc', u: 'Uranium', other: 'Others' },
                 all: 'All',
                 k1: 'Mining exports 2025', k1s: e => `A record. Gold ${pct(e.au, e.total)}, lithium ${pct(e.li, e.total)}, silver ${pct(e.ag, e.total)}, copper ${pct(e.cu, e.total)}`,
-                k2: 'January–September 2026', k2s: e => `+${e.chg}% year on year. Lithium up ${e.li_chg}%`,
+                k2: 'January–October 2026', k2s: e => `+${e.chg}% year on year. Lithium up ${e.li_chg}%`,
                 k3: '2025 production', k3s: p => `Lithium ${p.li} kt LCE (capacity ${p.liCap} kt) · silver ${p.ag} Moz · copper ≈${p.cu} kt`,
                 k3v: p => `${(p.au / 1000).toFixed(2)} Moz of gold`,
                 k4: 'Project pipeline', k4s: d => `${d.stages[0].n} producing · ${d.stages[1].n} under construction · ${d.stages[2].n + d.stages[3].n + d.stages[4].n} in economic studies · ${d.stages[5].n} in advanced exploration`,
@@ -5407,7 +5407,7 @@
                     '<strong>What to watch.</strong> Physical progress of projects under construction, investment decisions on projects with approved RIGI status and approval of those still under review.'
                 ],
                 links: 'The comparison of this supply with projected global demand is in <a href="#" onclick="omaOpenArgentinaView(); return false;">Foresight → Argentina vs demanda proyectada</a>; the current position is in <a href="#" onclick="navigateTo(\'argentina\'); return false;">Argentina today</a>.',
-                src: 'Sources: Argentina\'s Mining Secretariat, "Portfolio of Mining Projects 2026" (stages and pipeline), mining exports 2025 and January–September 2026 (October 2026 monthly report), lithium market (October 2026), and export projection to 2035; CAEM, Argentine mining production report (2025 data); company announcements and RIGI filings for capacities, investments and dates. The Secretariat notes that some pipeline data are third-party estimates. Data as of '
+                src: 'Sources: Argentina\'s Mining Secretariat, "Portfolio of Mining Projects 2026" (stages and pipeline), mining exports 2025 and January–October 2026 (November 2026 monthly report), lithium market (October 2026), and export projection to 2035; CAEM, Argentine mining production report (2025 data); company announcements and RIGI filings for capacities, investments and dates. The Secretariat notes that some pipeline data are third-party estimates. Data as of '
             }
         };
         function trCap(s) {
@@ -5830,7 +5830,7 @@
                 real: 'DATO REAL', ill: 'ILUSTRATIVO', noSignal: 'SIN SEÑAL',
                 ipm: ['ÍNDICE DE PERFORMANCE MINERA', '0,40 × Exportaciones + 0,35 × Producción + 0,25 × Inversión', (e, p, i) => `E ${e} · P ${p} · I ${i}`,
                     ['Exportaciones: ritmo vs. proyección anual', 'Producción: litio producido / capacidad instalada', 'Inversión: avance del RIGI minero (escala de la cartera aprobada y compromiso con fecha cierta, pestaña RIGI)']],
-                exp: ['EXPORTACIONES MINERAS 2026', 'Ene–sep acumulado vs. proyección anual US$ 9.000 M', '▲ +59,3 % interanual', 'mil M US$'],
+                exp: ['EXPORTACIONES MINERAS 2026', 'Ene–oct acumulado vs. proyección anual US$ 9.000 M', '▲ +52,5 % interanual', 'mil M US$'],
                 bar: ['ÍNDICE PULSÓMETRO', 'Promedio 10 ejes · percepción interna', d => `▲ +${d} vs 2025`],
                 pul: ['PERCEPCIÓN EXTERNA', 'Percepción externa · 1.ª edición en preparación'],
                 li: ['CAPACIDAD INSTALADA', 'Meta oficial 2036: más de 600 kt/año', '36 % de la meta · 4.º productor mundial', 'kt LCE'],
@@ -5839,7 +5839,7 @@
                 sys: [['Pulsómetro', 'EN LÍNEA'], ['Prospectiva (Convergencias 2050)', 'EN LÍNEA'], ['Análisis de Brechas', 'FASE 1'], ['Monitor MIMA (CAI)', 'EN DISEÑO'], ['Percepción externa', 'CALIBRANDO'], ['RIGI minero', 'EN LÍNEA']],
                 short: ['Exportaciones', 'Marco normativo', 'Licencia social', 'Clima político', 'Mining-friendly', 'Financiamiento', 'Infraestructura', 'Estab. macro', 'Capital humano', 'RIGI minero'],
                 tipGo: 'Clic → ', tabs: { barometro: 'Pulsómetro', brechas: 'Brechas', monitor: 'Monitor MIMA', prospectiva: 'Prospectiva', argentina: 'Argentina hoy', pulsometro: 'Percepción externa', oferta: 'Oferta', rigi: 'RIGI minero' },
-                foot: 'Datos reales: exportaciones mineras enero–septiembre 2026 (Secretaría de Minería con base en Aduana) y proyección anual; capacidad de litio (Secretaría de Minería, pestaña Oferta) y cartera de cobre (CeProMin, pestaña Argentina hoy). Índice de Performance Minera: exportaciones enero–septiembre 2026 vs. proyección anual US$ 9.000 M, producción de litio 2025 (120 kt) / capacidad (215 kt), avance del RIGI minero: promedio de los componentes Escala y Compromiso con fecha cierta del índice RIGI minero (pestaña RIGI, 02/10/2026). Licencia Social, Estabilidad Macro y RIGI se calculan con datos externos (RIGI minero: proyectos mineros de producción, pestaña RIGI); el resto del Pulsómetro es un primer corte ilustrativo de la encuesta SIEMA.',
+                foot: 'Datos reales: exportaciones mineras enero–octubre 2026 (Secretaría de Minería con base en Aduana) y proyección anual; capacidad de litio (Secretaría de Minería, pestaña Oferta) y cartera de cobre (CeProMin, pestaña Argentina hoy). Índice de Performance Minera: exportaciones enero–octubre 2026 vs. proyección anual US$ 9.000 M, producción de litio 2025 (120 kt) / capacidad (215 kt), avance del RIGI minero: promedio de los componentes Escala y Compromiso con fecha cierta del índice RIGI minero (pestaña RIGI, 02/10/2026). Licencia Social, Estabilidad Macro y RIGI se calculan con datos externos (RIGI minero: proyectos mineros de producción, pestaña RIGI); el resto del Pulsómetro es un primer corte ilustrativo de la encuesta SIEMA.',
                 locale: 'es-AR'
             },
             en: {
@@ -5853,7 +5853,7 @@
                 real: 'REAL DATA', ill: 'ILLUSTRATIVE', noSignal: 'NO SIGNAL',
                 ipm: ['MINING PERFORMANCE INDEX', '0.40 × Exports + 0.35 × Production + 0.25 × Investment', (e, p, i) => `E ${e} · P ${p} · I ${i}`,
                     ['Exports: pace vs. annual projection', 'Production: lithium output / installed capacity', 'Investment: mining RIGI progress (approved portfolio scale and commitment with firm dates, RIGI tab)']],
-                exp: ['MINING EXPORTS 2026', 'Jan–Sep cumulative vs. US$ 9.0 bn annual projection', '▲ +59.3 % year-on-year', 'US$ bn'],
+                exp: ['MINING EXPORTS 2026', 'Jan–Oct cumulative vs. US$ 9.0 bn annual projection', '▲ +52.5 % year-on-year', 'US$ bn'],
                 bar: ['PULSOMETER INDEX', '10-axis average · internal perception', d => `▲ +${d} vs 2025`],
                 pul: ['EXTERNAL PERCEPTION', 'External perception · 1st edition in preparation'],
                 li: ['INSTALLED CAPACITY', 'Official 2036 target: over 600 kt/yr', '36 % of target · world #4 producer', 'kt LCE'],
@@ -5862,7 +5862,7 @@
                 sys: [['Pulsometer', 'ONLINE'], ['Foresight (Convergences 2050)', 'ONLINE'], ['Gap Analysis', 'PHASE 1'], ['MIMA Monitor (CAI)', 'IN DESIGN'], ['External perception', 'CALIBRATING'], ['Mining RIGI', 'ONLINE']],
                 short: ['Exports', 'Regulatory', 'Social license', 'Political climate', 'Mining-friendly', 'Funding', 'Infrastructure', 'Macro stability', 'Human capital', 'Mining RIGI'],
                 tipGo: 'Click → ', tabs: { barometro: 'Pulsometer', brechas: 'Gap Analysis', monitor: 'MIMA Monitor', prospectiva: 'Foresight', argentina: 'Argentina today', pulsometro: 'External perception', oferta: 'Supply', rigi: 'Mining RIGI' },
-                foot: 'Real data: January–September 2026 mining exports (Mining Secretariat, based on Customs) and annual projection; lithium capacity (Mining Secretariat, Supply tab) and copper pipeline (CeProMin, Argentina today tab). Mining Performance Index: January–September 2026 exports vs. US$ 9.0 bn annual projection, 2025 lithium output (120 kt) / capacity (215 kt), mining RIGI progress: average of the Scale and Firm-date commitment components of the mining RIGI index (RIGI tab, 02/10/2026). Social Licence, Macro Stability and RIGI are calculated from external data (mining RIGI: mining production projects, RIGI tab); the rest of the Pulsometer is an illustrative first cut of the SIEMA survey.',
+                foot: 'Real data: January–October 2026 mining exports (Mining Secretariat, based on Customs) and annual projection; lithium capacity (Mining Secretariat, Supply tab) and copper pipeline (CeProMin, Argentina today tab). Mining Performance Index: January–October 2026 exports vs. US$ 9.0 bn annual projection, 2025 lithium output (120 kt) / capacity (215 kt), mining RIGI progress: average of the Scale and Firm-date commitment components of the mining RIGI index (RIGI tab, 02/10/2026). Social Licence, Macro Stability and RIGI are calculated from external data (mining RIGI: mining production projects, RIGI tab); the rest of the Pulsometer is an illustrative first cut of the SIEMA survey.',
                 locale: 'en-GB'
             }
         };
@@ -5870,9 +5870,9 @@
         // Índice de Performance Minera (IPM) = 0,40·E + 0,35·P + 0,25·I  (cada componente 0–100)
         // Actualizar estos insumos cuando haya datos nuevos (INDEC mensual, RIGI, producción de litio).
         const IPM_DATA = {
-            exportYTD: 6723,        // US$ M exportados en el año (enero–septiembre 2026, Secretaría de Minería con base en Aduana)
+            exportYTD: 7455,        // US$ M exportados en el año (enero–octubre 2026, Secretaría de Minería con base en Aduana, informe de noviembre de 2026)
             exportTarget: 9000,     // US$ M proyección anual 2026 (sector)
-            yearFraction: 0.75,     // parte del año cubierta por exportYTD
+            yearFraction: 10 / 12,  // parte del año cubierta por exportYTD (10 meses)
             lithiumOutput: 120,     // kt LCE producidas (2025, Secretaría de Minería, Mercado de Litio, oct. 2026)
             lithiumCapacity: 215,   // kt LCE capacidad instalada (2025, mismo informe)
             // Inversión: se lee de RIGI_DATA (pestaña RIGI), única fuente del RIGI en SIEMA
@@ -6077,8 +6077,8 @@
                   es: ['Aluminio', 'US$/t', 'LME oficial del 26/10/2026: 3.047,5', 'Coherente: el aluminio bajó en el tercer trimestre y está algo por debajo del promedio previsto para 2026.'],
                   en: ['Aluminium', 'US$/t', 'LME official price, 26/10/2026: 3,047.5', 'Consistent: aluminium fell in the third quarter and sits slightly below the 2026 average forecast.'] },
                 { k: 'ratio', v: [3.78, 4.06, 4.19, 4.17], d: 2,
-                  es: ['Relación cobre/aluminio', 'veces', '4,3 : 1 (17/11/2026; 4,5 el 10/11 y récord de 4,8 a mediados de octubre)', 'Diferencia de nivel: el Banco Mundial supone que la relación baja a 4,1–4,2. Sigue por encima del umbral de 4, así que la sustitución continúa, pero desplazaría cerca del 2 % de la demanda de cobre, frente a cerca del 3,5 % si se sostuviera el 4,5 actual (4,5 % con el récord de 4,8).'],
-                  en: ['Copper/aluminium ratio', 'times', '4.3 : 1 (17/11/2026; 4.5 on 10/11 and 4.8 record in mid-October)', 'Difference in level: the World Bank assumes the ratio eases to 4.1–4.2. It stays above the threshold of 4, so substitution continues, but it would displace about 2% of copper demand, against about 3.5% if today\u2019s 4.5 were sustained (4.5% at the 4.8 record).'] },
+                  es: ['Relación cobre/aluminio', 'veces', '3,8 : 1 (23/11/2026; 4,3 el 17/11, 4,5 el 10/11 y récord de 4,8 a mediados de octubre)', 'Diferencia de nivel, ahora en sentido inverso: el Banco Mundial supone 4,1–4,2, por encima del 3,8 del 23/11. Con 4,1–4,2 la sustitución continúa y desplazaría cerca del 2 % de la demanda de cobre; con el 3,8 actual, menos del 1 % (3,5 % con 4,5 y 4,5 % con el récord de 4,8).'],
+                  en: ['Copper/aluminium ratio', 'times', '3.8 : 1 (23/11/2026; 4.3 on 17/11, 4.5 on 10/11 and 4.8 record in mid-October)', 'Difference in level, now the other way round: the World Bank assumes 4.1–4.2, above the 3.8 of 23/11. At 4.1–4.2 substitution continues and would displace about 2% of copper demand; at today\u2019s 3.8, below 1% (3.5% at 4.5 and 4.5% at the 4.8 record).'] },
                 { k: 'au', v: [3442, 4600, 4250, 4000], d: 0,
                   es: ['Oro', 'US$/oz', '3.460 en 2025 y 4.200 constante desde 2026 (Prospectiva → Oro y plata)', 'Coherente: el supuesto de SIEMA queda entre los pronósticos de 2027 y 2028.'],
                   en: ['Gold', 'US$/oz', '3,460 in 2025 and a constant 4,200 from 2026 (Foresight → Gold and silver)', 'Consistent: SIEMA’s assumption sits between the 2027 and 2028 forecasts.'] },
@@ -6204,10 +6204,10 @@
         var CHECK = [
             { es: ['Exportaciones mineras 2025', 'US$ 6.071 M', 'US$ 6.074 M (cifra revisada)', 'Ajustado: diferencia de 0,05 %'],
               en: ['Mining exports 2025', 'US$6,071 M', 'US$6,074 M (revised figure)', 'Adjusted: 0.05% difference'], src: 0 },
-            { es: ['Exportaciones mineras 2026 acumuladas', 'Portada: 1.er semestre, US$ 4.742 M (+74,4 %). Oferta: enero–agosto, US$ 6.059 M', 'Enero–septiembre: US$ 6.723 M (+59,3 % interanual; 11 % más que todo 2025)', 'Actualizado y unificado en todo SIEMA'],
-              en: ['Cumulative 2026 mining exports', 'Home: H1, US$4,742 M (+74.4%). Supply: Jan–Aug, US$6,059 M', 'Jan–Sep: US$6,723 M (+59.3% y/y; 11% above all of 2025)', 'Updated and aligned across SIEMA'], src: 0 },
-            { es: ['Oro, plata y litio exportados en 2026', 'Enero–agosto: oro 3.623, plata 726, litio 1.467 (US$ M)', 'Enero–septiembre: oro 4.019, plata 799, litio 1.624 (US$ M)', 'Actualizado'],
-              en: ['Gold, silver and lithium exported in 2026', 'Jan–Aug: gold 3,623, silver 726, lithium 1,467 (US$ M)', 'Jan–Sep: gold 4,019, silver 799, lithium 1,624 (US$ M)', 'Updated'], src: 0 },
+            { es: ['Exportaciones mineras 2026 acumuladas', 'Enero–septiembre: US$ 6.723 M (+59,3 %), revisión del 04/11/2026', 'Enero–octubre: US$ 7.455 M (+52,5 % interanual; 23 % más que todo 2025). Octubre: US$ 660 M (−1,2 %)', 'Actualizado el 25/11/2026 en todo SIEMA'],
+              en: ['Cumulative 2026 mining exports', 'Jan–Sep: US$6,723 M (+59.3%), review of 04/11/2026', 'Jan–Oct: US$7,455 M (+52.5% y/y; 23% above all of 2025). October: US$660 M (−1.2%)', 'Updated on 25/11/2026 across SIEMA'], src: 0 },
+            { es: ['Oro, plata y litio exportados en 2026', 'Enero–septiembre: oro 4.019, plata 799, litio 1.624 (US$ M)', 'Enero–octubre: oro 4.407 (+32,1 %), plata 869 (+40,9 %), litio 1.858 (+162,2 %) (US$ M)', 'Actualizado el 25/11/2026'],
+              en: ['Gold, silver and lithium exported in 2026', 'Jan–Sep: gold 4,019, silver 799, lithium 1,624 (US$ M)', 'Jan–Oct: gold 4,407 (+32.1%), silver 869 (+40.9%), lithium 1,858 (+162.2%) (US$ M)', 'Updated on 25/11/2026'], src: 0 },
             { es: ['Producción de litio 2025', '116,6 kt LCE', '120 kt LCE (+62 % interanual), siete operaciones', 'Actualizado'],
               en: ['Lithium output 2025', '116.6 kt LCE', '120 kt LCE (+62% y/y), seven operations', 'Updated'], src: 1 },
             { es: ['Capacidad instalada de litio', '200,8 kt LCE', '215 kt LCE; 269 kt previstas en 2026', 'Actualizado (portada, Oferta, Argentina hoy y modelo)'],
@@ -6220,7 +6220,7 @@
               en: ['Lithium outlook', 'Official target: over 600 kt by 2036', 'Official projection: over 400 kt in 2030 and 573 kt in 2035', 'Consistent: different reference year'], src: 1 }
         ];
         var CSRC = [
-            { u: 'https://www.argentina.gob.ar/sites/default/files/2026.10_exportaciones_mineras_en_argentina.pdf', es: 'Exportaciones mineras, informe mensual de octubre de 2026', en: 'Mining exports, October 2026 monthly report' },
+            { u: 'https://www.argentina.gob.ar/sites/default/files/2026.11_exportaciones_mineras_en_argentina.pdf', es: 'Exportaciones mineras, informe mensual de noviembre de 2026', en: 'Mining exports, November 2026 monthly report' },
             { u: 'https://www.argentina.gob.ar/sites/default/files/mercado_de_litio_2026-1.pdf', es: 'Mercado de litio, octubre de 2026', en: 'Lithium market, October 2026' },
             { u: 'https://www.argentina.gob.ar/sites/default/files/2026.06_empleo_minero_en_argentina_1.pdf', es: 'Empleo minero en Argentina, informe de junio de 2026', en: 'Mining employment in Argentina, June 2026 report' }
         ];
@@ -6240,7 +6240,7 @@
                 h2b: 'Geología y ambiente (SIGAM)', layers: 'Capas', legend: 'Ver leyenda',
                 noteB: 'Fuente: SEGEMAR, SIGAM (licencia CC BY 4.0), servicio WMS. Para consultar los atributos de cada punto o descargar las capas, usá el visor completo o el catálogo de descargas de SIGAM. Mapa base: © colaboradores de OpenStreetMap.',
                 mapErr: 'No se pudo cargar el mapa. Probá de nuevo o abrí el visor completo de SIGAM.',
-                h2c: 'Chequeo de coherencia con las fuentes oficiales', leadC: 'Revisión del 4 de noviembre de 2026: se compararon las cifras de SIEMA con los últimos informes de la Secretaría de Minería. Las cifras corregidas ya están actualizadas en todas las pestañas y en Kuntur.',
+                h2c: 'Chequeo de coherencia con las fuentes oficiales', leadC: 'Revisión del 4 de noviembre de 2026, con las exportaciones actualizadas el 25 de noviembre de 2026: se compararon las cifras de SIEMA con los últimos informes de la Secretaría de Minería. Las cifras corregidas ya están actualizadas en todas las pestañas y en Kuntur.',
                 cols: ['Indicador', 'SIEMA antes', 'Dato oficial más reciente', 'Resultado', 'Fuente']
             },
             en: {
@@ -6257,7 +6257,7 @@
                 h2b: 'Geology and environment (SIGAM)', layers: 'Layers', legend: 'Show legend',
                 noteB: 'Source: SEGEMAR, SIGAM (CC BY 4.0 licence), WMS service. To query the attributes of each point or download the layers, use SIGAM’s full viewer or download catalogue. Base map: © OpenStreetMap contributors.',
                 mapErr: 'The map could not be loaded. Try again or open SIGAM’s full viewer.',
-                h2c: 'Consistency check against the official sources', leadC: 'Review of 4 November 2026: SIEMA\u2019s figures were compared with the Mining Secretariat\u2019s latest reports. The corrected figures are already updated in every tab and in Kuntur.',
+                h2c: 'Consistency check against the official sources', leadC: 'Review of 4 November 2026, with exports updated on 25 November 2026: SIEMA\u2019s figures were compared with the Mining Secretariat\u2019s latest reports. The corrected figures are already updated in every tab and in Kuntur.',
                 cols: ['Indicator', 'SIEMA before', 'Latest official figure', 'Result', 'Source']
             }
         };

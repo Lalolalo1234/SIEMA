@@ -4,8 +4,8 @@ window.SIEMA_EVENTS = {
  "metadata": {
   "title": "Mining Events Database",
   "description": "Upcoming mining conferences, exhibitions, and symposiums",
-  "last_updated": "2026-10-28",
-  "total_events": 81,
+  "last_updated": "2026-11-25",
+  "total_events": 83,
   "source": "CeProMinDB (lalolalo1234/CeProMinDB) + SIEMA"
  },
  "events": [
@@ -1450,7 +1450,7 @@ window.SIEMA_EVENTS = {
    ],
    "region": "Latin America",
    "siema": true,
-   "notes": "Organizado por Panorama Minero, promotor de SIEMA."
+   "notes": "Organizado por Panorama Minero, promotor de SIEMA. Programa (Ámbito, 17/11/2026): Consejo Federal de Minería el 2/12 (9 a 12, solo invitados) y Mesa del Litio el 3/12 (15 h, solo invitados); cóctel de CAEM el 3/12."
   },
   {
    "id": 1002,
@@ -1936,6 +1936,51 @@ window.SIEMA_EVENTS = {
    "region": "Latin America",
    "siema": true,
    "notes": "Segunda edición, anunciada por el gobernador Cornejo (Prensa Mendoza, 26/06/2026); sede según la agenda de CAEM. Ejes: institucionalidad y gobernanza, ambiente y sociedad, economía y finanzas. Clave para PSJ Cobre Mendocino y el Distrito Minero Malargüe Occidental."
+  },
+  {
+   "id": 1022,
+   "name": "EU Investment and Business Forum in Argentina 2026",
+   "type": "Foro de inversión",
+   "start_date": "2026-11-30",
+   "end_date": "2026-12-01",
+   "city": "Buenos Aires",
+   "country": "Argentina",
+   "venue": "Ciudad Autónoma de Buenos Aires",
+   "organizer": "Unión Europea",
+   "website": "",
+   "focus": [
+    "investment",
+    "critical minerals",
+    "EU–Argentina"
+   ],
+   "commodities": [
+    "copper",
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Evento aliado del seminario Argentina Oro, Plata y Cobre de Panorama Minero; solo con invitación (Ámbito, 17/11/2026)."
+  },
+  {
+   "id": 1023,
+   "name": "WIM LATAM 2026 — Women in Mining Latinoamérica",
+   "type": "Encuentro",
+   "start_date": "2026-12-01",
+   "end_date": "2026-12-01",
+   "city": "Buenos Aires",
+   "country": "Argentina",
+   "venue": "Salón San Agustín, Universidad Católica Argentina (UCA)",
+   "organizer": "Women in Mining",
+   "website": "",
+   "focus": [
+    "gender",
+    "talent",
+    "diversity"
+   ],
+   "commodities": [],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Evento aliado del seminario Argentina Oro, Plata y Cobre de Panorama Minero (Ámbito, 17/11/2026)."
   }
  ]
 };
