@@ -8,7 +8,14 @@ Lo ejecuta la acción de GitHub «SIACAM semanal» (.github/workflows/siacam-sem
 - Arma data/siacam/sustentabilidad.json (agua, energía y emisiones por proyecto, reportes GRI),
   que la sección «Transparencia, pagos y conflictividad» muestra sola cuando existe.
 No modifica index.html: las tareas semanales leen estos archivos y deciden qué cifras actualizar.
+
+Modo paquete (--bundle): los servidores de www.mecon.gob.ar no responden fuera de Argentina, así que
+la tarea semanal baja los CSV con el navegador integrado de la Mac de Eduardo (red argentina) y deja un
+archivo siacam_AAAA-MM-DD.json.gz = {"catalog": [...], "files": {"/dataset/...csv": "texto"}}.
+  python3 scripts/siacam_sync.py --bundle siacam_AAAA-MM-DD.json.gz [--catalog catalogo.json]
+"catalog" es la lista reducida de datos.gob.ar: [{id, t, m, freq?, r: [{n, p, m}]}].
 """
+import gzip
 import csv
 import hashlib
 import io
@@ -103,13 +110,39 @@ def build_sust(files):
     return sorted(rows.values(), key=lambda r: r['p'])
 
 
+def bundle_packages(bundle_path, catalog_path=None):
+    """Convierte el paquete del navegador al formato de packages() con la URL de cada CSV."""
+    raw = open(bundle_path, 'rb').read()
+    data = json.loads(gzip.decompress(raw) if raw[:2] == b'\x1f\x8b' else raw)
+    if 'files' not in data:  # paquete sin catálogo: {ruta: texto}
+        data = {'files': data}
+    cat = json.load(open(catalog_path, encoding='utf-8')) if catalog_path else data.get('catalog')
+    if not cat:
+        sys.exit('ATENCIÓN: el paquete no trae catálogo; pasar --catalog')
+    files = data['files']
+    pk = []
+    for c in cat:
+        res = [{'name': r['n'], 'format': 'csv', 'url': 'https://www.mecon.gob.ar' + r['p'],
+                'last_modified': r.get('m'), '_path': r['p']} for r in c.get('r', [])]
+        pk.append({'title': c['t'], 'name': c['id'], 'metadata_modified': c.get('m'),
+                   'extras': [{'key': 'accrualPeriodicity', 'value': c['freq']}] if c.get('freq') else [],
+                   'resources': res})
+    return pk, files
+
+
 def main():
+    args = sys.argv[1:]
+    bundle = args[args.index('--bundle') + 1] if '--bundle' in args else None
+    catalog = args[args.index('--catalog') + 1] if '--catalog' in args else None
+    bfiles = None
+    if bundle:
+        pkgs, bfiles = bundle_packages(bundle, catalog)
     os.makedirs(os.path.join(OUT, 'raw'), exist_ok=True)
     now = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-    manifest = {'generated': now, 'source': 'datos.gob.ar (Secretaría de Minería, SIACAM)', 'datasets': []}
+    manifest = {'generated': now, 'source': 'datos.gob.ar (Secretaría de Minería, SIACAM)', 'method': 'navegador (red argentina)' if bundle else 'servidor', 'datasets': []}
     files = []
     fails = 0
-    for p in packages():
+    for p in (pkgs if bundle else packages()):
         freq = next((e.get('value') for e in p.get('extras', []) if 'accrual' in e.get('key', '').lower()), None)
         ds = {'title': p['title'], 'id': p['name'], 'modified': p.get('metadata_modified'), 'frequency': freq, 'resources': []}
         d = os.path.join(OUT, 'raw', slug(p['name']))
@@ -121,7 +154,13 @@ def main():
             os.makedirs(d, exist_ok=True)
             path = os.path.join(d, slug(r.get('name') or r['id']) + '.csv')
             body, err = None, None
-            for u in dict.fromkeys([url, url.replace('http://', 'https://')]):
+            if bfiles is not None:
+                t = bfiles.get(r.get('_path'))
+                if t is None:
+                    err = 'no está en el paquete'
+                else:
+                    body = t.encode('utf-8')
+            for u in ([] if bfiles is not None else  dict.fromkeys([url, url.replace('http://', 'https://')])):
                 try:
                     body = get(u)
                     break
@@ -130,7 +169,7 @@ def main():
             if body is None:
                 fails += 1
                 print(f'  sin descargar: {url} -> {err}'[:300], flush=True)
-                if fails >= 5 and not files:
+                if fails >= 5 and not files and bfiles is None:
                     sys.exit('ATENCIÓN: los primeros 5 CSV del SIACAM no responden desde este servidor; se corta la corrida.')
                 ds['resources'].append({'name': r.get('name'), 'url': url, 'error': (err or '')[:200]})
                 continue
