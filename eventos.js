@@ -5,10 +5,35 @@ window.SIEMA_EVENTS = {
   "title": "Mining Events Database",
   "description": "Upcoming mining conferences, exhibitions, and symposiums",
   "last_updated": "2026-11-25",
-  "total_events": 83,
+  "total_events": 85,
   "source": "CeProMinDB (lalolalo1234/CeProMinDB) + SIEMA"
  },
  "events": [
+  {
+   "id": 55,
+   "name": "Future Minerals Forum 2026",
+   "type": "Conference / Investment Forum",
+   "start_date": "2026-01-13",
+   "end_date": "2026-01-15",
+   "city": "Riyadh",
+   "country": "Saudi Arabia",
+   "venue": "King Abdulaziz International Conference Center",
+   "organizer": "Ministry of Industry and Mineral Resources (Saudi Arabia)",
+   "website": "https://www.futuremineralsforum.com",
+   "focus": [
+    "sustainable minerals",
+    "energy transition",
+    "critical minerals",
+    "infrastructure funding",
+    "Middle East mining"
+   ],
+   "commodities": [
+    "critical minerals",
+    "all"
+   ],
+   "region": "Asia",
+   "attendance": 18000
+  },
   {
    "id": 1,
    "name": "Vancouver Resource Investment Conference (VRIC) 2026",
@@ -149,26 +174,61 @@ window.SIEMA_EVENTS = {
    "region": "Africa"
   },
   {
-   "id": 7,
-   "name": "Mining World Congress 2026",
-   "type": "Congress / Conference",
-   "start_date": "2026-06-03",
-   "end_date": "2026-06-04",
-   "city": "London",
-   "country": "United Kingdom",
-   "venue": "London",
-   "organizer": "Mining Conferences International",
-   "website": "https://miningconferences.org",
+   "id": 54,
+   "name": "Argentina Week 2026 — New York",
+   "type": "Commercial & Investment Mission",
+   "start_date": "2026-03-09",
+   "end_date": "2026-03-12",
+   "city": "New York",
+   "country": "USA",
+   "venue": "Consulate General of Argentina, 12 West 56th Street",
+   "organizer": "IDEA (Instituto para el Desarrollo Empresarial de la Argentina) + U.S. Chamber of Commerce",
+   "website": "https://www.idea.org.ar/argentina-week-2026/",
    "focus": [
-    "exploration",
     "critical minerals",
-    "investment",
-    "AI in mining"
+    "lithium",
+    "copper",
+    "mining investment",
+    "RIGI large investment incentive regime",
+    "legal certainty"
    ],
    "commodities": [
-    "all"
+    "lithium",
+    "copper",
+    "gold",
+    "silver",
+    "critical minerals"
    ],
-   "region": "Europe"
+   "region": "North America",
+   "notes": "Includes Strategic Mining & Critical Minerals Panel (Mar 12); governors of San Juan, Catamarca, Jujuy, Salta, Santa Cruz attended"
+  },
+  {
+   "id": 50,
+   "name": "Congreso y Exposición Internacional Argentina Metales Preciosos y No Ferrosos 2026",
+   "type": "Congress + Exhibition",
+   "start_date": "2026-03-18",
+   "end_date": "2026-03-19",
+   "city": "Buenos Aires",
+   "country": "Argentina",
+   "venue": "Buenos Aires",
+   "organizer": "Vostock Capital",
+   "website": "https://metalsargentina.com",
+   "focus": [
+    "technology and operational efficiency",
+    "sustainability",
+    "investment",
+    "project optimization",
+    "energy infrastructure"
+   ],
+   "commodities": [
+    "gold",
+    "silver",
+    "lithium",
+    "copper"
+   ],
+   "region": "Latin America",
+   "attendance": 200,
+   "notes": "45+ mining projects showcased; 40+ expert speakers"
   },
   {
    "id": 8,
@@ -374,6 +434,34 @@ window.SIEMA_EVENTS = {
    "region": "Europe"
   },
   {
+   "id": 51,
+   "name": "San Juan International Mining Expo (Expo San Juan Minera)",
+   "type": "Exhibition + Conference",
+   "start_date": "2026-05-06",
+   "end_date": "2026-05-08",
+   "city": "San Juan",
+   "country": "Argentina",
+   "venue": "San Juan",
+   "organizer": "Panorama Minero",
+   "website": "https://www.exposanjuan.com.ar/en",
+   "focus": [
+    "mining innovation",
+    "equipment and machinery",
+    "technology",
+    "business networking"
+   ],
+   "commodities": [
+    "copper",
+    "gold",
+    "lithium",
+    "silver"
+   ],
+   "region": "Latin America",
+   "attendance": 25000,
+   "exhibitors": 300,
+   "notes": "200+ exhibition stands; 40+ mining companies; 20+ countries represented"
+  },
+  {
    "id": 17,
    "name": "121 Mining Investment Conference London",
    "type": "Investment Conference",
@@ -489,6 +577,54 @@ window.SIEMA_EVENTS = {
    ],
    "region": "Latin America",
    "attendance": 2000
+  },
+  {
+   "id": 52,
+   "name": "Argentina Rocks — Mining Exploration Congress",
+   "type": "Congress / Conference",
+   "start_date": "2026-05-27",
+   "end_date": "2026-05-28",
+   "city": "Mendoza",
+   "country": "Argentina",
+   "venue": "Hotel Sheraton Mendoza",
+   "organizer": "Latin Rocks",
+   "website": "https://argentinarocks.com.ar",
+   "focus": [
+    "mineral exploration geology",
+    "copper porphyry systems",
+    "epithermal precious metal deposits",
+    "Andean geology",
+    "applied geochemistry"
+   ],
+   "commodities": [
+    "copper",
+    "gold",
+    "silver"
+   ],
+   "region": "Latin America",
+   "notes": "Includes field excursion to San Juan (May 21-25) and workshops (May 26, 29)"
+  },
+  {
+   "id": 7,
+   "name": "Mining World Congress 2026",
+   "type": "Congress / Conference",
+   "start_date": "2026-06-03",
+   "end_date": "2026-06-04",
+   "city": "London",
+   "country": "United Kingdom",
+   "venue": "London",
+   "organizer": "Mining Conferences International",
+   "website": "https://miningconferences.org",
+   "focus": [
+    "exploration",
+    "critical minerals",
+    "investment",
+    "AI in mining"
+   ],
+   "commodities": [
+    "all"
+   ],
+   "region": "Europe"
   },
   {
    "id": 21,
@@ -680,6 +816,52 @@ window.SIEMA_EVENTS = {
    "notes": "Theme: 'Mining for the Future: Technology, Trust, and Transformation'"
   },
   {
+   "id": 56,
+   "name": "MINEX Asia 2026",
+   "type": "Conference / Forum",
+   "start_date": "2026-06-24",
+   "end_date": "2026-06-25",
+   "city": "Ankara",
+   "country": "Turkey",
+   "venue": "Ankara",
+   "organizer": "MINEX Group",
+   "website": "https://2026.minexasia.com",
+   "focus": [
+    "Central Asia and Caucasus mining",
+    "cross-border cooperation",
+    "mining investment",
+    "exploration"
+   ],
+   "commodities": [
+    "all",
+    "critical minerals"
+   ],
+   "region": "Asia",
+   "notes": "Theme: 'Bridging Continents: Building a Resilient Mining Ecosystem Across the Middle Corridor'"
+  },
+  {
+   "id": 57,
+   "name": "Mines and Money Online Connect 2026",
+   "type": "Virtual Conference",
+   "start_date": "2026-07-14",
+   "end_date": "2026-07-15",
+   "city": "Online",
+   "country": "Global",
+   "venue": "Online",
+   "organizer": "Mines and Money / Resourcing Tomorrow",
+   "website": "https://minesandmoney.com/online",
+   "focus": [
+    "mining investment",
+    "virtual investor meetings",
+    "project presentations",
+    "market insights"
+   ],
+   "commodities": [
+    "all"
+   ],
+   "region": "Global"
+  },
+  {
    "id": 29,
    "name": "Diggers & Dealers Mining Forum 2026",
    "type": "Investment Forum + Exhibition",
@@ -800,6 +982,30 @@ window.SIEMA_EVENTS = {
    "region": "Asia-Pacific"
   },
   {
+   "id": 53,
+   "name": "Direct Lithium Extraction Argentina 2026 (3rd Annual)",
+   "type": "Conference",
+   "start_date": "2026-09-21",
+   "end_date": "2026-09-22",
+   "city": "Buenos Aires",
+   "country": "Argentina",
+   "venue": "Buenos Aires",
+   "organizer": "IQ International",
+   "website": "https://www.argentina.direct-lithium-extraction-show.com",
+   "focus": [
+    "direct lithium extraction",
+    "brine exploration",
+    "energy transition",
+    "extraction plant optimization",
+    "regulatory compliance"
+   ],
+   "commodities": [
+    "lithium"
+   ],
+   "region": "Latin America",
+   "notes": "Participants include Tecpetrol, Oxy, Rio Tinto, Stellantis, Albemarle"
+  },
+  {
    "id": 34,
    "name": "XIX International Society of Mine Surveyors (ISM) Congress 2026",
    "type": "Congress",
@@ -918,6 +1124,54 @@ window.SIEMA_EVENTS = {
    "region": "Europe"
   },
   {
+   "id": 58,
+   "name": "Mining & Critical Minerals Latin America 2026",
+   "type": "Conference + Exhibition",
+   "start_date": "2026-10-05",
+   "end_date": "2026-10-06",
+   "city": "São Paulo",
+   "country": "Brazil",
+   "venue": "São Paulo",
+   "organizer": "Mining Latin America Convention",
+   "website": "https://www.mininglatinamerica.com",
+   "focus": [
+    "Latin American mining investment",
+    "critical minerals",
+    "supply chain",
+    "ESG"
+   ],
+   "commodities": [
+    "critical minerals",
+    "copper",
+    "lithium",
+    "gold"
+   ],
+   "region": "Latin America"
+  },
+  {
+   "id": 1017,
+   "name": "XV Seminario Internacional Litio en la Región de Sudamérica 2026",
+   "type": "Seminario",
+   "start_date": "2026-10-07",
+   "end_date": "2026-10-08",
+   "city": "San Salvador de Jujuy",
+   "country": "Argentina",
+   "venue": "",
+   "organizer": "Panorama Minero",
+   "website": "https://panorama-minero.com/en/event/lithium-in-south-america",
+   "focus": [
+    "litio",
+    "inversión",
+    "política minera"
+   ],
+   "commodities": [
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "15.ª edición del seminario de litio de Panorama Minero, en Jujuy, con el precio del litio en recuperación."
+  },
+  {
    "id": 39,
    "name": "121 Mining Investment Online 2026",
    "type": "Virtual Conference",
@@ -1014,6 +1268,54 @@ window.SIEMA_EVENTS = {
    "attendance": 200
   },
   {
+   "id": 1002,
+   "name": "UMining 2026 — Congreso Internacional de Minería Subterránea y a Cielo Abierto",
+   "type": "Conferencia",
+   "start_date": "2026-10-21",
+   "end_date": "2026-10-23",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "Facultad de Ciencias Físicas y Matemáticas, Universidad de Chile",
+   "organizer": "Depto. de Ingeniería de Minas y AMTC, Universidad de Chile",
+   "website": "https://www.portalminero.com/eventos",
+   "focus": [
+    "minería subterránea",
+    "rajo abierto",
+    "tecnología minera"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Congreso técnico de métodos de explotación, útil para los proyectos de cobre de San Juan, Catamarca y Salta."
+  },
+  {
+   "id": 59,
+   "name": "Slope Stability 2026 Symposium",
+   "type": "Technical Symposium",
+   "start_date": "2026-10-26",
+   "end_date": "2026-10-29",
+   "city": "Lima",
+   "country": "Peru",
+   "venue": "Lima",
+   "organizer": "Slope Stability Conference Series",
+   "website": "https://www.slopestability2026.com",
+   "focus": [
+    "slope design",
+    "geomechanics",
+    "blasting",
+    "AI/ML in mining",
+    "mine closure",
+    "waste management"
+   ],
+   "commodities": [
+    "all"
+   ],
+   "region": "Latin America",
+   "notes": "Theme: 'Slope for Safety Performance'"
+  },
+  {
    "id": 43,
    "name": "IMARC 2026 — International Mining and Resources Conference + Expo",
    "type": "Conference + Expo",
@@ -1061,6 +1363,76 @@ window.SIEMA_EVENTS = {
    "notes": "Australia's longest-running mining show"
   },
   {
+   "id": 1003,
+   "name": "Water Congress 2026 — Gestión del Agua en Minería y Procesos Industriales",
+   "type": "Conferencia",
+   "start_date": "2026-10-27",
+   "end_date": "2026-10-29",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "Hotel Sheraton Santiago",
+   "organizer": "Gecamin",
+   "website": "https://gecamin.com/",
+   "focus": [
+    "agua",
+    "desalación",
+    "sustentabilidad"
+   ],
+   "commodities": [
+    "copper",
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "El agua es el tema crítico de los salares del NOA y de los proyectos de cobre andinos."
+  },
+  {
+   "id": 60,
+   "name": "MINEX Europe 2026",
+   "type": "Conference / Forum",
+   "start_date": "2026-10-28",
+   "end_date": "2026-10-30",
+   "city": "Trim",
+   "country": "Ireland",
+   "venue": "Trim",
+   "organizer": "MINEX Group",
+   "website": "https://2026.minexeurope.com",
+   "focus": [
+    "European mining exploration",
+    "dealmaking",
+    "critical minerals",
+    "sustainability"
+   ],
+   "commodities": [
+    "all",
+    "critical minerals"
+   ],
+   "region": "Europe"
+  },
+  {
+   "id": 1018,
+   "name": "Congreso Confiabilidad y Gestión de Activos 2026",
+   "type": "Congreso",
+   "start_date": "2026-11-12",
+   "end_date": "2026-11-13",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "Hotel Best Western Premier Marina Las Condes",
+   "organizer": "Core Mining Conferences",
+   "website": "https://coreminingconferences.cl/congreso-confiabilidad-y-gestion-de-activos/",
+   "focus": [
+    "mantenimiento",
+    "confiabilidad",
+    "gestión de activos"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Mantenimiento y gestión de activos en la gran minería chilena; referencia para los proveedores de los proyectos de cobre argentinos."
+  },
+  {
    "id": 45,
    "name": "Strategic Mine Planning Conference 2026 (AusIMM)",
    "type": "Technical Conference",
@@ -1080,6 +1452,55 @@ window.SIEMA_EVENTS = {
     "all"
    ],
    "region": "Asia-Pacific"
+  },
+  {
+   "id": 1019,
+   "name": "PACMIN 2026 — III Simposio Internacional de Pasivos Ambientales y Cierre de Minas",
+   "type": "Simposio",
+   "start_date": "2026-11-17",
+   "end_date": "2026-11-19",
+   "city": "Lima",
+   "country": "Peru",
+   "venue": "OPEN PUCP, Plaza San Miguel",
+   "organizer": "Colegio de Ingenieros del Perú, Consejo Departamental de Lima (Capítulo de Ingeniería de Minas)",
+   "website": "https://pacmin.ciplima.org.pe/",
+   "focus": [
+    "pasivos ambientales",
+    "cierre de minas",
+    "remediación"
+   ],
+   "commodities": [
+    "general"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Cierre de minas y pasivos ambientales: tema clave de la licencia social y de la normativa de cierre en las provincias mineras argentinas."
+  },
+  {
+   "id": 1021,
+   "name": "II Cumbre Internacional de Minería Sostenible Mendoza 2026",
+   "type": "Summit / Conference",
+   "start_date": "2026-11-19",
+   "end_date": "2026-11-20",
+   "city": "Mendoza",
+   "country": "Argentina",
+   "venue": "Hotel Hilton Mendoza",
+   "organizer": "Gobierno de Mendoza",
+   "website": "https://cumbredemineriamendoza.com.ar/",
+   "focus": [
+    "sustainability",
+    "governance",
+    "investment",
+    "social license"
+   ],
+   "commodities": [
+    "copper",
+    "potash",
+    "critical minerals"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Segunda edición, anunciada por el gobernador Cornejo (Prensa Mendoza, 26/06/2026); sede según la agenda de CAEM. Ejes: institucionalidad y gobernanza, ambiente y sociedad, economía y finanzas. Clave para PSJ Cobre Mendocino y el Distrito Minero Malargüe Occidental."
   },
   {
    "id": 46,
@@ -1126,6 +1547,52 @@ window.SIEMA_EVENTS = {
    "attendance": 281000
   },
   {
+   "id": 1004,
+   "name": "Minexcellence 2026 — Excelencia Operacional en Minería",
+   "type": "Conferencia",
+   "start_date": "2026-11-24",
+   "end_date": "2026-11-26",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "",
+   "organizer": "Gecamin",
+   "website": "https://gecamin.com/",
+   "focus": [
+    "excelencia operacional",
+    "productividad"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Referencia operativa para las operaciones argentinas que entran en producción."
+  },
+  {
+   "id": 1022,
+   "name": "EU Investment and Business Forum in Argentina 2026",
+   "type": "Foro de inversión",
+   "start_date": "2026-11-30",
+   "end_date": "2026-12-01",
+   "city": "Buenos Aires",
+   "country": "Argentina",
+   "venue": "Ciudad Autónoma de Buenos Aires",
+   "organizer": "Unión Europea",
+   "website": "",
+   "focus": [
+    "investment",
+    "critical minerals",
+    "EU–Argentina"
+   ],
+   "commodities": [
+    "copper",
+    "lithium"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Evento aliado del seminario Argentina Oro, Plata y Cobre de Panorama Minero; solo con invitación (Ámbito, 17/11/2026)."
+  },
+  {
    "id": 48,
    "name": "Mines and Money @ Resourcing Tomorrow London 2026",
    "type": "Conference + Investment Forum",
@@ -1149,283 +1616,25 @@ window.SIEMA_EVENTS = {
    "notes": "Europe's largest mining investment event"
   },
   {
-   "id": 50,
-   "name": "Congreso y Exposición Internacional Argentina Metales Preciosos y No Ferrosos 2026",
-   "type": "Congress + Exhibition",
-   "start_date": "2026-03-18",
-   "end_date": "2026-03-19",
+   "id": 1023,
+   "name": "WIM LATAM 2026 — Women in Mining Latinoamérica",
+   "type": "Encuentro",
+   "start_date": "2026-12-01",
+   "end_date": "2026-12-01",
    "city": "Buenos Aires",
    "country": "Argentina",
-   "venue": "Buenos Aires",
-   "organizer": "Vostock Capital",
-   "website": "https://metalsargentina.com",
+   "venue": "Salón San Agustín, Universidad Católica Argentina (UCA)",
+   "organizer": "Women in Mining",
+   "website": "",
    "focus": [
-    "technology and operational efficiency",
-    "sustainability",
-    "investment",
-    "project optimization",
-    "energy infrastructure"
+    "gender",
+    "talent",
+    "diversity"
    ],
-   "commodities": [
-    "gold",
-    "silver",
-    "lithium",
-    "copper"
-   ],
+   "commodities": [],
    "region": "Latin America",
-   "attendance": 200,
-   "notes": "45+ mining projects showcased; 40+ expert speakers"
-  },
-  {
-   "id": 51,
-   "name": "San Juan International Mining Expo (Expo San Juan Minera)",
-   "type": "Exhibition + Conference",
-   "start_date": "2026-05-06",
-   "end_date": "2026-05-08",
-   "city": "San Juan",
-   "country": "Argentina",
-   "venue": "San Juan",
-   "organizer": "Panorama Minero",
-   "website": "https://www.exposanjuan.com.ar/en",
-   "focus": [
-    "mining innovation",
-    "equipment and machinery",
-    "technology",
-    "business networking"
-   ],
-   "commodities": [
-    "copper",
-    "gold",
-    "lithium",
-    "silver"
-   ],
-   "region": "Latin America",
-   "attendance": 25000,
-   "exhibitors": 300,
-   "notes": "200+ exhibition stands; 40+ mining companies; 20+ countries represented"
-  },
-  {
-   "id": 52,
-   "name": "Argentina Rocks — Mining Exploration Congress",
-   "type": "Congress / Conference",
-   "start_date": "2026-05-27",
-   "end_date": "2026-05-28",
-   "city": "Mendoza",
-   "country": "Argentina",
-   "venue": "Hotel Sheraton Mendoza",
-   "organizer": "Latin Rocks",
-   "website": "https://argentinarocks.com.ar",
-   "focus": [
-    "mineral exploration geology",
-    "copper porphyry systems",
-    "epithermal precious metal deposits",
-    "Andean geology",
-    "applied geochemistry"
-   ],
-   "commodities": [
-    "copper",
-    "gold",
-    "silver"
-   ],
-   "region": "Latin America",
-   "notes": "Includes field excursion to San Juan (May 21-25) and workshops (May 26, 29)"
-  },
-  {
-   "id": 53,
-   "name": "Direct Lithium Extraction Argentina 2026 (3rd Annual)",
-   "type": "Conference",
-   "start_date": "2026-09-21",
-   "end_date": "2026-09-22",
-   "city": "Buenos Aires",
-   "country": "Argentina",
-   "venue": "Buenos Aires",
-   "organizer": "IQ International",
-   "website": "https://www.argentina.direct-lithium-extraction-show.com",
-   "focus": [
-    "direct lithium extraction",
-    "brine exploration",
-    "energy transition",
-    "extraction plant optimization",
-    "regulatory compliance"
-   ],
-   "commodities": [
-    "lithium"
-   ],
-   "region": "Latin America",
-   "notes": "Participants include Tecpetrol, Oxy, Rio Tinto, Stellantis, Albemarle"
-  },
-  {
-   "id": 54,
-   "name": "Argentina Week 2026 — New York",
-   "type": "Commercial & Investment Mission",
-   "start_date": "2026-03-09",
-   "end_date": "2026-03-12",
-   "city": "New York",
-   "country": "USA",
-   "venue": "Consulate General of Argentina, 12 West 56th Street",
-   "organizer": "IDEA (Instituto para el Desarrollo Empresarial de la Argentina) + U.S. Chamber of Commerce",
-   "website": "https://www.idea.org.ar/argentina-week-2026/",
-   "focus": [
-    "critical minerals",
-    "lithium",
-    "copper",
-    "mining investment",
-    "RIGI large investment incentive regime",
-    "legal certainty"
-   ],
-   "commodities": [
-    "lithium",
-    "copper",
-    "gold",
-    "silver",
-    "critical minerals"
-   ],
-   "region": "North America",
-   "notes": "Includes Strategic Mining & Critical Minerals Panel (Mar 12); governors of San Juan, Catamarca, Jujuy, Salta, Santa Cruz attended"
-  },
-  {
-   "id": 55,
-   "name": "Future Minerals Forum 2026",
-   "type": "Conference / Investment Forum",
-   "start_date": "2026-01-13",
-   "end_date": "2026-01-15",
-   "city": "Riyadh",
-   "country": "Saudi Arabia",
-   "venue": "King Abdulaziz International Conference Center",
-   "organizer": "Ministry of Industry and Mineral Resources (Saudi Arabia)",
-   "website": "https://www.futuremineralsforum.com",
-   "focus": [
-    "sustainable minerals",
-    "energy transition",
-    "critical minerals",
-    "infrastructure funding",
-    "Middle East mining"
-   ],
-   "commodities": [
-    "critical minerals",
-    "all"
-   ],
-   "region": "Asia",
-   "attendance": 18000
-  },
-  {
-   "id": 56,
-   "name": "MINEX Asia 2026",
-   "type": "Conference / Forum",
-   "start_date": "2026-06-24",
-   "end_date": "2026-06-25",
-   "city": "Ankara",
-   "country": "Turkey",
-   "venue": "Ankara",
-   "organizer": "MINEX Group",
-   "website": "https://2026.minexasia.com",
-   "focus": [
-    "Central Asia and Caucasus mining",
-    "cross-border cooperation",
-    "mining investment",
-    "exploration"
-   ],
-   "commodities": [
-    "all",
-    "critical minerals"
-   ],
-   "region": "Asia",
-   "notes": "Theme: 'Bridging Continents: Building a Resilient Mining Ecosystem Across the Middle Corridor'"
-  },
-  {
-   "id": 57,
-   "name": "Mines and Money Online Connect 2026",
-   "type": "Virtual Conference",
-   "start_date": "2026-07-14",
-   "end_date": "2026-07-15",
-   "city": "Online",
-   "country": "Global",
-   "venue": "Online",
-   "organizer": "Mines and Money / Resourcing Tomorrow",
-   "website": "https://minesandmoney.com/online",
-   "focus": [
-    "mining investment",
-    "virtual investor meetings",
-    "project presentations",
-    "market insights"
-   ],
-   "commodities": [
-    "all"
-   ],
-   "region": "Global"
-  },
-  {
-   "id": 58,
-   "name": "Mining & Critical Minerals Latin America 2026",
-   "type": "Conference + Exhibition",
-   "start_date": "2026-10-05",
-   "end_date": "2026-10-06",
-   "city": "São Paulo",
-   "country": "Brazil",
-   "venue": "São Paulo",
-   "organizer": "Mining Latin America Convention",
-   "website": "https://www.mininglatinamerica.com",
-   "focus": [
-    "Latin American mining investment",
-    "critical minerals",
-    "supply chain",
-    "ESG"
-   ],
-   "commodities": [
-    "critical minerals",
-    "copper",
-    "lithium",
-    "gold"
-   ],
-   "region": "Latin America"
-  },
-  {
-   "id": 59,
-   "name": "Slope Stability 2026 Symposium",
-   "type": "Technical Symposium",
-   "start_date": "2026-10-26",
-   "end_date": "2026-10-29",
-   "city": "Lima",
-   "country": "Peru",
-   "venue": "Lima",
-   "organizer": "Slope Stability Conference Series",
-   "website": "https://www.slopestability2026.com",
-   "focus": [
-    "slope design",
-    "geomechanics",
-    "blasting",
-    "AI/ML in mining",
-    "mine closure",
-    "waste management"
-   ],
-   "commodities": [
-    "all"
-   ],
-   "region": "Latin America",
-   "notes": "Theme: 'Slope for Safety Performance'"
-  },
-  {
-   "id": 60,
-   "name": "MINEX Europe 2026",
-   "type": "Conference / Forum",
-   "start_date": "2026-10-28",
-   "end_date": "2026-10-30",
-   "city": "Trim",
-   "country": "Ireland",
-   "venue": "Trim",
-   "organizer": "MINEX Group",
-   "website": "https://2026.minexeurope.com",
-   "focus": [
-    "European mining exploration",
-    "dealmaking",
-    "critical minerals",
-    "sustainability"
-   ],
-   "commodities": [
-    "all",
-    "critical minerals"
-   ],
-   "region": "Europe"
+   "siema": true,
+   "notes": "Evento aliado del seminario Argentina Oro, Plata y Cobre de Panorama Minero (Ámbito, 17/11/2026)."
   },
   {
    "id": 1001,
@@ -1453,73 +1662,29 @@ window.SIEMA_EVENTS = {
    "notes": "Organizado por Panorama Minero, promotor de SIEMA. Programa (Ámbito, 17/11/2026): Consejo Federal de Minería el 2/12 (9 a 12, solo invitados) y Mesa del Litio el 3/12 (15 h, solo invitados); cóctel de CAEM el 3/12."
   },
   {
-   "id": 1002,
-   "name": "UMining 2026 — Congreso Internacional de Minería Subterránea y a Cielo Abierto",
-   "type": "Conferencia",
-   "start_date": "2026-10-21",
-   "end_date": "2026-10-23",
-   "city": "Santiago",
-   "country": "Chile",
-   "venue": "Facultad de Ciencias Físicas y Matemáticas, Universidad de Chile",
-   "organizer": "Depto. de Ingeniería de Minas y AMTC, Universidad de Chile",
-   "website": "https://www.portalminero.com/eventos",
+   "id": 1022,
+   "name": "Future Minerals Forum 2027 (6.ª edición)",
+   "type": "Foro ministerial y de inversión",
+   "start_date": "2027-01-12",
+   "end_date": "2027-01-14",
+   "city": "Riyadh",
+   "country": "Saudi Arabia",
+   "venue": "",
+   "organizer": "Ministerio de Industria y Recursos Minerales de Arabia Saudita",
+   "website": "https://www.futuremineralsforum.com",
    "focus": [
-    "minería subterránea",
-    "rajo abierto",
-    "tecnología minera"
-   ],
-   "commodities": [
-    "copper"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Congreso técnico de métodos de explotación, útil para los proyectos de cobre de San Juan, Catamarca y Salta."
-  },
-  {
-   "id": 1003,
-   "name": "Water Congress 2026 — Gestión del Agua en Minería y Procesos Industriales",
-   "type": "Conferencia",
-   "start_date": "2026-10-27",
-   "end_date": "2026-10-29",
-   "city": "Santiago",
-   "country": "Chile",
-   "venue": "Hotel Sheraton Santiago",
-   "organizer": "Gecamin",
-   "website": "https://gecamin.com/",
-   "focus": [
-    "agua",
-    "desalación",
-    "sustentabilidad"
+    "minerales críticos",
+    "inversión",
+    "política minera"
    ],
    "commodities": [
     "copper",
-    "lithium"
+    "lithium",
+    "critical minerals"
    ],
-   "region": "Latin America",
+   "region": "Asia",
    "siema": true,
-   "notes": "El agua es el tema crítico de los salares del NOA y de los proyectos de cobre andinos."
-  },
-  {
-   "id": 1004,
-   "name": "Minexcellence 2026 — Excelencia Operacional en Minería",
-   "type": "Conferencia",
-   "start_date": "2026-11-24",
-   "end_date": "2026-11-26",
-   "city": "Santiago",
-   "country": "Chile",
-   "venue": "",
-   "organizer": "Gecamin",
-   "website": "https://gecamin.com/",
-   "focus": [
-    "excelencia operacional",
-    "productividad"
-   ],
-   "commodities": [
-    "copper"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Referencia operativa para las operaciones argentinas que entran en producción."
+   "notes": "Sexta edición confirmada para el 12–14/01/2027 (Global Mining Review, 06/10/2026). Reúne a ministros de minería de África, Asia Central y América Latina."
   },
   {
    "id": 1005,
@@ -1668,6 +1833,29 @@ window.SIEMA_EVENTS = {
    "notes": "Evento central de la semana del cobre en Santiago; clave para posicionar Vicuña, Los Azules, El Pachón y MARA."
   },
   {
+   "id": 1023,
+   "name": "CESCO Week Santiago 2027",
+   "type": "Semana del cobre",
+   "start_date": "2027-04-12",
+   "end_date": "2027-04-16",
+   "city": "Santiago",
+   "country": "Chile",
+   "venue": "",
+   "organizer": "Centro de Estudios del Cobre y la Minería (CESCO)",
+   "website": "https://www.cesco.cl/",
+   "focus": [
+    "mercado del cobre",
+    "inversión",
+    "política minera"
+   ],
+   "commodities": [
+    "copper"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Fecha anunciada por CESCO (Minería Chilena, 17/11/2026). Incluye la CRU World Copper Conference."
+  },
+  {
    "id": 1011,
    "name": "XXIII Congreso Geológico Argentino",
    "type": "Congreso",
@@ -1767,6 +1955,32 @@ window.SIEMA_EVENTS = {
    "notes": "La feria minera más importante de Argentina; en 2027 crece a tres pabellones y suma un área de exploración."
   },
   {
+   "id": 1020,
+   "name": "Mining, Critical Minerals & Technology Latin America 2027",
+   "type": "Conference + Exhibition",
+   "start_date": "2027-06-02",
+   "end_date": "2027-06-03",
+   "city": "São Paulo",
+   "country": "Brazil",
+   "venue": "Pullman São Paulo Ibirapuera",
+   "organizer": "Spire Events",
+   "website": "https://www.mininglatinamerica.com/",
+   "focus": [
+    "critical minerals",
+    "technology",
+    "investment"
+   ],
+   "commodities": [
+    "lithium",
+    "copper",
+    "rare earths",
+    "critical minerals"
+   ],
+   "region": "Latin America",
+   "siema": true,
+   "notes": "Minerales críticos y tecnología en América Latina; competencia y complemento regional para el litio, el cobre y las tierras raras argentinas."
+  },
+  {
    "id": 1015,
    "name": "Geomin Mine Planning 2027",
    "type": "Conferencia",
@@ -1815,172 +2029,6 @@ window.SIEMA_EVENTS = {
    "region": "North America",
    "siema": true,
    "notes": "Principal foro mundial del mercado de litio, donde se negocian contratos de venta; Argentina es el 4.º productor."
-  },
-  {
-   "id": 1017,
-   "name": "XV Seminario Internacional Litio en la Región de Sudamérica 2026",
-   "type": "Seminario",
-   "start_date": "2026-10-07",
-   "end_date": "2026-10-08",
-   "city": "San Salvador de Jujuy",
-   "country": "Argentina",
-   "venue": "",
-   "organizer": "Panorama Minero",
-   "website": "https://panorama-minero.com/en/event/lithium-in-south-america",
-   "focus": [
-    "litio",
-    "inversión",
-    "política minera"
-   ],
-   "commodities": [
-    "lithium"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "15.ª edición del seminario de litio de Panorama Minero, en Jujuy, con el precio del litio en recuperación."
-  },
-  {
-   "id": 1018,
-   "name": "Congreso Confiabilidad y Gestión de Activos 2026",
-   "type": "Congreso",
-   "start_date": "2026-11-12",
-   "end_date": "2026-11-13",
-   "city": "Santiago",
-   "country": "Chile",
-   "venue": "Hotel Best Western Premier Marina Las Condes",
-   "organizer": "Core Mining Conferences",
-   "website": "https://coreminingconferences.cl/congreso-confiabilidad-y-gestion-de-activos/",
-   "focus": [
-    "mantenimiento",
-    "confiabilidad",
-    "gestión de activos"
-   ],
-   "commodities": [
-    "copper"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Mantenimiento y gestión de activos en la gran minería chilena; referencia para los proveedores de los proyectos de cobre argentinos."
-  },
-  {
-   "id": 1019,
-   "name": "PACMIN 2026 — III Simposio Internacional de Pasivos Ambientales y Cierre de Minas",
-   "type": "Simposio",
-   "start_date": "2026-11-17",
-   "end_date": "2026-11-19",
-   "city": "Lima",
-   "country": "Peru",
-   "venue": "OPEN PUCP, Plaza San Miguel",
-   "organizer": "Colegio de Ingenieros del Perú, Consejo Departamental de Lima (Capítulo de Ingeniería de Minas)",
-   "website": "https://pacmin.ciplima.org.pe/",
-   "focus": [
-    "pasivos ambientales",
-    "cierre de minas",
-    "remediación"
-   ],
-   "commodities": [
-    "general"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Cierre de minas y pasivos ambientales: tema clave de la licencia social y de la normativa de cierre en las provincias mineras argentinas."
-  },
-  {
-   "id": 1020,
-   "name": "Mining, Critical Minerals & Technology Latin America 2027",
-   "type": "Conference + Exhibition",
-   "start_date": "2027-06-02",
-   "end_date": "2027-06-03",
-   "city": "São Paulo",
-   "country": "Brazil",
-   "venue": "Pullman São Paulo Ibirapuera",
-   "organizer": "Spire Events",
-   "website": "https://www.mininglatinamerica.com/",
-   "focus": [
-    "critical minerals",
-    "technology",
-    "investment"
-   ],
-   "commodities": [
-    "lithium",
-    "copper",
-    "rare earths",
-    "critical minerals"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Minerales críticos y tecnología en América Latina; competencia y complemento regional para el litio, el cobre y las tierras raras argentinas."
-  },
-  {
-   "id": 1021,
-   "name": "II Cumbre Internacional de Minería Sostenible Mendoza 2026",
-   "type": "Summit / Conference",
-   "start_date": "2026-11-19",
-   "end_date": "2026-11-20",
-   "city": "Mendoza",
-   "country": "Argentina",
-   "venue": "Hotel Hilton Mendoza",
-   "organizer": "Gobierno de Mendoza",
-   "website": "https://cumbredemineriamendoza.com.ar/",
-   "focus": [
-    "sustainability",
-    "governance",
-    "investment",
-    "social license"
-   ],
-   "commodities": [
-    "copper",
-    "potash",
-    "critical minerals"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Segunda edición, anunciada por el gobernador Cornejo (Prensa Mendoza, 26/06/2026); sede según la agenda de CAEM. Ejes: institucionalidad y gobernanza, ambiente y sociedad, economía y finanzas. Clave para PSJ Cobre Mendocino y el Distrito Minero Malargüe Occidental."
-  },
-  {
-   "id": 1022,
-   "name": "EU Investment and Business Forum in Argentina 2026",
-   "type": "Foro de inversión",
-   "start_date": "2026-11-30",
-   "end_date": "2026-12-01",
-   "city": "Buenos Aires",
-   "country": "Argentina",
-   "venue": "Ciudad Autónoma de Buenos Aires",
-   "organizer": "Unión Europea",
-   "website": "",
-   "focus": [
-    "investment",
-    "critical minerals",
-    "EU–Argentina"
-   ],
-   "commodities": [
-    "copper",
-    "lithium"
-   ],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Evento aliado del seminario Argentina Oro, Plata y Cobre de Panorama Minero; solo con invitación (Ámbito, 17/11/2026)."
-  },
-  {
-   "id": 1023,
-   "name": "WIM LATAM 2026 — Women in Mining Latinoamérica",
-   "type": "Encuentro",
-   "start_date": "2026-12-01",
-   "end_date": "2026-12-01",
-   "city": "Buenos Aires",
-   "country": "Argentina",
-   "venue": "Salón San Agustín, Universidad Católica Argentina (UCA)",
-   "organizer": "Women in Mining",
-   "website": "",
-   "focus": [
-    "gender",
-    "talent",
-    "diversity"
-   ],
-   "commodities": [],
-   "region": "Latin America",
-   "siema": true,
-   "notes": "Evento aliado del seminario Argentina Oro, Plata y Cobre de Panorama Minero (Ámbito, 17/11/2026)."
   }
  ]
 };
